@@ -1,1015 +1,1811 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUWEB - Golosinas, Snacks y Tortas para Mascotas</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
-
-        :root {
-            --primary: #ff6b6b;
-            --secondary: #4ecdc4;
-            --accent: #ffe66d;
-            --text: #2c3e50;
-            --light: #f8f9fa;
-            --gray: #95a5a6;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background: #fffaf0;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Banner superior */
-        .top-banner {
-            background: white;
-            padding: 12px 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1100;
-            font-size: 13px;
-            letter-spacing: 2px;
-            color: var(--text);
-        }
-
-        /* Header / Navbar */
-        header {
-            background: white;
-            padding: 15px 20px;
-            position: fixed;
-            top: 55px;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: var(--primary);
-        }
-
-        .hamburger {
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--text);
-            z-index: 1200;
-        }
-
-        /* Menú lateral */
-        .side-menu {
-            position: fixed;
-            top: 0;
-            left: -320px;
-            width: 320px;
-            height: 100vh;
-            background: white;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.2);
-            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 2000;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .side-menu.open {
-            left: 0;
-        }
-
-        .menu-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #eee;
-        }
-
-        .menu-header img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .menu-header h2 {
-            font-size: 1.6rem;
-            color: var(--primary);
-        }
-
-        .close-menu {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 32px;
-            cursor: pointer;
-            color: var(--gray);
-        }
-
-        .menu-item {
-            padding: 16px 0;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            transition: all 0.3s;
-        }
-
-        .menu-item:hover {
-            color: var(--primary);
-            padding-left: 10px;
-        }
-
-        /* Submenú deslizable */
-        .submenu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            max-width: 420px;
-            height: 100vh;
-            background: white;
-            box-shadow: -4px 0 20px rgba(0,0,0,0.2);
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 2100;
-            padding: 80px 25px 30px;
-            overflow-y: auto;
-        }
-
-        .submenu.open {
-            right: 0;
-        }
-
-        /* Hero */
-        .hero {
-            height: 100vh;
-            min-height: 650px;
-            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), url('https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadauno.png') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-top: 110px;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 0 20px;
-        }
-
-        .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 15px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-        }
-
-        .hero p {
-            font-size: 1.35rem;
-            margin-bottom: 30px;
-            opacity: 0.95;
-        }
-
-        .cta-button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 16px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.5);
-        }
-
-        /* Secciones */
-        section {
-            padding: 90px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.4rem;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px;
-            color: var(--gray);
-            font-size: 1.15rem;
-        }
-
-        /* Catálogo / Planes */
-        .catalogo-container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .portada {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto 50px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .portada img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .texto-portada {
-            max-width: 800px;
-            margin: 0 auto 70px;
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: #34495e;
-        }
-
-        .texto-portada ul {
-            margin: 25px 0;
-            padding-left: 25px;
-        }
-
-        .texto-portada li {
-            margin-bottom: 12px;
-        }
-
-        /* Botón Ver Planes */
-        .ver-planes-btn {
-            display: block;
-            width: 92%;
-            max-width: 420px;
-            margin: 40px auto;
-            background: transparent;
-            border: none;
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: var(--primary);
-            text-align: center;
-            cursor: pointer;
-            padding: 20px 0;
-        }
-
-        .flecha-abajo {
-            display: block;
-            margin: 10px auto 0;
-            font-size: 28px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40%, 70% { transform: translateY(15px); }
-        }
-
-        /* Cortina planes */
-        .cortina-planes {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #fffaf0;
-        }
-
-        .cortina-planes.open {
-            max-height: 5000px;
-        }
-
-        /* Comentarios */
-        .comentarios-section {
-            background: white;
-            padding: 80px 20px;
-        }
-
-        .avatar-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            max-width: 320px;
-            margin: 0 auto 30px;
-        }
-
-        .avatar-option {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .avatar-option.selected {
-            border-color: var(--primary);
-            transform: scale(1.12);
-        }
-
-        .avatar-option img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .star-rating {
-            font-size: 28px;
-            color: #ddd;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .star-rating .star {
-            color: #f1c40f;
-        }
-
-        .comment-form {
-            max-width: 680px;
-            margin: 0 auto;
-            background: #f8f9fa;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        textarea {
-            width: 100%;
-            height: 130px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-family: inherit;
-            resize: vertical;
-        }
-
-        .submit-comment {
-            margin-top: 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px 40px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Comentarios mostrados */
-        .comentarios-lista {
-            max-width: 800px;
-            margin: 60px auto 0;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .comentario-card {
-            background: white;
-            border-radius: 18px;
-            padding: 22px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .comentario-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 12px;
-        }
-
-        .comentario-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .like-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            cursor: pointer;
-            color: #95a5a6;
-        }
-
-        .like-btn.liked {
-            color: #e74c3c;
-        }
-
-        /* Modal flotante comentarios */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.75);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-content {
-            background: white;
-            width: 95%;
-            max-width: 720px;
-            max-height: 92vh;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        /* Redes */
-        .redes-section {
-            text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(#fffaf0, white);
-        }
-
-        .redes-icons {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin: 40px 0;
-        }
-
-        .redes-icons img {
-            width: 68px;
-            transition: transform 0.3s;
-        }
-
-        .redes-icons img:hover {
-            transform: scale(1.15) rotate(8deg);
-        }
-
-        /* Footer banner */
-        footer {
-            background: white;
-            padding: 50px 20px 30px;
-            text-align: center;
-            border-top: 1px solid #eee;
-        }
-
-        footer img {
-            width: 120px;
-            margin-bottom: 20px;
-        }
-
-        /* Animaciones suaves */
-        .smooth {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            .hero h1 {
-                font-size: 2.6rem;
-            }
-            .section-title {
-                font-size: 2.1rem;
-            }
-            .avatar-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 12px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUWEB - Servicios Web Profesionales</title>
+  <link rel="icon" href="logoweb.png" type="image/png">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --primary: #000000;
+      --secondary: #ffffff;
+      --accent: #50e03e;
+      --text-dark: #1a1a1a;
+      --text-light: #666666;
+      --border-color: #e0e0e0;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--secondary);
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: var(--secondary);
+      border-bottom: 2px solid var(--primary);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .header-brand {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      flex: 1;
+      text-align: center;
+    }
+
+    .hamburger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .hamburger:hover {
+      background: var(--text-light);
+      opacity: 0.1;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .sidebar-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 280px;
+      height: 100vh;
+      background: var(--secondary);
+      border-right: 2px solid var(--primary);
+      z-index: 250;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .sidebar-brand img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .sidebar-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      transition: var(--transition);
+      padding: 4px;
+    }
+
+    .sidebar-close:hover {
+      opacity: 0.6;
+    }
+
+    .sidebar-nav {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .sidebar-btn {
+      background: none;
+      border: 2px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: var(--transition);
+      text-align: left;
+    }
+
+    .sidebar-btn:hover {
+      background: var(--primary);
+      color: var(--secondary);
+    }
+
+    /* ===== CURTAIN (CORTINA) ===== */
+    .curtain-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .curtain-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .curtain {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 90%;
+      max-width: 500px;
+      height: 100vh;
+      background: var(--secondary);
+      border-left: 2px solid var(--primary);
+      z-index: 350;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .curtain.open {
+      right: 0;
+    }
+
+    .curtain-header {
+      padding: 20px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .curtain-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .curtain-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      transition: var(--transition);
+    }
+
+    .curtain-close:hover {
+      opacity: 0.6;
+    }
+
+    .curtain-body {
+      padding: 28px 20px;
+      flex: 1;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .curtain-body ol {
+      padding-left: 20px;
+      margin: 12px 0;
+    }
+
+    .curtain-body li {
+      margin-bottom: 10px;
+    }
+
+    .curtain-btn {
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      margin: 16px 20px;
+      text-transform: uppercase;
+    }
+
+    .curtain-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      flex: 1;
+    }
+
+    /* ===== HERO BANNER ===== */
+    .banner {
+      background: var(--secondary);
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .banner-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .section-text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .portada-img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ===== CTA BUTTON ===== */
+    .cta-button {
+      background: none;
+      border: none;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .cta-button:hover {
+      background: var(--primary);
+      color: var(--secondary);
+    }
+
+    .arrow-animation {
+      display: inline-block;
+      margin-left: 8px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    /* ===== PLAN CURTAIN ===== */
+    .plan-curtain {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 90%;
+      max-width: 500px;
+      height: 100vh;
+      background: var(--secondary);
+      border-left: 2px solid var(--primary);
+      z-index: 400;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plan-curtain.open {
+      right: 0;
+    }
+
+    .plan-img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .plan-button {
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      margin: 16px 20px;
+      text-transform: uppercase;
+      animation: pulse 2s infinite;
+    }
+
+    .plan-button:hover {
+      background: var(--primary);
+      color: var(--secondary);
+      animation: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(80, 224, 62, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(80, 224, 62, 0);
+      }
+    }
+
+    /* ===== COMMENTS SECTION ===== */
+    .comments-section {
+      background: var(--secondary);
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 40px auto;
+    }
+
+    .comments-title {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+
+    .avatar-selector {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .avatar-option {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: var(--transition);
+      object-fit: cover;
+    }
+
+    .avatar-option:hover,
+    .avatar-option.selected {
+      border-color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .stars-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 32px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: #e0e0e0;
+    }
+
+    .star-btn:hover,
+    .star-btn.active {
+      color: #ffc107;
+      transform: scale(1.2);
+    }
+
+    .comment-btn {
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 16px;
+      transition: var(--transition);
+      text-transform: uppercase;
+    }
+
+    .comment-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    /* ===== COMMENT CARD ===== */
+    .comment-card {
+      background: #f9f9f9;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .comment-card.featured {
+      border: 3px solid var(--accent);
+      background: #fff8e1;
+      box-shadow: var(--shadow);
+    }
+
+    .comment-header {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    .comment-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+    }
+
+    .comment-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .comment-name {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .comment-stars {
+      color: #ffc107;
+      font-size: 12px;
+      margin-left: 8px;
+    }
+
+    .comment-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-light);
+      margin: 12px 0;
+      word-break: break-word;
+    }
+
+    .comment-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .like-btn {
+      background: none;
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .like-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: var(--secondary);
+    }
+
+    .like-btn.liked {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .reply-btn {
+      background: none;
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: var(--transition);
+    }
+
+    .reply-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: var(--secondary);
+    }
+
+    .comment-date {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--secondary);
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-header {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .modal-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+      transition: var(--transition);
+    }
+
+    .modal-textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--primary);
+      background: var(--secondary);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .modal-btn.primary {
+      background: var(--primary);
+      color: var(--secondary);
+    }
+
+    .modal-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    /* ===== ALL COMMENTS VIEW ===== */
+    .all-comments-container {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 90%;
+      max-width: 600px;
+      height: 100vh;
+      background: var(--secondary);
+      border-left: 2px solid var(--primary);
+      z-index: 450;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .all-comments-container.open {
+      right: 0;
+    }
+
+    .all-comments-header {
+      padding: 20px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .all-comments-body {
+      padding: 20px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* ===== SOCIAL SECTION ===== */
+    .social-section {
+      background: var(--secondary);
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .social-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid var(--primary);
+      transition: var(--transition);
+      object-fit: cover;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== FULL WIDTH IMAGES ===== */
+    .full-width-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 40px 0;
+    }
+
+    /* ===== FLOATING MESSAGE ===== */
+    .floating-message {
+      text-align: center;
+      padding: 40px 20px;
+      margin: 60px 0;
+    }
+
+    .message-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 3px solid var(--primary);
+      margin: 0 auto;
+      transition: var(--transition);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .message-image:hover {
+      transform: scale(1.1);
+    }
+
+    .arrow-down {
+      font-size: 24px;
+      color: var(--primary);
+      animation: bounce 2s infinite;
+      margin-top: 12px;
+    }
+
+    .message-hint {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary);
+      color: var(--secondary);
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 2px solid var(--primary);
+    }
+
+    .footer-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 2px solid var(--secondary);
+      transition: var(--transition);
+    }
+
+    .footer-logo:hover {
+      transform: scale(1.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .footer-link {
+      background: none;
+      border: 1px solid var(--secondary);
+      color: var(--secondary);
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+
+    /* ===== SUCCESS NOTIFICATION ===== */
+    .success-notification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--secondary);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 28px;
+      max-width: 400px;
+      width: 90%;
+      z-index: 600;
+      display: none;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s ease;
+    }
+
+    .success-notification.show {
+      display: block;
+    }
+
+    .success-notification h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .success-notification p {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .success-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .success-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--primary);
+      background: var(--secondary);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .success-btn.primary {
+      background: var(--primary);
+      color: var(--secondary);
+    }
+
+    .success-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .g-recaptcha {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .banner-title {
+        font-size: 22px;
+      }
+
+      .section {
+        padding: 30px 16px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      .section-text {
+        font-size: 14px;
+      }
+
+      .modal {
+        padding: 20px;
+      }
+
+      .avatar-selector {
+        gap: 12px;
+      }
+
+      .avatar-option {
+        width: 50px;
+        height: 50px;
+      }
+
+      footer {
+        padding: 30px 16px;
+      }
+
+      .footer-links {
+        gap: 8px;
+      }
+
+      .footer-link {
+        padding: 8px 12px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 12px 16px;
+      }
+
+      .header-brand {
+        font-size: 16px;
+      }
+
+      .banner-title {
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+
+      .section {
+        padding: 24px 12px;
+      }
+
+      .section-title {
+        font-size: 16px;
+      }
+
+      .section-text {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .sidebar {
+        width: 250px;
+      }
+
+      .curtain,
+      .plan-curtain,
+      .all-comments-container {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .comment-card {
+        padding: 12px;
+      }
+
+      .modal {
+        max-width: 90%;
+        padding: 16px;
+      }
+
+      .stars-row {
+        gap: 10px;
+      }
+
+      .star-btn {
+        font-size: 24px;
+      }
+
+      .avatar-option {
+        width: 44px;
+        height: 44px;
+      }
+
+      .social-icons {
+        gap: 16px;
+      }
+
+      .social-icon {
+        width: 54px;
+        height: 54px;
+      }
+
+      .footer-logo {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- HEADER -->
+  <header class="header">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <h1 class="header-brand">TUWEB</h1>
+    <div style="width: 40px;"></div>
+  </header>
 
-    <!-- Banner superior -->
-    <div class="top-banner">
-        TUWEB
+  <!-- SIDEBAR OVERLAY -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <img src="logoweb.png" alt="Logo">
+        <span>TUWEB</span>
+      </div>
+      <button class="sidebar-close" id="sidebarClose">←</button>
     </div>
+    <nav class="sidebar-nav">
+      <button class="sidebar-btn" onclick="openCurtain('how-develop')">Cómo lo desarrollamos</button>
+      <button class="sidebar-btn" onclick="window.open('https://wa.me/2395407700?text=Hola! Quiero hacer una consulta.', '_blank')">📞 Contacto</button>
+      <button class="sidebar-btn" onclick="scrollToElement('social-section')">Seguinos en redes</button>
+    </nav>
+  </aside>
 
-    <!-- Header -->
-    <header>
-        <div class="logo-header">
-            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/logoweb.png" alt="Logo TUWEB" style="height: 42px;">
-            <span>TUWEB</span>
-        </div>
-        <div class="hamburger" id="hamburger">☰</div>
-    </header>
-
-    <!-- Menú lateral -->
-    <div class="side-menu" id="sideMenu">
-        <div class="close-menu" id="closeMenu">×</div>
-        
-        <div class="menu-header">
-            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/logoweb.png" alt="Logo">
-            <h2>TUWEB</h2>
-        </div>
-
-        <div class="menu-item" onclick="openSubmenu('como')">Cómo lo desarrollamos</div>
-        <div class="menu-item" onclick="contactarWhatsApp()">Contacto</div>
-        <div class="menu-item" onclick="scrollToRedes()">Seguinos en redes</div>
+  <!-- CURTAIN: HOW WE DEVELOP -->
+  <div class="curtain-overlay" id="curtainOverlay"></div>
+  <div class="curtain" id="curtain-how-develop">
+    <div class="curtain-header">
+      <h2 class="curtain-title">Cómo lo desarrollamos</h2>
+      <button class="curtain-close" onclick="closeCurtain('how-develop')">✕</button>
     </div>
+    <div class="curtain-body">
+      <ol>
+        <li>Ver Planes</li>
+        <li>Elegí el formato que más se adapte a vos.</li>
+        <li>Hacé clic en el botón <strong>ELEGIR ESTE PLAN</strong>.</li>
+        <li>Realizá la seña 50% de forma segura.</li>
+        <li>Completá tus datos en el formulario o enviáselos directamente a Stefy por WhatsApp.</li>
+        <li>¡Y listo! Nosotros nos encargamos del resto.</li>
+      </ol>
+    </div>
+    <button class="curtain-btn" onclick="scrollToPlans()">Ver más información</button>
+  </div>
 
-    <!-- Submenú deslizable -->
-    <div class="submenu" id="submenuComo">
-        <div class="close-menu" onclick="closeSubmenu()">×</div>
-        <h2 style="margin-bottom: 30px; color: var(--primary);">Cómo lo desarrollamos</h2>
-        
-        <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px;">
-            <li>Ver Planes</li>
-            <li>Elegí el formato que más se adapte a vos.</li>
-            <li>Hacé clic en el botón <strong>ELEGIR ESTE PLAN</strong>.</li>
-            <li>Realizá la seña 50% de forma segura.</li>
-            <li>Completá tus datos en el formulario o enviáselos directamente a Stefy por WhatsApp.</li>
-            <li>¡Y listo! Nosotros nos encargamos del resto.</li>
-        </ol>
+  <!-- PLAN CURTAIN -->
+  <div class="plan-curtain" id="planCurtain">
+    <img src="planesuno.png" alt="Plans" class="plan-img">
+    <div style="padding: 20px;">
+      <button class="plan-button">Conoce más sobre todo lo que podemos hacer en tu web</button>
+    </div>
+  </div>
 
-        <a href="#paginas-web" style="display: inline-block; margin-top: 40px; color: var(--primary); text-decoration: none; font-weight: 600;">
-            Ver más información →
+  <!-- ALL COMMENTS VIEW -->
+  <div class="all-comments-container" id="allCommentsContainer">
+    <div class="all-comments-header">
+      <h2 class="curtain-title">Ver todos los comentarios</h2>
+      <button class="curtain-close" onclick="closeAllComments()">✕</button>
+    </div>
+    <div class="all-comments-body" id="allCommentsList"></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- BANNER -->
+    <section class="banner">
+      <h2 class="banner-title">TUWEB</h2>
+    </section>
+
+    <!-- PORTADA 1 -->
+    <section class="section">
+      <img src="portadauno.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Que tu negocio deje de depender de tu tiempo. Porque mientras vos respondés mensajes, coordinás turnos o explicás lo mismo una y otra vez… estás perdiendo oportunidades. TUWEB transforma tu web en una herramienta que trabaja por vos:
+        <br><br>
+        • Responde consultas automáticamente<br>
+        • Muestra tus servicios o productos de forma clara<br>
+        • Gestiona turnos sin intervención manual<br>
+        • Filtra clientes y ordena la información<br>
+        • Funciona 24/7 sin pausas<br><br>
+        No es solo una página. Es un sistema pensado para que vendas más, trabajes mejor y tengas más tiempo.
+      </p>
+    </section>
+
+    <!-- PORTADA 2 -->
+    <section class="section">
+      <img src="portadados.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Tu web deja de ser solo una vidriera… y pasa a ser un sistema que guía, ordena y convierte. Cada paso está pensado: tu cliente entra, entiende en segundos, elige sin dudas y avanza directo a la acción. Sin fricción. Sin vueltas. Sin que tengas que estar atrás respondiendo todo. Todo está diseñado para que el proceso fluya solo y termine en tus manos.
+      </p>
+    </section>
+
+    <!-- PORTADA 3 -->
+    <section class="section">
+      <img src="portadatres.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Imagina, mientras vos estás con tu tiempo ocupado o descansando, tu web sigue trabajando. Responde consultas automáticamente, muestra todo de forma clara, organiza pedidos y deja a cada cliente listo para avanzar. Sin interrupciones. Sin tareas repetitivas. Sin perder oportunidades. Más tiempo para vos, más orden en tu negocio y más resultados todos los días.
+      </p>
+    </section>
+
+    <!-- CTA BUTTON -->
+    <button class="cta-button" onclick="openPlanCurtain()">
+      Ver Planes que se adaptan a tu negocio
+      <span class="arrow-animation">↓</span>
+    </button>
+
+    <!-- PORTADA 4 -->
+    <section class="section">
+      <img src="portadacuatro.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Ahora imaginá esto aplicado a tus turnos: Tu cliente entra, elige día y horario, y agenda sin tener que escribirte. Todo se organiza solo, sin superposiciones, sin errores y sin idas y vueltas. Mientras tanto, vos dejás de estar pendiente del teléfono, de coordinar horarios o de anotar todo. Tenés tu agenda completa, clara y funcionando sola.
+      </p>
+    </section>
+
+    <!-- PORTADA 5 -->
+    <section class="section">
+      <img src="portadacinco.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Te descubren por redes o les pasás tu link. Entran, eligen su turno y te llega confirmado por WhatsApp. Así de simple. Vos solo respondés: "¡Gracias!".
+      </p>
+    </section>
+
+    <!-- PORTADA 6 -->
+    <section class="section">
+      <img src="portadaseis.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Así funcionan los turnos automatizados: Sin mensajes de ida y vuelta. Sin confusiones. Sin perder tiempo. Tu agenda se llena sola y cada cliente ya llega confirmado. Vos solo te enfocás en atender.
+      </p>
+    </section>
+
+    <!-- PORTADA 7 -->
+    <section class="section">
+      <img src="portadasiete.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Sistemas web con mini aplicaciones integradas: cuadro de comentarios, agenda online, conexión con WhatsApp y gestión automática de reservas en un solo lugar. Tu cliente llega desde redes, entra a tu web, navega toda tu información completa y fácil de encontrar, elige, agenda o compra… y recibís su confirmación.
+      </p>
+    </section>
+
+    <!-- PORTADA 8 -->
+    <section class="section">
+      <img src="portadaocho.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        No se trata solo de tener una web… se trata de saber qué resultados te está dando. Medimos lo que realmente importa: cuántas consultas recibís, cuánto se automatiza y qué tan bien están funcionando tus campañas. Todo pensado para que cada visita tenga un propósito. Tu web no queda estática... Evoluciona pensando en el dia que precizes las metricas para tus campañas sociales el objetivo sea cada vez mas preciso.
+      </p>
+    </section>
+
+    <!-- PORTADA 9 -->
+    <section class="section">
+      <img src="portadanueve.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Cómo interactúan las personas con tu web: consultas, acciones y rendimiento de cada sección. Esa información se analiza para entender qué funciona y qué se puede mejorar. La web se optimiza continuamente en base a datos reales.
+      </p>
+    </section>
+
+    <!-- PORTADA 10 -->
+    <section class="section">
+      <img src="portadadiez.png" alt="Portada" class="portada-img">
+      <p class="section-text">
+        Menos trabajo. Más tiempo. Más orden. Más resultados. Ahora la decisión es simple: seguir haciendo todo manual… o empezar a tener un sistema que lo haga por vos.
+      </p>
+    </section>
+
+    <!-- PORTADA 11 + FLOATING MESSAGE -->
+    <section class="section">
+      <img src="portadaonce.png" alt="Portada" class="portada-img">
+    </section>
+
+    <!-- FLOATING MESSAGE SECTION -->
+    <section class="floating-message">
+      <p class="message-hint">✨ Toca para saber más ✨</p>
+      <img src="mensajeweb.png" alt="Mensaje" class="message-image" id="messageImage" onclick="openMessageModal()">
+      <div class="arrow-down" onclick="openMessageModal()">▼</div>
+    </section>
+
+    <!-- FULL WIDTH IMAGE -->
+    <img src="planesdos.png" alt="Planes" class="full-width-img">
+
+    <!-- COMMENTS SECTION -->
+    <section class="comments-section">
+      <h2 class="comments-title">Contanos tu experiencia</h2>
+
+      <!-- Avatar Selector -->
+      <div class="form-group">
+        <label class="form-label">Elegí tu avatar:</label>
+        <div class="avatar-selector">
+          <img src="avataruno.png" alt="Avatar 1" class="avatar-option selected" data-avatar="avataruno.png" onclick="selectAvatar(this)">
+          <img src="avatardos.png" alt="Avatar 2" class="avatar-option" data-avatar="avatardos.png" onclick="selectAvatar(this)">
+          <img src="avatartres.png" alt="Avatar 3" class="avatar-option" data-avatar="avatartres.png" onclick="selectAvatar(this)">
+          <img src="avatarcuatro.png" alt="Avatar 4" class="avatar-option" data-avatar="avatarcuatro.png" onclick="selectAvatar(this)">
+        </div>
+      </div>
+
+      <!-- Name Input -->
+      <div class="form-group">
+        <label class="form-label">Tu nombre:</label>
+        <input type="text" id="commentName" class="form-input" placeholder="Escribe tu nombre">
+      </div>
+
+      <!-- Rating Stars -->
+      <div class="form-group">
+        <label class="form-label">Calificación:</label>
+        <div class="stars-row" id="starsRow">
+          <button class="star-btn" data-value="1" onclick="selectRating(1)">★</button>
+          <button class="star-btn" data-value="2" onclick="selectRating(2)">★</button>
+          <button class="star-btn" data-value="3" onclick="selectRating(3)">★</button>
+          <button class="star-btn" data-value="4" onclick="selectRating(4)">★</button>
+          <button class="star-btn" data-value="5" onclick="selectRating(5)">★</button>
+        </div>
+      </div>
+
+      <!-- Comment Button -->
+      <button class="comment-btn" onclick="openCommentModal()">✍️ Dejanos tu comentario</button>
+
+      <!-- Featured Comment -->
+      <div id="featuredCommentContainer" style="margin-top: 28px;"></div>
+
+      <!-- All Comments Button -->
+      <button class="comment-btn" style="background: none; border: 2px solid #000; color: #000; margin-top: 28px;" onclick="openAllComments()">Ver todos los comentarios ↓</button>
+    </section>
+
+    <!-- SOCIAL SECTION -->
+    <section class="social-section" id="social-section">
+      <h2 class="social-title">Seguinos para no perderte las Novedades</h2>
+      <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank">
+          <img src="facebookweb.png" alt="Facebook" class="social-icon">
         </a>
+        <a href="https://www.instagram.com" target="_blank">
+          <img src="instagramweb.png" alt="Instagram" class="social-icon">
+        </a>
+        <a href="https://www.tiktok.com" target="_blank">
+          <img src="tiktokweb.png" alt="TikTok" class="social-icon">
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="logoweb.png" alt="Logo" class="footer-logo">
+    <div class="footer-links">
+      <button class="footer-link" onclick="openCurtain('how-develop')">Cómo lo desarrollamos</button>
+      <button class="footer-link" onclick="scrollToPlans()">Ir a tienda</button>
+      <button class="footer-link" onclick="window.open('https://wa.me/2395407700?text=Hola! Quiero hacer una consulta.', '_blank')">Contacto</button>
+      <button class="footer-link" onclick="scrollToElement('social-section')">Seguinos en redes</button>
     </div>
+  </footer>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Golosinas, Snacks y Tortas<br>para Mascotas</h1>
-            <p>Productos premium hechos con amor para consentir a tus peludos</p>
-            <button class="cta-button" onclick="document.getElementById('ver-planes-btn').scrollIntoView({ behavior: 'smooth' })">
-                Ver nuestros productos
-            </button>
-        </div>
-    </section>
-
-    <!-- Sección Catálogo / Ventajas -->
-    <section id="catalogo" class="catalogo-container">
-        <h2 class="section-title">Tu negocio merece una web que trabaje por vos</h2>
-        
-        <!-- Portada 1 -->
-        <div class="portada">
-            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadauno.png" alt="Portada 1">
-        </div>
-        <div class="texto-portada">
-            <p><strong>Que tu negocio deje de depender de tu tiempo.</strong></p>
-            <p>Porque mientras vos respondés mensajes, coordinás turnos o explicás lo mismo una y otra vez… estás perdiendo oportunidades.</p>
-            <p>TUWEB transforma tu web en una herramienta que trabaja por vos:</p>
-            <ul>
-                <li>Responde consultas automáticamente</li>
-                <li>Muestra tus servicios o productos de forma clara</li>
-                <li>Gestiona turnos sin intervención manual</li>
-                <li>Filtra clientes y ordena la información</li>
-                <li>Funciona 24/7 sin pausas</li>
-            </ul>
-            <p>No es solo una página. Es un sistema pensado para que vendas más, trabajes mejor y tengas más tiempo.</p>
-        </div>
-
-        <!-- Portada 2 -->
-        <div class="portada">
-            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadados.png" alt="Portada 2">
-        </div>
-        <div class="texto-portada">
-            <p>Tu web deja de ser solo una vidriera… y pasa a ser un sistema que guía, ordena y convierte.</p>
-            <p>Cada paso está pensado: tu cliente entra, entiende en segundos, elige sin dudas y avanza directo a la acción. Sin fricción. Sin vueltas.</p>
-        </div>
-
-        <!-- Portada 3 -->
-        <div class="portada">
-            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadatres.png" alt="Portada 3">
-        </div>
-        <div class="texto-portada">
-            <p>Imagina, mientras vos estás ocupado o descansando, tu web sigue trabajando. Responde consultas automáticamente, muestra todo de forma clara, organiza pedidos y deja a cada cliente listo para avanzar.</p>
-        </div>
-
-        <button id="ver-planes-btn" class="ver-planes-btn" onclick="toggleCortinaPlanes()">
-            Ver Planes que se adaptan a tu negocio
-            <span class="flecha-abajo">↓</span>
-        </button>
-
-        <!-- Cortina de planes -->
-        <div class="cortina-planes" id="cortinaPlanes">
-            <!-- Portada planesuno -->
-            <div class="portada" style="margin-top: 40px;">
-                <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/planesuno.png" alt="Planes">
-            </div>
-            <button onclick="alert('Redirigiendo a más información...')" style="display:block; width:90%; max-width:420px; margin:20px auto; padding:16px; background:#4ecdc4; color:white; border:none; border-radius:50px; font-weight:600; cursor:pointer;">
-                Conoce más sobre todo lo que podemos hacer en tu web
-            </button>
-
-            <!-- Resto de portadas -->
-            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadacuatro.png" alt=""></div>
-            <div class="texto-portada">
-                <p>Ahora imaginá esto aplicado a tus turnos: Tu cliente entra, elige día y horario, y agenda sin tener que escribirte. Todo se organiza solo.</p>
-            </div>
-
-            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadacinco.png" alt=""></div>
-            <div class="texto-portada">
-                <p>Te descubren por redes o les pasás tu link. Entran, eligen su turno y te llega confirmado por WhatsApp. Así de simple.</p>
-            </div>
-
-            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadaseis.png" alt=""></div>
-            <div class="texto-portada">
-                <p>Así funcionan los turnos automatizados: Sin mensajes de ida y vuelta. Tu agenda se llena sola.</p>
-            </div>
-
-            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadasiete.png" alt=""></div>
-            <div class="texto-portada">
-                <p>Sistemas web con mini aplicaciones integradas: cuadro de comentarios, agenda online, conexión con WhatsApp y gestión automática de reservas.</p>
-            </div>
-
-            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadaocho.png" alt=""></div>
-            <div class="texto-portada">
-                <p>No se trata solo de tener una web… se trata de saber qué resultados te está dando.</p>
-            </div>
-
-            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadanueve.png" alt=""></div>
-            <div class="texto-portada">
-                <p>Cómo interactúan las personas con tu web: consultas, acciones y rendimiento de cada sección.</p>
-            </div>
-
-            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadadiez.png" alt=""></div>
-            <div class="texto-portada">
-                <p>Menos trabajo. Más tiempo. Más orden. Más resultados.</p>
-            </div>
-
-            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadaonce.png" alt=""></div>
-
-            <!-- Mensaje flotante -->
-            <div style="position: relative; max-width: 420px; margin: 60px auto 40px; text-align: center;">
-                <img id="mensajeImg" src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/mensajeweb.png" alt="Mensaje" 
-                     style="width: 100%; border-radius: 50%; box-shadow: 0 15px 35px rgba(0,0,0,0.2); cursor: pointer;">
-                <div style="position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 42px; animation: bounce 2s infinite; color: var(--primary);">↓</div>
-            </div>
-
-            <div class="texto-portada" id="mensajeTexto" style="display: none; background: #fff; padding: 30px; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <p><strong>Un día normal en tu negocio...</strong></p>
-                <p>Algunos dejan consultas claras. Otros ya llegan con todo definido. Y otros directamente reservan.</p>
-                <p>Olvidate de que se te queme la pizza por atender los mensajes. Con TUWEB terminas de cocinar y solo agarras el teléfono para mirar la siguiente receta reservada.</p>
-                <p>Es tener un empleado en el celular mientras vos seguís con lo tuyo.</p>
-            </div>
-
-            <!-- Imagen final -->
-            <div class="portada" style="margin-top: 80px;">
-                <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/planesdos.png" alt="Planes 2" style="width:100%;">
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección Comentarios -->
-    <section class="comentarios-section">
-        <h2 class="section-title">Contanos tu experiencia</h2>
-        
-        <div class="comment-form">
-            <div class="avatar-grid" id="avatarGrid">
-                <!-- Avatares se cargan con JS -->
-            </div>
-
-            <input type="text" id="nombreComentario" placeholder="Tu nombre (opcional)" style="width:100%; padding:14px; margin-bottom:15px; border-radius:12px; border:1px solid #ddd;">
-            
-            <div style="margin: 20px 0;">
-                <span id="stars" class="star-rating">
-                    ★★★★☆
-                </span>
-            </div>
-
-            <textarea id="textoComentario" placeholder="Cuentanos tu experiencia con nuestro servicio..."></textarea>
-            
-            <div id="recaptcha-container" style="margin: 20px 0;"></div>
-            
-            <button onclick="enviarComentario()" class="submit-comment">Enviar comentario</button>
-        </div>
-
-        <div class="comentarios-lista" id="comentariosLista">
-            <!-- Comentarios dinámicos desde Firebase -->
-        </div>
-    </section>
-
-    <!-- Seguinos en redes -->
-    <section class="redes-section" id="redesSection">
-        <h2 style="font-size: 1.8rem; margin-bottom: 15px;">Seguinos para no perderte las novedades</h2>
-        <div class="redes-icons">
-            <a href="#"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/facebookweb.png" alt="Facebook"></a>
-            <a href="#"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/instagramweb.png" alt="Instagram"></a>
-            <a href="#"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/tiktokweb.png" alt="TikTok"></a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/logoweb.png" alt="Logo TUWEB">
-        <div style="margin: 30px 0; display: flex; flex-wrap: wrap; gap: 25px; justify-content: center; font-size: 1.05rem;">
-            <a href="#" onclick="openSubmenu('como'); return false;" style="color: var(--text); text-decoration: none;">Cómo Desarrollamos</a>
-            <a href="#" style="color: var(--text); text-decoration: none;">Ir a la tienda</a>
-            <a href="#" onclick="contactarWhatsApp(); return false;" style="color: var(--text); text-decoration: none;">Contacto</a>
-            <a href="#redesSection" style="color: var(--text); text-decoration: none;">Seguinos en redes</a>
-        </div>
-        <p style="color: var(--gray); font-size: 0.9rem;">© 2026 TUWEB - Hecho con amor para negocios que crecen</p>
-    </footer>
-
-    <!-- Modal para ver todos los comentarios -->
-    <div class="modal" id="modalComentarios">
-        <div class="modal-content">
-            <div style="padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-                <h3>Todos los comentarios</h3>
-                <span onclick="closeModal()" style="font-size: 28px; cursor: pointer;">×</span>
-            </div>
-            <div id="modalComentariosLista" style="padding: 20px; max-height: 70vh; overflow-y: auto;">
-                <!-- Comentarios completos -->
-            </div>
-        </div>
+  <!-- COMMENT MODAL -->
+  <div class="modal-backdrop" id="commentModal">
+    <div class="modal">
+      <div class="modal-header">Dejanos tu comentario</div>
+      <textarea id="commentText" class="modal-textarea" placeholder="Cuentanos tu experiencia con nuestro servicio."></textarea>
+      <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
+      <div id="recaptchaError" style="color: #e74c3c; font-size: 12px; margin-top: 8px; display: none;">Por favor verifica que no eres un robot</div>
+      <div class="modal-actions">
+        <button class="modal-btn" onclick="closeCommentModal()">Cancelar</button>
+        <button class="modal-btn primary" onclick="submitComment()">Enviar comentario</button>
+      </div>
     </div>
+  </div>
 
-    <script type="module">
-        // ==================== FIREBASE CONFIG ====================
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, updateDoc, doc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+  <!-- MESSAGE MODAL -->
+  <div class="modal-backdrop" id="messageModal">
+    <div class="modal">
+      <div class="modal-header">Nuestro enfoque</div>
+      <p style="font-size: 14px; line-height: 1.8; color: #666;">
+        Un día normal en tu negocio. Algunos dejan consultas claras. Otros ya llegan con todo definido. Y otros directamente reservan.
+        <br><br>
+        <strong>Ejemplo metafórico:</strong> Olvidate de que se te queme la pizza por atender los mensajes. Con TUWEB terminas de cocinar y solo agarras el teléfono para mirar la siguiente receta reservada. Sin tener que explicar lo mismo de siempre. Sin ir ordenando mensajes uno por uno. Sin estar encima de cada paso.
+        <br><br>
+        Cuando abrís WhatsApp, ya está todo bastante claro. Los pedidos llegan armados. Los turnos, acomodados. Las consultas, directas. Las compras Automáticas. Respondés más tranquilo. Te enfocás en atender, no en correr atrás de todo. Incluso fuera de horario, la web sigue funcionando. La gente entra, elige… y te deja todo listo, reserva para el siguiente día.
+        <br><br>
+        Es tener un empleado en el celular mientras vos seguis con lo tuyo. Y eso, en el día a día… se siente mejor y tu tiempo más rentable!
+      </p>
+      <button class="modal-btn primary" onclick="closeMessageModal()" style="width: 100%; margin-top: 20px;">Entendido</button>
+    </div>
+  </div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCuC69MOmZs3JEzG8RfD_AU92dUr42VkVM",
-            authDomain: "tuwebhomeprincipal.firebaseapp.com",
-            projectId: "tuwebhomeprincipal",
-            storageBucket: "tuwebhomeprincipal.firebasestorage.app",
-            messagingSenderId: "781329283813",
-            appId: "1:781329283813:web:f50e84e202d98f816c720c",
-            measurementId: "G-9KSD90Y6G9"
-        };
+  <!-- SUCCESS NOTIFICATION -->
+  <div class="success-notification" id="successNotification">
+    <h3>🎉 ¡Gracias!</h3>
+    <p>Tu comentario fue recibido, podés mirarlo junto a todos los comentarios de nuestros clientes</p>
+    <div class="success-buttons">
+      <button class="success-btn" onclick="closeSuccessNotification()">Aceptar</button>
+      <button class="success-btn primary" onclick="closeSuccessNotification(); openAllComments();">Ver todos los comentarios</button>
+    </div>
+  </div>
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const analytics = getAnalytics(app);
+  <!-- FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc, getDocs, query, orderBy,
+      updateDoc, doc, increment, onSnapshot
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
 
-        let currentUser = null;
-        let selectedAvatar = "avataruno.png";
-        let currentRating = 5;
+    const firebaseConfig = {
+      apiKey: "AIzaSyCuC69MOmZs3JEzG8RfD_AU92dUr42VkVM",
+      authDomain: "tuwebhomeprincipal.firebaseapp.com",
+      projectId: "tuwebhomeprincipal",
+      storageBucket: "tuwebhomeprincipal.firebasestorage.app",
+      messagingSenderId: "781329283813",
+      appId: "1:781329283813:web:f50e84e202d98f816c720c",
+      measurementId: "G-9KSD90Y6G9"
+    };
 
-        // Login anónimo
-        signInAnonymously(auth).then(() => {
-            console.log("Usuario anónimo autenticado");
-        }).catch((error) => {
-            console.error("Error auth:", error);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const analytics = getAnalytics(app);
+
+    // Anonymous login
+    signInAnonymously(auth).catch(err => console.error("Auth error:", err));
+
+    // Global state
+    window.appState = {
+      selectedAvatar: "avataruno.png",
+      selectedRating: 5,
+      allComments: [],
+      likedComments: JSON.parse(localStorage.getItem("likedComments") || "{}"),
+      db,
+      auth
+    };
+
+    // Load comments from Firestore
+    async function loadComments() {
+      try {
+        const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
+        const snapshot = await getDocs(q);
+        window.appState.allComments = [];
+        snapshot.forEach(doc => {
+          window.appState.allComments.push({ id: doc.id, ...doc.data() });
+        });
+        renderFeaturedComment();
+      } catch (error) {
+        console.error("Error loading comments:", error);
+      }
+    }
+
+    // Real-time listener
+    onSnapshot(query(collection(db, "comentarios"), orderBy("fecha", "desc")), snapshot => {
+      window.appState.allComments = [];
+      snapshot.forEach(doc => {
+        window.appState.allComments.push({ id: doc.id, ...doc.data() });
+      });
+      renderFeaturedComment();
+      if (document.getElementById("allCommentsList").offsetParent !== null) {
+        renderAllComments();
+      }
+    });
+
+    // Submit comment
+    window.submitComment = async function() {
+      const recaptchaResponse = grecaptcha.getResponse();
+      if (!recaptchaResponse) {
+        document.getElementById("recaptchaError").style.display = "block";
+        return;
+      }
+      document.getElementById("recaptchaError").style.display = "none";
+
+      const commentText = document.getElementById("commentText").value.trim();
+      const commentName = document.getElementById("commentName").value.trim() || "Anónimo";
+
+      if (commentText.length < 5) {
+        alert("El comentario debe tener al menos 5 caracteres");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "comentarios"), {
+          nombre: commentName,
+          comentario: commentText,
+          estrellas: window.appState.selectedRating,
+          avatar: window.appState.selectedAvatar,
+          fecha: new Date(),
+          likes: 0,
+          respuestas: []
         });
 
-        // ==================== MENÚ ====================
-        const sideMenu = document.getElementById('sideMenu');
-        const hamburger = document.getElementById('hamburger');
-        const closeMenuBtn = document.getElementById('closeMenu');
+        document.getElementById("commentText").value = "";
+        grecaptcha.reset();
+        closeCommentModal();
+        showSuccessNotification();
+      } catch (error) {
+        console.error("Error submitting comment:", error);
+        alert("Error al guardar el comentario");
+      }
+    };
 
-        hamburger.addEventListener('click', () => {
-            sideMenu.classList.add('open');
-        });
+    // Like/Unlike comment
+    window.likeComment = async function(commentId) {
+      const likedComments = window.appState.likedComments;
+      const isLiked = likedComments[commentId];
 
-        closeMenuBtn.addEventListener('click', () => {
-            sideMenu.classList.remove('open');
-        });
+      if (isLiked) {
+        delete likedComments[commentId];
+        await updateDoc(doc(db, "comentarios", commentId), { likes: increment(-1) });
+      } else {
+        likedComments[commentId] = true;
+        await updateDoc(doc(db, "comentarios", commentId), { likes: increment(1) });
+      }
 
-        function openSubmenu(tipo) {
-            sideMenu.classList.remove('open');
-            if (tipo === 'como') {
-                document.getElementById('submenuComo').classList.add('open');
-            }
-        }
+      localStorage.setItem("likedComments", JSON.stringify(likedComments));
+      renderAllComments();
+    };
 
-        function closeSubmenu() {
-            document.getElementById('submenuComo').classList.remove('open');
-        }
+    // Render featured comment
+    window.renderFeaturedComment = function() {
+      const container = document.getElementById("featuredCommentContainer");
+      if (window.appState.allComments.length === 0) {
+        container.innerHTML = "";
+        return;
+      }
 
-        // ==================== CONTACTO WHATSAPP ====================
-        function contactarWhatsApp() {
-            const mensaje = encodeURIComponent("Hola! Quiero hacer una consulta sobre TUWEB.");
-            window.open(`https://wa.me/5492396512544?text=${mensaje}`, '_blank');
-        }
+      const featured = window.appState.allComments.reduce((prev, curr) =>
+        (curr.likes || 0) > (prev.likes || 0) ? curr : prev
+      );
 
-        function scrollToRedes() {
-            document.getElementById('redesSection').scrollIntoView({ behavior: 'smooth' });
-            sideMenu.classList.remove('open');
-        }
+      const isLiked = window.appState.likedComments[featured.id];
+      const stars = "★".repeat(Math.min(5, featured.estrellas || 0));
+      const fechaRelativa = getRelativeTime(featured.fecha?.toDate?.() || new Date());
 
-        // ==================== CORTINA PLANES ====================
-        function toggleCortinaPlanes() {
-            const cortina = document.getElementById('cortinaPlanes');
-            cortina.classList.toggle('open');
-        }
+      container.innerHTML = `
+        <div class="comment-card featured">
+          <div class="featured-badge">⭐ Comentario destacado</div>
+          <div class="comment-header">
+            <img src="${featured.avatar}" alt="Avatar" class="comment-avatar">
+            <div class="comment-info">
+              <div>
+                <span class="comment-name">${featured.nombre}</span>
+                <span class="comment-stars">${stars}</span>
+              </div>
+            </div>
+          </div>
+          <p class="comment-text">${featured.comentario}</p>
+          <div class="comment-actions">
+            <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${featured.id}')">
+              ${isLiked ? '❤️' : '🤍'} ${featured.likes || 0}
+            </button>
+            <span class="comment-date">${fechaRelativa}</span>
+          </div>
+        </div>
+      `;
+    };
 
-        // Mensaje flotante
-        document.getElementById('mensajeImg').addEventListener('click', () => {
-            const texto = document.getElementById('mensajeTexto');
-            texto.style.display = texto.style.display === 'block' ? 'none' : 'block';
-        });
+    // Render all comments
+    window.renderAllComments = function() {
+      const container = document.getElementById("allCommentsList");
+      if (window.appState.allComments.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #999;">Todavía no hay comentarios</p>';
+        return;
+      }
 
-        // ==================== AVATARES ====================
-        const avatares = ['avataruno.png', 'avatardos.png', 'avatartres.png', 'avatarcuatro.png'];
+      const likedComments = window.appState.likedComments;
+      container.innerHTML = window.appState.allComments.map(comment => {
+        const isLiked = likedComments[comment.id];
+        const stars = "★".repeat(Math.min(5, comment.estrellas || 0));
+        const fechaRelativa = getRelativeTime(comment.fecha?.toDate?.() || new Date());
 
-        function cargarAvatares() {
-            const grid = document.getElementById('avatarGrid');
-            grid.innerHTML = '';
-            
-            avatares.forEach((av, index) => {
-                const div = document.createElement('div');
-                div.className = `avatar-option ${index === 0 ? 'selected' : ''}`;
-                div.innerHTML = `<img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/${av}" alt="Avatar">`;
-                div.onclick = () => {
-                    document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
-                    div.classList.add('selected');
-                    selectedAvatar = av;
-                };
-                grid.appendChild(div);
-            });
-        }
-
-        // ==================== ESTRELLAS ====================
-        function setupStars() {
-            const starsContainer = document.getElementById('stars');
-            starsContainer.innerHTML = '';
-            
-            for (let i = 1; i <= 5; i++) {
-                const star = document.createElement('span');
-                star.className = 'star';
-                star.textContent = '★';
-                star.style.cursor = 'pointer';
-                star.onclick = () => {
-                    currentRating = i;
-                    renderStars();
-                };
-                starsContainer.appendChild(star);
-            }
-            renderStars();
-        }
-
-        function renderStars() {
-            const stars = document.querySelectorAll('#stars .star');
-            stars.forEach((star, index) => {
-                star.style.color = (index + 1) <= currentRating ? '#f1c40f' : '#ddd';
-            });
-        }
-
-        // ==================== COMENTARIOS FIREBASE ====================
-        async function cargarComentarios() {
-            const lista = document.getElementById('comentariosLista');
-            lista.innerHTML = '<p style="text-align:center; color:#999;">Cargando comentarios...</p>';
-
-            try {
-                const q = query(collection(db, "comentarios"), orderBy("timestamp", "desc"));
-                const snapshot = await getDocs(q);
-                
-                lista.innerHTML = '';
-
-                snapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    const card = crearComentarioCard(docSnap.id, data);
-                    lista.appendChild(card);
-                });
-            } catch (e) {
-                console.error("Error cargando comentarios:", e);
-                lista.innerHTML = '<p style="color:red; text-align:center;">Error al cargar comentarios</p>';
-            }
-        }
-
-        function crearComentarioCard(id, data) {
-            const div = document.createElement('div');
-            div.className = 'comentario-card';
-            div.innerHTML = `
-                <div class="comentario-header">
-                    <div class="comentario-avatar">
-                        <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/${data.avatar || 'avataruno.png'}" style="width:100%; height:100%; object-fit:cover;">
-                    </div>
-                    <div>
-                        <strong>${data.nombre || 'Anónimo'}</strong>
-                        <div style="font-size:0.9rem; color:#999;">${new Date(data.timestamp?.toDate()).toLocaleDateString('es-AR')}</div>
-                    </div>
+        return `
+          <div class="comment-card">
+            <div class="comment-header">
+              <img src="${comment.avatar}" alt="Avatar" class="comment-avatar">
+              <div class="comment-info">
+                <div>
+                  <span class="comment-name">${comment.nombre}</span>
+                  <span class="comment-stars">${stars}</span>
                 </div>
-                <div style="margin: 12px 0; font-size:1.05rem;">${data.comentario}</div>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <button onclick="toggleLike('${id}', this)" class="like-btn ${data.likedByUser ? 'liked' : ''}">
-                        ❤️ <span class="like-count">${data.likes || 0}</span>
-                    </button>
-                    <button onclick="responderComentario('${id}')" style="background:none; border:none; color:#3498db; font-size:0.95rem;">Responder</button>
-                </div>
-            `;
-            return div;
+              </div>
+            </div>
+            <p class="comment-text">${comment.comentario}</p>
+            <div class="comment-actions">
+              <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${comment.id}')">
+                ${isLiked ? '❤️' : '🤍'} ${comment.likes || 0}
+              </button>
+              <span class="comment-date">${fechaRelativa}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    };
+
+    // Utility: Relative time
+    window.getRelativeTime = function(date) {
+      const now = new Date();
+      const diff = Math.floor((now - date) / 1000);
+
+      if (diff < 60) return "hace un momento";
+      if (diff < 3600) return `hace ${Math.floor(diff / 60)} min`;
+      if (diff < 86400) return `hace ${Math.floor(diff / 3600)}h`;
+      if (diff < 2592000) return `hace ${Math.floor(diff / 86400)}d`;
+      return `hace ${Math.floor(diff / 2592000)}m`;
+    };
+
+    // Load comments on page load
+    loadComments();
+  </script>
+
+  <!-- VANILLA JAVASCRIPT -->
+  <script>
+    // Sidebar toggle
+    document.getElementById("hamburgerBtn").addEventListener("click", function() {
+      this.classList.add("active");
+      document.getElementById("sidebar").classList.add("open");
+      document.getElementById("sidebarOverlay").classList.add("open");
+    });
+
+    document.getElementById("sidebarClose").addEventListener("click", function() {
+      closeSidebar();
+    });
+
+    document.getElementById("sidebarOverlay").addEventListener("click", function() {
+      closeSidebar();
+    });
+
+    function closeSidebar() {
+      document.getElementById("hamburgerBtn").classList.remove("active");
+      document.getElementById("sidebar").classList.remove("open");
+      document.getElementById("sidebarOverlay").classList.remove("open");
+    }
+
+    // Curtain management
+    window.openCurtain = function(curtainId) {
+      closeSidebar();
+      document.getElementById("curtain-overlay").classList.add("open");
+      document.getElementById("curtain-" + curtainId).classList.add("open");
+    };
+
+    window.closeCurtain = function(curtainId) {
+      document.getElementById("curtain-overlay").classList.remove("open");
+      document.getElementById("curtain-" + curtainId).classList.remove("open");
+    };
+
+    document.getElementById("curtainOverlay").addEventListener("click", function() {
+      document.querySelectorAll(".curtain.open").forEach(c => c.classList.remove("open"));
+      this.classList.remove("open");
+    });
+
+    // Plan curtain
+    window.openPlanCurtain = function() {
+      document.getElementById("planCurtain").classList.add("open");
+    };
+
+    document.getElementById("planCurtain").addEventListener("click", function(e) {
+      if (e.target === this) {
+        this.classList.remove("open");
+      }
+    });
+
+    window.scrollToPlans = function() {
+      document.querySelectorAll(".curtain").forEach(c => c.classList.remove("open"));
+      document.getElementById("curtainOverlay").classList.remove("open");
+      document.querySelector('[id="planCurtain"]').classList.add("open");
+    };
+
+    // All comments view
+    window.openAllComments = function() {
+      document.getElementById("allCommentsContainer").classList.add("open");
+      renderAllComments();
+    };
+
+    window.closeAllComments = function() {
+      document.getElementById("allCommentsContainer").classList.remove("open");
+    };
+
+    // Comment modal
+    window.openCommentModal = function() {
+      document.getElementById("commentModal").classList.add("open");
+    };
+
+    window.closeCommentModal = function() {
+      document.getElementById("commentModal").classList.remove("open");
+    };
+
+    document.getElementById("commentModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        this.classList.remove("open");
+      }
+    });
+
+    // Message modal
+    window.openMessageModal = function() {
+      document.getElementById("messageModal").classList.add("open");
+    };
+
+    window.closeMessageModal = function() {
+      document.getElementById("messageModal").classList.remove("open");
+    };
+
+    document.getElementById("messageModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        this.classList.remove("open");
+      }
+    });
+
+    // Success notification
+    window.showSuccessNotification = function() {
+      document.getElementById("successNotification").classList.add("show");
+    };
+
+    window.closeSuccessNotification = function() {
+      document.getElementById("successNotification").classList.remove("show");
+    };
+
+    // Avatar selection
+    window.selectAvatar = function(element) {
+      document.querySelectorAll(".avatar-option").forEach(a => a.classList.remove("selected"));
+      element.classList.add("selected");
+      window.appState.selectedAvatar = element.dataset.avatar;
+    };
+
+    // Rating selection
+    window.selectRating = function(value) {
+      window.appState.selectedRating = value;
+      document.querySelectorAll(".star-btn").forEach(btn => {
+        if (parseInt(btn.dataset.value) <= value) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
         }
+      });
+    };
 
-        async function enviarComentario() {
-            const texto = document.getElementById('textoComentario').value.trim();
-            const nombre = document.getElementById('nombreComentario').value.trim() || "Anónimo";
+    // Scroll helpers
+    window.scrollToElement = function(elementId) {
+      closeSidebar();
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    };
 
-            if (texto.length < 5) {
-                alert("El comentario debe tener al menos 5 caracteres");
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, "comentarios"), {
-                    nombre: nombre,
-                    comentario: texto,
-                    avatar: selectedAvatar,
-                    rating: currentRating,
-                    likes: 0,
-                    timestamp: serverTimestamp()
-                });
-
-                alert("¡Tu comentario fue recibido! Gracias por compartir tu experiencia.");
-                
-                // Limpiar formulario
-                document.getElementById('textoComentario').value = '';
-                cargarComentarios();
-            } catch (error) {
-                console.error("Error al guardar comentario:", error);
-                alert("Hubo un error al enviar el comentario. Inténtalo nuevamente.");
-            }
-        }
-
-        // Like simple (mejora con localStorage + Firestore en producción)
-        window.toggleLike = async function(id, btn) {
-            try {
-                const docRef = doc(db, "comentarios", id);
-                const isLiked = btn.classList.contains('liked');
-                
-                await updateDoc(docRef, {
-                    likes: increment(isLiked ? -1 : 1)
-                });
-                
-                btn.classList.toggle('liked');
-                cargarComentarios(); // refrescar
-            } catch (e) {
-                console.error(e);
-            }
-        };
-
-        function responderComentario(id) {
-            const respuesta = prompt("Escribe tu respuesta al comentario:");
-            if (respuesta) {
-                alert("Respuesta enviada (en versión completa se guardaría en subcolección)");
-            }
-        }
-
-        // Modal todos los comentarios
-        function openModalComentarios() {
-            document.getElementById('modalComentarios').style.display = 'flex';
-            // Aquí se podría cargar la lista completa
-        }
-
-        function closeModal() {
-            document.getElementById('modalComentarios').style.display = 'none';
-        }
-
-        // ==================== INICIALIZACIÓN ====================
-        window.onload = () => {
-            cargarAvatares();
-            setupStars();
-            cargarComentarios();
-
-            // Cerrar menús al hacer clic fuera
-            document.addEventListener('click', (e) => {
-                if (!sideMenu.contains(e.target) && e.target !== hamburger) {
-                    sideMenu.classList.remove('open');
-                }
-            });
-
-            console.log("%c✅ TUWEB - Página principal cargada correctamente", "color:#ff6b6b; font-weight:bold;");
-        };
-    </script>
+    // Initialize rating
+    selectRating(5);
+  </script>
 </body>
-</html>
+</html>tml>
