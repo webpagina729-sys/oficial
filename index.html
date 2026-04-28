@@ -572,13 +572,16 @@
     }
 
     /* ===== COMMENT CARD ===== */
+    /* NEW COMMENT CARD STYLE - FACEBOOK TYPE */
     .comment-card {
-      background: #f9f9f9;
-      border: 2px solid var(--border-color);
+      background: #e9eaee;
       border-radius: 12px;
-      padding: 16px;
+      padding: 12px;
       margin-bottom: 16px;
       animation: slideIn 0.5s ease;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
     }
 
     @keyframes slideIn {
@@ -594,15 +597,12 @@
 
     .comment-card.featured {
       border: 3px solid var(--accent);
-      background: #fff8e1;
+      background: #fffbf0;
       box-shadow: var(--shadow);
     }
 
-    .comment-header {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 12px;
-      align-items: flex-start;
+    .comment-card.featured .comment-content {
+      background: #fff8e1;
     }
 
     .comment-avatar {
@@ -611,83 +611,225 @@
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--primary);
+      flex-shrink: 0;
     }
 
-    .comment-info {
+    .comment-content {
+      background: #dfe1e6;
+      padding: 10px 14px;
+      border-radius: 10px;
       flex: 1;
       min-width: 0;
     }
 
+    .comment-header {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
     .comment-name {
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .comment-stars {
       color: #ffc107;
-      font-size: 12px;
-      margin-left: 8px;
+      font-size: 11px;
     }
 
     .comment-text {
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text-light);
-      margin: 12px 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-dark);
       word-break: break-word;
     }
 
     .comment-actions {
       display: flex;
-      gap: 12px;
-      margin-top: 12px;
+      gap: 16px;
+      margin-top: 8px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .like-btn {
       background: none;
-      border: 1px solid var(--border-color);
-      padding: 6px 12px;
-      border-radius: 20px;
+      border: none;
+      padding: 4px 8px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 13px;
       transition: var(--transition);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
+      color: #999;
+      font-weight: 600;
     }
 
     .like-btn:hover {
-      border-color: var(--primary);
-      background: var(--primary);
-      color: var(--secondary);
+      color: #ED4956;
     }
 
     .like-btn.liked {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--primary);
+      color: #ED4956;
     }
 
     .reply-btn {
       background: none;
-      border: 1px solid var(--border-color);
-      padding: 6px 12px;
-      border-radius: 20px;
+      border: none;
+      padding: 4px 8px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 13px;
       transition: var(--transition);
+      color: #999;
+      font-weight: 600;
     }
 
     .reply-btn:hover {
-      border-color: var(--primary);
-      background: var(--primary);
-      color: var(--secondary);
+      color: var(--primary);
     }
 
     .comment-date {
       font-size: 11px;
       color: #999;
+      font-weight: 400;
+    }
+
+    /* REPLIES SECTION */
+    .replies-container {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .reply-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+      margin-left: 16px;
+    }
+
+    .reply-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .reply-content {
+      background: #dfe1e6;
+      padding: 8px 12px;
+      border-radius: 10px;
+      flex: 1;
+    }
+
+    .reply-name {
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .reply-text {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-dark);
+      margin-top: 2px;
+      word-break: break-word;
+    }
+
+    .reply-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .reply-like-btn {
+      background: none;
+      border: none;
+      padding: 2px 6px;
+      cursor: pointer;
+      font-size: 11px;
+      transition: var(--transition);
+      color: #999;
+      font-weight: 600;
+    }
+
+    .reply-like-btn:hover {
+      color: #ED4956;
+    }
+
+    .reply-like-btn.liked {
+      color: #ED4956;
+    }
+
+    .reply-date {
+      font-size: 10px;
+      color: #999;
+    }
+
+    /* REPLY INPUT */
+    .reply-input-container {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      margin-left: 16px;
+      margin-top: 12px;
+    }
+
+    .reply-input-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .reply-input-box {
+      flex: 1;
+      display: flex;
+      gap: 8px;
+    }
+
+    .reply-textarea {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 20px;
+      background: #dfe1e6;
+      font-family: inherit;
+      font-size: 13px;
+      resize: none;
+      min-height: 32px;
+      transition: var(--transition);
+    }
+
+    .reply-textarea:focus {
+      outline: none;
+      background: #e9eaee;
+    }
+
+    .reply-submit-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .reply-submit-btn:hover {
+      background: var(--primary);
+      color: var(--secondary);
     }
 
     .featured-badge {
@@ -698,7 +840,8 @@
       border-radius: 20px;
       font-size: 11px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
     }
 
     /* ===== MODAL ===== */
@@ -752,18 +895,25 @@
     .modal-textarea {
       width: 100%;
       min-height: 120px;
-      padding: 12px;
-      border: 2px solid var(--primary);
-      border-radius: 8px;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 20px;
       font-family: inherit;
       font-size: 14px;
       resize: vertical;
       transition: var(--transition);
+      background: #f0f2f5;
+      color: var(--text-dark);
     }
 
     .modal-textarea:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+      background: #e4e6eb;
+      box-shadow: 0 0 0 3px rgba(80, 224, 62, 0.1);
+    }
+
+    .modal-textarea::placeholder {
+      color: #999;
     }
 
     .modal-actions {
@@ -1596,22 +1746,53 @@
 
       container.innerHTML = `
         <div class="comment-card featured">
-          <div class="featured-badge">⭐ Comentario destacado</div>
-          <div class="comment-header">
-            <img src="${featured.avatar}" alt="Avatar" class="comment-avatar">
-            <div class="comment-info">
-              <div>
+          <img src="${featured.avatar}" alt="Avatar" class="comment-avatar">
+          <div style="flex: 1; min-width: 0;">
+            <div class="featured-badge">⭐ Comentario destacado</div>
+            <div class="comment-content">
+              <div class="comment-header">
                 <span class="comment-name">${featured.nombre}</span>
                 <span class="comment-stars">${stars}</span>
               </div>
+              <p class="comment-text">${featured.comentario}</p>
             </div>
-          </div>
-          <p class="comment-text">${featured.comentario}</p>
-          <div class="comment-actions">
-            <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${featured.id}')">
-              ${isLiked ? '❤️' : '🤍'} ${featured.likes || 0}
-            </button>
-            <span class="comment-date">${fechaRelativa}</span>
+            <div class="comment-actions">
+              <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${featured.id}')">
+                👍 ${featured.likes || 0}
+              </button>
+              <button class="reply-btn" onclick="toggleReplyInput('${featured.id}')">Responder</button>
+              <span class="comment-date">${fechaRelativa}</span>
+            </div>
+            ${featured.respuestas && featured.respuestas.length > 0 ? `
+              <div class="replies-container">
+                ${featured.respuestas.map((reply, idx) => {
+                  const replyIsLiked = window.appState.likedComments[featured.id + '_reply_' + idx];
+                  const replyTime = getRelativeTime(reply.fecha?.toDate?.() || new Date(reply.fecha));
+                  return `
+                    <div class="reply-item">
+                      <img src="${reply.avatar || window.appState.selectedAvatar}" class="reply-avatar">
+                      <div style="flex: 1;">
+                        <div class="reply-content">
+                          <div class="reply-name">${reply.nombre}</div>
+                          <p class="reply-text">${reply.comentario}</p>
+                        </div>
+                        <div class="reply-actions">
+                          <button class="reply-like-btn ${replyIsLiked ? 'liked' : ''}" onclick="likeReply('${featured.id}', ${idx})">👍 ${reply.likes || 0}</button>
+                          <span class="reply-date">${replyTime}</span>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : ''}
+            <div id="reply-input-${featured.id}" class="reply-input-container" style="display: none;">
+              <img src="${window.appState.selectedAvatar}" alt="Avatar" class="reply-input-avatar">
+              <div class="reply-input-box">
+                <textarea class="reply-textarea" id="reply-text-${featured.id}" placeholder="Escribe una respuesta..."></textarea>
+                <button class="reply-submit-btn" onclick="submitReply('${featured.id}')">→</button>
+              </div>
+            </div>
           </div>
         </div>
       `;
@@ -1621,7 +1802,7 @@
     window.renderAllComments = function() {
       const container = document.getElementById("allCommentsList");
       if (window.appState.allComments.length === 0) {
-        container.innerHTML = '<p style="text-align: center; color: #999;">Todavía no hay comentarios</p>';
+        container.innerHTML = '<p style="text-align: center; color: #999; padding: 28px;">Todavía no hay comentarios</p>';
         return;
       }
 
@@ -1633,25 +1814,141 @@
 
         return `
           <div class="comment-card">
-            <div class="comment-header">
-              <img src="${comment.avatar}" alt="Avatar" class="comment-avatar">
-              <div class="comment-info">
-                <div>
+            <img src="${comment.avatar}" alt="Avatar" class="comment-avatar">
+            <div style="flex: 1; min-width: 0;">
+              <div class="comment-content">
+                <div class="comment-header">
                   <span class="comment-name">${comment.nombre}</span>
                   <span class="comment-stars">${stars}</span>
                 </div>
+                <p class="comment-text">${comment.comentario}</p>
               </div>
-            </div>
-            <p class="comment-text">${comment.comentario}</p>
-            <div class="comment-actions">
-              <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${comment.id}')">
-                ${isLiked ? '❤️' : '🤍'} ${comment.likes || 0}
-              </button>
-              <span class="comment-date">${fechaRelativa}</span>
+              <div class="comment-actions">
+                <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${comment.id}')">
+                  👍 ${comment.likes || 0}
+                </button>
+                <button class="reply-btn" onclick="toggleReplyInput('${comment.id}')">Responder</button>
+                <span class="comment-date">${fechaRelativa}</span>
+              </div>
+              ${comment.respuestas && comment.respuestas.length > 0 ? `
+                <div class="replies-container">
+                  ${comment.respuestas.map((reply, idx) => {
+                    const replyIsLiked = likedComments[comment.id + '_reply_' + idx];
+                    const replyTime = getRelativeTime(reply.fecha?.toDate?.() || new Date(reply.fecha));
+                    return `
+                      <div class="reply-item">
+                        <img src="${reply.avatar || 'avataruno.png'}" class="reply-avatar">
+                        <div style="flex: 1;">
+                          <div class="reply-content">
+                            <div class="reply-name">${reply.nombre}</div>
+                            <p class="reply-text">${reply.comentario}</p>
+                          </div>
+                          <div class="reply-actions">
+                            <button class="reply-like-btn ${replyIsLiked ? 'liked' : ''}" onclick="likeReply('${comment.id}', ${idx})">👍 ${reply.likes || 0}</button>
+                            <span class="reply-date">${replyTime}</span>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              ` : ''}
+              <div id="reply-input-${comment.id}" class="reply-input-container" style="display: none;">
+                <img src="${window.appState.selectedAvatar}" alt="Avatar" class="reply-input-avatar">
+                <div class="reply-input-box">
+                  <textarea class="reply-textarea" id="reply-text-${comment.id}" placeholder="Escribe una respuesta..."></textarea>
+                  <button class="reply-submit-btn" onclick="submitReply('${comment.id}')">→</button>
+                </div>
+              </div>
             </div>
           </div>
         `;
       }).join("");
+    };
+
+    // Toggle reply input
+    window.toggleReplyInput = function(commentId) {
+      const replyInput = document.getElementById("reply-input-" + commentId);
+      if (replyInput) {
+        replyInput.style.display = replyInput.style.display === "none" ? "flex" : "none";
+        if (replyInput.style.display === "flex") {
+          document.getElementById("reply-text-" + commentId)?.focus();
+        }
+      }
+    };
+
+    // Submit reply
+    window.submitReply = async function(commentId) {
+      const replyText = document.getElementById("reply-text-" + commentId)?.value?.trim();
+
+      if (!replyText || replyText.length < 2) {
+        alert("La respuesta debe tener al menos 2 caracteres");
+        return;
+      }
+
+      try {
+        // Find comment in allComments
+        const comment = window.appState.allComments.find(c => c.id === commentId);
+        if (!comment) return;
+
+        // Initialize respuestas array if it doesn't exist
+        if (!comment.respuestas) {
+          comment.respuestas = [];
+        }
+
+        // Add new reply
+        const newReply = {
+          nombre: document.getElementById("commentName").value.trim() || "Anónimo",
+          comentario: replyText,
+          fecha: new Date(),
+          avatar: window.appState.selectedAvatar,
+          likes: 0
+        };
+
+        comment.respuestas.push(newReply);
+
+        // Update in Firestore
+        await updateDoc(doc(db, "comentarios", commentId), {
+          respuestas: comment.respuestas
+        });
+
+        // Clear input
+        document.getElementById("reply-text-" + commentId).value = "";
+        toggleReplyInput(commentId);
+        renderAllComments();
+      } catch (error) {
+        console.error("Error submitting reply:", error);
+        alert("Error al guardar la respuesta");
+      }
+    };
+
+    // Like reply
+    window.likeReply = async function(commentId, replyIndex) {
+      const likeKey = commentId + "_reply_" + replyIndex;
+      const likedComments = window.appState.likedComments;
+      const isLiked = likedComments[likeKey];
+
+      try {
+        const comment = window.appState.allComments.find(c => c.id === commentId);
+        if (!comment || !comment.respuestas || !comment.respuestas[replyIndex]) return;
+
+        if (isLiked) {
+          delete likedComments[likeKey];
+          comment.respuestas[replyIndex].likes = Math.max(0, (comment.respuestas[replyIndex].likes || 1) - 1);
+        } else {
+          likedComments[likeKey] = true;
+          comment.respuestas[replyIndex].likes = (comment.respuestas[replyIndex].likes || 0) + 1;
+        }
+
+        await updateDoc(doc(db, "comentarios", commentId), {
+          respuestas: comment.respuestas
+        });
+
+        localStorage.setItem("likedComments", JSON.stringify(likedComments));
+        renderAllComments();
+      } catch (error) {
+        console.error("Error liking reply:", error);
+      }
     };
 
     // Utility: Relative time
