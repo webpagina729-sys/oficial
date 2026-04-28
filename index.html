@@ -1,2381 +1,1015 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Candy Paws • Snacks & Tortas para Mascotas</title>
-<link rel="icon" href="logoweb.png" type="image/png">
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600&display=swap');
-@font-face {
-  font-family: 'Inter';
-  src: url('https://fonts.cdnfonts.com/s/16219/GlacialIndifference-Regular.woff') format('woff');
-  font-weight: 400;
-}
-@font-face {
-  font-family: 'Inter';
-  src: url('https://fonts.cdnfonts.com/s/16219/GlacialIndifference-Bold.woff') format('woff');
-  font-weight: 700;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUWEB - Golosinas, Snacks y Tortas para Mascotas</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
 
-:root {
-  --magenta: #FF6A00;
-  --orange: #FF6A00;
-  --orange-deep: #e05800;
-  --cyan: #FF6A00;
-  --white: #ffffff;
-  --black: #0A0A0A;
-  --green-btn: #0A0A0A;
-  --overlay: rgba(0,0,0,0.72);
-  --accent: #FF6A00;
-  --text-body: #1a1a1a;
-  --surface: rgba(255,255,255,0.97);
-}
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --accent: #ffe66d;
+            --text: #2c3e50;
+            --light: #f8f9fa;
+            --gray: #95a5a6;
+        }
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-  background: none;
-  color: var(--white);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url('fondoweb.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -2;
-  pointer-events: none;
-}
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: var(--overlay);
-  z-index: -1;
-  pointer-events: none;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #fffaf0;
+        }
 
-/* ===== TYPOGRAPHY ===== */
-.title-anton {
-  font-family: 'Montserrat', sans-serif !important; font-weight: 900;
-  letter-spacing: 1px;
-}
-.text-glacial {
-  font-family: 'Inter', sans-serif !important;
-}
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
 
-/* ===== HEADER ===== */
-.header {
-  background: #0A0A0A;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 20px rgba(255,106,0,0.18);
-  border-bottom: 2px solid var(--orange);
-}
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  position: relative;
-  min-height: 60px;
-}
-.hamburger-btn {
-  position: absolute;
-  left: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 4px;
-  z-index: 10;
-}
-.hamburger-btn span {
-  display: block;
-  width: 26px;
-  height: 2.5px;
-  background: #ffffff;
-  border-radius: 2px;
-  transition: all 0.3s;
-}
-.header-brand {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: clamp(22px, 5vw, 32px);
-  color: var(--black);
-  letter-spacing: 2px;
-  text-align: center;
-}
-.header-logo {
-  position: absolute;
-  right: 16px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--orange);
-  box-shadow: 0 0 12px rgba(255,106,0,0.4);
-}
+        /* Banner superior */
+        .top-banner {
+            background: white;
+            padding: 12px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--text);
+        }
 
-/* ===== SIDEBAR ===== */
-.sidebar-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 1100;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s;
-}
-.sidebar-overlay.open { opacity: 1; pointer-events: all; }
+        /* Header / Navbar */
+        header {
+            background: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 55px;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-.sidebar {
-  position: fixed;
-  top: 0; left: 0;
-  width: min(300px, 85vw);
-  height: 100dvh;
-  background: linear-gradient(160deg, #0A0A0A 0%, #1a1a1a 100%);
-  z-index: 1200;
-  transform: translateX(-100%);
-  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-.sidebar.open { transform: translateX(0); }
+        .logo-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
 
-.sidebar-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 18px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-.sidebar-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 20px;
-  color: var(--white);
-  letter-spacing: 1px;
-}
-.sidebar-brand img {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255,255,255,0.5);
-}
-.sidebar-close {
-  background: rgba(255,106,0,0.15);
-  border: 1px solid rgba(255,106,0,0.3);
-  color: var(--white);
-  font-size: 20px;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-}
-.sidebar-close:hover { background: rgba(255,106,0,0.3); }
+        .hamburger {
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text);
+            z-index: 1200;
+        }
 
-.sidebar-nav {
-  padding: 20px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-}
-.sidebar-btn {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: var(--white);
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  padding: 13px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  text-align: left;
-  text-decoration: none;
-  display: block;
-  transition: all 0.25s;
-  letter-spacing: 0.3px;
-}
-.sidebar-btn:hover {
-  background: rgba(255,106,0,0.2);
-  border-color: var(--orange);
-  transform: translateX(4px);
-}
+        /* Menú lateral */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100vh;
+            background: white;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.2);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
 
-/* ===== RIGHT CURTAIN (generic) ===== */
-.curtain {
-  position: fixed;
-  top: 0; right: -110%;
-  width: min(420px, 100vw);
-  height: 100dvh;
-  background: var(--white);
-  color: var(--black);
-  z-index: 1300;
-  transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
-  display: flex;
-  flex-direction: column;
-  box-shadow: -8px 0 40px rgba(0,0,0,0.35);
-}
-.curtain.open { right: 0; }
-.curtain-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 20px 16px;
-  border-bottom: 2px solid var(--orange);
-  flex-shrink: 0;
-  background: #0A0A0A;
-}
-.curtain-head h2 {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  color: var(--magenta);
-  font-size: 20px;
-  letter-spacing: 1px;
-}
-.curtain-close {
-  background: var(--orange);
-  border: none;
-  color: var(--white);
-  font-size: 18px;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-}
-.curtain-close:hover { background: var(--orange-deep); }
-.curtain-body {
-  padding: 24px 20px;
-  overflow-y: auto;
-  flex: 1;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  line-height: 1.8;
-  color: #222;
-}
-.curtain-body ol {
-  padding-left: 20px;
-}
-.curtain-body ol li {
-  margin-bottom: 10px;
-}
-.curtain-footer {
-  padding: 16px 20px;
-  border-top: 1px solid #eee;
-  flex-shrink: 0;
-}
-.curtain-action-btn {
-  width: 100%;
-  padding: 14px;
-  background: var(--magenta);
-  color: var(--white);
-  border: none;
-  border-radius: 10px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 16px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.2s;
-}
-.curtain-action-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+        .side-menu.open {
+            left: 0;
+        }
 
-/* ===== CATALOG MODAL ===== */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 1400;
-  display: none;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 10px;
-  overflow-y: auto;
-}
-.modal-backdrop.open { display: flex; }
-.catalog-modal {
-  background: #f5f5f5;
-  border-radius: 18px;
-  width: 100%;
-  max-width: 960px;
-  margin: auto;
-  overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-}
-.catalog-modal-head {
-  background: #0A0A0A;
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.catalog-modal-head h2 {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  color: var(--white);
-  font-size: 22px;
-  letter-spacing: 2px;
-}
-.catalog-modal-close {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: var(--white);
-  font-size: 22px;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-}
-.catalog-modal-close:hover { background: rgba(255,255,255,0.35); }
-.catalog-modal-body {
-  padding: 24px 20px 30px;
-  overflow-y: auto;
-  max-height: 80vh;
-}
-.catalog-section-title {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  color: var(--magenta);
-  font-size: 18px;
-  letter-spacing: 1px;
-  margin: 24px 0 14px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid var(--magenta);
-}
+        .menu-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
 
-/* ===== PORTADAS ===== */
-.portada-wrap {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  line-height: 0;
-}
-.portada-wrap img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
+        .menu-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
 
-/* ===== MENSAJE FLOTANTE (mensajeweb.png) ===== */
-.mensaje-section {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  cursor: pointer;
-}
-.mensaje-hint {
-  background: rgba(255,255,255,0.95);
-  color: var(--black);
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 7px 20px;
-  border-radius: 30px;
-  margin-bottom: 8px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-  letter-spacing: 0.5px;
-}
-.mensaje-arrows {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 6px;
-}
-.mensaje-arrows span {
-  font-size: 20px;
-  color: var(--white);
-  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  line-height: 1.1;
-  animation: arrowBounce 1.6s infinite;
-}
-.mensaje-arrows span:nth-child(2) { animation-delay: 0.15s; }
-.mensaje-arrows span:nth-child(3) { animation-delay: 0.3s; }
-@keyframes arrowBounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-.mensaje-img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid var(--white);
-  box-shadow: 0 10px 35px rgba(0,0,0,0.4);
-  transition: transform 0.4s ease;
-  animation: float 4s ease-in-out infinite;
-}
-.mensaje-img:hover { transform: scale(1.07); }
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
+        .menu-header h2 {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
 
-/* ===== SECTION HEADINGS ===== */
-.section-wrap {
-  position: relative;
-  z-index: 2;
-  padding: 0 16px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.section-heading {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: clamp(20px, 5vw, 38px);
-  color: var(--white);
-  text-align: center;
-  margin: 44px 0 28px;
-  text-shadow: 2px 3px 12px rgba(0,0,0,0.7);
-  letter-spacing: 1.5px;
-}
-.section-subheading {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(14px, 3vw, 18px);
-  color: var(--cyan);
-  text-align: center;
-  margin-bottom: 8px;
-  font-weight: 700;
-  text-shadow: 1px 2px 8px rgba(0,0,0,0.6);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
+        .close-menu {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 32px;
+            cursor: pointer;
+            color: var(--gray);
+        }
 
-/* ===== PRODUCTS GRID — ALWAYS 2 COLUMNS ===== */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-bottom: 48px;
-}
+        .menu-item {
+            padding: 16px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s;
+        }
 
-/* ===== PRODUCT CARD ===== */
-.product-card {
-  background: #ffffff;
-  border-radius: 14px;
-  border: 1.5px solid rgba(255,106,0,0.18);
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 36px rgba(255,106,0,0.18);
-  border-color: rgba(255,106,0,0.5);
-}
-.product-card img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 10px;
-  border: none;
-  margin-bottom: 10px;
-  display: block;
-}
-.product-name {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: clamp(13px, 3vw, 17px);
-  color: var(--black);
-  margin-bottom: 4px;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-}
-.product-status {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: #666;
-  font-style: italic;
-  margin-bottom: 8px;
-  line-height: 1.3;
-}
-.product-prices {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-.price-old {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: #999;
-  text-decoration: line-through;
-}
-.price-new {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: clamp(15px, 3.5vw, 20px);
-  color: var(--magenta);
-  letter-spacing: 0.5px;
-}
-.product-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 7px;
-  margin-top: auto;
-}
-.btn-comprar {
-  background: var(--green-btn);
-  color: var(--black);
-  border: none;
-  padding: 9px 6px;
-  border-radius: 7px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-.btn-comprar:hover { background: #6bc98a; transform: translateY(-2px); }
-.btn-info {
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 9px 6px;
-  border-radius: 7px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-.btn-info:hover { background: #333; transform: translateY(-2px); }
-.buy-options {
-  display: none;
-  grid-template-columns: 1fr 1fr;
-  gap: 7px;
-  margin-top: 8px;
-}
-.buy-options.show { display: grid; }
-.btn-retirar {
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 8px 4px;
-  border-radius: 7px;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  cursor: pointer;
-  transition: all 0.25s;
-  line-height: 1.2;
-}
-.btn-retirar:hover { background: #333; }
-.btn-domicilio {
-  background: var(--green-btn);
-  color: var(--black);
-  border: none;
-  padding: 8px 4px;
-  border-radius: 7px;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  cursor: pointer;
-  transition: all 0.25s;
-  line-height: 1.2;
-}
-.btn-domicilio:hover { background: #6bc98a; }
+        .menu-item:hover {
+            color: var(--primary);
+            padding-left: 10px;
+        }
 
-/* ===== STEFI MODALS ===== */
-.stefi-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 1500;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.stefi-backdrop.open { display: flex; }
-.stefi-box {
-  background: var(--white);
-  color: var(--black);
-  border-radius: 18px;
-  max-width: 540px;
-  width: 100%;
-  max-height: 85dvh;
-  overflow-y: auto;
-  padding: 28px 24px;
-  position: relative;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-}
-.stefi-box h2 {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  color: var(--magenta);
-  font-size: 22px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 3px solid var(--magenta);
-  letter-spacing: 1px;
-}
-.stefi-box p {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  line-height: 1.8;
-  margin-bottom: 12px;
-  color: #222;
-}
-.stefi-close {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-  position: sticky;
-  bottom: 0;
-  background: var(--white);
-  padding-top: 10px;
-}
-.stefi-close-btn {
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 12px 44px;
-  border-radius: 30px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 16px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.stefi-close-btn:hover { background: #333; }
+        /* Submenú deslizable */
+        .submenu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2100;
+            padding: 80px 25px 30px;
+            overflow-y: auto;
+        }
 
-/* ===== INFO PRODUCT MODAL ===== */
-.info-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 1500;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.info-backdrop.open { display: flex; }
-.info-box {
-  background: var(--white);
-  color: var(--black);
-  border-radius: 18px;
-  max-width: 520px;
-  width: 100%;
-  max-height: 85dvh;
-  overflow-y: auto;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-}
-.info-head {
-  padding: 20px 22px 14px;
-  border-bottom: 2px solid var(--orange);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  background: var(--white);
-  z-index: 2;
-}
-.info-head h3 {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  color: var(--magenta);
-  font-size: 18px;
-  letter-spacing: 1px;
-}
-.info-close {
-  background: var(--black);
-  border: none;
-  color: var(--white);
-  font-size: 20px;
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.info-content {
-  padding: 20px 22px 30px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14.5px;
-  line-height: 1.8;
-  color: #222;
-}
-.info-content p { margin-bottom: 10px; }
+        .submenu.open {
+            right: 0;
+        }
 
-/* ===== COMMENTS SECTION ===== */
-.comments-section {
-  background: rgba(255,255,255,0.97);
-  border-radius: 18px;
-  padding: 36px 24px;
-  margin: 48px 0;
-  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-  color: var(--black);
-}
-.comments-title {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 26px;
-  color: var(--magenta);
-  text-align: center;
-  margin-bottom: 28px;
-  letter-spacing: 1.5px;
-}
-.avatars-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  max-width: 360px;
-  margin: 0 auto 8px;
-  justify-items: center;
-}
-/* Ver más avatares */
-.avatar-vermás-btn {
-  display: block;
-  margin: 0 auto 18px;
-  background: none;
-  border: 1px solid rgba(255,106,0,0.4);
-  color: var(--magenta);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  letter-spacing: 1px;
-  padding: 4px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.avatar-vermás-btn:hover { background: rgba(255,106,0,0.08); }
-/* Cortina de avatares (desde abajo) */
-#avatarDrawer {
-  position: fixed;
-  bottom: -100%;
-  left: 0; right: 0;
-  background: #fff;
-  color: #222;
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -8px 40px rgba(0,0,0,0.25);
-  z-index: 1400;
-  transition: bottom 0.35s cubic-bezier(0.4,0,0.2,1);
-  padding: 20px 20px 32px;
-  max-height: 70vh;
-  overflow-y: auto;
-}
-#avatarDrawer.open { bottom: 0; }
-#avatarDrawerOverlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 1399;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-#avatarDrawerOverlay.open { display: block; opacity: 1; }
-.avatar-drawer-handle {
-  width: 40px; height: 4px;
-  background: #ddd;
-  border-radius: 2px;
-  margin: 0 auto 16px;
-}
-.avatar-drawer-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  letter-spacing: 1.5px;
-  color: var(--magenta);
-  text-align: center;
-  margin-bottom: 16px;
-  font-weight: 700;
-}
-.avatar-drawer-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-  justify-items: center;
-}
-.avatar-drawer-opt {
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-.avatar-drawer-opt:active { transform: scale(0.9); }
-.avatar-drawer-opt img {
-  width: 54px; height: 54px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid transparent;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-  transition: all 0.25s;
-}
-.avatar-drawer-opt.selected img {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 4px rgba(255,106,0,0.2);
-}
-/* Carrito — contador rojo */
-#carritoContador {
-  position: absolute;
-  top: -6px; right: -6px;
-  background: #e74c3c;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-#btnCarritoWrap { position: relative; display: inline-block; }
-@keyframes carritoZoom {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.25); }
-  100% { transform: scale(1); }
-}
-.avatar-opt {
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.avatar-opt img {
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid transparent;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-  transition: all 0.3s;
-  display: block;
-}
-.avatar-opt.selected img {
-  border-color: var(--orange);
-  transform: scale(1.1);
-  box-shadow: 0 0 0 5px rgba(255,106,0,0.25);
-}
-.form-group {
-  margin-bottom: 18px;
-}
-.form-label {
-  display: block;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  margin-bottom: 7px;
-  color: var(--black);
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
-.form-input {
-  width: 100%;
-  padding: 13px 15px;
-  border: 2px solid var(--black);
-  border-radius: 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  transition: border-color 0.2s;
-  outline: none;
-}
-.form-input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,106,0,0.12); }
+        /* Hero */
+        .hero {
+            height: 100vh;
+            min-height: 650px;
+            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), url('https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadauno.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 110px;
+            position: relative;
+        }
 
-.stars-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 16px 0;
-}
-.star-btn {
-  font-size: 36px;
-  cursor: pointer;
-  color: #ddd;
-  transition: all 0.2s;
-  background: none;
-  border: none;
-  line-height: 1;
-}
-.star-btn.lit { color: #FFD700; }
-.star-btn:hover { transform: scale(1.2); }
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
 
-.write-comment-btn {
-  width: 100%;
-  padding: 15px;
-  background: var(--magenta);
-  color: var(--white);
-  border: none;
-  border-radius: 10px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 16px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.2s;
-  margin-top: 10px;
-}
-.write-comment-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
 
-/* Comment card (Facebook style) */
-.comment-card {
-  display: flex;
-  gap: 14px;
-  background: var(--white);
-  padding: 16px;
-  border-radius: 14px;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-  border: 1px solid #eee;
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-.comment-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,0.14); }
-/* Featured card highlight */
-.comment-card.featured-card {
-  background: #fff9f5;
-  border-left: 4px solid var(--orange);
-  box-shadow: 0 6px 22px rgba(255,106,0,0.13);
-}
-.comment-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2.5px solid var(--orange);
-  flex-shrink: 0;
-}
-.comment-body { flex: 1; min-width: 0; }
-.comment-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 6px;
-}
-.comment-name {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--black);
-}
-.comment-stars { color: #FFD700; font-size: 13px; }
-.comment-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #333;
-  margin-bottom: 10px;
-  word-break: break-word;
-}
-.comment-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.like-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: #666;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.2s;
-  padding: 4px 10px;
-  border-radius: 20px;
-}
-.like-btn:hover { background: rgba(255,106,0,0.08); color: var(--orange); }
-.like-btn.liked { color: var(--orange); background: rgba(255,106,0,0.08); }
-.like-btn .like-count { font-size: 12px; }
-.comment-date {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: #aaa;
-}
+        .hero p {
+            font-size: 1.35rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
 
-.featured-wrap {
-  margin: 20px 0;
-  display: none;
-}
-.featured-label {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: var(--magenta);
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.featured-label::before, .featured-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--orange);
-  opacity: 0.3;
-}
-/* Empty state */
-.comments-empty {
-  text-align: center;
-  padding: 40px 20px;
-  font-family: 'Inter', sans-serif;
-  color: #aaa;
-  font-size: 15px;
-}
-/* Curtain all-comments list spacing */
-#all-comments-list { padding: 16px 16px 40px; }
-/* Animate like pop */
-@keyframes likePopAnim {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.5); }
-  100% { transform: scale(1); }
-}
-.like-pop { animation: likePopAnim 0.35s ease; }
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.see-all-btn {
-  background: none;
-  border: 2px solid var(--black);
-  color: var(--black);
-  padding: 12px 28px;
-  border-radius: 30px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 15px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  display: block;
-  margin: 20px auto 0;
-  transition: all 0.2s;
-}
-.see-all-btn:hover { background: var(--black); color: var(--white); }
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.5);
+        }
 
-/* ===== COMMENT WRITE MODAL ===== */
-.write-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 1600;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.write-backdrop.open { display: flex; }
-.write-box {
-  background: var(--white);
-  color: var(--black);
-  border-radius: 18px;
-  max-width: 480px;
-  width: 100%;
-  padding: 28px 24px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-  position: relative;
-}
-.write-box h2 {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  color: var(--magenta);
-  font-size: 20px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 3px solid var(--magenta);
-  letter-spacing: 1px;
-}
-.write-textarea {
-  width: 100%;
-  height: 130px;
-  padding: 13px 15px;
-  border: 2px solid var(--black);
-  border-radius: 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  resize: vertical;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.write-textarea:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,106,0,0.12); }
-.write-send-btn {
-  width: 100%;
-  padding: 14px;
-  background: var(--magenta);
-  color: var(--white);
-  border: none;
-  border-radius: 10px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 16px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  margin-top: 14px;
-  transition: opacity 0.2s;
-}
-.write-send-btn:hover { opacity: 0.88; }
-.write-cancel-btn {
-  width: 100%;
-  padding: 11px;
-  background: none;
-  color: #666;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.2s;
-}
-.write-cancel-btn:hover { background: #f0f0f0; }
+        /* Secciones */
+        section {
+            padding: 90px 20px;
+        }
 
-/* ===== SUCCESS MODAL ===== */
-.success-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 1700;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.success-backdrop.open { display: flex; }
-.success-box {
-  background: var(--white);
-  color: var(--black);
-  border-radius: 18px;
-  max-width: 380px;
-  width: 100%;
-  padding: 36px 28px;
-  text-align: center;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-}
-.success-icon { font-size: 52px; margin-bottom: 14px; }
-.success-box h3 {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  color: var(--magenta);
-  font-size: 22px;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
-}
-.success-box p {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  color: #444;
-  margin-bottom: 22px;
-}
-.success-btns { display: flex; gap: 10px; }
-.success-accept {
-  flex: 1;
-  padding: 13px;
-  background: var(--magenta);
-  color: var(--white);
-  border: none;
-  border-radius: 10px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-.success-accept:hover { opacity: 0.88; }
-.success-seeall {
-  flex: 1;
-  padding: 13px;
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  border-radius: 10px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.success-seeall:hover { background: #333; }
+        .section-title {
+            text-align: center;
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
 
-/* ===== SOCIAL ===== */
-.social-section {
-  background: rgba(255,255,255,0.97);
-  border-radius: 18px;
-  padding: 40px 24px;
-  margin: 48px 0;
-  text-align: center;
-  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-}
-.social-section h2 {
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: clamp(18px, 4vw, 26px);
-  color: var(--magenta);
-  margin-bottom: 28px;
-  letter-spacing: 1px;
-}
-.social-icons-row {
-  display: flex;
-  justify-content: center;
-  gap: 22px;
-  flex-wrap: wrap;
-}
-.social-link {
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid var(--orange);
-  display: block;
-  transition: all 0.3s;
-}
-.social-link:hover { transform: scale(1.12); box-shadow: 0 6px 20px rgba(255,106,0,0.4); }
-.social-link img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            color: var(--gray);
+            font-size: 1.15rem;
+        }
 
-/* ===== FOOTER ===== */
-.footer {
-  background: #0A0A0A;
-  padding: 44px 20px;
-  text-align: center;
-  border-top: 3px solid var(--orange);
-}
-.footer-logo {
-  width: 80px; height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--orange);
-  margin-bottom: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 0 20px rgba(255,106,0,0.3);
-}
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-.footer-link-btn {
-  background: var(--magenta);
-  color: var(--white);
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-family: 'Montserrat', sans-serif; font-weight: 900;
-  font-size: 13px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.25s;
-}
-.footer-link-btn:hover { background: var(--orange); border-color: var(--orange); transform: translateY(-2px); }
+        /* Catálogo / Planes */
+        .catalogo-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-/* ===== WHATSAPP FLOAT ===== */
-.wa-float {
-  position: fixed;
-  bottom: 24px;
-  right: 20px;
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  overflow: hidden;
-  z-index: 900;
-  box-shadow: 0 6px 22px rgba(37,211,102,0.55), 0 0 0 3px rgba(255,106,0,0.18);
-  transition: transform 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #25D366;
-}
-.wa-float:hover { transform: scale(1.1); }
-.wa-float img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .portada {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 50px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
 
-/* ===== SPACER ===== */
-.spacer-sm { height: 20px; }
-.spacer-md { height: 40px; }
+        .portada img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-/* ===== RESPONSIVE — mobile first (2 cols always) ===== */
-@media (max-width: 420px) {
-  .products-grid { gap: 10px; }
-  .product-card { padding: 10px; }
-  .product-card img { margin-bottom: 7px; }
-  .product-name { font-size: 12px; }
-  .price-new { font-size: 14px; }
-  .btn-comprar, .btn-info { font-size: 11px; padding: 8px 4px; }
-  .section-heading { font-size: 18px; margin: 32px 0 20px; }
-}
-.product-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.product-actions > button:nth-child(1),
-.product-actions > button:nth-child(2) { width: calc(50% - 4px); }
-.product-actions > button:nth-child(3) { width: 100%; }
-#btnCarrito:active { transform: scale(0.85); }
-/* FIX 1: curtain-info siempre encima del catálogo */
-#curtain-info { z-index: 1500; }
-/* FIX 2: portada del carrito sin recorte */
-#curtain-carrito .curtain-body img:first-child {
-  width: 100%;
-  height: auto;
-  max-height: none;
-  object-fit: cover;
-  display: block;
-}
-/* ===== TUWEB KEYFRAMES ===== */
-@keyframes twIconPulse {
-  0%,100% { box-shadow: 0 8px 32px rgba(255,106,0,0.45), 0 0 40px rgba(255,106,0,0.15); }
-  50%      { box-shadow: 0 10px 40px rgba(255,106,0,0.65), 0 0 70px rgba(255,106,0,0.30); }
-}
-@keyframes twOrbitSpin {
-  from { transform: translate(-50%,-50%) rotate(0deg); }
-  to   { transform: translate(-50%,-50%) rotate(360deg); }
-}
-@keyframes twIconFlip {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(-360deg); }
-}
-/* hero CTA hover via JS or via CSS adjacent */
-</style>
+        .texto-portada {
+            max-width: 800px;
+            margin: 0 auto 70px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #34495e;
+        }
+
+        .texto-portada ul {
+            margin: 25px 0;
+            padding-left: 25px;
+        }
+
+        .texto-portada li {
+            margin-bottom: 12px;
+        }
+
+        /* Botón Ver Planes */
+        .ver-planes-btn {
+            display: block;
+            width: 92%;
+            max-width: 420px;
+            margin: 40px auto;
+            background: transparent;
+            border: none;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+            cursor: pointer;
+            padding: 20px 0;
+        }
+
+        .flecha-abajo {
+            display: block;
+            margin: 10px auto 0;
+            font-size: 28px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40%, 70% { transform: translateY(15px); }
+        }
+
+        /* Cortina planes */
+        .cortina-planes {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fffaf0;
+        }
+
+        .cortina-planes.open {
+            max-height: 5000px;
+        }
+
+        /* Comentarios */
+        .comentarios-section {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 320px;
+            margin: 0 auto 30px;
+        }
+
+        .avatar-option {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .avatar-option.selected {
+            border-color: var(--primary);
+            transform: scale(1.12);
+        }
+
+        .avatar-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .star-rating {
+            font-size: 28px;
+            color: #ddd;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .star-rating .star {
+            color: #f1c40f;
+        }
+
+        .comment-form {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        textarea {
+            width: 100%;
+            height: 130px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .submit-comment {
+            margin-top: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Comentarios mostrados */
+        .comentarios-lista {
+            max-width: 800px;
+            margin: 60px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .comentario-card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .comentario-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .comentario-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .like-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: #95a5a6;
+        }
+
+        .like-btn.liked {
+            color: #e74c3c;
+        }
+
+        /* Modal flotante comentarios */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background: white;
+            width: 95%;
+            max-width: 720px;
+            max-height: 92vh;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Redes */
+        .redes-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(#fffaf0, white);
+        }
+
+        .redes-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .redes-icons img {
+            width: 68px;
+            transition: transform 0.3s;
+        }
+
+        .redes-icons img:hover {
+            transform: scale(1.15) rotate(8deg);
+        }
+
+        /* Footer banner */
+        footer {
+            background: white;
+            padding: 50px 20px 30px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        footer img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
+        /* Animaciones suaves */
+        .smooth {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            .section-title {
+                font-size: 2.1rem;
+            }
+            .avatar-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-  <div class="header-inner">
-    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </button>
-    <span class="header-brand"><span style="color:#FF6A00;">TU</span>WEB</span>
-    <img src="logoweb.png" alt="Logo Candy Paws" class="header-logo">
-  </div>
-</header>
-
-<!-- ===== SIDEBAR OVERLAY ===== -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<!-- ===== SIDEBAR ===== -->
-<nav class="sidebar" id="sidebar">
-  <div class="sidebar-head">
-    <div class="sidebar-brand">
-      <img src="logoweb.png" alt="Logo">
-      <span>Candy Paws</span>
-    </div>
-    <button class="sidebar-close" id="sidebarClose" aria-label="Cerrar menú">&#8592;</button>
-  </div>
-  <div class="sidebar-nav">
-    <button class="sidebar-btn" onclick="openCurtain('comprar')">🛒 Cómo Comprar</button>
-    <button class="sidebar-btn" onclick="openCurtain('encargo')">📦 Cómo hacer un encargue</button>
-    <button class="sidebar-btn" onclick="openCatalog()">🏪 Ir a la tienda</button>
-    <a class="sidebar-btn" href="https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta." target="_blank">💬 Contacto</a>
-    <button class="sidebar-btn" onclick="scrollToSocial()">📲 Seguinos en redes</button>
-  </div>
-</nav>
-
-<!-- ===== CURTAIN: CÓMO COMPRAR ===== -->
-<div class="curtain" id="curtain-comprar">
-  <div class="curtain-head">
-    <h2>CÓMO COMPRAR</h2>
-    <button class="curtain-close" onclick="closeCurtain('comprar')">&#10005;</button>
-  </div>
-  <div class="curtain-body">
-    <ol>
-      <li>Entrá al catálogo.</li>
-      <li>Elegí el producto que tu mascota necesita.</li>
-      <li>Hacé clic en <strong>Comprar</strong>.</li>
-      <li>Realizá el pago de forma segura.</li>
-      <li>Completá tus datos o mandá mensaje por WhatsApp.</li>
-      <li>¡Listo! Nosotros nos encargamos del resto.</li>
-    </ol>
-  </div>
-  <div class="curtain-footer">
-    <button class="curtain-action-btn" onclick="openCatalog(); closeCurtain('comprar');">Ver todos los productos</button>
-  </div>
-</div>
-
-<!-- ===== CURTAIN: CÓMO ENCARGUE ===== -->
-<div class="curtain" id="curtain-encargo">
-  <div class="curtain-head">
-    <h2>CÓMO HACER UN ENCARGUE</h2>
-    <button class="curtain-close" onclick="closeCurtain('encargo')">&#10005;</button>
-  </div>
-  <div class="curtain-body">
-    <ol>
-      <li>Entrá al catálogo de Tortas.</li>
-      <li>Elegí el producto.</li>
-      <li>Hacé clic en <strong>Hacer pedido</strong>.</li>
-      <li>Pagá la seña del 50%.</li>
-      <li>Completá tus datos o por WhatsApp.</li>
-      <li>¡Listo!</li>
-    </ol>
-  </div>
-  <div class="curtain-footer">
-    <button class="curtain-action-btn" onclick="openCatalog(); closeCurtain('encargo');">Ver todos los productos</button>
-  </div>
-</div>
-
-<!-- ===== CURTAIN: INFO PRODUCTO ===== -->
-<div class="curtain" id="curtain-info">
-  <div class="curtain-head">
-    <h2 id="curtain-info-title">INFORMACIÓN</h2>
-    <button class="curtain-close" onclick="closeCurtain('info')">&#10005;</button>
-  </div>
-  <div class="curtain-body" id="curtain-info-body"></div>
-</div>
-
-<!-- ===== CURTAIN: TODOS LOS COMENTARIOS ===== -->
-<div class="curtain" id="curtain-comments">
-  <div class="curtain-head">
-    <h2>TODOS LOS COMENTARIOS</h2>
-    <button class="curtain-close" onclick="closeCurtain('comments')">&#10005;</button>
-  </div>
-  <div class="curtain-body" id="all-comments-list">
-    <p style="text-align:center;padding:40px 20px;color:#aaa;font-family: 'Inter',sans-serif;">Cargando comentarios...</p>
-  </div>
-</div>
-
-<!-- ===== CATALOG MODAL ===== -->
-<div class="modal-backdrop" id="catalogBackdrop">
-  <div class="catalog-modal">
-    <div class="catalog-modal-head">
-      <h2>NUESTRA TIENDA</h2>
-      <button class="catalog-modal-close" onclick="closeCatalog()">&#10005;</button>
-    </div>
-    <div class="catalog-modal-body" id="catalogBody">
-      <!-- Rendered by JS -->
-    </div>
-  </div>
-</div>
-
-<!-- ===== STEFI MODAL 1 ===== -->
-<div class="stefi-backdrop" id="stefi1">
-  <div class="stefi-box">
-    <h2>¡Hola! Soy Stefi 🐾</h2>
-    <p>Hola, me presento para los que todavía no me conocen: soy Stefi, una apasionada de los animales.</p>
-    <p>Siempre me pasa lo mismo… estoy tomando unos mates, comiendo galletitas y mi mascota se queda mirándome con esos ojitos que dicen "¿y yo qué?".</p>
-    <p>Quería comer las Oreos como yo, pero sé que le hacen súper mal al estómago.</p>
-    <p>Por eso ideé todo esto: crear snacks ricos y saludables para que ella (y todos los peluditos) también puedan disfrutar del momento sin preocupaciones.</p>
-    <p>Les quiero contar con mucho cariño todo lo que preparo para que nuestras mascotas disfruten sano y rico.</p>
-    <p>Acá vas a encontrar gomitas de colágeno que ayudan a las articulaciones y al pelaje, y también tortas, budines y galletitas.</p>
-    <p>Snack y golosinas siempre en stock.</p>
-    <p>¡Para que mientras vos tomás mate y comés galletitas, tu mascota también tenga su merienda especial y saludable!</p>
-    <p>Y los budines/tortas hechas por encargo, todo 100% natural para que también tengan su fiesta.</p>
-    <p>Escribime por WhatsApp y armamos tu pedido juntos ❤️</p>
-    <div class="stefi-close">
-      <button class="stefi-close-btn" onclick="closeStefi(1)">Cerrar</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== STEFI MODAL 2 ===== -->
-<div class="stefi-backdrop" id="stefi2">
-  <div class="stefi-box">
-    <h2>Acerca de nuestros productos 💛</h2>
-    <p>Todo lo que preparo es hecho con amor en casa, con receta casera, usando solo ingredientes que yo misma le daría a mi propia mascota.</p>
-    <p>Nada de colorantes, nada de conservantes, nada artificial. Solo cosas ricas y sanas que realmente les hacen bien: ayudan a las articulaciones, dejan el pelaje más brillante y les dan una merienda que pueden disfrutar sin culpa.</p>
-    <p>¿Cómo podés agasajarla todavía más? Te recomiendo las combinaciones que más me piden los clientes:</p>
-    <p>• Una torta de cumpleaños + gomitas de topping para decorarla bien linda<br>
-       • Un budín + galletitas para compartir tranquilos en casa<br>
-       • O directamente el Pack "Fiesta Completa": torta + gomitas de topping + galletitas surtidas</p>
-    <p>Así tu mascota tiene su propia fiesta rica y saludable, y vos podés estar 100% tranquila.</p>
-    <p>Y si no sabés qué sabor elegir o querés que te ayude a armar algo especial según la edad, el tamaño o las preferencias de tu peludito, te ofrezco una consulta personalizada gratuita. Solo escribime y charlamos con gusto para encontrar exactamente lo que mejor le va a tu mascota.</p>
-    <p>Porque al final... nuestros peluditos nos dan tanto amor todos los días. ¿No se merecen ellos también un mimo especial, hecho con amor en casa y pensado solo para su bienestar?</p>
-    <p>Yo lo hago con todo el cariño del mundo, y sé que a tu mascota le va a encantar.</p>
-    <p>¿Querés agasajarla hoy? Podés comprar directamente desde la web (yo me encargo de todo) o mandarme mensaje por WhatsApp y coordinamos tu pedido juntos.</p>
-    <p>Estoy acá para ayudarte a hacer feliz a ese ser tan especial que tenés en casa ❤️</p>
-    <div class="stefi-close">
-      <button class="stefi-close-btn" onclick="closeStefi(2)">Cerrar</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== WRITE COMMENT MODAL ===== -->
-<div class="write-backdrop" id="writeBackdrop">
-  <div class="write-box">
-    <h2>ESCRIBIR COMENTARIO</h2>
-    <textarea
-      class="write-textarea"
-      id="comentarioText"
-      placeholder="¿Qué te parecieron nuestros productos?"
-      style="width:100%;height:120px;padding:14px;border-radius:12px;border:1.5px solid #ddd;font-family: 'Inter',sans-serif;font-size:15px;resize:none;outline:none;transition:border-color 0.2s;background:#fafafa;"
-      onfocus="this.style.borderColor='#FF6A00'"
-      onblur="this.style.borderColor='#ddd'"
-    ></textarea>
-    <div style="margin-top:16px;display:flex;justify-content:center;">
-      <div class="g-recaptcha" data-sitekey="6LcWAsQsAAAAAE77NP8tHGW3DwknCVnEC_z9bTAe"></div>
-    </div>
-    <p id="recaptchaError" style="display:none;color:#c0392b;font-family: 'Inter',sans-serif;font-size:13px;text-align:center;margin-top:8px;font-weight:700;">⚠️ Verificá que no sos un robot</p>
-    <button class="write-send-btn" onclick="submitComment()">Enviar comentario</button>
-    <button class="write-cancel-btn" onclick="closeWriteModal()">Cancelar</button>
-  </div>
-</div>
-
-<!-- ===== SUCCESS MODAL ===== -->
-<div class="success-backdrop" id="successBackdrop">
-  <div class="success-box">
-    <div class="success-icon">🐾</div>
-    <h3>¡Gracias!</h3>
-    <p>Tu comentario fue recibido con éxito.</p>
-    <div class="success-btns">
-      <button class="success-accept" onclick="closeSuccess()">Aceptar</button>
-      <button class="success-seeall" onclick="closeSuccess(); openCurtain('comments');">Ver todos</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MAIN ===== -->
-<main style="position:relative;z-index:2;">
-
-  <!-- ===== TUWEB HERO ===== -->
-  <section style="background:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(40px,8vw,80px) 20px clamp(48px,9vw,90px);position:relative;overflow:hidden;">
-    <!-- grid texture -->
-    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,106,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,106,0,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;"></div>
-
-    <!-- App icon -->
-    <div style="width:clamp(68px,13vw,88px);height:clamp(68px,13vw,88px);border-radius:20px;background:linear-gradient(135deg,#FF8C00,#FF4500);display:flex;align-items:center;justify-content:center;margin-bottom:clamp(16px,3vw,24px);box-shadow:0 8px 32px rgba(255,106,0,0.45),0 0 60px rgba(255,106,0,0.18);animation:twIconPulse 3s ease-in-out infinite;position:relative;z-index:2;">
-      <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(22px,5vw,34px);color:#fff;letter-spacing:-3px;line-height:1;">T<span style="opacity:0.8;">W</span></span>
+    <!-- Banner superior -->
+    <div class="top-banner">
+        TUWEB
     </div>
 
-    <!-- Orbit + logo -->
-    <div style="position:relative;display:flex;align-items:center;justify-content:center;width:clamp(200px,50vw,310px);height:clamp(200px,50vw,310px);margin-bottom:clamp(18px,4vw,28px);">
-      <!-- SVG circuit ring -->
-      <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);animation:twOrbitSpin 28s linear infinite;" width="310" height="310" viewBox="0 0 310 310" xmlns="http://www.w3.org/2000/svg">
-        <defs><filter id="og"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <circle cx="155" cy="155" r="135" fill="none" stroke="#FF6A00" stroke-width="1.2" stroke-dasharray="6 10" stroke-linecap="round" opacity="0.4" filter="url(#og)"/>
-        <circle cx="155" cy="155" r="120" fill="none" stroke="#FF6A00" stroke-width="0.5" stroke-dasharray="2 16" opacity="0.2"/>
-        <circle cx="155" cy="20"  r="3.2" fill="#FF6A00" opacity="0.7" filter="url(#og)"/>
-        <circle cx="270" cy="82"  r="3.2" fill="#FF6A00" opacity="0.7" filter="url(#og)"/>
-        <circle cx="270" cy="228" r="3.2" fill="#FF6A00" opacity="0.7" filter="url(#og)"/>
-        <circle cx="155" cy="290" r="3.2" fill="#FF6A00" opacity="0.7" filter="url(#og)"/>
-        <circle cx="40"  cy="228" r="3.2" fill="#FF6A00" opacity="0.7" filter="url(#og)"/>
-        <circle cx="40"  cy="82"  r="3.2" fill="#FF6A00" opacity="0.7" filter="url(#og)"/>
-        <line x1="155" y1="20" x2="155" y2="6" stroke="#FF6A00" stroke-width="1" opacity="0.4"/>
-        <line x1="270" y1="82" x2="281" y2="72" stroke="#FF6A00" stroke-width="1" opacity="0.4"/>
-        <line x1="270" y1="228" x2="281" y2="238" stroke="#FF6A00" stroke-width="1" opacity="0.4"/>
-        <line x1="155" y1="290" x2="155" y2="304" stroke="#FF6A00" stroke-width="1" opacity="0.4"/>
-        <line x1="40"  y1="228" x2="29" y2="238" stroke="#FF6A00" stroke-width="1" opacity="0.4"/>
-        <line x1="40"  y1="82"  x2="29" y2="72"  stroke="#FF6A00" stroke-width="1" opacity="0.4"/>
-        <circle cx="207" cy="28"  r="1.8" fill="#FF6A00" opacity="0.3"/>
-        <circle cx="103" cy="28"  r="1.8" fill="#FF6A00" opacity="0.3"/>
-        <circle cx="261" cy="155" r="1.8" fill="#FF6A00" opacity="0.3"/>
-        <circle cx="49"  cy="155" r="1.8" fill="#FF6A00" opacity="0.3"/>
-        <circle cx="207" cy="282" r="1.8" fill="#FF6A00" opacity="0.3"/>
-        <circle cx="103" cy="282" r="1.8" fill="#FF6A00" opacity="0.3"/>
-      </svg>
-
-      <!-- Orbit icons (counter-rotate so they stay upright) -->
-      <!-- top -->
-      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:clamp(28px,5.5vw,40px);height:clamp(28px,5.5vw,40px);background:#fff;border-radius:9px;border:1.5px solid rgba(255,106,0,0.22);display:flex;align-items:center;justify-content:center;color:#FF6A00;font-size:clamp(11px,2.5vw,16px);box-shadow:0 3px 12px rgba(255,106,0,0.12);animation:twIconFlip 28s linear infinite;z-index:3;"><i class="fa-solid fa-code"></i></div>
-      <!-- top-right -->
-      <div style="position:absolute;top:12%;right:1%;width:clamp(28px,5.5vw,40px);height:clamp(28px,5.5vw,40px);background:#fff;border-radius:9px;border:1.5px solid rgba(255,106,0,0.22);display:flex;align-items:center;justify-content:center;color:#FF6A00;font-size:clamp(11px,2.5vw,16px);box-shadow:0 3px 12px rgba(255,106,0,0.12);animation:twIconFlip 28s linear infinite;z-index:3;"><i class="fa-solid fa-globe"></i></div>
-      <!-- right -->
-      <div style="position:absolute;top:50%;right:-2%;transform:translateY(-50%);width:clamp(28px,5.5vw,40px);height:clamp(28px,5.5vw,40px);background:#fff;border-radius:9px;border:1.5px solid rgba(255,106,0,0.22);display:flex;align-items:center;justify-content:center;color:#FF6A00;font-size:clamp(11px,2.5vw,16px);box-shadow:0 3px 12px rgba(255,106,0,0.12);animation:twIconFlip 28s linear infinite;z-index:3;"><i class="fa-solid fa-desktop"></i></div>
-      <!-- bottom-right -->
-      <div style="position:absolute;bottom:12%;right:1%;width:clamp(28px,5.5vw,40px);height:clamp(28px,5.5vw,40px);background:#fff;border-radius:9px;border:1.5px solid rgba(255,106,0,0.22);display:flex;align-items:center;justify-content:center;color:#FF6A00;font-size:clamp(11px,2.5vw,16px);box-shadow:0 3px 12px rgba(255,106,0,0.12);animation:twIconFlip 28s linear infinite;z-index:3;"><i class="fa-solid fa-cart-shopping"></i></div>
-      <!-- bottom -->
-      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:clamp(28px,5.5vw,40px);height:clamp(28px,5.5vw,40px);background:#fff;border-radius:9px;border:1.5px solid rgba(255,106,0,0.22);display:flex;align-items:center;justify-content:center;color:#FF6A00;font-size:clamp(11px,2.5vw,16px);box-shadow:0 3px 12px rgba(255,106,0,0.12);animation:twIconFlip 28s linear infinite;z-index:3;"><i class="fa-solid fa-user"></i></div>
-      <!-- bottom-left -->
-      <div style="position:absolute;bottom:12%;left:1%;width:clamp(28px,5.5vw,40px);height:clamp(28px,5.5vw,40px);background:#fff;border-radius:9px;border:1.5px solid rgba(255,106,0,0.22);display:flex;align-items:center;justify-content:center;color:#FF6A00;font-size:clamp(11px,2.5vw,16px);box-shadow:0 3px 12px rgba(255,106,0,0.12);animation:twIconFlip 28s linear infinite;z-index:3;"><i class="fa-solid fa-chart-line"></i></div>
-      <!-- left -->
-      <div style="position:absolute;top:50%;left:-2%;transform:translateY(-50%);width:clamp(28px,5.5vw,40px);height:clamp(28px,5.5vw,40px);background:#fff;border-radius:9px;border:1.5px solid rgba(255,106,0,0.22);display:flex;align-items:center;justify-content:center;color:#FF6A00;font-size:clamp(11px,2.5vw,16px);box-shadow:0 3px 12px rgba(255,106,0,0.12);animation:twIconFlip 28s linear infinite;z-index:3;"><i class="fa-solid fa-gear"></i></div>
-      <!-- top-left -->
-      <div style="position:absolute;top:12%;left:1%;width:clamp(28px,5.5vw,40px);height:clamp(28px,5.5vw,40px);background:#fff;border-radius:9px;border:1.5px solid rgba(255,106,0,0.22);display:flex;align-items:center;justify-content:center;color:#FF6A00;font-size:clamp(11px,2.5vw,16px);box-shadow:0 3px 12px rgba(255,106,0,0.12);animation:twIconFlip 28s linear infinite;z-index:3;"><i class="fa-solid fa-mobile-screen-button"></i></div>
-
-      <!-- Central logo -->
-      <img src="logoweb.png" alt="Logo" style="width:clamp(85px,17vw,125px);height:clamp(85px,17vw,125px);border-radius:50%;object-fit:cover;position:relative;z-index:2;border:3px solid rgba(255,106,0,0.35);box-shadow:0 6px 28px rgba(0,0,0,0.15);">
-    </div>
-
-    <!-- Brand -->
-    <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(2.5rem,8vw,5.5rem);letter-spacing:-0.04em;text-transform:uppercase;color:#0A0A0A;line-height:0.95;text-align:center;margin-bottom:clamp(8px,2vw,14px);position:relative;z-index:2;">TU<span style="color:#FF6A00;">WEB</span></h1>
-
-    <!-- Tagline -->
-    <p style="font-family:'Inter',sans-serif;font-weight:300;font-size:clamp(0.75rem,2vw,0.95rem);color:#666;letter-spacing:0.18em;text-transform:uppercase;text-align:center;margin-bottom:clamp(22px,5vw,36px);position:relative;z-index:2;">Tu presencia digital &nbsp;·&nbsp; Profesional &amp; Premium</p>
-
-    <!-- CTA -->
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;position:relative;z-index:2;">
-      <button onclick="openCatalog()" style="background:#0A0A0A;color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(0.78rem,2vw,0.88rem);letter-spacing:0.06em;padding:clamp(10px,2vw,13px) clamp(20px,4vw,30px);border-radius:50px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all 0.25s;"><i class="fa-solid fa-store"></i> Ver productos</button>
-      <a href="https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta." target="_blank" style="background:transparent;color:#0A0A0A;font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(0.78rem,2vw,0.88rem);letter-spacing:0.06em;padding:clamp(10px,2vw,13px) clamp(20px,4vw,30px);border-radius:50px;border:2px solid #0A0A0A;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:all 0.25s;"><i class="fa-brands fa-whatsapp"></i> Contactar</a>
-    </div>
-  </section>
-  <!-- Orange divider -->
-  <div style="width:100%;height:3px;background:linear-gradient(90deg,transparent,#FF6A00 35%,#FF4500 65%,transparent);"></div>
-
-  <!-- PORTADA 1 -->
-  <div class="portada-wrap">
-    <img src="portadauno.png" alt="Portada 1">
-  </div>
-
-  <!-- PORTADA 2 -->
-  <div class="portada-wrap">
-    <img src="portadados.png" alt="Portada 2">
-  </div>
-
-  <!-- MENSAJE FLOTANTE 1 -->
-  <div class="mensaje-section" onclick="openStefi(1)">
-    <div class="mensaje-hint">✨ Toca para conocerme ✨</div>
-    <div class="mensaje-arrows">
-      <span>▼</span><span>▼</span><span>▼</span>
-    </div>
-    <img src="mensajeweb.png" alt="Mensaje" class="mensaje-img">
-  </div>
-
-  <!-- PORTADA 3 -->
-  <div class="portada-wrap">
-    <img src="portadatres.png" alt="Portada 3">
-  </div>
-
-  <!-- SECCIÓN GOMITAS -->
-  <div class="section-wrap">
-    <h2 class="section-heading">GOMITAS DE COLÁGENO 100% NATURAL</h2>
-    <div class="products-grid" id="grid-gomitas"></div>
-  </div>
-
-  <!-- PORTADA 4 -->
-  <div class="portada-wrap">
-    <img src="portadacuatro.png" alt="Portada 4">
-  </div>
-
-  <!-- SECCIÓN GALLETITAS -->
-  <div class="section-wrap">
-    <p class="section-subheading">LO MEJOR PARA TU MASCOTA</p>
-    <h2 class="section-heading">SNACKS SALUDABLES</h2>
-    <div class="products-grid" id="grid-galletitas"></div>
-  </div>
-
-  <!-- PORTADA 5 -->
-  <div class="portada-wrap">
-    <img src="portadacinco.png" alt="Portada 5">
-  </div>
-
-  <!-- SECCIÓN TORTAS -->
-  <div class="section-wrap">
-    <h2 class="section-heading">TORTAS 100% NATURAL, SIN CONSERVANTES</h2>
-    <div class="products-grid" id="grid-tortas"></div>
-  </div>
-
-  <!-- PORTADA 6 -->
-  <div class="portada-wrap">
-    <img src="portadaseis.png" alt="Portada 6">
-  </div>
-
-  <!-- SECCIÓN BUDINES Y CUPCAKES -->
-  <div class="section-wrap">
-    <h2 class="section-heading">CUP CAKE &amp; BUDÍN 100% NATURAL</h2>
-    <div class="products-grid" id="grid-budines"></div>
-  </div>
-
-  <!-- MENSAJE FLOTANTE 2 -->
-  <div class="mensaje-section" onclick="openStefi(2)">
-    <div class="mensaje-hint">✨ Toca para más información ✨</div>
-    <div class="mensaje-arrows">
-      <span>▼</span><span>▼</span><span>▼</span>
-    </div>
-    <img src="mensajeweb.png" alt="Mensaje" class="mensaje-img">
-  </div>
-
-  <!-- SECCIÓN COMENTARIOS -->
-  <div class="section-wrap">
-    <div class="comments-section">
-      <h2 class="comments-title">CONTANOS TU EXPERIENCIA</h2>
-
-      <h3 style="text-align:center;margin-bottom:14px;font-family: 'Inter',sans-serif;font-size:14px;color:#444;font-weight:700;letter-spacing:1px;">ELEGÍ TU AVATAR</h3>
-      <div class="avatars-row" id="avatarsRow"></div>
-      <button class="avatar-vermás-btn" onclick="abrirAvatarDrawer()">+ ver más avatares</button>
-
-      <div class="form-group">
-        <label class="form-label">Tu nombre:</label>
-        <input type="text" id="nombreInput" class="form-input" placeholder="Escribe tu nombre">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" style="text-align:center;display:block;">Calificación:</label>
-        <div class="stars-row" id="starsRow">
-          <button class="star-btn" data-v="1">★</button>
-          <button class="star-btn" data-v="2">★</button>
-          <button class="star-btn" data-v="3">★</button>
-          <button class="star-btn" data-v="4">★</button>
-          <button class="star-btn" data-v="5">★</button>
+    <!-- Header -->
+    <header>
+        <div class="logo-header">
+            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/logoweb.png" alt="Logo TUWEB" style="height: 42px;">
+            <span>TUWEB</span>
         </div>
-      </div>
+        <div class="hamburger" id="hamburger">☰</div>
+    </header>
 
-      <button class="write-comment-btn" onclick="openWriteModal()">✍️ Escribir comentario</button>
+    <!-- Menú lateral -->
+    <div class="side-menu" id="sideMenu">
+        <div class="close-menu" id="closeMenu">×</div>
+        
+        <div class="menu-header">
+            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/logoweb.png" alt="Logo">
+            <h2>TUWEB</h2>
+        </div>
 
-      <!-- Comentario destacado -->
-      <div class="featured-wrap" id="featuredWrap">
-        <div class="featured-label">⭐ Comentario destacado</div>
-        <div id="featuredComment"></div>
-      </div>
-
-      <button class="see-all-btn" onclick="openCurtain('comments')">Ver todos los comentarios ↓</button>
+        <div class="menu-item" onclick="openSubmenu('como')">Cómo lo desarrollamos</div>
+        <div class="menu-item" onclick="contactarWhatsApp()">Contacto</div>
+        <div class="menu-item" onclick="scrollToRedes()">Seguinos en redes</div>
     </div>
-  </div>
 
-  <!-- REDES SOCIALES -->
-  <div class="section-wrap">
-    <div class="social-section" id="social">
-      <h2>Seguinos para no perderte nuestras Ofertas</h2>
-      <div class="social-icons-row">
-        <a href="https://www.facebook.com/stefi.bordenave" target="_blank" class="social-link">
-          <img src="facebookweb.png" alt="Facebook">
+    <!-- Submenú deslizable -->
+    <div class="submenu" id="submenuComo">
+        <div class="close-menu" onclick="closeSubmenu()">×</div>
+        <h2 style="margin-bottom: 30px; color: var(--primary);">Cómo lo desarrollamos</h2>
+        
+        <ol style="font-size: 1.1rem; line-height: 2; padding-left: 20px;">
+            <li>Ver Planes</li>
+            <li>Elegí el formato que más se adapte a vos.</li>
+            <li>Hacé clic en el botón <strong>ELEGIR ESTE PLAN</strong>.</li>
+            <li>Realizá la seña 50% de forma segura.</li>
+            <li>Completá tus datos en el formulario o enviáselos directamente a Stefy por WhatsApp.</li>
+            <li>¡Y listo! Nosotros nos encargamos del resto.</li>
+        </ol>
+
+        <a href="#paginas-web" style="display: inline-block; margin-top: 40px; color: var(--primary); text-decoration: none; font-weight: 600;">
+            Ver más información →
         </a>
-        <a href="https://www.instagram.com/canndypaws/" target="_blank" class="social-link">
-          <img src="instagramweb.png" alt="Instagram">
-        </a>
-        <a href="https://www.tiktok.com/@canndypaws" target="_blank" class="social-link">
-          <img src="tiktokweb.png" alt="TikTok">
-        </a>
-      </div>
     </div>
-  </div>
 
-</main>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Golosinas, Snacks y Tortas<br>para Mascotas</h1>
+            <p>Productos premium hechos con amor para consentir a tus peludos</p>
+            <button class="cta-button" onclick="document.getElementById('ver-planes-btn').scrollIntoView({ behavior: 'smooth' })">
+                Ver nuestros productos
+            </button>
+        </div>
+    </section>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <img src="logoweb.png" alt="Logo TUWEB" class="footer-logo"><p style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:-0.03em;color:#ffffff;margin-bottom:6px;">TU<span style='color:#FF6A00;'>WEB</span></p><p style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.75rem;color:rgba(255,255,255,0.45);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0;">Tu presencia digital · Profesional &amp; Premium</p>
-  <div class="footer-links">
-    <button class="footer-link-btn" onclick="openCurtain('comprar')">Cómo Comprar</button>
-    <button class="footer-link-btn" onclick="openCatalog()">Tienda</button>
-    <a class="footer-link-btn" href="https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta." target="_blank">Contacto</a>
-    <button class="footer-link-btn" onclick="scrollToSocial()">Redes</button>
-  </div>
-</footer>
+    <!-- Sección Catálogo / Ventajas -->
+    <section id="catalogo" class="catalogo-container">
+        <h2 class="section-title">Tu negocio merece una web que trabaje por vos</h2>
+        
+        <!-- Portada 1 -->
+        <div class="portada">
+            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadauno.png" alt="Portada 1">
+        </div>
+        <div class="texto-portada">
+            <p><strong>Que tu negocio deje de depender de tu tiempo.</strong></p>
+            <p>Porque mientras vos respondés mensajes, coordinás turnos o explicás lo mismo una y otra vez… estás perdiendo oportunidades.</p>
+            <p>TUWEB transforma tu web en una herramienta que trabaja por vos:</p>
+            <ul>
+                <li>Responde consultas automáticamente</li>
+                <li>Muestra tus servicios o productos de forma clara</li>
+                <li>Gestiona turnos sin intervención manual</li>
+                <li>Filtra clientes y ordena la información</li>
+                <li>Funciona 24/7 sin pausas</li>
+            </ul>
+            <p>No es solo una página. Es un sistema pensado para que vendas más, trabajes mejor y tengas más tiempo.</p>
+        </div>
 
-<!-- ===== WHATSAPP FLOAT ===== -->
-<a href="https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta." target="_blank" class="wa-float" aria-label="WhatsApp">
-  <img src="whatsappweb.png" alt="WhatsApp">
-</a>
-<div onclick="abrirCarrito()" style="position:fixed;bottom:100px;right:20px;display:flex;flex-direction:column;align-items:center;z-index:999;cursor:pointer;">
-  <span style="font-size:11px;color:#fff;margin-bottom:4px;opacity:0.9;text-shadow:0 1px 3px rgba(0,0,0,0.8);">ver productos seleccionados</span>
-  <div id="btnCarritoWrap" style="position:relative;display:inline-block;">
-    <div id="btnCarrito" style="width:60px;height:60px;background:#000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 6px 20px rgba(0,0,0,0.4);transition:transform 0.1s;">🛒</div>
-    <div id="carritoContador" style="position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:50%;display:none;align-items:center;justify-content:center;pointer-events:none;"></div>
-  </div>
-</div>
+        <!-- Portada 2 -->
+        <div class="portada">
+            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadados.png" alt="Portada 2">
+        </div>
+        <div class="texto-portada">
+            <p>Tu web deja de ser solo una vidriera… y pasa a ser un sistema que guía, ordena y convierte.</p>
+            <p>Cada paso está pensado: tu cliente entra, entiende en segundos, elige sin dudas y avanza directo a la acción. Sin fricción. Sin vueltas.</p>
+        </div>
 
-<!-- ===== FIREBASE ===== -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getFirestore, collection, addDoc, getDocs, query, orderBy,
-  doc, updateDoc, increment, onSnapshot
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        <!-- Portada 3 -->
+        <div class="portada">
+            <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadatres.png" alt="Portada 3">
+        </div>
+        <div class="texto-portada">
+            <p>Imagina, mientras vos estás ocupado o descansando, tu web sigue trabajando. Responde consultas automáticamente, muestra todo de forma clara, organiza pedidos y deja a cada cliente listo para avanzar.</p>
+        </div>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCuC69MOmZs3JEzG8RfD_AU92dUr42VkVM",
-  authDomain: "tuwebhomeprincipal.firebaseapp.com",
-  projectId: "tuwebhomeprincipal",
-  storageBucket: "tuwebhomeprincipal.firebasestorage.app",
-  messagingSenderId: "781329283813",
-  appId: "1:781329283813:web:f50e84e202d98f816c720c",
-  measurementId: "G-9KSD90Y6G9"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-/* ───── STATE ───── */
-let currentRating = 5;
-let selectedAvatarImg = "avataruno.png";
-let allComments = [];
-let likedIds = JSON.parse(localStorage.getItem('cp_liked') || '[]');
-
-/* ───── PRODUCTS DATA ───── */
-const infoGomitas = `<p>Están elaboradas con colágeno natural y ayudan especialmente a las articulaciones y a dejar el pelaje más brillante y hermoso.</p>
-<p><strong>Sabores que tengo siempre:</strong><br>• Pollo<br>• Hígado<br>Y por encargo puedo hacerlas del sabor que ustedes me pidan.</p>
-<p>Son perfectas para premiar todos los días, para entrenar o simplemente para que compartan un momento rico con nosotros.</p>
-<p>Se venden en bolsitas listas para llevar y son ideales para dar todos los días como premio o complemento. Todo 100% natural, sin colorantes, sin conservantes, sin sal y sin azúcar.</p>
-<p>También las uso como topping en las tortas de cumpleaños y budines.</p>
-<p>¡Todo natural y hecho con amor para que tu mascota se sienta consentida y feliz! 🐾💛</p>`;
-
-const infoGalletitas = `<p>Están elaboradas con ingredientes naturales y pensadas para cuidar a nuestras mascotas.</p>
-<p><strong>Sabores que ya tengo:</strong><br>• Pollo • Carnes rojas • Hígado • Zanahoria • Calabaza • Brócoli • Papa • Atún<br>Y por encargo puedo hacerlas del sabor que ustedes me pidan.</p>
-<p>Se venden en bolsitas listas para llevar y son perfectas para premiar todos los días, para entrenar o simplemente para compartir un momento rico juntos.</p>
-<p>También las uso como topping en las tortas de cumpleaños y budines.</p>
-<p>¡Todo natural y hecho con amor para que tu mascota se sienta consentida y feliz! 🐾💛</p>`;
-
-const infoTorta = (n) => `<p>Torta especial para celebrar el momento más importante de tu peludito. Elaborada 100% con ingredientes naturales, sin conservantes ni colorantes.</p>
-<p><strong>Sabores disponibles:</strong><br>• Pollo • Carnes rojas • Hígado • Zanahoria • Calabaza • Brócoli • Papa • Atún</p>
-<p>Son perfectas para celebrar cumpleaños, adopciones o cualquier fecha especial. También puedo decorarlas con toppings naturales y galletitas.</p>
-<p>Tamaño nº${n}. Por encargo personalizado.</p>
-<p>¡Todo natural y hecho con amor! 🐾🎂💛</p>`;
-
-const infoBudin = `<p>Budín 100% natural, sin conservantes, hecho con amor para que tu mascota disfrute cada mordida.</p>
-<p>Perfecto para compartir en casa o como regalo especial. Por encargo del sabor que me pidas.</p>
-<p>¡Todo natural y hecho con amor! 🐾💛</p>`;
-
-const infoCupcake = `<p>Cup cakes individuales 100% naturales, perfectos para celebrar o premiar a tu mascota.</p>
-<p>Sin colorantes, sin conservantes, sin sal y sin azúcar. Por encargo personalizado.</p>
-<p>¡Todo natural y hecho con amor! 🐾💛</p>`;
-
-const PRODUCTS = {
-  gomitas: [
-    { img:"gomitasuno.png", nombre:"Gomitas x 1/2kg", estado:"Siempre en Stock", precioViejo:"$9.050", precio:"$8.200", info: infoGomitas },
-    { img:"gomitasdos.png", nombre:"Gomitas x 1kg", estado:"Siempre en Stock", precioViejo:"$16.950", precio:"$16.000", info: infoGomitas },
-    { img:"gomitastres.png", nombre:"Sabor Banana x 1/2kg", estado:"Siempre en Stock", precioViejo:"$9.050", precio:"$8.200", info: infoGomitas },
-    { img:"gomitascuatro.png", nombre:"Gomitas x 1kg", estado:"Siempre en Stock", precioViejo:"$16.950", precio:"$16.000", info: infoGomitas }
-  ],
-  galletitas: [
-    { img:"galletasuno.png", nombre:"Snacks Saludables 1/2kg", estado:"Por encargue del sabor que me pidas", precioViejo:"$9.970", precio:"$9.000", info: infoGalletitas },
-    { img:"galletasdos.png", nombre:"Snacks Saludables 1kg", estado:"Por encargue personalizado", precioViejo:"$18.750", precio:"$17.800", info: infoGalletitas }
-  ],
-  tortas: [
-    { img:"tortasuno.png", nombre:"Torta nº10", estado:"Por encargue del sabor que me pidas", precioViejo:"$12.750", precio:"$12.000", info: infoTorta(10) },
-    { img:"tortasdos.png", nombre:"Torta nº12", estado:"Por encargue personalizado", precioViejo:"$18.750", precio:"$17.800", info: infoTorta(12) },
-    { img:"tortastres.png", nombre:"Torta nº14", estado:"Por encargue personalizado", precioViejo:"$18.750", precio:"$18.000", info: infoTorta(14) },
-    { img:"tortascuatro.png", nombre:"Torta nº17", estado:"Por encargue personalizado", precioViejo:"$21.790", precio:"$21.000", info: infoTorta(17) }
-  ],
-  budines: [
-    { img:"budinuno.png", nombre:"Budín Saludable", estado:"Por encargue del sabor que me pidas", precioViejo:"$10.890", precio:"$10.000", info: infoBudin },
-    { img:"cupcakeuno.png", nombre:"Cup Cake", estado:"Por encargue personalizado", precioViejo:"$2.100", precio:"$1.500 c/u", info: infoCupcake }
-  ]
-};
-
-/* ───── RENDER PRODUCT CARD ───── */
-function productCardHTML(p, uid) {
-  return `
-  <div class="product-card">
-    <img src="${p.img}" alt="${p.nombre}" loading="lazy">
-    <div class="product-name">${p.nombre}</div>
-    <div class="product-status">${p.estado}</div>
-    <div class="product-prices">
-      <span class="price-old">${p.precioViejo}</span>
-      <span class="price-new">${p.precio}</span>
-    </div>
-    <div class="product-actions">
-      <button class="btn-comprar" onclick="toggleBuy(this)">Comprar</button>
-      <button class="btn-info" onclick="showInfo('${uid}')">Info</button>
-      <button class="btn-info" onclick="agregarAlCarrito('${p.nombre.replace(/'/g,"\\'")}', '${p.precio}')">🛒 Carrito</button>
-    </div>
-    <div class="buy-options" id="buy-${uid}">
-      <button class="btn-retirar" onclick="sendWA('${p.nombre.replace(/'/g,"\\'")}','Paso a Retirar')">Paso a Retirar</button>
-      <button class="btn-domicilio" onclick="sendWA('${p.nombre.replace(/'/g,"\\'")}','Recibir a Domicilio')">Recibir a Domicilio</button>
-    </div>
-  </div>`;
-}
-
-/* ───── BUILD ALL GRIDS ───── */
-function buildGrids() {
-  const allProductsForInfo = {};
-
-  function renderSection(key, gridId) {
-    const html = PRODUCTS[key].map((p, i) => {
-      const uid = `${key}-${i}`;
-      allProductsForInfo[uid] = p;
-      return productCardHTML(p, uid);
-    }).join('');
-    const el = document.getElementById(gridId);
-    if (el) el.innerHTML = html;
-    return html;
-  }
-
-  renderSection('gomitas', 'grid-gomitas');
-  renderSection('galletitas', 'grid-galletitas');
-  renderSection('tortas', 'grid-tortas');
-  renderSection('budines', 'grid-budines');
-
-  // Store for catalog modal
-  window._productInfo = allProductsForInfo;
-
-  // Build catalog
-  buildCatalogModal();
-}
-
-function buildCatalogModal() {
-  const body = document.getElementById('catalogBody');
-  if (!body) return;
-  const sections = [
-    { key:'gomitas', label:'🌿 Gomitas de Colágeno' },
-    { key:'galletitas', label:'🦴 Snacks Saludables' },
-    { key:'tortas', label:'🎂 Tortas' },
-    { key:'budines', label:'🧁 Cup Cake & Budín' }
-  ];
-  let html = '';
-  sections.forEach(s => {
-    html += `<div class="catalog-section-title">${s.label}</div>`;
-    html += `<div class="products-grid">`;
-    PRODUCTS[s.key].forEach((p, i) => {
-      const uid = `cat-${s.key}-${i}`;
-      window._productInfo = window._productInfo || {};
-      window._productInfo[uid] = p;
-      html += productCardHTML(p, uid);
-    });
-    html += `</div>`;
-  });
-  body.innerHTML = html;
-}
-
-/* ───── GLOBAL HANDLERS ───── */
-window.toggleBuy = function(btn) {
-  const card = btn.closest('.product-card');
-  const opts = card.querySelector('.buy-options');
-  if (opts) opts.classList.toggle('show');
-};
-
-window.sendWA = function(nombre, tipo) {
-  const msg = encodeURIComponent(`Hola Stefi! Me interesa:\n📦 Producto: ${nombre}\n🚚 Modalidad: ${tipo}`);
-  window.open(`https://wa.me/592395407700?text=${msg}`, '_blank');
-};
-
-window.showInfo = function(uid) {
-  const p = (window._productInfo || {})[uid];
-  if (!p) return;
-  document.getElementById('curtain-info-title').textContent = p.nombre.toUpperCase();
-  document.getElementById('curtain-info-body').innerHTML = p.info;
-  openCurtain('info');
-};
-
-/* ───── SIDEBAR ───── */
-document.getElementById('hamburgerBtn').addEventListener('click', () => {
-  document.getElementById('sidebar').classList.add('open');
-  document.getElementById('sidebarOverlay').classList.add('open');
-});
-document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
-document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
-
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-}
-
-window.openCurtain = function(id) {
-  closeSidebar();
-  document.getElementById('curtain-' + id).classList.add('open');
-  if (id === 'comments') renderAllComments();
-};
-window.closeCurtain = function(id) {
-  document.getElementById('curtain-' + id).classList.remove('open');
-};
-
-window.openCatalog = function() {
-  closeSidebar();
-  buildCatalogModal();
-  document.getElementById('catalogBackdrop').classList.add('open');
-};
-window.closeCatalog = function() {
-  document.getElementById('catalogBackdrop').classList.remove('open');
-};
-document.getElementById('catalogBackdrop').addEventListener('click', function(e) {
-  if (e.target === this) window.closeCatalog();
-});
-
-window.openStefi = function(n) {
-  document.getElementById('stefi' + n).classList.add('open');
-};
-window.closeStefi = function(n) {
-  document.getElementById('stefi' + n).classList.remove('open');
-};
-document.querySelectorAll('.stefi-backdrop').forEach(el => {
-  el.addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('open');
-  });
-});
-
-window.scrollToSocial = function() {
-  closeSidebar();
-  document.getElementById('social').scrollIntoView({ behavior:'smooth' });
-};
-
-/* ───── AVATARS ───── */
-function buildAvatars() {
-  const avs = [
-    {img:'avataruno.png'},{img:'avatardos.png'},
-    {img:'avatartres.png'},{img:'avatarcuatro.png'}
-  ];
-  const row = document.getElementById('avatarsRow');
-  row.innerHTML = avs.map((a,i) => `
-    <div class="avatar-opt${i===0?' selected':''}" data-img="${a.img}" onclick="selectAvatar(this)">
-      <img src="${a.img}" alt="Avatar ${i+1}">
-    </div>`).join('');
-}
-window.selectAvatar = function(el) {
-  document.querySelectorAll('.avatar-opt').forEach(a => a.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedAvatarImg = el.dataset.img;
-};
-
-/* ───── STARS ───── */
-function buildStars() {
-  const btns = document.querySelectorAll('#starsRow .star-btn');
-  btns.forEach(b => {
-    b.addEventListener('click', () => {
-      currentRating = parseInt(b.dataset.v);
-      updateStars();
-    });
-  });
-  updateStars();
-}
-function updateStars() {
-  document.querySelectorAll('#starsRow .star-btn').forEach(b => {
-    b.classList.toggle('lit', parseInt(b.dataset.v) <= currentRating);
-  });
-}
-
-/* ───── WRITE MODAL ───── */
-window.openWriteModal = function() {
-  document.getElementById('comentarioText').value = '';
-  document.getElementById('writeBackdrop').classList.add('open');
-};
-window.closeWriteModal = function() {
-  document.getElementById('writeBackdrop').classList.remove('open');
-  document.getElementById('recaptchaError').style.display = 'none';
-  if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
-};
-document.getElementById('writeBackdrop').addEventListener('click', function(e) {
-  if (e.target === this) window.closeWriteModal();
-});
-
-/* ───── SUBMIT COMMENT ───── */
-window.submitComment = async function() {
-  const nombre = (document.getElementById('nombreInput').value || 'Anónimo').trim();
-  const comentario = (document.getElementById('comentarioText').value || '').trim();
-  if (comentario.length < 5) { alert('Por favor escribí un comentario más largo.'); return; }
-
-  // reCAPTCHA validation
-  const recaptchaResponse = grecaptcha.getResponse();
-  const recaptchaError = document.getElementById('recaptchaError');
-  if (!recaptchaResponse) {
-    recaptchaError.style.display = 'block';
-    return;
-  }
-  recaptchaError.style.display = 'none';
-
-  const sendBtn = document.querySelector('.write-send-btn');
-  sendBtn.disabled = true;
-  sendBtn.textContent = 'Enviando...';
-
-  try {
-    await addDoc(collection(db, 'comentarios'), {
-      nombre,
-      comentario,
-      estrellas: currentRating,
-      avatarImg: selectedAvatarImg,
-      fecha: Date.now(),
-      likes: 0,
-      lastLike: 0
-    });
-    window.closeWriteModal();
-    document.getElementById('successBackdrop').classList.add('open');
-    // onSnapshot will auto-refresh the UI
-  } catch(e) {
-    alert('Error al guardar. Intentá de nuevo.');
-    console.error(e);
-  } finally {
-    sendBtn.disabled = false;
-    sendBtn.textContent = 'Enviar comentario';
-  }
-};
-
-window.closeSuccess = function() {
-  document.getElementById('successBackdrop').classList.remove('open');
-};
-
-/* ───── LIKE COMMENT ───── */
-window.likeComment = async function(id, btn) {
-  if (likedIds.includes(id)) return; // 1 like per user (toggle prevention)
-
-  likedIds.push(id);
-  localStorage.setItem('cp_liked', JSON.stringify(likedIds));
-
-  // Optimistic UI update
-  if (btn) {
-    btn.classList.add('liked');
-    const countEl = btn.querySelector('.like-count');
-    if (countEl) countEl.textContent = parseInt(countEl.textContent || 0) + 1;
-    btn.classList.add('like-pop');
-    setTimeout(() => btn.classList.remove('like-pop'), 400);
-  }
-
-  try {
-    const ref = doc(db, 'comentarios', id);
-    await updateDoc(ref, {
-      likes: increment(1),
-      lastLike: Date.now()
-    });
-    // onSnapshot auto-refreshes — no need to call loadComments()
-  } catch(e) {
-    // Rollback optimistic
-    likedIds = likedIds.filter(x => x !== id);
-    localStorage.setItem('cp_liked', JSON.stringify(likedIds));
-    console.error(e);
-  }
-};
-
-/* ───── RELATIVE TIME ───── */
-function relTime(ts) {
-  if (!ts) return '';
-  const diff = Date.now() - ts;
-  const m = Math.floor(diff / 60000);
-  if (m < 1) return 'hace un momento';
-  if (m < 60) return `hace ${m} min`;
-  const h = Math.floor(m / 60);
-  if (h < 24) return `hace ${h} h`;
-  const d = Math.floor(h / 24);
-  if (d < 30) return `hace ${d} días`;
-  return `hace ${Math.floor(d / 30)} mes(es)`;
-}
-
-/* ───── BUILD COMMENT CARD ───── */
-function buildCommentCard(c, isFeatured) {
-  const isLiked = likedIds.includes(c.id);
-  const stars = '★'.repeat(Math.min(5, c.estrellas || 0));
-  const avatarSrc = c.avatarImg || 'avataruno.png';
-  return `
-  <div class="comment-card${isFeatured ? ' featured-card' : ''}">
-    <img src="${avatarSrc}" class="comment-avatar" alt="Avatar" onerror="this.src='avataruno.png'">
-    <div class="comment-body">
-      <div class="comment-header">
-        <span class="comment-name">${c.nombre || 'Anónimo'}</span>
-        <span class="comment-stars">${stars}</span>
-      </div>
-      <p class="comment-text">${c.comentario}</p>
-      <div class="comment-actions">
-        <button class="like-btn${isLiked ? ' liked' : ''}" onclick="likeComment('${c.id}', this)">
-          ❤️ <span class="like-count">${c.likes || 0}</span> Me gusta
+        <button id="ver-planes-btn" class="ver-planes-btn" onclick="toggleCortinaPlanes()">
+            Ver Planes que se adaptan a tu negocio
+            <span class="flecha-abajo">↓</span>
         </button>
-        <span class="comment-date">${relTime(c.fecha)}</span>
-      </div>
-    </div>
-  </div>`;
-}
 
-/* ───── RENDER FEATURED ───── */
-function renderFeatured() {
-  const fw = document.getElementById('featuredWrap');
-  const fc = document.getElementById('featuredComment');
-  if (allComments.length === 0) { fw.style.display = 'none'; return; }
-  // Pick comment with most likes
-  const top = [...allComments].sort((a, b) => (b.likes || 0) - (a.likes || 0))[0];
-  fc.innerHTML = buildCommentCard(top, true);
-  fw.style.display = 'block';
-}
+        <!-- Cortina de planes -->
+        <div class="cortina-planes" id="cortinaPlanes">
+            <!-- Portada planesuno -->
+            <div class="portada" style="margin-top: 40px;">
+                <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/planesuno.png" alt="Planes">
+            </div>
+            <button onclick="alert('Redirigiendo a más información...')" style="display:block; width:90%; max-width:420px; margin:20px auto; padding:16px; background:#4ecdc4; color:white; border:none; border-radius:50px; font-weight:600; cursor:pointer;">
+                Conoce más sobre todo lo que podemos hacer en tu web
+            </button>
 
-/* ───── RENDER ALL COMMENTS (curtain) ───── */
-function renderAllComments() {
-  const list = document.getElementById('all-comments-list');
-  if (allComments.length === 0) {
-    list.innerHTML = '<div class="comments-empty">Todavía no hay comentarios. ¡Sé el primero! 🐾</div>';
-    return;
-  }
-  // Ordered by fecha DESC (newest first) — already sorted by onSnapshot query
-  list.innerHTML = allComments.map(c => buildCommentCard(c, false)).join('');
-}
+            <!-- Resto de portadas -->
+            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadacuatro.png" alt=""></div>
+            <div class="texto-portada">
+                <p>Ahora imaginá esto aplicado a tus turnos: Tu cliente entra, elige día y horario, y agenda sin tener que escribirte. Todo se organiza solo.</p>
+            </div>
 
-/* ───── REAL-TIME LISTENER (onSnapshot) ───── */
-function initCommentsListener() {
-  // Query 1: fecha DESC → for "Ver todos" (newest first)
-  const qByDate = query(
-    collection(db, 'comentarios'),
-    orderBy('fecha', 'desc')
-  );
+            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadacinco.png" alt=""></div>
+            <div class="texto-portada">
+                <p>Te descubren por redes o les pasás tu link. Entran, eligen su turno y te llega confirmado por WhatsApp. Así de simple.</p>
+            </div>
 
-  onSnapshot(qByDate, (snapshot) => {
-    allComments = [];
-    snapshot.forEach(d => allComments.push({ id: d.id, ...d.data() }));
-    renderFeatured();
-    // If curtain is currently open, re-render it live
-    const curtain = document.getElementById('curtain-comments');
-    if (curtain && curtain.classList.contains('open')) {
-      renderAllComments();
-    }
-  }, (err) => {
-    console.error('Comments listener error:', err);
-    // Fallback: one-time fetch
-    loadCommentsFallback();
-  });
-}
+            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadaseis.png" alt=""></div>
+            <div class="texto-portada">
+                <p>Así funcionan los turnos automatizados: Sin mensajes de ida y vuelta. Tu agenda se llena sola.</p>
+            </div>
 
-/* ───── FALLBACK (one-time getDocs if onSnapshot fails) ───── */
-async function loadCommentsFallback() {
-  try {
-    const q = query(collection(db, 'comentarios'), orderBy('fecha', 'desc'));
-    const snap = await getDocs(q);
-    allComments = [];
-    snap.forEach(d => allComments.push({ id: d.id, ...d.data() }));
-    renderFeatured();
-  } catch(e) { console.error(e); }
-}
+            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadasiete.png" alt=""></div>
+            <div class="texto-portada">
+                <p>Sistemas web con mini aplicaciones integradas: cuadro de comentarios, agenda online, conexión con WhatsApp y gestión automática de reservas.</p>
+            </div>
 
-/* ───── INIT ───── */
-buildGrids();
-buildAvatars();
-buildStars();
-initCommentsListener();
-</script>
-<script>
-/* ===== CARRITO AVANZADO ===== */
-function _getCarrito() { return JSON.parse(localStorage.getItem("carritoCandy")) || []; }
-function _setCarrito(c) { localStorage.setItem("carritoCandy", JSON.stringify(c)); }
+            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadaocho.png" alt=""></div>
+            <div class="texto-portada">
+                <p>No se trata solo de tener una web… se trata de saber qué resultados te está dando.</p>
+            </div>
 
-function agregarAlCarrito(nombre, precio) {
-  let c = _getCarrito();
-  const idx = c.findIndex(p => p.nombre === nombre);
-  if (idx >= 0) { c[idx].cantidad = (c[idx].cantidad || 1) + 1; }
-  else { c.push({ nombre, precio, cantidad: 1 }); }
-  _setCarrito(c);
-  actualizarContador();
-  animarCarrito();
-}
+            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadanueve.png" alt=""></div>
+            <div class="texto-portada">
+                <p>Cómo interactúan las personas con tu web: consultas, acciones y rendimiento de cada sección.</p>
+            </div>
 
-function actualizarContador() {
-  const c = _getCarrito();
-  const total = c.reduce((s, p) => s + (p.cantidad || 1), 0);
-  const el = document.getElementById("carritoContador");
-  if (!el) return;
-  if (total > 0) { el.style.display = "flex"; el.innerText = total; }
-  else { el.style.display = "none"; }
-}
+            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadadiez.png" alt=""></div>
+            <div class="texto-portada">
+                <p>Menos trabajo. Más tiempo. Más orden. Más resultados.</p>
+            </div>
 
-function animarCarrito() {
-  const btn = document.getElementById("btnCarrito");
-  if (!btn) return;
-  btn.style.animation = "none";
-  btn.offsetHeight; // reflow
-  btn.style.animation = "carritoZoom 0.25s ease";
-}
+            <div class="portada"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/portadaonce.png" alt=""></div>
 
-function enviarCarritoWhatsApp() {
-  const c = _getCarrito();
-  if (c.length === 0) { alert("El carrito está vacío"); return; }
-  let msg = "Hola Stefi! Quiero comprar:%0A%0A";
-  c.forEach((p, i) => { msg += `${i+1}. ${p.nombre} x${p.cantidad||1} - ${p.precio}%0A`; });
-  window.open(`https://wa.me/592395407700?text=${msg}`, "_blank");
-}
+            <!-- Mensaje flotante -->
+            <div style="position: relative; max-width: 420px; margin: 60px auto 40px; text-align: center;">
+                <img id="mensajeImg" src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/mensajeweb.png" alt="Mensaje" 
+                     style="width: 100%; border-radius: 50%; box-shadow: 0 15px 35px rgba(0,0,0,0.2); cursor: pointer;">
+                <div style="position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 42px; animation: bounce 2s infinite; color: var(--primary);">↓</div>
+            </div>
 
-function vaciarCarrito() { _setCarrito([]); actualizarContador(); }
-function vaciarCarritoModal() { _setCarrito([]); actualizarContador(); renderizarCurtainCarrito(); }
+            <div class="texto-portada" id="mensajeTexto" style="display: none; background: #fff; padding: 30px; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <p><strong>Un día normal en tu negocio...</strong></p>
+                <p>Algunos dejan consultas claras. Otros ya llegan con todo definido. Y otros directamente reservan.</p>
+                <p>Olvidate de que se te queme la pizza por atender los mensajes. Con TUWEB terminas de cocinar y solo agarras el teléfono para mirar la siguiente receta reservada.</p>
+                <p>Es tener un empleado en el celular mientras vos seguís con lo tuyo.</p>
+            </div>
 
-function _renderLista(containerId, totalId, conEliminar) {
-  const c = _getCarrito();
-  const lista = document.getElementById(containerId);
-  const totalEl = document.getElementById(totalId);
-  if (!lista) return;
-  let suma = 0;
-  if (c.length === 0) {
-    lista.innerHTML = `<p style="color:#888;font-family: 'Inter',sans-serif;padding:12px 0;">El carrito está vacío.</p>`;
-    if (totalEl) totalEl.innerText = "";
-  } else {
-    lista.innerHTML = c.map((p, i) => {
-      const num = parseInt((p.precio||"").replace(/\D/g,"")) || 0;
-      suma += num * (p.cantidad||1);
-      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #eee;font-family: 'Inter',sans-serif;gap:8px;">
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:14px;font-weight:700;color:#222;">${p.nombre}</div>
-          <div style="font-size:12px;color:#888;">${p.precio} × ${p.cantidad||1}</div>
+            <!-- Imagen final -->
+            <div class="portada" style="margin-top: 80px;">
+                <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/planesdos.png" alt="Planes 2" style="width:100%;">
+            </div>
         </div>
-        ${conEliminar ? `<button onclick="eliminarProducto(${i})" style="background:none;border:none;cursor:pointer;font-size:15px;padding:0 2px;flex-shrink:0;">❌</button>` : ""}
-      </div>`;
-    }).join("");
-    if (totalEl) totalEl.innerText = "Total: $" + suma.toLocaleString();
-  }
-}
+    </section>
 
-function renderizarCarrito() { _renderLista("listaCarrito","totalCarrito",true); }
-function renderizarCurtainCarrito() { _renderLista("curtainListaCarrito","curtainTotalCarrito",true); }
+    <!-- Sección Comentarios -->
+    <section class="comentarios-section">
+        <h2 class="section-title">Contanos tu experiencia</h2>
+        
+        <div class="comment-form">
+            <div class="avatar-grid" id="avatarGrid">
+                <!-- Avatares se cargan con JS -->
+            </div>
 
-function abrirCarrito() {
-  renderizarCurtainCarrito();
-  openCurtain("carrito");
-  // Ocultar modal viejo si quedó abierto
-  const m = document.getElementById("modalCarrito");
-  if (m) m.style.display = "none";
-}
-function cerrarCarrito() { closeCurtain("carrito"); }
-function finalizarCompra() { enviarCarritoWhatsApp(); }
-function finalizarCompraCurtain() { enviarCarritoWhatsApp(); closeCurtain("carrito"); }
+            <input type="text" id="nombreComentario" placeholder="Tu nombre (opcional)" style="width:100%; padding:14px; margin-bottom:15px; border-radius:12px; border:1px solid #ddd;">
+            
+            <div style="margin: 20px 0;">
+                <span id="stars" class="star-rating">
+                    ★★★★☆
+                </span>
+            </div>
 
-function eliminarProducto(index) {
-  let c = _getCarrito(); c.splice(index, 1); _setCarrito(c);
-  actualizarContador(); renderizarCurtainCarrito(); renderizarCarrito();
-}
+            <textarea id="textoComentario" placeholder="Cuentanos tu experiencia con nuestro servicio..."></textarea>
+            
+            <div id="recaptcha-container" style="margin: 20px 0;"></div>
+            
+            <button onclick="enviarComentario()" class="submit-comment">Enviar comentario</button>
+        </div>
 
-// Ocultar modal viejo (reemplazado por curtain)
-const _oldModal = document.getElementById("modalCarrito");
-if (_oldModal) _oldModal.style.display = "none";
+        <div class="comentarios-lista" id="comentariosLista">
+            <!-- Comentarios dinámicos desde Firebase -->
+        </div>
+    </section>
 
-actualizarContador();
+    <!-- Seguinos en redes -->
+    <section class="redes-section" id="redesSection">
+        <h2 style="font-size: 1.8rem; margin-bottom: 15px;">Seguinos para no perderte las novedades</h2>
+        <div class="redes-icons">
+            <a href="#"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/facebookweb.png" alt="Facebook"></a>
+            <a href="#"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/instagramweb.png" alt="Instagram"></a>
+            <a href="#"><img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/tiktokweb.png" alt="TikTok"></a>
+        </div>
+    </section>
 
-/* ===== AVATAR DRAWER ===== */
-const AVATARES_EXTRA = [
-  "avatarcinco","avatarseis","avatarsiete","avatarocho","avatarnueve",
-  "avatardiez","avataronce","avatardoce","avatartrece","avatarcatorce",
-  "avatarquince","avatardieciseis","avatardiecisiete","avatardieciocho",
-  "avatardiecinueve","avatarveinte","avatarveintiuno","avatarveintidos",
-  "avatarveintitres","avatarveinticuatro"
-].map(n => n + ".png");
+    <!-- Footer -->
+    <footer>
+        <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/logoweb.png" alt="Logo TUWEB">
+        <div style="margin: 30px 0; display: flex; flex-wrap: wrap; gap: 25px; justify-content: center; font-size: 1.05rem;">
+            <a href="#" onclick="openSubmenu('como'); return false;" style="color: var(--text); text-decoration: none;">Cómo Desarrollamos</a>
+            <a href="#" style="color: var(--text); text-decoration: none;">Ir a la tienda</a>
+            <a href="#" onclick="contactarWhatsApp(); return false;" style="color: var(--text); text-decoration: none;">Contacto</a>
+            <a href="#redesSection" style="color: var(--text); text-decoration: none;">Seguinos en redes</a>
+        </div>
+        <p style="color: var(--gray); font-size: 0.9rem;">© 2026 TUWEB - Hecho con amor para negocios que crecen</p>
+    </footer>
 
-function abrirAvatarDrawer() {
-  const grid = document.getElementById("avatarDrawerGrid");
-  if (!grid) return;
-  grid.innerHTML = AVATARES_EXTRA.map(img => `
-    <div class="avatar-drawer-opt${typeof selectedAvatarImg!=='undefined'&&selectedAvatarImg===img?' selected':''}" onclick="seleccionarAvatarExtra('${img}',this)">
-      <img src="${img}" alt="${img}">
-    </div>`).join("");
-  document.getElementById("avatarDrawer").classList.add("open");
-  const ov = document.getElementById("avatarDrawerOverlay");
-  ov.style.display = "block";
-  setTimeout(() => ov.classList.add("open"), 10);
-}
-
-function cerrarAvatarDrawer() {
-  document.getElementById("avatarDrawer").classList.remove("open");
-  const ov = document.getElementById("avatarDrawerOverlay");
-  ov.classList.remove("open");
-  setTimeout(() => { ov.style.display = "none"; }, 320);
-}
-
-function seleccionarAvatarExtra(img, el) {
-  // Actualizar variable global (puede ser en módulo)
-  if (typeof selectedAvatarImg !== "undefined") selectedAvatarImg = img;
-  // Intentar actualizar via evento para el módulo firebase
-  window._selectedAvatarImgGlobal = img;
-  // Marcar selección visual en el drawer
-  document.querySelectorAll(".avatar-drawer-opt").forEach(o => o.classList.remove("selected"));
-  el.classList.add("selected");
-  // Reemplazar 4to avatar en la fila principal visualmente
-  const row = document.getElementById("avatarsRow");
-  if (row) {
-    document.querySelectorAll(".avatar-opt").forEach(a => a.classList.remove("selected"));
-    const last = row.querySelector(".avatar-opt:last-child");
-    if (last) {
-      last.dataset.img = img;
-      last.querySelector("img").src = img;
-      last.classList.add("selected");
-      // Disparar el selectAvatar existente
-      if (typeof selectAvatar === "function") selectAvatar(last);
-    }
-  }
-  setTimeout(cerrarAvatarDrawer, 180);
-}
-</script>
-<!-- ===== AVATAR DRAWER ===== -->
-<div id="avatarDrawerOverlay" onclick="cerrarAvatarDrawer()"></div>
-<div id="avatarDrawer">
-  <div class="avatar-drawer-handle"></div>
-  <div class="avatar-drawer-title">ELEGÍ TU AVATAR</div>
-  <div class="avatar-drawer-grid" id="avatarDrawerGrid"></div>
-</div>
-
-<!-- ===== CURTAIN CARRITO ===== -->
-<div class="curtain" id="curtain-carrito">
-  <div class="curtain-head">
-    <h2>MI CARRITO</h2>
-    <button class="curtain-close" onclick="closeCurtain('carrito')">&#10005;</button>
-  </div>
-  <div class="curtain-body" style="padding:0;">
-    <img src="portadadiez.png" alt="Carrito" style="width:100%;height:140px;object-fit:cover;display:block;">
-    <div style="padding:16px 20px;">
-      <div id="curtainListaCarrito"></div>
-      <p id="curtainTotalCarrito" style="font-weight:700;margin-top:12px;font-size:16px;color:#222;font-family: 'Inter',sans-serif;"></p>
+    <!-- Modal para ver todos los comentarios -->
+    <div class="modal" id="modalComentarios">
+        <div class="modal-content">
+            <div style="padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                <h3>Todos los comentarios</h3>
+                <span onclick="closeModal()" style="font-size: 28px; cursor: pointer;">×</span>
+            </div>
+            <div id="modalComentariosLista" style="padding: 20px; max-height: 70vh; overflow-y: auto;">
+                <!-- Comentarios completos -->
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="curtain-footer" style="display:flex;flex-direction:column;gap:8px;">
-    <button class="curtain-action-btn" onclick="finalizarCompraCurtain()">📲 Enviar pedido por WhatsApp</button>
-    <button class="curtain-action-btn" onclick="vaciarCarritoModal();renderizarCurtainCarrito();" style="background:#e74c3c;">🗑️ Vaciar carrito</button>
-  </div>
-</div>
+
+    <script type="module">
+        // ==================== FIREBASE CONFIG ====================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, updateDoc, doc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCuC69MOmZs3JEzG8RfD_AU92dUr42VkVM",
+            authDomain: "tuwebhomeprincipal.firebaseapp.com",
+            projectId: "tuwebhomeprincipal",
+            storageBucket: "tuwebhomeprincipal.firebasestorage.app",
+            messagingSenderId: "781329283813",
+            appId: "1:781329283813:web:f50e84e202d98f816c720c",
+            measurementId: "G-9KSD90Y6G9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const analytics = getAnalytics(app);
+
+        let currentUser = null;
+        let selectedAvatar = "avataruno.png";
+        let currentRating = 5;
+
+        // Login anónimo
+        signInAnonymously(auth).then(() => {
+            console.log("Usuario anónimo autenticado");
+        }).catch((error) => {
+            console.error("Error auth:", error);
+        });
+
+        // ==================== MENÚ ====================
+        const sideMenu = document.getElementById('sideMenu');
+        const hamburger = document.getElementById('hamburger');
+        const closeMenuBtn = document.getElementById('closeMenu');
+
+        hamburger.addEventListener('click', () => {
+            sideMenu.classList.add('open');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            sideMenu.classList.remove('open');
+        });
+
+        function openSubmenu(tipo) {
+            sideMenu.classList.remove('open');
+            if (tipo === 'como') {
+                document.getElementById('submenuComo').classList.add('open');
+            }
+        }
+
+        function closeSubmenu() {
+            document.getElementById('submenuComo').classList.remove('open');
+        }
+
+        // ==================== CONTACTO WHATSAPP ====================
+        function contactarWhatsApp() {
+            const mensaje = encodeURIComponent("Hola! Quiero hacer una consulta sobre TUWEB.");
+            window.open(`https://wa.me/5492396512544?text=${mensaje}`, '_blank');
+        }
+
+        function scrollToRedes() {
+            document.getElementById('redesSection').scrollIntoView({ behavior: 'smooth' });
+            sideMenu.classList.remove('open');
+        }
+
+        // ==================== CORTINA PLANES ====================
+        function toggleCortinaPlanes() {
+            const cortina = document.getElementById('cortinaPlanes');
+            cortina.classList.toggle('open');
+        }
+
+        // Mensaje flotante
+        document.getElementById('mensajeImg').addEventListener('click', () => {
+            const texto = document.getElementById('mensajeTexto');
+            texto.style.display = texto.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // ==================== AVATARES ====================
+        const avatares = ['avataruno.png', 'avatardos.png', 'avatartres.png', 'avatarcuatro.png'];
+
+        function cargarAvatares() {
+            const grid = document.getElementById('avatarGrid');
+            grid.innerHTML = '';
+            
+            avatares.forEach((av, index) => {
+                const div = document.createElement('div');
+                div.className = `avatar-option ${index === 0 ? 'selected' : ''}`;
+                div.innerHTML = `<img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/${av}" alt="Avatar">`;
+                div.onclick = () => {
+                    document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
+                    div.classList.add('selected');
+                    selectedAvatar = av;
+                };
+                grid.appendChild(div);
+            });
+        }
+
+        // ==================== ESTRELLAS ====================
+        function setupStars() {
+            const starsContainer = document.getElementById('stars');
+            starsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('span');
+                star.className = 'star';
+                star.textContent = '★';
+                star.style.cursor = 'pointer';
+                star.onclick = () => {
+                    currentRating = i;
+                    renderStars();
+                };
+                starsContainer.appendChild(star);
+            }
+            renderStars();
+        }
+
+        function renderStars() {
+            const stars = document.querySelectorAll('#stars .star');
+            stars.forEach((star, index) => {
+                star.style.color = (index + 1) <= currentRating ? '#f1c40f' : '#ddd';
+            });
+        }
+
+        // ==================== COMENTARIOS FIREBASE ====================
+        async function cargarComentarios() {
+            const lista = document.getElementById('comentariosLista');
+            lista.innerHTML = '<p style="text-align:center; color:#999;">Cargando comentarios...</p>';
+
+            try {
+                const q = query(collection(db, "comentarios"), orderBy("timestamp", "desc"));
+                const snapshot = await getDocs(q);
+                
+                lista.innerHTML = '';
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const card = crearComentarioCard(docSnap.id, data);
+                    lista.appendChild(card);
+                });
+            } catch (e) {
+                console.error("Error cargando comentarios:", e);
+                lista.innerHTML = '<p style="color:red; text-align:center;">Error al cargar comentarios</p>';
+            }
+        }
+
+        function crearComentarioCard(id, data) {
+            const div = document.createElement('div');
+            div.className = 'comentario-card';
+            div.innerHTML = `
+                <div class="comentario-header">
+                    <div class="comentario-avatar">
+                        <img src="https://raw.githubusercontent.com/tuusuario/tu-repo/main/${data.avatar || 'avataruno.png'}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div>
+                        <strong>${data.nombre || 'Anónimo'}</strong>
+                        <div style="font-size:0.9rem; color:#999;">${new Date(data.timestamp?.toDate()).toLocaleDateString('es-AR')}</div>
+                    </div>
+                </div>
+                <div style="margin: 12px 0; font-size:1.05rem;">${data.comentario}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <button onclick="toggleLike('${id}', this)" class="like-btn ${data.likedByUser ? 'liked' : ''}">
+                        ❤️ <span class="like-count">${data.likes || 0}</span>
+                    </button>
+                    <button onclick="responderComentario('${id}')" style="background:none; border:none; color:#3498db; font-size:0.95rem;">Responder</button>
+                </div>
+            `;
+            return div;
+        }
+
+        async function enviarComentario() {
+            const texto = document.getElementById('textoComentario').value.trim();
+            const nombre = document.getElementById('nombreComentario').value.trim() || "Anónimo";
+
+            if (texto.length < 5) {
+                alert("El comentario debe tener al menos 5 caracteres");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "comentarios"), {
+                    nombre: nombre,
+                    comentario: texto,
+                    avatar: selectedAvatar,
+                    rating: currentRating,
+                    likes: 0,
+                    timestamp: serverTimestamp()
+                });
+
+                alert("¡Tu comentario fue recibido! Gracias por compartir tu experiencia.");
+                
+                // Limpiar formulario
+                document.getElementById('textoComentario').value = '';
+                cargarComentarios();
+            } catch (error) {
+                console.error("Error al guardar comentario:", error);
+                alert("Hubo un error al enviar el comentario. Inténtalo nuevamente.");
+            }
+        }
+
+        // Like simple (mejora con localStorage + Firestore en producción)
+        window.toggleLike = async function(id, btn) {
+            try {
+                const docRef = doc(db, "comentarios", id);
+                const isLiked = btn.classList.contains('liked');
+                
+                await updateDoc(docRef, {
+                    likes: increment(isLiked ? -1 : 1)
+                });
+                
+                btn.classList.toggle('liked');
+                cargarComentarios(); // refrescar
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        function responderComentario(id) {
+            const respuesta = prompt("Escribe tu respuesta al comentario:");
+            if (respuesta) {
+                alert("Respuesta enviada (en versión completa se guardaría en subcolección)");
+            }
+        }
+
+        // Modal todos los comentarios
+        function openModalComentarios() {
+            document.getElementById('modalComentarios').style.display = 'flex';
+            // Aquí se podría cargar la lista completa
+        }
+
+        function closeModal() {
+            document.getElementById('modalComentarios').style.display = 'none';
+        }
+
+        // ==================== INICIALIZACIÓN ====================
+        window.onload = () => {
+            cargarAvatares();
+            setupStars();
+            cargarComentarios();
+
+            // Cerrar menús al hacer clic fuera
+            document.addEventListener('click', (e) => {
+                if (!sideMenu.contains(e.target) && e.target !== hamburger) {
+                    sideMenu.classList.remove('open');
+                }
+            });
+
+            console.log("%c✅ TUWEB - Página principal cargada correctamente", "color:#ff6b6b; font-weight:bold;");
+        };
+    </script>
 </body>
 </html>
