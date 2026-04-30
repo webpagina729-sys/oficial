@@ -305,17 +305,18 @@
     /* ===== HERO BANNER ===== */
     .banner {
       background: var(--secondary);
-      padding: 40px 20px;
+      padding: 10px 20px;
       text-align: center;
-      border-bottom: 2px solid var(--primary);
+      border-bottom: 1px solid #e8e8e8;
     }
 
     .banner-title {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: 3px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
       text-transform: uppercase;
       animation: fadeInDown 0.8s ease;
+      color: #888;
     }
 
     @keyframes fadeInDown {
@@ -337,11 +338,11 @@
     }
 
     .section-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-align: center;
-      letter-spacing: 1px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #050505;
+      line-height: 1.3;
+      margin-bottom: 16px;
     }
 
     .section-text {
@@ -1338,37 +1339,41 @@
       <button class="sidebar-close" id="sidebarClose">←</button>
     </div>
     <nav class="sidebar-nav">
-      <button class="sidebar-btn" onclick="openCurtain('how-develop')">Cómo lo desarrollamos</button>
-      <button class="sidebar-btn" onclick="window.open('https://wa.me/2395407700?text=Hola! Quiero hacer una consulta.', '_blank')">📞 Contacto</button>
+      <button class="sidebar-btn" onclick="openCurtain('how-obtain')">Cómo obtengo mi web</button>
+      <button class="sidebar-btn" onclick="closeSidebar(); scrollToElement('comments-section')">Dejar comentario</button>
+      <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">📞 Contacto</button>
       <button class="sidebar-btn" onclick="scrollToElement('social-section')">Seguinos en redes</button>
     </nav>
   </aside>
 
-  <!-- CURTAIN: HOW WE DEVELOP -->
+  <!-- CURTAIN: CÓMO OBTENGO MI WEB -->
   <div class="curtain-overlay" id="curtainOverlay"></div>
-  <div class="curtain" id="curtain-how-develop">
+  <div class="curtain" id="curtain-how-obtain">
     <div class="curtain-header">
-      <h2 class="curtain-title">Cómo lo desarrollamos</h2>
-      <button class="curtain-close" onclick="closeCurtain('how-develop')">✕</button>
+      <h2 class="curtain-title">Cómo obtengo mi web</h2>
+      <button class="curtain-close" onclick="closeCurtain('how-obtain')">✕</button>
     </div>
     <div class="curtain-body">
       <ol>
         <li>Ver Planes</li>
         <li>Elegí el formato que más se adapte a vos.</li>
         <li>Hacé clic en el botón <strong>ELEGIR ESTE PLAN</strong>.</li>
-        <li>Realizá la seña 50% de forma segura.</li>
-        <li>Completá tus datos en el formulario o enviáselos directamente a Stefy por WhatsApp.</li>
-        <li>¡Y listo! Nosotros nos encargamos del resto.</li>
+        <li>¡Y listo! te vas directo a hablar con Nicolás y construir lo tuyo</li>
       </ol>
     </div>
-    <button class="curtain-btn" onclick="scrollToPlans()">Ver más información</button>
+    <a href="https://wa.me/592395407700?text=Hola%20quiero%20consultarte%20sobre%20TUWEB" target="_blank" class="curtain-btn" style="display:block;text-align:center;text-decoration:none;margin:16px 20px;">Ver más información</a>
   </div>
 
   <!-- PLAN CURTAIN -->
+  <div class="plan-curtain-overlay" id="planCurtainOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:399;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(4px);"></div>
   <div class="plan-curtain" id="planCurtain">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:2px solid var(--primary);">
+      <span style="font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;">Planes</span>
+      <button onclick="closePlanCurtain()" style="background:none;border:none;cursor:pointer;font-size:22px;padding:4px;">✕</button>
+    </div>
     <img src="/planesuno.png" alt="Plans" class="plan-img">
     <div style="padding: 20px;">
-      <button class="plan-button">Conoce más sobre todo lo que podemos hacer en tu web</button>
+      <button class="plan-button" onclick="window.open('https://wa.me/592395407700?text=Hola%20quiero%20consultarte%20sobre%20TUWEB','_blank')">Conoce más sobre todo lo que podemos hacer en tu web</button>
     </div>
   </div>
 
@@ -1388,35 +1393,21 @@
       <h2 class="banner-title">TUWEB</h2>
     </section>
 
-    <!-- PORTADA 1 -->
-    <section class="section">
-      <img src="/portadauno.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Que tu negocio deje de depender de tu tiempo. Porque mientras vos respondés mensajes, coordinás turnos o explicás lo mismo una y otra vez… estás perdiendo oportunidades. TUWEB transforma tu web en una herramienta que trabaja por vos:
-        <br><br>
-        • Responde consultas automáticamente<br>
-        • Muestra tus servicios o productos de forma clara<br>
-        • Gestiona turnos sin intervención manual<br>
-        • Filtra clientes y ordena la información<br>
-        • Funciona 24/7 sin pausas<br><br>
-        No es solo una página. Es un sistema pensado para que vendas más, trabajes mejor y tengas más tiempo.
-      </p>
-    </section>
+    <!-- PORTADA 1 - FULL BLEED -->
+    <img src="/portadauno.png" alt="Portada Principal" style="width:100%;display:block;margin:0;padding:0;">
 
     <!-- PORTADA 2 -->
+    <img src="/portadados.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadados.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Tu web deja de ser solo una vidriera… y pasa a ser un sistema que guía, ordena y convierte. Cada paso está pensado: tu cliente entra, entiende en segundos, elige sin dudas y avanza directo a la acción. Sin fricción. Sin vueltas. Sin que tengas que estar atrás respondiendo todo. Todo está diseñado para que el proceso fluya solo y termine en tus manos.
-      </p>
+      <h2 class="section-title">Tu negocio no debería depender de vos todo el tiempo</h2>
+      <p class="section-text">Hoy, gran parte de tu día se va en responder mensajes, explicar lo mismo una y otra vez, coordinar horarios o pasar información básica. Eso no solo te quita tiempo… también te hace perder oportunidades. Porque mientras estás ocupado, hay personas que consultan y no reciben respuesta inmediata.<br><br>Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, organiza y guía a cada persona desde el primer contacto. Vos seguís teniendo el control, pero sin estar atado al teléfono todo el día.</p>
     </section>
 
     <!-- PORTADA 3 -->
+    <img src="/portadatres.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadatres.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Imagina, mientras vos estás con tu tiempo ocupado o descansando, tu web sigue trabajando. Responde consultas automáticamente, muestra todo de forma clara, organiza pedidos y deja a cada cliente listo para avanzar. Sin interrupciones. Sin tareas repetitivas. Sin perder oportunidades. Más tiempo para vos, más orden en tu negocio y más resultados todos los días.
-      </p>
+      <h2 class="section-title">Tu web deja de ser una vidriera y pasa a ser un sistema que vende</h2>
+      <p class="section-text">No alcanza con "tener presencia online". La diferencia está en lo que pasa cuando alguien entra.<br><br>TUWEB está pensada para que cada persona entienda en segundos qué ofrecés, cómo funciona y qué tiene que hacer. Sin confusión, sin dudas, sin vueltas.<br><br>Cada paso está ordenado para que el visitante avance naturalmente hasta tomar acción: consultar, reservar o comprar. Es como tener a alguien guiando a cada cliente, pero sin que vos tengas que intervenir.</p>
     </section>
 
     <!-- CTA BUTTON -->
@@ -1426,79 +1417,75 @@
     </button>
 
     <!-- PORTADA 4 -->
+    <img src="/portadacuatro.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadacuatro.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Ahora imaginá esto aplicado a tus turnos: Tu cliente entra, elige día y horario, y agenda sin tener que escribirte. Todo se organiza solo, sin superposiciones, sin errores y sin idas y vueltas. Mientras tanto, vos dejás de estar pendiente del teléfono, de coordinar horarios o de anotar todo. Tenés tu agenda completa, clara y funcionando sola.
-      </p>
+      <h2 class="section-title">Atención automática que trabaja 24/7</h2>
+      <p class="section-text">Tu negocio no tiene por qué frenar cuando vos descansás.<br><br>La web sigue funcionando todo el tiempo: responde consultas frecuentes, muestra tus servicios de forma clara, organiza pedidos y deja a cada cliente listo para avanzar.<br><br>Esto significa menos interrupciones para vos, menos tareas repetitivas y más oportunidades aprovechadas, incluso fuera de horario.<br><br><strong>Gestión de turnos sin esfuerzo</strong><br>Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
     </section>
 
     <!-- PORTADA 5 -->
+    <img src="/portadacinco.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadacinco.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Te descubren por redes o les pasás tu link. Entran, eligen su turno y te llega confirmado por WhatsApp. Así de simple. Vos solo respondés: "¡Gracias!".
-      </p>
+      <h2 class="section-title">Con TUWEB, el cliente entra, ve los horarios disponibles y elige directamente.</h2>
+      <p class="section-text">El turno queda registrado automáticamente, sin errores ni superposiciones.<br><br>Vos dejás de estar pendiente de organizar la agenda y pasás a tener todo claro, ordenado y funcionando solo.<br><br><strong>Confirmaciones simples y directas</strong><br>El proceso es claro y rápido: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan.<br><br>A vos te llega la confirmación directamente por WhatsApp.<br><br>Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo.<br>Menos mensajes innecesarios, más clientes decididos.</p>
     </section>
 
     <!-- PORTADA 6 -->
+    <img src="/portadaseis.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadaseis.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Así funcionan los turnos automatizados: Sin mensajes de ida y vuelta. Sin confusiones. Sin perder tiempo. Tu agenda se llena sola y cada cliente ya llega confirmado. Vos solo te enfocás en atender.
-      </p>
+      <h2 class="section-title">La automatización no es solo comodidad, también mejora la calidad de tus consultas.</h2>
+      <p class="section-text">Las personas que llegan ya vieron la información, entendieron cómo trabajás y eligieron avanzar.<br><br>Eso significa menos preguntas básicas y más personas preparados para tomar una decisión.<br><br><strong>Todo conectado en un solo lugar</strong><br>TUWEB integra todo lo que necesitás para ordenar tu negocio:<br>Información clara de tus servicios o productos<br>Agenda de turnos.</p>
     </section>
 
     <!-- PORTADA 7 -->
+    <img src="/portadasiete.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadasiete.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Sistemas web con mini aplicaciones integradas: cuadro de comentarios, agenda online, conexión con WhatsApp y gestión automática de reservas en un solo lugar. Tu cliente llega desde redes, entra a tu web, navega toda tu información completa y fácil de encontrar, elige, agenda o compra… y recibís su confirmación.
-      </p>
+      <h2 class="section-title">Comunicación directa por WhatsApp</h2>
+      <p class="section-text">Espacios para mostrar opiniones o consultas<br>Todo funciona en conjunto para que la experiencia sea simple tanto para vos como para tus clientes.<br><br><strong>Tu cliente hace todo el recorrido sin perderse</strong><br>Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas.<br><br>Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte.<br><br>Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
     </section>
 
     <!-- PORTADA 8 -->
+    <img src="/portadaocho.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadaocho.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        No se trata solo de tener una web… se trata de saber qué resultados te está dando. Medimos lo que realmente importa: cuántas consultas recibís, cuánto se automatiza y qué tan bien están funcionando tus campañas. Todo pensado para que cada visita tenga un propósito. Tu web no queda estática... Evoluciona pensando en el dia que precizes las metricas para tus campañas sociales el objetivo sea cada vez mas preciso.
-      </p>
+      <h2 class="section-title">Sabés qué está pasando en tu negocio</h2>
+      <p class="section-text">No se trata solo de tener una web, sino de entender cómo está funcionando.<br><br>Podés ver cuántas y qué acciones realizan y qué partes funcionan mejor.<br><br>Con esa información, se mejora constantemente para que cada vez funcione mejor y genere más resultados.<br><br><strong>Optimización constante basada en resultados reales</strong><br>Nada queda estático.</p>
     </section>
 
     <!-- PORTADA 9 -->
+    <img src="/portadanueve.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadanueve.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Cómo interactúan las personas con tu web: consultas, acciones y rendimiento de cada sección. Esa información se analiza para entender qué funciona y qué se puede mejorar. La web se optimiza continuamente en base a datos reales.
-      </p>
+      <h2 class="section-title">Se analiza cómo interactúan las personas, qué eligen y en qué momento toman decisiones.</h2>
+      <p class="section-text">Con esos datos, la web se ajusta para mejorar la experiencia y aumentar los resultados.<br><br>Esto permite que tu sistema crezca junto con tu negocio.<br><br><strong>Más orden, más tiempo y más resultados</strong><br>El cambio es claro:<br>Menos tareas manuales. Menos desorden. Menos tiempo perdido.<br><br>Y a cambio: Más claridad. Más organización. Más oportunidades concretas.</p>
     </section>
 
     <!-- PORTADA 10 -->
+    <img src="/portadadiez.png" alt="Portada" style="width:100%;display:block;">
     <section class="section">
-      <img src="/portadadiez.png" alt="Portada" class="portada-img">
-      <p class="section-text">
-        Menos trabajo. Más tiempo. Más orden. Más resultados. Ahora la decisión es simple: seguir haciendo todo manual… o empezar a tener un sistema que lo haga por vos.
-      </p>
+      <h2 class="section-title">La decisión es simple</h2>
+      <p class="section-text">Podés seguir haciendo todo manual, dependiendo de tu tiempo y energía…<br><br>O podés dar el paso hacia un sistema que trabaja por vos en internet, organiza tu negocio y te ayuda a crecer todos los días.<br><br>Elegí empezar a simplificar tu trabajo y a potenciar tus resultados.<br>Tu web puede ser mucho más que una presencia… puede ser la herramienta que haga avanzar tu negocio incluso cuando vos no estás.</p>
     </section>
 
-    <!-- PORTADA 11 + FLOATING MESSAGE -->
-    <section class="section">
-      <img src="/portadaonce.png" alt="Portada" class="portada-img">
-    </section>
+    <!-- PORTADA 11 -->
+    <img src="/portadaonce.png" alt="Portada" style="width:100%;display:block;">
 
     <!-- FLOATING MESSAGE SECTION -->
-    <section class="floating-message">
-      <p class="message-hint">✨ Toca para saber más ✨</p>
-      <img src="/mensajeweb.png" alt="Mensaje" class="message-image" id="messageImage" onclick="openMessageModal()">
-      <div class="arrow-down" onclick="openMessageModal()">▼</div>
+    <section class="floating-message" style="position:relative; padding: 40px 20px; margin: 40px 0;">
+      <div style="display:flex; align-items:flex-start; gap:20px; max-width:700px; margin:0 auto; flex-wrap:wrap; justify-content:center;">
+        <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+          <img src="/mensajeweb.png" alt="Mensaje" class="message-image" id="messageImage" onclick="openMessageModal()" style="width:110px;height:110px;border-radius:50%;object-fit:cover;cursor:pointer;border:3px solid var(--primary);animation:float 3s ease-in-out infinite;">
+          <div style="font-size:11px;color:var(--text-light);margin-top:8px;text-align:center;letter-spacing:0.5px;">✨ Tocá para leer ✨</div>
+          <div style="font-size:20px;color:var(--primary);animation:bounce 2s infinite;cursor:pointer;" onclick="openMessageModal()">▼</div>
+        </div>
+        <div id="messagePreviewText" style="flex:1;min-width:220px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.7;color:#050505;background:#f0f2f5;border-radius:18px;padding:16px 20px;display:none;"></div>
+      </div>
     </section>
 
     <!-- FULL WIDTH IMAGE -->
     <img src="/planesdos.png" alt="Planes" class="full-width-img">
 
     <!-- COMMENTS SECTION -->
-    <section class="comments-section">
-      <h2 class="comments-title">Contanos tu experiencia</h2>
+    <section class="comments-section" id="comments-section">
+      <h2 class="comments-title">Dejá un comentario!</h2>
 
       <!-- Avatar Selector -->
       <div class="form-group">
@@ -1509,12 +1496,46 @@
           <img src="/avatartres.png" alt="Avatar 3" class="avatar-option" data-avatar="/avatartres.png" onclick="selectAvatar(this)">
           <img src="/avatarcuatro.png" alt="Avatar 4" class="avatar-option" data-avatar="/avatarcuatro.png" onclick="selectAvatar(this)">
         </div>
+        <div style="text-align:center;margin-top:8px;">
+          <button onclick="toggleAvatarDrawer()" style="background:none;border:none;cursor:pointer;font-size:11px;color:#65676b;display:inline-flex;align-items:center;gap:4px;padding:4px 8px;">
+            ver más <span id="avatarDrawerArrow" style="font-size:9px;transition:transform 0.2s;">▼▼</span>
+          </button>
+        </div>
+        <!-- Avatar Drawer -->
+        <div id="avatarDrawer" style="display:none;background:#f0f2f5;border-radius:16px;padding:16px;margin-top:8px;animation:slideIn 0.3s ease;">
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
+            <img src="/avatarcinco.png" alt="Avatar 5" class="avatar-option" data-avatar="/avatarcinco.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarseis.png" alt="Avatar 6" class="avatar-option" data-avatar="/avatarseis.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarsiete.png" alt="Avatar 7" class="avatar-option" data-avatar="/avatarsiete.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarocho.png" alt="Avatar 8" class="avatar-option" data-avatar="/avatarocho.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarnueve.png" alt="Avatar 9" class="avatar-option" data-avatar="/avatarnueve.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatardiez.png" alt="Avatar 10" class="avatar-option" data-avatar="/avatardiez.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avataronce.png" alt="Avatar 11" class="avatar-option" data-avatar="/avataronce.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarcatorce.png" alt="Avatar 14" class="avatar-option" data-avatar="/avatarcatorce.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarquince.png" alt="Avatar 15" class="avatar-option" data-avatar="/avatarquince.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatardieciseis.png" alt="Avatar 16" class="avatar-option" data-avatar="/avatardieciseis.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatardiecisiete.png" alt="Avatar 17" class="avatar-option" data-avatar="/avatardiecisiete.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatardieciocho.png" alt="Avatar 18" class="avatar-option" data-avatar="/avatardieciocho.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatardiecinueve.png" alt="Avatar 19" class="avatar-option" data-avatar="/avatardiecinueve.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveinte.png" alt="Avatar 20" class="avatar-option" data-avatar="/avatarveinte.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveintiuno.png" alt="Avatar 21" class="avatar-option" data-avatar="/avatarveintiuno.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveintidos.png" alt="Avatar 22" class="avatar-option" data-avatar="/avatarveintidos.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveititres.png" alt="Avatar 23" class="avatar-option" data-avatar="/avatarveititres.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveinticuatro.png" alt="Avatar 24" class="avatar-option" data-avatar="/avatarveinticuatro.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveinticinco.png" alt="Avatar 25" class="avatar-option" data-avatar="/avatarveinticinco.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveintiseis.png" alt="Avatar 26" class="avatar-option" data-avatar="/avatarveintiseis.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveintisiete.png" alt="Avatar 27" class="avatar-option" data-avatar="/avatarveintisiete.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveintiocho.png" alt="Avatar 28" class="avatar-option" data-avatar="/avatarveintiocho.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatarveintinueve.png" alt="Avatar 29" class="avatar-option" data-avatar="/avatarveintinueve.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatartreinta.png" alt="Avatar 30" class="avatar-option" data-avatar="/avatartreinta.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+          </div>
+        </div>
       </div>
 
       <!-- Name Input -->
       <div class="form-group">
         <label class="form-label">Tu nombre:</label>
-        <input type="text" id="commentName" class="form-input" placeholder="Escribe tu nombre">
+        <input type="text" id="commentName" class="form-input" placeholder="Decinos tu nombre...">
       </div>
 
       <!-- Rating Stars -->
@@ -1560,9 +1581,9 @@
   <footer>
     <img src="/logoweb.png" alt="Logo" class="footer-logo">
     <div class="footer-links">
-      <button class="footer-link" onclick="openCurtain('how-develop')">Cómo lo desarrollamos</button>
-      <button class="footer-link" onclick="scrollToPlans()">Ir a tienda</button>
-      <button class="footer-link" onclick="window.open('https://wa.me/2395407700?text=Hola! Quiero hacer una consulta.', '_blank')">Contacto</button>
+      <button class="footer-link" onclick="openCurtain('how-obtain')">Cómo obtengo mi web</button>
+      <button class="footer-link" onclick="scrollToPlans()">Ir a los Planes</button>
+      <button class="footer-link" onclick="window.open('https://wa.me/592395407700?text=Hola%20quiero%20consultarte%20sobre%20TUWEB', '_blank')">Contacto</button>
       <button class="footer-link" onclick="scrollToElement('social-section')">Seguinos en redes</button>
     </div>
   </footer>
@@ -1571,7 +1592,7 @@
   <div class="modal-backdrop" id="commentModal">
     <div class="modal">
       <div class="modal-header">Dejanos tu comentario</div>
-      <textarea id="commentText" class="modal-textarea" placeholder="Cuentanos tu experiencia con nuestro servicio."></textarea>
+      <textarea id="commentText" class="modal-textarea" placeholder="Dejanos un comentario contandonos cuál es tu tarea repetitiva."></textarea>
       <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
       <div id="recaptchaError" style="color: #e74c3c; font-size: 12px; margin-top: 8px; display: none;">Por favor verifica que no eres un robot</div>
       <div class="modal-actions">
@@ -1728,6 +1749,17 @@
       renderAllComments();
     };
 
+    // XSS sanitization helper
+    window.sanitize = function(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+    };
+
     // Render featured comment
     window.renderFeaturedComment = function() {
       const container = document.getElementById("featuredCommentContainer");
@@ -1736,9 +1768,10 @@
         return;
       }
 
-      const featured = window.appState.allComments.reduce((prev, curr) =>
-        (curr.likes || 0) > (prev.likes || 0) ? curr : prev
-      );
+      const withLikes = window.appState.allComments.filter(c => (c.likes || 0) >= 1);
+      const featured = withLikes.length > 0
+        ? withLikes.reduce((prev, curr) => (curr.likes || 0) > (prev.likes || 0) ? curr : prev)
+        : window.appState.allComments[0];
 
       const isLiked = window.appState.likedComments[featured.id];
       const stars = "★".repeat(Math.min(5, featured.estrellas || 0));
@@ -1751,10 +1784,10 @@
             <div class="featured-badge">⭐ Comentario destacado</div>
             <div class="comment-content">
               <div class="comment-header">
-                <span class="comment-name">${featured.nombre}</span>
+                <span class="comment-name">${sanitize(featured.nombre)}</span>
                 <span class="comment-stars">${stars}</span>
               </div>
-              <p class="comment-text">${featured.comentario}</p>
+              <p class="comment-text">${sanitize(featured.comentario)}</p>
             </div>
             <div class="comment-actions">
               <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${featured.id}')">
@@ -1818,10 +1851,10 @@
             <div style="flex: 1; min-width: 0;">
               <div class="comment-content">
                 <div class="comment-header">
-                  <span class="comment-name">${comment.nombre}</span>
+                  <span class="comment-name">${sanitize(comment.nombre)}</span>
                   <span class="comment-stars">${stars}</span>
                 </div>
-                <p class="comment-text">${comment.comentario}</p>
+                <p class="comment-text">${sanitize(comment.comentario)}</p>
               </div>
               <div class="comment-actions">
                 <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${comment.id}')">
@@ -1834,7 +1867,7 @@
                 <div class="replies-container">
                   ${comment.respuestas.map((reply, idx) => {
                     const replyIsLiked = likedComments[comment.id + '_reply_' + idx];
-                    const replyTime = getRelativeTime(reply.fecha?.toDate?.() || new Date(reply.fecha));
+                    const replyTime = getRelativeTime(reply.fecha?.toDate?.() || new Date());
                     return `
                       <div class="reply-item">
                         <img src="${reply.avatar || '/avataruno.png'}" class="reply-avatar">
@@ -1898,7 +1931,7 @@
 
         // Add new reply
         const newReply = {
-          nombre: document.getElementById("commentName").value.trim() || "Anónimo",
+          nombre: (document.getElementById("reply-name-" + commentId)?.value?.trim()) || document.getElementById("commentName")?.value?.trim() || "Anónimo",
           comentario: replyText,
           fecha: new Date(),
           avatar: window.appState.selectedAvatar,
@@ -1996,12 +2029,12 @@
     // Curtain management
     window.openCurtain = function(curtainId) {
       closeSidebar();
-      document.getElementById("curtain-overlay").classList.add("open");
+      document.getElementById("curtainOverlay").classList.add("open");
       document.getElementById("curtain-" + curtainId).classList.add("open");
     };
 
     window.closeCurtain = function(curtainId) {
-      document.getElementById("curtain-overlay").classList.remove("open");
+      document.getElementById("curtainOverlay").classList.remove("open");
       document.getElementById("curtain-" + curtainId).classList.remove("open");
     };
 
@@ -2013,18 +2046,28 @@
     // Plan curtain
     window.openPlanCurtain = function() {
       document.getElementById("planCurtain").classList.add("open");
+      const ov = document.getElementById("planCurtainOverlay");
+      ov.style.opacity = "1";
+      ov.style.pointerEvents = "all";
     };
 
+    window.closePlanCurtain = function() {
+      document.getElementById("planCurtain").classList.remove("open");
+      const ov = document.getElementById("planCurtainOverlay");
+      ov.style.opacity = "0";
+      ov.style.pointerEvents = "none";
+    };
+
+    document.getElementById("planCurtainOverlay").addEventListener("click", closePlanCurtain);
+
     document.getElementById("planCurtain").addEventListener("click", function(e) {
-      if (e.target === this) {
-        this.classList.remove("open");
-      }
+      if (e.target === this) closePlanCurtain();
     });
 
     window.scrollToPlans = function() {
       document.querySelectorAll(".curtain").forEach(c => c.classList.remove("open"));
       document.getElementById("curtainOverlay").classList.remove("open");
-      document.querySelector('[id="planCurtain"]').classList.add("open");
+      openPlanCurtain();
     };
 
     // All comments view
@@ -2097,6 +2140,15 @@
           btn.classList.remove("active");
         }
       });
+    };
+
+    // Avatar drawer toggle
+    window.toggleAvatarDrawer = function() {
+      const drawer = document.getElementById("avatarDrawer");
+      const arrow = document.getElementById("avatarDrawerArrow");
+      const isOpen = drawer.style.display !== "none";
+      drawer.style.display = isOpen ? "none" : "block";
+      arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
     };
 
     // Scroll helpers
