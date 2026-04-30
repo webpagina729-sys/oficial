@@ -303,6 +303,7 @@
     /* ===== MAIN CONTENT ===== */
     main {
       flex: 1;
+      padding-bottom: 80px;
     }
 
     /* ===== HERO BANNER ===== */
@@ -350,10 +351,42 @@
 
     .section-text {
       font-size: 15px;
-      line-height: 1.8;
+      line-height: 1.65;
       color: var(--text-light);
       margin-bottom: 20px;
       text-align: justify;
+    }
+
+    .text-preview {
+      display: none;
+    }
+
+    .text-preview.show {
+      display: block;
+    }
+
+    .see-more-btn {
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+    }
+
+    .see-more-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .see-more-btn.hidden {
+      display: none;
     }
 
     .portada-img {
@@ -363,6 +396,9 @@
       border-radius: 8px;
       margin-bottom: 20px;
       animation: fadeIn 0.6s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @keyframes fadeIn {
@@ -376,24 +412,30 @@
 
     /* ===== CTA BUTTON ===== */
     .cta-button {
-      background: none;
+      background: var(--primary);
       border: none;
       width: 100%;
-      padding: 20px;
+      padding: 16px 20px;
       text-align: center;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
-      color: var(--text-dark);
+      color: var(--secondary);
       cursor: pointer;
       transition: var(--transition);
       text-transform: uppercase;
       letter-spacing: 1px;
-      border-bottom: 2px solid var(--primary);
+      border-bottom: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 95;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .cta-button:hover {
-      background: var(--primary);
-      color: var(--secondary);
+      background: var(--accent);
+      color: var(--primary);
     }
 
     .arrow-animation {
@@ -881,7 +923,7 @@
       padding: 28px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: modalSlideIn 0.3s ease;
-      max-height: 90vh;
+      max-height: 85vh;
       overflow-y: auto;
     }
 
@@ -955,6 +997,113 @@
     .modal-btn:hover {
       background: var(--accent);
       border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    /* ===== PLANS MODAL ===== */
+    .plans-modal {
+      background: var(--secondary);
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      padding: 0;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease;
+      max-height: 85vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plans-modal-img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .plans-modal-btn {
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      padding: 14px 20px;
+      border-radius: 0;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      margin: 16px 20px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .plans-modal-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    /* ===== PLAN INFO MODAL ===== */
+    .plan-info-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 600;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .plan-info-modal-backdrop.open {
+      display: flex;
+    }
+
+    .plan-info-modal {
+      background: var(--secondary);
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease;
+      max-height: 80vh;
+      overflow-y: auto;
+      margin: auto;
+    }
+
+    .plan-info-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .plan-info-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-dark);
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+
+    .plan-info-close {
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      transition: var(--transition);
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .plan-info-close:hover {
+      background: var(--accent);
       color: var(--primary);
     }
 
@@ -1202,13 +1351,14 @@
     }
 
     .g-recaptcha {
-      margin: 20px 0;
+      margin: 16px 0;
       display: flex;
       justify-content: center;
+      transform-origin: center;
     }
 
     .g-recaptcha > div {
-      transform-origin: center;
+      margin: 0 auto;
     }
 
     /* ===== IMAGE MODAL ===== */
@@ -1500,9 +1650,16 @@
       }
 
       .g-recaptcha {
-        transform: scale(0.75);
-        transform-origin: center;
-        margin: 8px 0;
+        transform: scale(0.65);
+        transform-origin: center top;
+        margin: 8px 0 -20px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .g-recaptcha > div {
+        margin: 0;
       }
 
       .stars-row {
@@ -1600,7 +1757,25 @@
     </div>
     <img src="/planesuno.png" alt="Plans" class="plan-img">
     <div style="padding: 20px;">
-      <button class="plan-button" onclick="window.open('https://wa.me/592395407700?text=Hola%20quiero%20consultarte%20sobre%20TUWEB','_blank')">Conoce más sobre todo lo que podemos hacer en tu web</button>
+      <button class="plan-button" onclick="openPlansGridModal()">Más Información</button>
+    </div>
+  </div>
+
+  <!-- PLANS GRID MODAL -->
+  <div class="modal-backdrop" id="plansGridBackdrop" style="z-index: 550;">
+    <div style="width: 95%; max-width: 900px; display: flex; gap: 12px; align-items: center; justify-content: center; overflow-x: auto; flex-wrap: nowrap;">
+      <div style="flex: 0 0 auto; min-width: 200px; text-align: center;">
+        <img src="/infobasico.png" alt="Plan Básico" style="width: 160px; height: 240px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.3s;" onclick="openPlanInfo('basico')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <p style="font-size: 14px; font-weight: 700; margin-top: 10px;">Plan Básico</p>
+      </div>
+      <div style="flex: 0 0 auto; min-width: 200px; text-align: center;">
+        <img src="/infoestandar.png" alt="Plan Estándar" style="width: 160px; height: 240px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.3s;" onclick="openPlanInfo('estandar')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <p style="font-size: 14px; font-weight: 700; margin-top: 10px;">Plan Estándar</p>
+      </div>
+      <div style="flex: 0 0 auto; min-width: 200px; text-align: center;">
+        <img src="/infopro.png" alt="Plan Pro" style="width: 160px; height: 240px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.3s;" onclick="openPlanInfo('pro')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <p style="font-size: 14px; font-weight: 700; margin-top: 10px;">Plan Pro</p>
+      </div>
     </div>
   </div>
 
@@ -1738,17 +1913,18 @@
             <img src="/avatarnueve.png" alt="Avatar 9" class="avatar-option" data-avatar="/avatarnueve.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatardiez.png" alt="Avatar 10" class="avatar-option" data-avatar="/avatardiez.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avataronce.png" alt="Avatar 11" class="avatar-option" data-avatar="/avataronce.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatardoce.png" alt="Avatar 12" class="avatar-option" data-avatar="/avatardoce.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/avatartrece.png" alt="Avatar 13" class="avatar-option" data-avatar="/avatartrece.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarcatorce.jfif" alt="Avatar 14" class="avatar-option" data-avatar="/avatarcatorce.jfif" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarquince.png" alt="Avatar 15" class="avatar-option" data-avatar="/avatarquince.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatardieciseis.png" alt="Avatar 16" class="avatar-option" data-avatar="/avatardieciseis.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
-            <img src="/avatardiecisiete.png" alt="Avatar 17" class="avatar-option" data-avatar="/avatardiecisiete.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatardieciocho.png" alt="Avatar 18" class="avatar-option" data-avatar="/avatardieciocho.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatardiecinueve.png" alt="Avatar 19" class="avatar-option" data-avatar="/avatardiecinueve.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarveinte.png" alt="Avatar 20" class="avatar-option" data-avatar="/avatarveinte.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarveintiuno.png" alt="Avatar 21" class="avatar-option" data-avatar="/avatarveintiuno.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarveintidos.png" alt="Avatar 22" class="avatar-option" data-avatar="/avatarveintidos.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarveintitres.png" alt="Avatar 23" class="avatar-option" data-avatar="/avatarveintitres.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
-            <img src="/avatarveinticuatro.png" alt="Avatar 24" class="avatar-option" data-avatar="/avatarveinticuatro.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
+            <img src="/veinticuatroavatar.png" alt="Avatar 24" class="avatar-option" data-avatar="/veinticuatroavatar.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarveinticinco.png" alt="Avatar 25" class="avatar-option" data-avatar="/avatarveinticinco.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarveintiseis.png" alt="Avatar 26" class="avatar-option" data-avatar="/avatarveintiseis.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarveintisiete.png" alt="Avatar 27" class="avatar-option" data-avatar="/avatarveintisiete.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
@@ -1840,6 +2016,15 @@
       <button class="shortcuts-modal-btn" onclick="shortcutToPlanes()">💰 Planes</button>
       <button class="shortcuts-modal-btn" onclick="shortcutToComments()">💬 Comentarios</button>
       <button class="shortcuts-modal-close" onclick="closeShortcutsModal()">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- PLANS INFO MODALS -->
+  <div class="plan-info-modal-backdrop" id="planInfoModal">
+    <div class="plan-info-modal">
+      <div class="plan-info-title" id="planInfoTitle"></div>
+      <div class="plan-info-text" id="planInfoContent"></div>
+      <button class="plan-info-close" onclick="closePlanInfoModal()">Cerrar</button>
     </div>
   </div>
 
@@ -2547,6 +2732,190 @@
     window.addEventListener("scroll", updateWhatsappButtonVisibility);
     window.addEventListener("load", updateWhatsappButtonVisibility);
     window.addEventListener("resize", updateWhatsappButtonVisibility);
+
+    // Plans modal functions
+    window.openPlansGridModal = function() {
+      const backdrop = document.getElementById("plansGridBackdrop");
+      if (backdrop) {
+        backdrop.classList.add("open");
+      }
+    };
+
+    window.closePlansGridModal = function() {
+      const backdrop = document.getElementById("plansGridBackdrop");
+      if (backdrop) {
+        backdrop.classList.remove("open");
+      }
+    };
+
+    // Plan info data
+    window.planInfoData = {
+      basico: {
+        title: "Plan Básico",
+        content: `Para empezar a tener presencia que convierta
+
+Imaginá que alguien entra a tu web y en segundos entiende qué hacés, qué ofrecés y cómo comprarte.
+Sin escribirte. Sin vueltas.
+
+Imaginá que ve tus productos bien ordenados, elige lo que quiere, toca un botón…
+y el pedido te llega a WhatsApp armado automáticamente, con todo listo.
+
+Eso es este plan.
+
+Tenés una web diseñada a medida, con la estética de tu negocio.
+No es una plantilla más: es tu identidad bien mostrada.
+
+Carga rápido, funciona perfecto en el celular y no pierde tiempo (ni el tuyo ni el del cliente).
+
+Incluye un catálogo de hasta 20 productos, donde cada persona puede seleccionar lo que necesita y enviarte el pedido sin fricción.
+Todo llega claro, ordenado y listo para responder.
+
+Y además, una calculadora automática que ayuda a tomar decisiones en el momento.
+Menos dudas, más acción.
+
+👉 ¿Qué cambia acá?
+
+Imaginá dejar de responder siempre lo mismo.
+Imaginá que la web ya explica, muestra y ordena por vos.
+
+No es urgencia, es claridad:
+cuando todo está bien presentado, el cliente avanza solo.
+
+Vos dejás de correr atrás de cada mensaje…
+y empezás a enfocarte en lo que realmente mueve tu negocio.`
+      },
+      estandar: {
+        title: "Plan Estándar",
+        content: `Para ordenar tu negocio y mejorar resultados
+
+Imaginá que alguien entra a tu web y no solo entiende lo que hacés…
+sino que siente que está en el lugar correcto.
+
+Imaginá que recorre tus productos, encuentra justo lo que busca, elige sin dudas
+y en segundos te llega el pedido completo a WhatsApp, con todo claro y listo.
+
+Eso ya no es casualidad. Está pensado.
+
+Mantenés todo lo del plan básico, pero lo llevás más lejos:
+
+Tenés una web diseñada a medida, con la estética de tu negocio, cuidada en cada detalle.
+Carga rápido, se ve perfecta en el celular y transmite profesionalismo desde el primer segundo.
+
+Sumás un catálogo de hasta 50 productos, donde el cliente puede elegir y enviarte el pedido automáticamente por WhatsApp, con toda la información organizada.
+Menos preguntas, más decisiones.
+
+Incluye una calculadora automática, que facilita la compra y evita fricciones innecesarias.
+
+Y además, incorporás una mini aplicación dentro de la web:
+puede ser una caja de comentarios para generar confianza y comunidad,
+o un sistema de turnos automáticos que ordena tu agenda sin que tengas que intervenir.
+
+Pero lo más importante no es lo que tiene…
+es cómo está pensado.
+
+Cada sección, cada texto y cada paso están diseñados estratégicamente para guiar al cliente:
+entender → confiar → avanzar.
+
+👉 ¿Qué cambia acá?
+
+Imaginá dejar de recibir consultas sin sentido.
+Imaginá que las personas que te escriben ya saben lo que quieren.
+
+No solo mostrás lo que hacés.
+Empezás a atraer gente más decidida.
+
+Filtrás mejor.
+Perdés menos tiempo.
+Y tu negocio sigue funcionando incluso cuando vos no estás.`
+      },
+      pro: {
+        title: "Plan Pro",
+        content: `Para escalar y sacarle el máximo rendimiento
+
+Imaginá un día normal de trabajo… pero sin el desgaste de siempre.
+
+No respondés "¿precio?" diez veces.
+No explicás cómo comprar una y otra vez.
+No ordenás pedidos que llegan mal o incompletos.
+
+La persona entra, busca con la lupita, encuentra lo que quiere, usa la calculadora si lo necesita…
+y cuando decide, el pedido te llega a WhatsApp listo, con todo claro.
+
+Sin que tengas que intervenir.
+
+Ahora, ¿qué hace posible eso?
+
+Tenés una web diseñada a medida, con la estética real de tu negocio.
+No es algo genérico: está pensada para que todo tenga sentido desde que alguien entra.
+
+La web tiene carga rápida y funciona perfecto en el celular, para no perder oportunidades por algo básico.
+
+Incluye un buscador con lupa, para que la persona encuentre lo que quiere en segundos, sin frustrarse ni abandonar.
+
+Sumás un catálogo de hasta 50 productos, conectado directamente a WhatsApp:
+el cliente elige, agrega y envía…
+y vos recibís el pedido automático con toda la información organizada.
+
+También tenés una calculadora automática, que evita preguntas innecesarias y ayuda a decidir en el momento.
+
+Además, integrás 2 mini aplicaciones dentro de la web:
+
+una caja de comentarios, que muestra experiencias reales y genera confianza sin que tengas que convencer
+un sistema de turnos automáticos, que ordena tu agenda sin mensajes cruzados ni errores
+
+Y algo clave:
+
+Contás con seguimiento de datos, para entender qué está pasando:
+qué miran, qué funciona, qué se mueve más.
+
+No es intuición. Es información.
+
+👉 ¿Qué cambia acá?
+
+Cosas concretas, todos los días:
+
+Dejás de responder lo mismo constantemente
+Dejás de ordenar pedidos mal armados
+Dejás de perder tiempo en consultas que no avanzan
+
+Y empezás a tener:
+
+Pedidos más claros
+Clientes más decididos
+Un negocio más ordenado
+Más tiempo para enfocarte en lo importante
+
+No es una suma de funciones.
+
+Es sacarte de encima todo lo que hoy te consume tiempo…
+y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
+      }
+    };
+
+    window.openPlanInfo = function(plan) {
+      const data = window.planInfoData[plan];
+      if (!data) return;
+
+      document.getElementById("planInfoTitle").textContent = data.title;
+      document.getElementById("planInfoContent").textContent = data.content;
+      document.getElementById("planInfoModal").classList.add("open");
+    };
+
+    window.closePlanInfoModal = function() {
+      document.getElementById("planInfoModal").classList.remove("open");
+    };
+
+    document.getElementById("planInfoModal")?.addEventListener("click", function(e) {
+      if (e.target === this) {
+        closePlanInfoModal();
+      }
+    });
+
+    document.getElementById("plansGridBackdrop")?.addEventListener("click", function(e) {
+      if (e.target === this) {
+        closePlansGridModal();
+      }
+    });
 
     // Make portada images clickable for full screen
     document.addEventListener("DOMContentLoaded", function() {
