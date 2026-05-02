@@ -374,10 +374,11 @@
 
     .section-text {
       font-size: 15px;
-      line-height: 1.5;
-      color: var(--text-light);
+      line-height: 1.6;
+      color: var(--text-dark);
       margin-bottom: 16px;
-      text-align: justify;
+      text-align: left;
+      letter-spacing: normal;
     }
 
     .text-preview {
@@ -444,7 +445,7 @@
     .section-row {
       display: flex;
       flex-wrap: nowrap;
-      gap: 18px;
+      gap: 16px;
       align-items: flex-start;
       justify-content: flex-start;
       min-height: 1px;
@@ -459,8 +460,8 @@
     }
 
     .section-side-image {
-      flex: 0 0 110px;
-      max-width: 110px;
+      flex: 0 0 100px;
+      max-width: 100px;
       display: flex;
       justify-content: center;
       align-items: stretch;
@@ -470,7 +471,6 @@
     .decor-image {
       width: auto;
       height: 100%;
-      max-height: 100%;
       max-width: 100%;
       border-radius: 12px;
       display: block;
@@ -2001,9 +2001,10 @@
     <img src="/portadadiez.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
     <section class="section">
       <h2 class="section-title">La decisión es simple</h2>
-      <p class="section-text">Podés seguir haciendo todo manual, dependiendo de tu tiempo y energía…<br><br>O podés dar el paso hacia un sistema que trabaja por vos en internet, organiza tu negocio y te ayuda a crecer todos los días.</p>
-      <p class="section-text text-preview" id="text-preview-10">Elegí empezar a simplificar tu trabajo y a potenciar tus resultados.<br>Tu web puede ser mucho más que una presencia… puede ser la herramienta que haga avanzar tu negocio incluso cuando vos no estás.</p>
+      <p class="section-text">Podés seguir haciendo todo manual, dependiendo de tu tiempo y energía…</p>
+      <p class="section-text">O podés dar el paso hacia un sistema que trabaja por vos en internet, organiza tu negocio y te ayuda a crecer todos los días.</p>
       <button class="see-more-btn" id="see-more-10" onclick="toggleSeeMore('10')">ver más ↓</button>
+      <p class="section-text text-preview" id="text-preview-10">Elegí empezar a simplificar tu trabajo y a potenciar tus resultados.<br>Tu web puede ser mucho más que una presencia… puede ser la herramienta que haga avanzar tu negocio incluso cuando vos no estás.</p>
     </section>
 
     <!-- PORTADA 11 -->
@@ -2885,6 +2886,8 @@
     window.addEventListener("scroll", updateWhatsappButtonVisibility);
     window.addEventListener("load", updateWhatsappButtonVisibility);
     window.addEventListener("resize", updateWhatsappButtonVisibility);
+    window.addEventListener("load", updateDecoHeights);
+    window.addEventListener("resize", updateDecoHeights);
 
     window.updateCtaButtonVisibility = function() {
       const btn = document.querySelector(".cta-button");
@@ -3105,10 +3108,28 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
         preview.classList.add('show');
         btn.classList.add('hidden');
       }
+      updateDecoHeights();
+    };
+
+    window.updateDecoHeights = function() {
+      document.querySelectorAll('.section-row').forEach(row => {
+        const title = row.querySelector('.section-title');
+        const paragraphs = Array.from(row.querySelectorAll('.section-text')).filter(p => !p.classList.contains('text-preview'));
+        const decoImg = row.querySelector('.decor-image');
+        if (!title || paragraphs.length < 2 || !decoImg) return;
+        const titleTop = title.offsetTop;
+        const secondBottom = paragraphs[1].offsetTop + paragraphs[1].offsetHeight;
+        const height = secondBottom - titleTop;
+        if (height > 0) {
+          decoImg.style.height = height + 'px';
+          decoImg.style.width = 'auto';
+        }
+      });
     };
 
     // Make portada images clickable for full screen with pinch zoom support
     document.addEventListener("DOMContentLoaded", function() {
+      updateDecoHeights();
       const portadaImages = document.querySelectorAll("img[src*='portada']");
       portadaImages.forEach(img => {
         img.style.cursor = "pointer";
