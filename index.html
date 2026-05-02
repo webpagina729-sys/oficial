@@ -383,10 +383,33 @@
 
     .text-preview {
       display: none;
+      margin-top: 12px;
     }
 
     .text-preview.show {
       display: block;
+    }
+
+    .section-text-wrapper {
+      min-width: 0;
+    }
+
+    .section-row:not(.expanded) .section-text-wrapper > .section-text:nth-of-type(2) {
+      display: inline;
+      margin-bottom: 0;
+    }
+
+    .section-row.expanded .section-text-wrapper > .section-text:nth-of-type(2) {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .section-row:not(.expanded) .section-text-wrapper > .section-text:nth-of-type(2)::after {
+      content: '...';
+    }
+
+    .section-row.expanded .section-text-wrapper > .section-text:nth-of-type(2)::after {
+      content: '';
     }
 
     .see-more-btn {
@@ -401,8 +424,10 @@
       transition: var(--transition);
       text-transform: none;
       letter-spacing: 0;
-      margin-top: 4px;
+      margin: 0 0 0 6px;
       text-decoration: underline;
+      display: inline-block;
+      vertical-align: baseline;
     }
 
     .see-more-btn:hover {
@@ -411,12 +436,6 @@
 
     .see-more-btn.hidden {
       display: none;
-    }
-
-    @media (min-width: 769px) {
-      .text-preview {
-        display: none !important;
-      }
     }
 
     .portada-img {
@@ -1112,6 +1131,21 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+    }
+
+    .plans-modal > div:nth-child(2) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 16px;
+    }
+
+    .plans-modal > div:nth-child(2) > div {
+      flex: 1 1 calc(33.333% - 12px);
+      min-width: 160px;
+      max-width: 220px;
     }
 
     .plans-modal-img {
@@ -3118,12 +3152,15 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
       const preview = document.getElementById('text-preview-' + id);
       const btn = document.getElementById('see-more-' + id);
       if (!preview || !btn) return;
+      const row = btn.closest('.section-row');
       if (preview.classList.contains('show')) {
         preview.classList.remove('show');
         btn.textContent = 'ver más ↓';
+        if (row) row.classList.remove('expanded');
       } else {
         preview.classList.add('show');
         btn.textContent = 'ver menos ↑';
+        if (row) row.classList.add('expanded');
       }
       updateDecoHeights();
     };
