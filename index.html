@@ -415,9 +415,6 @@
 
     @media (min-width: 769px) {
       .text-preview {
-        display: block !important;
-      }
-      .see-more-btn {
         display: none !important;
       }
     }
@@ -460,17 +457,17 @@
     }
 
     .section-side-image {
-      flex: 0 0 100px;
-      max-width: 100px;
+      flex: 0 0 40%;
+      max-width: 40%;
       display: flex;
       justify-content: center;
-      align-items: stretch;
-      align-self: stretch;
+      align-items: flex-start;
+      align-self: flex-start;
     }
 
     .decor-image {
-      width: auto;
-      height: 100%;
+      width: 100%;
+      height: auto;
       max-width: 100%;
       border-radius: 12px;
       display: block;
@@ -478,40 +475,44 @@
     }
 
     .section-text-wrapper {
-      flex: 1 1 0;
+      flex: 0 0 60%;
+      max-width: 60%;
       min-width: 0;
     }
 
     /* ===== CTA BUTTON ===== */
     .cta-button {
       position: fixed;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
       z-index: 96;
       display: none;
       align-items: center;
       justify-content: center;
-      background: transparent;
+      background: #000;
       border: none;
-      color: #000;
-      padding: 10px 16px;
+      color: #fff;
+      padding: 12px 0;
       font-size: 14px;
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: normal;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
       text-transform: none;
       animation: pulseAppear 2.5s ease-in-out infinite;
       white-space: nowrap;
+      box-shadow: none;
     }
 
     .cta-button:hover {
-      background: rgba(0, 0, 0, 0.05);
+      background: #000;
     }
 
     .cta-button:active {
       background: #fff;
+      color: #000;
     }
 
     .cta-button.visible {
@@ -1849,20 +1850,20 @@
   <!-- PLANS GRID MODAL -->
   <div class="modal-backdrop" id="plansGridBackdrop" style="z-index: 550;">
     <div class="plans-modal" role="dialog" aria-modal="true" aria-label="Planes disponibles">
-      <div style="padding: 20px; text-align: center; border-bottom: 1px solid #e5e5e5;">
+      <div style="padding: 20px 16px; text-align: center; border-bottom: 1px solid #e5e5e5;">
         <h2 style="margin: 0; font-size: 18px; font-weight: 700;">Elegí tu plan</h2>
       </div>
-      <div style="display: grid; gap: 16px; padding: 20px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: start;">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-          <img src="/infouno.png" alt="Info Uno" style="width:auto;max-width:220px;height:150px;object-fit:cover;border-radius:12px;display:block;">
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; padding: 16px; justify-content: center; align-items: flex-start;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;flex:1 1 180px;min-width:140px;max-width:220px;">
+          <img src="/infouno.png" alt="Info Uno" style="width:100%;height:120px;object-fit:cover;border-radius:12px;display:block;">
           <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Básico')">Ver más</button>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-          <img src="/infodos.png" alt="Info Dos" style="width:auto;max-width:220px;height:150px;object-fit:cover;border-radius:12px;display:block;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;flex:1 1 180px;min-width:140px;max-width:220px;">
+          <img src="/infodos.png" alt="Info Dos" style="width:100%;height:120px;object-fit:cover;border-radius:12px;display:block;">
           <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Estándar')">Ver más</button>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-          <img src="/infotres.png" alt="Info Tres" style="width:auto;max-width:220px;height:150px;object-fit:cover;border-radius:12px;display:block;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;flex:1 1 180px;min-width:140px;max-width:220px;">
+          <img src="/infotres.png" alt="Info Tres" style="width:100%;height:120px;object-fit:cover;border-radius:12px;display:block;">
           <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Pro')">Ver más</button>
         </div>
       </div>
@@ -1894,7 +1895,9 @@
       <div class="section-text-wrapper">
         <h2 class="section-title">Tu negocio no debería depender de vos todo el tiempo</h2>
         <p class="section-text text-black">Hoy, gran parte de tu día se va en responder mensajes, explicar lo mismo una y otra vez, coordinar horarios o pasar información básica. Eso no solo te quita tiempo… también te hace perder oportunidades. Porque mientras estás ocupado, hay personas que consultan y no reciben respuesta inmediata.</p>
-        <p class="section-text text-black">Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, organiza y guía a cada persona desde el primer contacto. Vos seguís teniendo el control, pero sin estar atado al teléfono todo el día.</p>
+        <p class="section-text text-black">Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, organiza y guía a cada persona desde el primer contacto.</p>
+        <button class="see-more-btn" id="see-more-2" onclick="toggleSeeMore('2')">ver más ↓</button>
+        <p class="section-text text-preview" id="text-preview-2">Vos seguís teniendo el control, pero sin estar atado al teléfono todo el día.</p>
       </div>
       <div class="section-side-image">
         <img src="/decouno.png" alt="Decoración" class="decor-image">
@@ -1909,8 +1912,10 @@
       </div>
       <div class="section-text-wrapper">
         <h2 class="section-title">Tu web deja de ser una vidriera y pasa a ser un sistema que vende</h2>
-        <p class="section-text text-black">No alcanza con "tener presencia online". La diferencia está en lo que pasa cuando alguien entra.<br><br>TUWEB está pensada para que cada persona entienda en segundos qué ofrecés, cómo funciona y qué tiene que hacer. Sin confusión, sin dudas, sin vueltas.</p>
-        <p class="section-text text-black">Cada paso está ordenado para que el visitante avance naturalmente hasta tomar acción: consultar, reservar o comprar. Es como tener a alguien guiando a cada cliente, pero sin que vos tengas que intervenir.</p>
+        <p class="section-text text-black">No alcanza con "tener presencia online". La diferencia está en lo que pasa cuando alguien entra.</p>
+        <p class="section-text text-black">TUWEB está pensada para que cada persona entienda en segundos qué ofrecés, cómo funciona y qué tiene que hacer.</p>
+        <button class="see-more-btn" id="see-more-3" onclick="toggleSeeMore('3')">ver más ↓</button>
+        <p class="section-text text-preview" id="text-preview-3">Sin confusión, sin dudas, sin vueltas. Cada paso está ordenado para que el visitante avance naturalmente hasta tomar acción: consultar, reservar o comprar. Es como tener a alguien guiando a cada cliente, pero sin que vos tengas que intervenir.</p>
       </div>
     </section>
 
@@ -1924,8 +1929,10 @@
     <section class="section section-row section-row-right">
       <div class="section-text-wrapper">
         <h2 class="section-title">Atención automática que trabaja 24/7</h2>
-        <p class="section-text text-black">Tu negocio no tiene por qué frenar cuando vos descansás.<br><br>La web sigue funcionando todo el tiempo: responde consultas frecuentes, muestra tus servicios de forma clara, organiza pedidos y deja a cada cliente listo para avanzar.</p>
-        <p class="section-text text-black">Esto significa menos interrupciones para vos, menos tareas repetitivas y más oportunidades aprovechadas, incluso fuera de horario.<br><br><strong>Gestión de turnos sin esfuerzo</strong><br>Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
+        <p class="section-text text-black">Tu negocio no tiene por qué frenar cuando vos descansás.</p>
+        <p class="section-text text-black">La web sigue funcionando todo el tiempo: responde consultas frecuentes, muestra tus servicios de forma clara, organiza pedidos y deja a cada cliente listo para avanzar.</p>
+        <button class="see-more-btn" id="see-more-4" onclick="toggleSeeMore('4')">ver más ↓</button>
+        <p class="section-text text-preview" id="text-preview-4">Esto significa menos interrupciones para vos, menos tareas repetitivas y más oportunidades aprovechadas, incluso fuera de horario. <strong>Gestión de turnos sin esfuerzo</strong><br>Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
       </div>
       <div class="section-side-image">
         <img src="/decotres.png" alt="Decoración" class="decor-image">
@@ -1940,8 +1947,10 @@
       </div>
       <div class="section-text-wrapper">
         <h2 class="section-title">Con TUWEB, el cliente entra, ve los horarios disponibles y elige directamente.</h2>
-        <p class="section-text text-black">El turno queda registrado automáticamente, sin errores ni superposiciones.<br><br>Vos dejás de estar pendiente de organizar la agenda y pasás a tener todo claro, ordenado y funcionando solo.</p>
-        <p class="section-text text-black"><strong>Confirmaciones simples y directas</strong><br>El proceso es claro y rápido: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan.<br><br>A vos te llega la confirmación directamente por WhatsApp.<br><br>Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo.<br>Menos mensajes innecesarios, más clientes decididos.</p>
+        <p class="section-text text-black">El turno queda registrado automáticamente, sin errores ni superposiciones.</p>
+        <p class="section-text text-black">Vos dejás de estar pendiente de organizar la agenda y pasás a tener todo claro, ordenado y funcionando solo.</p>
+        <button class="see-more-btn" id="see-more-5" onclick="toggleSeeMore('5')">ver más ↓</button>
+        <p class="section-text text-preview" id="text-preview-5"><strong>Confirmaciones simples y directas</strong><br>El proceso es claro y rápido: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan. A vos te llega la confirmación directamente por WhatsApp. Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo. Menos mensajes innecesarios, más clientes decididos.</p>
       </div>
     </section>
 
@@ -1950,8 +1959,10 @@
     <section class="section section-row section-row-right">
       <div class="section-text-wrapper">
         <h2 class="section-title">La automatización no es solo comodidad, también mejora la calidad de tus consultas.</h2>
-        <p class="section-text text-black">Las personas que llegan ya vieron la información, entendieron cómo trabajás y eligieron avanzar.<br><br>Eso significa menos preguntas básicas y más personas preparados para tomar una decisión.</p>
-        <p class="section-text text-black"><strong>Todo conectado en un solo lugar</strong><br>TUWEB integra todo lo que necesitás para ordenar tu negocio:<br>Información clara de tus servicios o productos<br>Agenda de turnos.</p>
+        <p class="section-text text-black">Las personas que llegan ya vieron la información, entendieron cómo trabajás y eligieron avanzar.</p>
+        <p class="section-text text-black">Eso significa menos preguntas básicas y más personas preparados para tomar una decisión.</p>
+        <button class="see-more-btn" id="see-more-6" onclick="toggleSeeMore('6')">ver más ↓</button>
+        <p class="section-text text-preview" id="text-preview-6"><strong>Todo conectado en un solo lugar</strong><br>TUWEB integra todo lo que necesitás para ordenar tu negocio: Información clara de tus servicios o productos, Agenda de turnos.</p>
       </div>
       <div class="section-side-image">
         <img src="/decocinco.png" alt="Decoración" class="decor-image">
@@ -1966,8 +1977,10 @@
       </div>
       <div class="section-text-wrapper">
         <h2 class="section-title">Comunicación directa por WhatsApp</h2>
-        <p class="section-text text-black">Espacios para mostrar opiniones o consultas<br>Todo funciona en conjunto para que la experiencia sea simple tanto para vos como para tus clientes.<br><br><strong>Tu cliente hace todo el recorrido sin perderse</strong><br>Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas.</p>
-        <p class="section-text text-black">Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte.<br><br>Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
+        <p class="section-text text-black">Espacios para mostrar opiniones o consultas. Todo funciona en conjunto para que la experiencia sea simple tanto para vos como para tus clientes.</p>
+        <p class="section-text text-black">Tu cliente hace todo el recorrido sin perderse.</p>
+        <button class="see-more-btn" id="see-more-7" onclick="toggleSeeMore('7')">ver más ↓</button>
+        <p class="section-text text-preview" id="text-preview-7">Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas. Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte. Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
       </div>
     </section>
 
@@ -1976,8 +1989,10 @@
     <section class="section section-row section-row-right">
       <div class="section-text-wrapper">
         <h2 class="section-title">Sabés qué está pasando en tu negocio</h2>
-        <p class="section-text text-black">No se trata solo de tener una web, sino de entender cómo está funcionando.<br><br>Podés ver cuántas y qué acciones realizan y qué partes funcionan mejor.</p>
-        <p class="section-text text-black">Con esa información, se mejora constantemente para que cada vez funcione mejor y genere más resultados.<br><br><strong>Optimización constante basada en resultados reales</strong><br>Nada queda estático.</p>
+        <p class="section-text text-black">No se trata solo de tener una web, sino de entender cómo está funcionando.</p>
+        <p class="section-text text-black">Podés ver cuántas y qué acciones realizan y qué partes funcionan mejor.</p>
+        <button class="see-more-btn" id="see-more-8" onclick="toggleSeeMore('8')">ver más ↓</button>
+        <p class="section-text text-preview" id="text-preview-8">Con esa información, se mejora constantemente para que cada vez funcione mejor y genere más resultados. <strong>Optimización constante basada en resultados reales</strong> Nada queda estático.</p>
       </div>
       <div class="section-side-image">
         <img src="/decosiete.png" alt="Decoración" class="decor-image">
@@ -1992,8 +2007,10 @@
       </div>
       <div class="section-text-wrapper">
         <h2 class="section-title">Se analiza cómo interactúan las personas, qué eligen y en qué momento toman decisiones.</h2>
-        <p class="section-text text-black">Con esos datos, la web se ajusta para mejorar la experiencia y aumentar los resultados.<br><br>Esto permite que tu sistema crezca junto con tu negocio.</p>
-        <p class="section-text text-black"><strong>Más orden, más tiempo y más resultados</strong><br>El cambio es claro:<br>Menos tareas manuales. Menos desorden. Menos tiempo perdido.<br><br>Y a cambio: Más claridad. Más organización. Más oportunidades concretas.</p>
+        <p class="section-text text-black">Con esos datos, la web se ajusta para mejorar la experiencia y aumentar los resultados.</p>
+        <p class="section-text text-black">Esto permite que tu sistema crezca junto con tu negocio.</p>
+        <button class="see-more-btn" id="see-more-9" onclick="toggleSeeMore('9')">ver más ↓</button>
+        <p class="section-text text-preview" id="text-preview-9"><strong>Más orden, más tiempo y más resultados</strong><br>El cambio es claro: Menos tareas manuales. Menos desorden. Menos tiempo perdido. Y a cambio: Más claridad. Más organización. Más oportunidades concretas.</p>
       </div>
     </section>
 
@@ -3106,7 +3123,7 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
         btn.textContent = 'ver más ↓';
       } else {
         preview.classList.add('show');
-        btn.classList.add('hidden');
+        btn.textContent = 'ver menos ↑';
       }
       updateDecoHeights();
     };
