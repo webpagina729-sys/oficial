@@ -443,10 +443,11 @@
     /* ===== SECTION ROWS ===== */
     .section-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      align-items: center;
-      justify-content: center;
+      flex-wrap: nowrap;
+      gap: 18px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      min-height: 1px;
     }
 
     .section-row .section-text {
@@ -458,23 +459,27 @@
     }
 
     .section-side-image {
-      flex: 1 1 320px;
+      flex: 0 0 110px;
+      max-width: 110px;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: stretch;
+      align-self: stretch;
     }
 
     .decor-image {
-      width: 100%;
-      max-width: 360px;
-      height: auto;
+      width: auto;
+      height: 100%;
+      max-height: 100%;
+      max-width: 100%;
       border-radius: 12px;
       display: block;
+      object-fit: contain;
     }
 
     .section-text-wrapper {
-      flex: 1 1 420px;
-      min-width: 280px;
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     /* ===== CTA BUTTON ===== */
@@ -1097,12 +1102,12 @@
     .plans-modal {
       background: var(--secondary);
       border-radius: 12px;
-      max-width: 500px;
-      width: 100%;
+      max-width: 900px;
+      width: min(100%, 900px);
       padding: 0;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: modalSlideIn 0.3s ease;
-      max-height: 85vh;
+      max-height: 92vh;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -1787,7 +1792,7 @@
       <span></span>
     </button>
     <h1 class="header-brand">TUWEB</h1>
-    <div style="width: 40px;"></div>
+    <img src="/logoweb.png" alt="Logo TUWEB" style="width:40px;height:40px;object-fit:contain;">
   </header>
 
   <!-- SIDEBAR OVERLAY -->
@@ -1849,15 +1854,15 @@
       </div>
       <div style="display: grid; gap: 16px; padding: 20px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: start;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-          <img src="/infouno.png" alt="Info Uno" style="width:100%;max-width:260px;height:auto;object-fit:cover;border-radius:12px;">
+          <img src="/infouno.png" alt="Info Uno" style="width:auto;max-width:220px;height:150px;object-fit:cover;border-radius:12px;display:block;">
           <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Básico')">Ver más</button>
         </div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-          <img src="/infodos.png" alt="Info Dos" style="width:100%;max-width:260px;height:auto;object-fit:cover;border-radius:12px;">
+          <img src="/infodos.png" alt="Info Dos" style="width:auto;max-width:220px;height:150px;object-fit:cover;border-radius:12px;display:block;">
           <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Estándar')">Ver más</button>
         </div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-          <img src="/infotres.png" alt="Info Tres" style="width:100%;max-width:260px;height:auto;object-fit:cover;border-radius:12px;">
+          <img src="/infotres.png" alt="Info Tres" style="width:auto;max-width:220px;height:150px;object-fit:cover;border-radius:12px;display:block;">
           <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Pro')">Ver más</button>
         </div>
       </div>
@@ -2889,7 +2894,7 @@
 
       const rect4 = portadaCuatro.getBoundingClientRect();
       const rect11 = portadaOnce.getBoundingClientRect();
-      const visible = rect4.bottom > 0 && rect11.top < window.innerHeight;
+      const visible = rect4.top < window.innerHeight && rect11.top > 0;
       btn.classList.toggle("visible", visible);
     };
 
