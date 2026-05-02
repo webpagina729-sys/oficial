@@ -440,32 +440,92 @@
       }
     }
 
+    /* ===== SECTION ROWS ===== */
+    .section-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-row .section-text {
+      color: #000;
+    }
+
+    .section-row-left .section-side-image {
+      order: -1;
+    }
+
+    .section-side-image {
+      flex: 1 1 320px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .decor-image {
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .section-text-wrapper {
+      flex: 1 1 420px;
+      min-width: 280px;
+    }
+
     /* ===== CTA BUTTON ===== */
     .cta-button {
-      background: var(--primary);
-      border: none;
-      width: 100%;
-      padding: 16px 20px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--secondary);
-      cursor: pointer;
-      transition: var(--transition);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-bottom: none;
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 95;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 96;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: #000;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      text-transform: none;
+      animation: pulseAppear 2.5s ease-in-out infinite;
+      white-space: nowrap;
     }
 
     .cta-button:hover {
-      background: var(--accent);
-      color: var(--primary);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .cta-button:active {
+      background: #fff;
+    }
+
+    .cta-button.visible {
+      display: flex;
+    }
+
+    @keyframes pulseAppear {
+      0%, 100% {
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        transform: translateX(-50%) scale(1.02);
+      }
+    }
+
+    .arrow-animation {
+      display: inline-block;
+      margin-left: 8px;
+      animation: bounce 2s infinite;
     }
 
     .arrow-animation {
@@ -1783,18 +1843,23 @@
 
   <!-- PLANS GRID MODAL -->
   <div class="modal-backdrop" id="plansGridBackdrop" style="z-index: 550;">
-    <div style="width: 95%; max-width: 900px; display: flex; gap: 12px; align-items: center; justify-content: center; overflow-x: auto; flex-wrap: nowrap;">
-      <div style="flex: 0 0 auto; min-width: 200px; text-align: center;">
-        <img src="/infobasico.png" alt="Plan Básico" style="width: 160px; height: 240px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.3s;" onclick="openPlanInfo('basico')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <p style="font-size: 14px; font-weight: 700; margin-top: 10px;">Plan Básico</p>
+    <div class="plans-modal" role="dialog" aria-modal="true" aria-label="Planes disponibles">
+      <div style="padding: 20px; text-align: center; border-bottom: 1px solid #e5e5e5;">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 700;">Elegí tu plan</h2>
       </div>
-      <div style="flex: 0 0 auto; min-width: 200px; text-align: center;">
-        <img src="/infoestandar.png" alt="Plan Estándar" style="width: 160px; height: 240px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.3s;" onclick="openPlanInfo('estandar')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <p style="font-size: 14px; font-weight: 700; margin-top: 10px;">Plan Estándar</p>
-      </div>
-      <div style="flex: 0 0 auto; min-width: 200px; text-align: center;">
-        <img src="/infopro.png" alt="Plan Pro" style="width: 160px; height: 240px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.3s;" onclick="openPlanInfo('pro')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        <p style="font-size: 14px; font-weight: 700; margin-top: 10px;">Plan Pro</p>
+      <div style="display: grid; gap: 16px; padding: 20px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: start;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+          <img src="/infouno.png" alt="Info Uno" style="width:100%;max-width:260px;height:auto;object-fit:cover;border-radius:12px;">
+          <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Básico')">Ver más</button>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+          <img src="/infodos.png" alt="Info Dos" style="width:100%;max-width:260px;height:auto;object-fit:cover;border-radius:12px;">
+          <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Estándar')">Ver más</button>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+          <img src="/infotres.png" alt="Info Tres" style="width:100%;max-width:260px;height:auto;object-fit:cover;border-radius:12px;">
+          <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Pro')">Ver más</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1820,80 +1885,111 @@
 
     <!-- PORTADA 2 -->
     <img src="/portadados.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
-    <section class="section">
-      <h2 class="section-title">Tu negocio no debería depender de vos todo el tiempo</h2>
-      <p class="section-text">Hoy, gran parte de tu día se va en responder mensajes, explicar lo mismo una y otra vez, coordinar horarios o pasar información básica. Eso no solo te quita tiempo… también te hace perder oportunidades. Porque mientras estás ocupado, hay personas que consultan y no reciben respuesta inmediata.</p>
-      <p class="section-text text-preview" id="text-preview-2">Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, organiza y guía a cada persona desde el primer contacto. Vos seguís teniendo el control, pero sin estar atado al teléfono todo el día.</p>
-      <button class="see-more-btn" id="see-more-2" onclick="toggleSeeMore('2')">ver más ↓</button>
+    <section class="section section-row section-row-right">
+      <div class="section-text-wrapper">
+        <h2 class="section-title">Tu negocio no debería depender de vos todo el tiempo</h2>
+        <p class="section-text text-black">Hoy, gran parte de tu día se va en responder mensajes, explicar lo mismo una y otra vez, coordinar horarios o pasar información básica. Eso no solo te quita tiempo… también te hace perder oportunidades. Porque mientras estás ocupado, hay personas que consultan y no reciben respuesta inmediata.</p>
+        <p class="section-text text-black">Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, organiza y guía a cada persona desde el primer contacto. Vos seguís teniendo el control, pero sin estar atado al teléfono todo el día.</p>
+      </div>
+      <div class="section-side-image">
+        <img src="/decouno.png" alt="Decoración" class="decor-image">
+      </div>
     </section>
 
     <!-- PORTADA 3 -->
     <img src="/portadatres.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
-    <section class="section">
-      <h2 class="section-title">Tu web deja de ser una vidriera y pasa a ser un sistema que vende</h2>
-      <p class="section-text">No alcanza con "tener presencia online". La diferencia está en lo que pasa cuando alguien entra.<br><br>TUWEB está pensada para que cada persona entienda en segundos qué ofrecés, cómo funciona y qué tiene que hacer. Sin confusión, sin dudas, sin vueltas.</p>
-      <p class="section-text text-preview" id="text-preview-3">Cada paso está ordenado para que el visitante avance naturalmente hasta tomar acción: consultar, reservar o comprar. Es como tener a alguien guiando a cada cliente, pero sin que vos tengas que intervenir.</p>
-      <button class="see-more-btn" id="see-more-3" onclick="toggleSeeMore('3')">ver más ↓</button>
+    <section class="section section-row section-row-left">
+      <div class="section-side-image">
+        <img src="/decodos.png" alt="Decoración" class="decor-image">
+      </div>
+      <div class="section-text-wrapper">
+        <h2 class="section-title">Tu web deja de ser una vidriera y pasa a ser un sistema que vende</h2>
+        <p class="section-text text-black">No alcanza con "tener presencia online". La diferencia está en lo que pasa cuando alguien entra.<br><br>TUWEB está pensada para que cada persona entienda en segundos qué ofrecés, cómo funciona y qué tiene que hacer. Sin confusión, sin dudas, sin vueltas.</p>
+        <p class="section-text text-black">Cada paso está ordenado para que el visitante avance naturalmente hasta tomar acción: consultar, reservar o comprar. Es como tener a alguien guiando a cada cliente, pero sin que vos tengas que intervenir.</p>
+      </div>
     </section>
 
     <!-- CTA BUTTON -->
-    <button class="cta-button" onclick="openPlanCurtain()">
-      Ver Planes que se adaptan a tu negocio
-      <span class="arrow-animation">↓</span>
+    <button class="cta-button" onclick="openPlansGridModal()">
+      Ver planes que se adaptan a vos
     </button>
 
     <!-- PORTADA 4 -->
     <img src="/portadacuatro.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
-    <section class="section">
-      <h2 class="section-title">Atención automática que trabaja 24/7</h2>
-      <p class="section-text">Tu negocio no tiene por qué frenar cuando vos descansás.<br><br>La web sigue funcionando todo el tiempo: responde consultas frecuentes, muestra tus servicios de forma clara, organiza pedidos y deja a cada cliente listo para avanzar.</p>
-      <p class="section-text text-preview" id="text-preview-4">Esto significa menos interrupciones para vos, menos tareas repetitivas y más oportunidades aprovechadas, incluso fuera de horario.<br><br><strong>Gestión de turnos sin esfuerzo</strong><br>Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
-      <button class="see-more-btn" id="see-more-4" onclick="toggleSeeMore('4')">ver más ↓</button>
+    <section class="section section-row section-row-right">
+      <div class="section-text-wrapper">
+        <h2 class="section-title">Atención automática que trabaja 24/7</h2>
+        <p class="section-text text-black">Tu negocio no tiene por qué frenar cuando vos descansás.<br><br>La web sigue funcionando todo el tiempo: responde consultas frecuentes, muestra tus servicios de forma clara, organiza pedidos y deja a cada cliente listo para avanzar.</p>
+        <p class="section-text text-black">Esto significa menos interrupciones para vos, menos tareas repetitivas y más oportunidades aprovechadas, incluso fuera de horario.<br><br><strong>Gestión de turnos sin esfuerzo</strong><br>Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
+      </div>
+      <div class="section-side-image">
+        <img src="/decotres.png" alt="Decoración" class="decor-image">
+      </div>
     </section>
 
     <!-- PORTADA 5 -->
     <img src="/portadacinco.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
-    <section class="section">
-      <h2 class="section-title">Con TUWEB, el cliente entra, ve los horarios disponibles y elige directamente.</h2>
-      <p class="section-text">El turno queda registrado automáticamente, sin errores ni superposiciones.<br><br>Vos dejás de estar pendiente de organizar la agenda y pasás a tener todo claro, ordenado y funcionando solo.</p>
-      <p class="section-text text-preview" id="text-preview-5"><strong>Confirmaciones simples y directas</strong><br>El proceso es claro y rápido: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan.<br><br>A vos te llega la confirmación directamente por WhatsApp.<br><br>Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo.<br>Menos mensajes innecesarios, más clientes decididos.</p>
-      <button class="see-more-btn" id="see-more-5" onclick="toggleSeeMore('5')">ver más ↓</button>
+    <section class="section section-row section-row-left">
+      <div class="section-side-image">
+        <img src="/decocuatro.png" alt="Decoración" class="decor-image">
+      </div>
+      <div class="section-text-wrapper">
+        <h2 class="section-title">Con TUWEB, el cliente entra, ve los horarios disponibles y elige directamente.</h2>
+        <p class="section-text text-black">El turno queda registrado automáticamente, sin errores ni superposiciones.<br><br>Vos dejás de estar pendiente de organizar la agenda y pasás a tener todo claro, ordenado y funcionando solo.</p>
+        <p class="section-text text-black"><strong>Confirmaciones simples y directas</strong><br>El proceso es claro y rápido: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan.<br><br>A vos te llega la confirmación directamente por WhatsApp.<br><br>Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo.<br>Menos mensajes innecesarios, más clientes decididos.</p>
+      </div>
     </section>
 
     <!-- PORTADA 6 -->
     <img src="/portadaseis.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
-    <section class="section">
-      <h2 class="section-title">La automatización no es solo comodidad, también mejora la calidad de tus consultas.</h2>
-      <p class="section-text">Las personas que llegan ya vieron la información, entendieron cómo trabajás y eligieron avanzar.<br><br>Eso significa menos preguntas básicas y más personas preparados para tomar una decisión.</p>
-      <p class="section-text text-preview" id="text-preview-6"><strong>Todo conectado en un solo lugar</strong><br>TUWEB integra todo lo que necesitás para ordenar tu negocio:<br>Información clara de tus servicios o productos<br>Agenda de turnos.</p>
-      <button class="see-more-btn" id="see-more-6" onclick="toggleSeeMore('6')">ver más ↓</button>
+    <section class="section section-row section-row-right">
+      <div class="section-text-wrapper">
+        <h2 class="section-title">La automatización no es solo comodidad, también mejora la calidad de tus consultas.</h2>
+        <p class="section-text text-black">Las personas que llegan ya vieron la información, entendieron cómo trabajás y eligieron avanzar.<br><br>Eso significa menos preguntas básicas y más personas preparados para tomar una decisión.</p>
+        <p class="section-text text-black"><strong>Todo conectado en un solo lugar</strong><br>TUWEB integra todo lo que necesitás para ordenar tu negocio:<br>Información clara de tus servicios o productos<br>Agenda de turnos.</p>
+      </div>
+      <div class="section-side-image">
+        <img src="/decocinco.png" alt="Decoración" class="decor-image">
+      </div>
     </section>
 
     <!-- PORTADA 7 -->
     <img src="/portadasiete.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
-    <section class="section">
-      <h2 class="section-title">Comunicación directa por WhatsApp</h2>
-      <p class="section-text">Espacios para mostrar opiniones o consultas<br>Todo funciona en conjunto para que la experiencia sea simple tanto para vos como para tus clientes.<br><br><strong>Tu cliente hace todo el recorrido sin perderse</strong><br>Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas.</p>
-      <p class="section-text text-preview" id="text-preview-7">Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte.<br><br>Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
-      <button class="see-more-btn" id="see-more-7" onclick="toggleSeeMore('7')">ver más ↓</button>
+    <section class="section section-row section-row-left">
+      <div class="section-side-image">
+        <img src="/decoseis.png" alt="Decoración" class="decor-image">
+      </div>
+      <div class="section-text-wrapper">
+        <h2 class="section-title">Comunicación directa por WhatsApp</h2>
+        <p class="section-text text-black">Espacios para mostrar opiniones o consultas<br>Todo funciona en conjunto para que la experiencia sea simple tanto para vos como para tus clientes.<br><br><strong>Tu cliente hace todo el recorrido sin perderse</strong><br>Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas.</p>
+        <p class="section-text text-black">Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte.<br><br>Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
+      </div>
     </section>
 
     <!-- PORTADA 8 -->
     <img src="/portadaocho.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
-    <section class="section">
-      <h2 class="section-title">Sabés qué está pasando en tu negocio</h2>
-      <p class="section-text">No se trata solo de tener una web, sino de entender cómo está funcionando.<br><br>Podés ver cuántas y qué acciones realizan y qué partes funcionan mejor.</p>
-      <p class="section-text text-preview" id="text-preview-8">Con esa información, se mejora constantemente para que cada vez funcione mejor y genere más resultados.<br><br><strong>Optimización constante basada en resultados reales</strong><br>Nada queda estático.</p>
-      <button class="see-more-btn" id="see-more-8" onclick="toggleSeeMore('8')">ver más ↓</button>
+    <section class="section section-row section-row-right">
+      <div class="section-text-wrapper">
+        <h2 class="section-title">Sabés qué está pasando en tu negocio</h2>
+        <p class="section-text text-black">No se trata solo de tener una web, sino de entender cómo está funcionando.<br><br>Podés ver cuántas y qué acciones realizan y qué partes funcionan mejor.</p>
+        <p class="section-text text-black">Con esa información, se mejora constantemente para que cada vez funcione mejor y genere más resultados.<br><br><strong>Optimización constante basada en resultados reales</strong><br>Nada queda estático.</p>
+      </div>
+      <div class="section-side-image">
+        <img src="/decosiete.png" alt="Decoración" class="decor-image">
+      </div>
     </section>
 
     <!-- PORTADA 9 -->
     <img src="/portadanueve.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
-    <section class="section">
-      <h2 class="section-title">Se analiza cómo interactúan las personas, qué eligen y en qué momento toman decisiones.</h2>
-      <p class="section-text">Con esos datos, la web se ajusta para mejorar la experiencia y aumentar los resultados.<br><br>Esto permite que tu sistema crezca junto con tu negocio.</p>
-      <p class="section-text text-preview" id="text-preview-9"><strong>Más orden, más tiempo y más resultados</strong><br>El cambio es claro:<br>Menos tareas manuales. Menos desorden. Menos tiempo perdido.<br><br>Y a cambio: Más claridad. Más organización. Más oportunidades concretas.</p>
-      <button class="see-more-btn" id="see-more-9" onclick="toggleSeeMore('9')">ver más ↓</button>
+    <section class="section section-row section-row-left">
+      <div class="section-side-image">
+        <img src="/decoocho.png" alt="Decoración" class="decor-image">
+      </div>
+      <div class="section-text-wrapper">
+        <h2 class="section-title">Se analiza cómo interactúan las personas, qué eligen y en qué momento toman decisiones.</h2>
+        <p class="section-text text-black">Con esos datos, la web se ajusta para mejorar la experiencia y aumentar los resultados.<br><br>Esto permite que tu sistema crezca junto con tu negocio.</p>
+        <p class="section-text text-black"><strong>Más orden, más tiempo y más resultados</strong><br>El cambio es claro:<br>Menos tareas manuales. Menos desorden. Menos tiempo perdido.<br><br>Y a cambio: Más claridad. Más organización. Más oportunidades concretas.</p>
+      </div>
     </section>
 
     <!-- PORTADA 10 -->
@@ -1921,7 +2017,7 @@
     </section>
 
     <!-- FULL WIDTH IMAGE -->
-    <img src="/planesdos.png" alt="Planes" class="full-width-img">
+    <img src="/planesdos.png" alt="Planes" class="full-width-img" style="cursor:pointer;" onclick="openPlansGridModal()">
 
     <!-- COMMENTS SECTION -->
     <section class="comments-section" id="comments-section">
@@ -2785,6 +2881,22 @@
     window.addEventListener("load", updateWhatsappButtonVisibility);
     window.addEventListener("resize", updateWhatsappButtonVisibility);
 
+    window.updateCtaButtonVisibility = function() {
+      const btn = document.querySelector(".cta-button");
+      const portadaCuatro = document.querySelector('img[src="/portadacuatro.png"]');
+      const portadaOnce = document.querySelector('img[src="/portadaonce.png"]');
+      if (!btn || !portadaCuatro || !portadaOnce) return;
+
+      const rect4 = portadaCuatro.getBoundingClientRect();
+      const rect11 = portadaOnce.getBoundingClientRect();
+      const visible = rect4.bottom > 0 && rect11.top < window.innerHeight;
+      btn.classList.toggle("visible", visible);
+    };
+
+    window.addEventListener("scroll", updateCtaButtonVisibility);
+    window.addEventListener("load", updateCtaButtonVisibility);
+    window.addEventListener("resize", updateCtaButtonVisibility);
+
     // Plans modal functions
     window.openPlansGridModal = function() {
       const backdrop = document.getElementById("plansGridBackdrop");
@@ -2798,6 +2910,13 @@
       if (backdrop) {
         backdrop.classList.remove("open");
       }
+    };
+
+    window.openWhatsAppPlan = function(planName) {
+      closePlansGridModal();
+      const message = `Hola Nicolas! Buenass... Quiero el plan ${planName} para liberar más mi tiempo! Te cuento un poco en donde la organización de mi trabajo más tiempo me ocupa así me recomendás un mejor sistema de gestión: Me gustaría solucionar...`;
+      const url = `https://wa.me/5492395407700?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
     };
 
     // Plan info data
@@ -2985,7 +3104,7 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
 
     // Make portada images clickable for full screen with pinch zoom support
     document.addEventListener("DOMContentLoaded", function() {
-      const portadaImages = document.querySelectorAll("img[src*='portada'], img[src*='planesdos']");
+      const portadaImages = document.querySelectorAll("img[src*='portada']");
       portadaImages.forEach(img => {
         img.style.cursor = "pointer";
         // Touch/pinch zoom
