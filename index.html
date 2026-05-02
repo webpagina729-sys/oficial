@@ -359,7 +359,7 @@
 
     /* ===== SECTIONS ===== */
     .section {
-      padding: 40px 20px;
+      padding: 24px 20px;
       max-width: 1200px;
       margin: 40px auto;
     }
@@ -382,7 +382,7 @@
     }
 
     .texto-preview,
-    .texto-resto {
+    .texto-completo {
       font-size: 15px;
       line-height: 1.6;
       color: var(--text-dark);
@@ -391,7 +391,7 @@
       letter-spacing: normal;
     }
 
-    .texto-resto.oculto {
+    .texto-completo.oculto {
       max-height: 0;
       overflow: hidden;
       opacity: 0;
@@ -399,7 +399,7 @@
       margin-bottom: 0;
     }
 
-    .texto-resto {
+    .texto-completo {
       max-height: 1000px;
       opacity: 1;
     }
@@ -475,7 +475,7 @@
     .section-row {
       display: flex;
       flex-wrap: nowrap;
-      gap: 16px;
+      gap: 8px;
       align-items: center;
       justify-content: flex-start;
       min-height: 1px;
@@ -490,8 +490,8 @@
     }
 
     .section-side-image {
-      flex: 0 0 40%;
-      max-width: 40%;
+      flex: 0 0 42%;
+      max-width: 42%;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -508,8 +508,8 @@
     }
 
     .section-text-wrapper {
-      flex: 0 0 60%;
-      max-width: 60%;
+      flex: 0 0 58%;
+      max-width: 58%;
       min-width: 0;
     }
 
@@ -1942,8 +1942,8 @@
     <section class="section section-row section-row-right">
       <div class="section-text-wrapper">
         <h2 class="section-title">Tu negocio no debería depender de vos todo el tiempo</h2>
-        <p class="texto-preview" id="text-preview-2">Hoy, gran parte de tu día se va en responder mensajes, explicar lo mismo una y otra vez, coordinar horarios o pasar inform... <span class="ver-mas">Ver más</span></p>
-        <p class="texto-resto oculto" id="full-text-2">ación básica. Eso no solo te quita tiempo… también te hace perder oportunidades. Porque mientras estás ocupado, hay personas que consultan y no reciben respuesta inmediata. Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, organiza y guía a cada persona desde el primer contacto. Vos seguís teniendo el control, pero sin estar atado al teléfono todo el día.</p>
+        <p class="texto-preview" id="text-preview-2">Hoy, gran parte de tu día se va en responder mensajes, explicar lo mismo una y otra vez, coordinar horarios o pasar información básica... <span class="ver-mas">Ver más</span></p>
+        <p class="texto-completo oculto" id="full-text-2">Eso no solo te quita tiempo… también te hace perder oportunidades. Porque mientras estás ocupado, hay personas que consultan y no reciben respuesta inmediata. Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, organiza y guía a cada persona desde el primer contacto. Vos seguís teniendo el control, pero sin estar atado al teléfono todo el día.</p>
       </div>
       <div class="section-side-image">
         <img src="/decouno.png" alt="Decoración" class="decor-image">
@@ -1959,7 +1959,7 @@
       <div class="section-text-wrapper">
         <h2 class="section-title">Tu web deja de ser una vidriera y pasa a ser un sistema que vende</h2>
         <p class="texto-preview" id="text-preview-3">No alcanza con “tener presencia online”. La diferencia está en lo que pasa cuando alguien entra... <span class="ver-mas">Ver más</span></p>
-        <p class="texto-resto oculto" id="full-text-3">TUWEB está pensada para que cada persona entienda en segundos qué ofrecés, cómo funciona y qué tiene que hacer. Sin confusión, sin dudas, sin vueltas. Cada paso está ordenado para que el visitante avance naturalmente hasta tomar acción: consultar, reservar o comprar. Es como tener a alguien guiando a cada cliente, pero sin que vos tengas que intervenir.</p>
+        <p class="texto-completo oculto" id="full-text-3">TUWEB está pensada para que cada persona entienda en segundos qué ofrecés, cómo funciona y qué tiene que hacer. Sin confusión, sin dudas, sin vueltas. Cada paso está ordenado para que el visitante avance naturalmente hasta tomar acción: consultar, reservar o comprar. Es como tener a alguien guiando a cada cliente, pero sin que vos tengas que intervenir.</p>
       </div>
     </section>
 
@@ -1974,7 +1974,10 @@
       <div class="section-text-wrapper">
         <h2 class="section-title">Atención automática que trabaja 24/7</h2>
         <p class="texto-preview" id="text-preview-4">Tu negocio no tiene por qué frenar cuando vos descansás. La web sigue funcionando todo el tiempo... <span class="ver-mas">Ver más</span></p>
-        <p class="texto-resto oculto" id="full-text-4">: responde consultas frecuentes, muestra tus servicios de forma clara, organiza pedidos y deja a cada cliente listo para avanzar. Esto significa menos interrupciones para vos, menos tareas repetitivas y más oportunidades aprovechadas, incluso fuera de horario. Gestión de turnos sin esfuerzo Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
+        <p class="texto-completo oculto" id="full-text-4">Responde consultas frecuentes, muestra tus servicios de forma clara, organiza pedidos y deja a cada cliente listo para avanzar. Esto significa menos interrupciones para vos, menos tareas repetitivas y más oportunidades aprovechadas, incluso fuera de horario.
+
+Gestión de turnos sin esfuerzo
+Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
       </div>
       <div class="section-side-image">
         <img src="/decotres.png" alt="Decoración" class="decor-image">
@@ -1989,8 +1992,15 @@
       </div>
       <div class="section-text-wrapper">
         <h2 class="section-title">Con TUWEB, el cliente entra, ve los horarios disponibles y elige directamente.</h2>
-        <p class="texto-preview" id="text-preview-5">El turno queda registrado automáticamente, sin errores ni superposiciones... <span class="ver-mas">Ver más</span></p>
-        <p class="texto-resto oculto" id="full-text-5">Vos dejás de estar pendiente de organizar la agenda y pasás a tener todo claro, ordenado y funcionando solo. Confirmaciones simples y directas El proceso es claro y rápido: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan. A vos te llega la confirmación directamente por WhatsApp. Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo. Menos mensajes innecesarios, más clientes decididos.</p>
+        <p class="texto-preview" id="text-preview-5">El turno queda registrado automáticamente, sin errores ni superposiciones. Vos dejás de estar pendiente de organizar la agenda... <span class="ver-mas">Ver más</span></p>
+        <p class="texto-completo oculto" id="full-text-5">Y pasás a tener todo claro, ordenado y funcionando solo.
+
+Confirmaciones simples y directas
+El proceso es claro y rápido: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan.
+A vos te llega la confirmación directamente por WhatsApp.
+Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo.
+
+Menos mensajes innecesarios, más clientes decididos.</p>
       </div>
     </section>
 
@@ -2000,7 +2010,12 @@
       <div class="section-text-wrapper">
         <h2 class="section-title">La automatización no es solo comodidad, también mejora la calidad de tus consultas.</h2>
         <p class="texto-preview" id="text-preview-6">Las personas que llegan ya vieron la información, entendieron cómo trabajás y eligieron avanzar... <span class="ver-mas">Ver más</span></p>
-        <p class="texto-resto oculto" id="full-text-6">Eso significa menos preguntas básicas y más personas preparados para tomar una decisión. Todo conectado en un solo lugar TUWEB integra todo lo que necesitás para ordenar tu negocio: Información clara de tus servicios o productos Agenda de turnos.</p>
+        <p class="texto-completo oculto" id="full-text-6">Eso significa menos preguntas básicas y más personas preparadas para tomar una decisión.
+
+Todo conectado en un solo lugar
+TUWEB integra todo lo que necesitás para ordenar tu negocio:
+Información clara de tus servicios o productos
+Agenda de turnos.</p>
       </div>
       <div class="section-side-image">
         <img src="/decocinco.png" alt="Decoración" class="decor-image">
@@ -2016,7 +2031,13 @@
       <div class="section-text-wrapper">
         <h2 class="section-title">Comunicación directa por WhatsApp</h2>
         <p class="texto-preview" id="text-preview-7">Espacios para mostrar opiniones o consultas. Todo funciona en conjunto para que la experiencia sea simple... <span class="ver-mas">Ver más</span></p>
-        <p class="texto-resto oculto" id="full-text-7">tanto para vos como para tus clientes. Tu cliente hace todo el recorrido sin perderse Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas. Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte. Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
+        <p class="texto-completo oculto" id="full-text-7">Tanto para vos como para tus clientes.
+
+Tu cliente hace todo el recorrido sin perderse.
+Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas.
+Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte.
+
+Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
       </div>
     </section>
 
@@ -2026,7 +2047,10 @@
       <div class="section-text-wrapper">
         <h2 class="section-title">Sabés qué está pasando en tu negocio</h2>
         <p class="texto-preview" id="text-preview-8">No se trata solo de tener una web, sino de entender cómo está funcionando... <span class="ver-mas">Ver más</span></p>
-        <p class="texto-resto oculto" id="full-text-8">Podés ver cuántas y qué acciones realizan y qué partes funcionan mejor. Con esa información, se mejora constantemente para que cada vez funcione mejor y genere más resultados. Optimización constante basada en resultados reales Nada queda estático.</p>
+        <p class="texto-completo oculto" id="full-text-8">Podés ver cuántas y qué acciones realizan y qué partes funcionan mejor. Con esa información, se mejora constantemente para que cada vez funcione mejor y genere más resultados.
+
+Optimización constante basada en resultados reales.
+Nada queda estático.</p>
       </div>
       <div class="section-side-image">
         <img src="/decosiete.png" alt="Decoración" class="decor-image">
@@ -2042,7 +2066,19 @@
       <div class="section-text-wrapper">
         <h2 class="section-title">Se analiza cómo interactúan las personas, qué eligen y en qué momento toman decisiones.</h2>
         <p class="texto-preview" id="text-preview-9">Con esos datos, la web se ajusta para mejorar la experiencia y aumentar los resultados... <span class="ver-mas">Ver más</span></p>
-        <p class="texto-resto oculto" id="full-text-9">Esto permite que tu sistema crezca junto con tu negocio. Más orden, más tiempo y más resultados El cambio es claro: Menos tareas manuales. Menos desorden. Menos tiempo perdido. Y a cambio: Más claridad. Más organización. Más oportunidades concretas.</p>
+        <p class="texto-completo oculto" id="full-text-9">Esto permite que tu sistema crezca junto con tu negocio.
+
+Más orden, más tiempo y más resultados.
+
+El cambio es claro:
+Menos tareas manuales.
+Menos desorden.
+Menos tiempo perdido.
+
+Y a cambio:
+Más claridad.
+Más organización.
+Más oportunidades concretas.</p>
       </div>
     </section>
 
@@ -2051,7 +2087,10 @@
     <section class="section">
       <h2 class="section-title">La decisión es simple</h2>
       <p class="texto-preview" id="text-preview-10">Podés seguir haciendo todo manual, dependiendo de tu tiempo y energía… o podés dar el paso hacia un sistema que trabaja por vos... <span class="ver-mas">Ver más</span></p>
-      <p class="texto-resto oculto" id="full-text-10">en internet, organiza tu negocio y te ayuda a crecer todos los días. Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web puede ser mucho más que una presencia… puede ser la herramienta que haga avanzar tu negocio incluso cuando vos no estás.</p>
+      <p class="texto-completo oculto" id="full-text-10">En internet, organiza tu negocio y te ayuda a crecer todos los días.
+
+Elegí empezar a simplificar tu trabajo y a potenciar tus resultados.
+Tu web puede ser mucho más que una presencia… puede ser la herramienta que haga avanzar tu negocio incluso cuando vos no estás.</p>
     </section>
 
     <!-- PORTADA 11 -->
@@ -3146,7 +3185,7 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
     // Toggle see-more for section texts
     window.toggleSeeMore = function(id) {
       const trigger = document.getElementById('see-more-' + id);
-      const resto = trigger?.closest('.section-text-wrapper')?.querySelector('.texto-resto') || trigger?.closest('section')?.querySelector('.texto-resto');
+      const resto = trigger?.closest('.section-text-wrapper')?.querySelector('.texto-completo') || trigger?.closest('section')?.querySelector('.texto-completo');
       if (!resto || !trigger) return;
       resto.classList.remove('oculto');
       trigger.style.display = 'none';
@@ -3174,7 +3213,7 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
       updateDecoHeights();
       document.querySelectorAll('.ver-mas').forEach(btn => {
         btn.addEventListener('click', function() {
-          const resto = btn.closest('.section-text-wrapper')?.querySelector('.texto-resto') || btn.closest('section')?.querySelector('.texto-resto');
+          const resto = btn.closest('.section-text-wrapper')?.querySelector('.texto-completo') || btn.closest('section')?.querySelector('.texto-completo');
           if (!resto) return;
           resto.classList.remove('oculto');
           btn.style.display = 'none';
