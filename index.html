@@ -29,9 +29,9 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       line-height: 1.6;
-      color: var(--text-dark);
+      color: #ffffff;
       overflow-x: hidden;
       position: relative;
     }
@@ -44,7 +44,7 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      filter: blur(6px) brightness(0.92);
+      filter: none;
       z-index: -2;
       transform: scale(1.05);
     }
@@ -53,14 +53,15 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: rgba(255,255,255,0.45);
+      background: rgba(0,0,0,0.45);
       backdrop-filter: blur(2px);
       z-index: -1;
     }
 
     /* ===== HEADER ===== */
     .header {
-      background: rgba(255, 255, 255, 0.95);
+      background: #ffffff;
+      color: #111111;
       border-bottom: 2px solid var(--primary);
       padding: 16px 20px;
       display: flex;
@@ -80,6 +81,7 @@
       text-transform: uppercase;
       flex: 1;
       text-align: center;
+      color: #111111;
     }
 
     .hamburger {
@@ -214,7 +216,7 @@
       transition: var(--transition);
       text-align: left;
       color: var(--text-dark);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     .sidebar-btn:hover {
@@ -331,7 +333,7 @@
 
     /* ===== HERO BANNER ===== */
     .banner {
-      background: transparent;
+      background: #ffffff;
       padding: 10px 20px;
       text-align: center;
       border-bottom: 1px solid #e8e8e8;
@@ -343,7 +345,7 @@
       letter-spacing: 4px;
       text-transform: uppercase;
       animation: fadeInDown 0.8s ease;
-      color: #888;
+      color: #111111;
     }
 
     @keyframes fadeInDown {
@@ -367,7 +369,7 @@
     .section-title {
       font-size: 20px;
       font-weight: 600;
-      color: #050505;
+      color: #ffffff;
       line-height: 1.3;
       margin-bottom: 16px;
     }
@@ -375,7 +377,7 @@
     .section-text {
       font-size: 15px;
       line-height: 1.6;
-      color: var(--text-dark);
+      color: #ffffff;
       margin-bottom: 16px;
       text-align: left;
       letter-spacing: normal;
@@ -385,7 +387,7 @@
     .texto-resto {
       font-size: 15px;
       line-height: 1.6;
-      color: var(--text-dark);
+      color: #ffffff;
       margin-bottom: 16px;
       text-align: left;
       letter-spacing: normal;
@@ -479,7 +481,7 @@
     }
 
     .section-row .section-text {
-      color: #000;
+      color: #ffffff;
     }
 
     .section-row-left .section-side-image {
@@ -607,8 +609,8 @@
     }
 
     .plan-button {
-      background: var(--accent);
-      color: var(--primary);
+      background: #ffffff;
+      color: #111111;
       border: none;
       padding: 14px 20px;
       border-radius: 8px;
@@ -622,8 +624,8 @@
     }
 
     .plan-button:hover {
-      background: var(--primary);
-      color: var(--secondary);
+      background: #000000;
+      color: #ffffff;
       animation: none;
     }
 
@@ -1045,7 +1047,8 @@
     }
 
     .modal {
-      background: var(--secondary);
+      background: rgba(10,10,10,0.88);
+      border: 1px solid rgba(255,255,255,0.10);
       border-radius: 12px;
       max-width: 480px;
       width: 100%;
@@ -1054,6 +1057,7 @@
       animation: modalSlideIn 0.3s ease;
       max-height: 85vh;
       overflow-y: auto;
+      color: #ffffff;
     }
 
     @keyframes modalSlideIn {
@@ -1073,6 +1077,7 @@
       margin-bottom: 20px;
       text-align: center;
       letter-spacing: 1px;
+      color: #ffffff;
     }
 
     .modal-textarea {
@@ -1085,18 +1090,18 @@
       font-size: 14px;
       resize: vertical;
       transition: var(--transition);
-      background: #f0f2f5;
-      color: var(--text-dark);
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
     }
 
     .modal-textarea:focus {
       outline: none;
-      background: #e4e6eb;
-      box-shadow: 0 0 0 3px rgba(80, 224, 62, 0.1);
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.12);
     }
 
     .modal-textarea::placeholder {
-      color: #999;
+      color: rgba(255,255,255,0.7);
     }
 
     .modal-actions {
@@ -1108,30 +1113,33 @@
     .modal-btn {
       flex: 1;
       padding: 12px;
-      border: 2px solid var(--primary);
-      background: var(--secondary);
+      border: 2px solid rgba(255,255,255,0.15);
+      background: transparent;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
       transition: var(--transition);
       text-transform: uppercase;
       font-size: 12px;
+      color: #ffffff;
     }
 
     .modal-btn.primary {
-      background: var(--primary);
-      color: var(--secondary);
+      background: #111111;
+      color: #ffffff;
+      border-color: #ffffff;
     }
 
     .modal-btn:hover {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--primary);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+      color: #ffffff;
     }
 
     /* ===== PLANS MODAL ===== */
     .plans-modal {
-      background: var(--secondary);
+      background: rgba(10,10,10,0.88);
+      border: 1px solid rgba(255,255,255,0.10);
       border-radius: 12px;
       max-width: 900px;
       width: min(100%, 900px);
@@ -1142,6 +1150,7 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+      color: #ffffff;
     }
 
     .plans-modal > div:nth-child(2) {
@@ -1166,9 +1175,9 @@
     }
 
     .plans-modal-btn {
-      background: var(--primary);
-      color: var(--secondary);
-      border: none;
+      background: #ffffff;
+      color: #111111;
+      border: 1px solid rgba(0,0,0,0.12);
       padding: 14px 20px;
       border-radius: 0;
       cursor: pointer;
@@ -1181,8 +1190,8 @@
     }
 
     .plans-modal-btn:hover {
-      background: var(--accent);
-      color: var(--primary);
+      background: #000000;
+      color: #ffffff;
     }
 
     /* ===== PLAN INFO MODAL ===== */
@@ -1204,7 +1213,8 @@
     }
 
     .plan-info-modal {
-      background: var(--secondary);
+      background: rgba(10,10,10,0.88);
+      border: 1px solid rgba(255,255,255,0.10);
       border-radius: 12px;
       max-width: 600px;
       width: 100%;
@@ -1214,6 +1224,7 @@
       max-height: 80vh;
       overflow-y: auto;
       margin: auto;
+      color: #ffffff;
     }
 
     .plan-info-title {
@@ -1222,19 +1233,20 @@
       margin-bottom: 20px;
       text-align: center;
       letter-spacing: 1px;
+      color: #ffffff;
     }
 
     .plan-info-text {
       font-size: 14px;
       line-height: 1.8;
-      color: var(--text-dark);
+      color: #ffffff;
       text-align: justify;
       margin-bottom: 20px;
     }
 
     .plan-info-close {
-      background: var(--primary);
-      color: var(--secondary);
+      background: #111111;
+      color: #ffffff;
       border: none;
       padding: 12px 20px;
       border-radius: 8px;
@@ -1247,8 +1259,8 @@
     }
 
     .plan-info-close:hover {
-      background: var(--accent);
-      color: var(--primary);
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
     }
 
     /* ===== ALL COMMENTS VIEW ===== */
@@ -1380,11 +1392,11 @@
 
     /* ===== FOOTER ===== */
     footer {
-      background: var(--primary);
-      color: var(--secondary);
+      background: #000000;
+      color: #aaaaaa;
       padding: 40px 20px;
       text-align: left;
-      border-top: 2px solid var(--primary);
+      border-top: 2px solid #000000;
     }
 
     .footer-logo {
@@ -1393,7 +1405,7 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      border: 2px solid var(--secondary);
+      border: 2px solid rgba(255,255,255,0.35);
       transition: var(--transition);
     }
 
@@ -1410,11 +1422,11 @@
     }
 
     .footer-link {
-      background: none;
-      border: none;
-      color: var(--secondary);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #aaaaaa;
       padding: 6px 0;
-      border-radius: 0;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
       font-weight: 400;
@@ -1424,12 +1436,12 @@
       text-align: left;
       display: inline-block;
       width: auto;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     .footer-link:hover {
-      color: var(--accent);
-      background: none;
+      color: #ffffff;
+      background: rgba(255,255,255,0.08);
     }
 
     /* ===== SUCCESS NOTIFICATION ===== */
@@ -1615,6 +1627,22 @@
       display: flex;
     }
 
+    .floating-whatsapp-btn {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      background: #25D366 !important;
+      border: none !important;
+      color: #ffffff !important;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .floating-whatsapp-btn:hover {
+      background: #1ebe5d !important;
+      transform: scale(1.03);
+    }
+
     /* ===== SHORTCUTS MODAL ===== */
     .shortcuts-modal-backdrop {
       position: fixed;
@@ -1633,7 +1661,8 @@
     }
 
     .shortcuts-modal {
-      background: var(--secondary);
+      background: rgba(10,10,10,0.88);
+      border: 1px solid rgba(255,255,255,0.10);
       border-radius: 12px;
       padding: 28px;
       max-width: 400px;
@@ -1643,6 +1672,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      color: #ffffff;
     }
 
     .shortcuts-modal-title {
@@ -1651,12 +1681,13 @@
       margin-bottom: 16px;
       text-align: center;
       letter-spacing: 1px;
+      color: #ffffff;
     }
 
     .shortcuts-modal-btn {
-      background: var(--primary);
-      color: var(--secondary);
-      border: none;
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.15);
       padding: 12px 16px;
       border-radius: 8px;
       cursor: pointer;
@@ -1667,24 +1698,25 @@
     }
 
     .shortcuts-modal-btn:hover {
-      background: var(--accent);
-      color: var(--primary);
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
     }
 
     .shortcuts-modal-close {
-      background: none;
-      border: 2px solid var(--primary);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.35);
       padding: 12px 16px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
       transition: var(--transition);
       margin-top: 8px;
+      color: #ffffff;
     }
 
     .shortcuts-modal-close:hover {
-      background: var(--primary);
-      color: var(--secondary);
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
     }
 
     /* ===== RESPONSIVE ===== */
@@ -2101,7 +2133,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
           <div style="font-size:11px;color:var(--text-light);margin-top:8px;text-align:center;letter-spacing:0.5px;">✨ Tocá para leer ✨</div>
           <div style="font-size:20px;color:var(--primary);animation:bounce 2s infinite;cursor:pointer;" onclick="openMessageModal()">▼</div>
         </div>
-        <div id="messagePreviewText" style="flex:1;min-width:220px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.7;color:#050505;background:#f0f2f5;border-radius:18px;padding:16px 20px;display:none;"></div>
+        <div id="messagePreviewText" style="flex:1;min-width:220px;font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:1.7;color:#050505;background:#f0f2f5;border-radius:18px;padding:16px 20px;display:none;"></div>
       </div>
     </section>
 
