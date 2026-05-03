@@ -2098,29 +2098,34 @@
 }
 
 /* SOLO afecta el modal */
+#allCommentsList,
 #allCommentsList .comment-card,
+#allCommentsList .comment-card.featured,
 #allCommentsList .comentario-item,
-#allCommentsList .comment {
-  max-width: 100%;
-  width: 100%;
+#allCommentsList .comment,
+#allCommentsList .comment-content,
+#allCommentsList .replies-container,
+#allCommentsList .reply-item {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
 }
 
 #allCommentsList {
-  width: 100%;
-  min-width: 0;
-}
-
-.all-comments-body,
-.all-comments-header {
-  min-width: 0;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
 }
 
 #allCommentsList > .comment-card,
+#allCommentsList > .comment-card.featured,
 #allCommentsList > .comentario-item,
 #allCommentsList > .comment {
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
+  flex: none !important;
 }
 
 </style>
