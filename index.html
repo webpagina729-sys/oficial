@@ -2304,24 +2304,33 @@
 }
 
 .all-comments-header {
-  position: relative !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 16px 20px !important;
-}
+  position: relative;
 
-.all-comments-header .curtain-close {
-  position: absolute !important;
-  right: 16px !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
+  padding: 18px 20px;
+
+  text-align: center;
+
+  display: block;
 }
 
 .all-comments-header h2 {
-  margin: 0 !important;
-  text-align: center !important;
-  width: 100% !important;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+
+  position: relative;
+  z-index: 1;
+}
+
+.all-comments-header .curtain-close {
+  position: absolute;
+
+  right: 12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  z-index: 2;
 }
 
 </style>
