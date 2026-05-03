@@ -2246,6 +2246,126 @@
   z-index: 2;
 }
 
+.portada-container {
+  position: relative;
+}
+
+.portada-img {
+  width: calc(100% - 24px);
+  display: block;
+  margin: 0 12px;
+  border-radius: 8px;
+}
+
+.mensaje-overlay {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 12px;
+  border-radius: 18px;
+  z-index: 2;
+}
+
+.mensaje-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.mensaje-overlay span {
+  color: white;
+  margin-top: 6px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.planes-container {
+  position: relative;
+  width: calc(100% - 24px);
+  margin: 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-planes {
+  width: 100%;
+  background: black;
+  color: white;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  animation: flash 2s infinite;
+}
+
+@keyframes flash {
+  0% { box-shadow: 0 0 0px white; }
+  50% { box-shadow: 0 0 15px white; }
+  100% { box-shadow: 0 0 0px white; }
+}
+
+.label-avatar,
+.label-rating {
+  color: black;
+}
+
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#allCommentsList .comment-card,
+#allCommentsList .comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#allCommentsList .comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#allCommentsList .comment-content {
+  flex: 1;
+}
+
+#allCommentsList .comment-name {
+  font-weight: bold;
+}
+
+#allCommentsList .comment-text {
+  margin: 2px 0;
+}
+
+#allCommentsList .comment-actions {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  background: transparent;
+  margin-top: 6px;
+}
+
+#allCommentsList .comment-like-count {
+  margin-left: auto;
+}
+
+#allCommentsList .reply-item {
+  margin-left: 40px;
+  margin-top: 6px;
+}
+
 </style>
 </head>
 <body>
@@ -2358,7 +2478,13 @@
     </section>
 
     <!-- PORTADA 1 - FULL BLEED -->
-    <img src="/portadauno.png" alt="Portada Principal" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
+    <div class="portada-container">
+      <img src="/portadauno.png" alt="Portada Principal" class="portada-img">
+      <div class="mensaje-overlay" onclick="openMensajeModal()">
+        <img src="/logodos.png" alt="Toca para leer" class="mensaje-icon">
+        <span>Toca para leer</span>
+      </div>
+    </div>
 
     <!-- PORTADA 2 -->
     <img src="/portadados.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
@@ -2532,7 +2658,10 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
     </section>
 
     <!-- FULL WIDTH IMAGE -->
-    <img src="/planesdos.png" alt="Planes" class="full-width-img" style="cursor:pointer;" onclick="openPlansGridModal()">
+    <div class="planes-container">
+      <button class="btn-planes" onclick="irPlanes()">CLIC ACÁ</button>
+      <img src="/planesdos.png" alt="Planes" class="full-width-img" style="cursor:pointer;" onclick="irPlanes()">
+    </div>
 
     <!-- COMMENTS SECTION -->
     <section class="comments-section" id="comments-section">
@@ -2540,7 +2669,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
       <!-- Avatar Selector -->
       <div class="form-group">
-        <label class="form-label">Elegí tu avatar:</label>
+        <label class="form-label label-avatar">Elegí tu avatar:</label>
         <div class="avatar-selector">
           <img src="/avataruno.png" alt="Avatar 1" class="avatar-option selected" data-avatar="/avataruno.png" onclick="selectAvatar(this)">
           <img src="/avatardos.png" alt="Avatar 2" class="avatar-option" data-avatar="/avatardos.png" onclick="selectAvatar(this)">
@@ -2592,7 +2721,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
       <!-- Rating Stars -->
       <div class="form-group">
-        <label class="form-label">Calificación:</label>
+        <label class="form-label label-rating">Calificación:</label>
         <div class="stars-row" id="starsRow">
           <button class="star-btn" data-value="1" onclick="selectRating(1)">★</button>
           <button class="star-btn" data-value="2" onclick="selectRating(2)">★</button>
@@ -2695,16 +2824,41 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
   <div class="modal-backdrop" id="messageModal">
     <div class="modal">
       <div class="modal-header">Nuestro enfoque</div>
-      <p style="font-size: 14px; line-height: 1.8; color: #666;">
-        Un día normal en tu negocio. Algunos dejan consultas claras. Otros ya llegan con todo definido. Y otros directamente reservan.
-        <br><br>
-        <strong>Ejemplo metafórico:</strong> Olvidate de que se te queme la pizza por atender los mensajes. Con TUWEB terminas de cocinar y solo agarras el teléfono para mirar la siguiente receta reservada. Sin tener que explicar lo mismo de siempre. Sin ir ordenando mensajes uno por uno. Sin estar encima de cada paso.
-        <br><br>
-        Cuando abrís WhatsApp, ya está todo bastante claro. Los pedidos llegan armados. Los turnos, acomodados. Las consultas, directas. Las compras Automáticas. Respondés más tranquilo. Te enfocás en atender, no en correr atrás de todo. Incluso fuera de horario, la web sigue funcionando. La gente entra, elige… y te deja todo listo, reserva para el siguiente día.
-        <br><br>
-        Es tener un empleado en el celular mientras vos seguis con lo tuyo. Y eso, en el día a día… se siente mejor y tu tiempo más rentable!
-      </p>
+      <div class="modal-content">
+        <p>
+Hola, ¿cómo estás?
+
+Me llamo Nicolás.
+
+También soy emprendedor, y sé lo que significa estar en todo: responder, ordenar, coordinar, trabajar… y sentir que el tiempo no alcanza.
+
+Después de tres años estudiando conexiones digitales, entendí algo clave:
+la diferencia no está solo en “tener presencia”, sino en cómo conectás al cliente con lo que ofrecés.
+Cuando esa conexión es clara, rápida y directa… todo cambia.
+
+A partir de eso creé TUWEB, un emprendimiento pensado para algo muy concreto:
+"hacerte ganar tiempo."
+
+Te invito a que mires la información de esta web punto por punto.
+Cada herramienta, cada función y cada detalle están pensados para lo mismo:
+que dejes de ocuparte de tareas repetitivas y tu negocio funcione con más orden y autonomía.
+
+Al terminar, lo más probable es que ya tengas una conexión clara de lo que podés lograr aplicándolo a tu negocio o servicio.
+
+De mi lado, estoy para implementarlo y así, que realmente te libere tiempo y energía.
+        </p>
+      </div>
       <button class="modal-btn primary" onclick="closeMessageModal()" style="width: 100%; margin-top: 20px;">Entendido</button>
+    </div>
+  </div>
+
+  <!-- AVATAR CHOICE MODAL -->
+  <div class="modal-backdrop" id="avatarChoiceModal">
+    <div class="modal">
+      <div class="modal-header">¿Con qué avatar querés responder?</div>
+      <button class="modal-btn" onclick="usarAvatarActual()">Usar Avatar Seleccionado</button>
+      <button class="modal-btn primary" onclick="elegirNuevoAvatar()">Usar otro avatar</button>
+      <button class="modal-btn" onclick="closeAvatarChoiceModal()">Cancelar</button>
     </div>
   </div>
 
@@ -2880,7 +3034,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             </div>
             <div class="comment-actions">
               <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${featured.id}')">Me gusta</button>
-              <button class="reply-btn" onclick="toggleReplyInput('${featured.id}')">Responder</button>
+              <button class="reply-btn" onclick="requestReplyInput('${featured.id}')">Responder</button>
               <span class="comment-likes">👍 ${featured.likes || 0}</span>
               <span class="comment-date">${fechaRelativa}</span>
             </div>
@@ -2899,7 +3053,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                         </div>
                         <div class="reply-actions">
                           <button class="reply-like-btn ${replyIsLiked ? 'liked' : ''}" onclick="likeReply('${featured.id}', ${idx})">Me gusta</button>
-                          <button class="reply-btn small" onclick="toggleReplyInput('${featured.id}')">Responder</button>
+                          <button class="reply-btn small" onclick="requestReplyInput('${featured.id}')">Responder</button>
                           <span class="reply-likes">👍 ${reply.likes || 0}</span>
                           <span class="reply-date">${replyTime}</span>
                         </div>
@@ -2948,7 +3102,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
               </div>
               <div class="comment-actions">
                 <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeComment('${comment.id}')">Me gusta</button>
-                <button class="reply-btn" onclick="toggleReplyInput('${comment.id}')">Responder</button>
+                <button class="reply-btn" onclick="requestReplyInput('${comment.id}')">Responder</button>
                 <span class="comment-likes">👍 ${comment.likes || 0}</span>
                 <span class="comment-date">${fechaRelativa}</span>
               </div>
@@ -2967,7 +3121,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                           </div>
                           <div class="reply-actions">
                             <button class="reply-like-btn ${replyIsLiked ? 'liked' : ''}" onclick="likeReply('${comment.id}', ${idx})">Me gusta</button>
-                            <button class="reply-btn small" onclick="toggleReplyInput('${comment.id}')">Responder</button>
+                            <button class="reply-btn small" onclick="requestReplyInput('${comment.id}')">Responder</button>
                             <span class="reply-likes">👍 ${reply.likes || 0}</span>
                             <span class="reply-date">${replyTime}</span>
                           </div>
@@ -3191,8 +3345,41 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
       document.getElementById("messageModal").classList.add("open");
     };
 
-    window.closeMessageModal = function() {
-      document.getElementById("messageModal").classList.remove("open");
+    window.openMensajeModal = function() {
+      window.openMessageModal();
+    };
+
+    window.requestReplyInput = function(commentId) {
+      window.pendingReplyCommentId = commentId;
+      const modal = document.getElementById("avatarChoiceModal");
+      if (modal) {
+        modal.classList.add("open");
+      } else {
+        toggleReplyInput(commentId);
+      }
+    };
+
+    window.closeAvatarChoiceModal = function() {
+      const modal = document.getElementById("avatarChoiceModal");
+      if (modal) modal.classList.remove("open");
+    };
+
+    window.usarAvatarActual = function() {
+      const commentId = window.pendingReplyCommentId;
+      if (commentId) {
+        toggleReplyInput(commentId);
+      }
+      window.pendingReplyCommentId = null;
+      window.closeAvatarChoiceModal();
+    };
+
+    window.elegirNuevoAvatar = function() {
+      window.closeAvatarChoiceModal();
+      if (window.toggleAvatarDrawer) window.toggleAvatarDrawer();
+    };
+
+    window.irPlanes = function() {
+      window.location.href = "https://planes.webpagina729.workers.dev";
     };
 
     document.getElementById("messageModal").addEventListener("click", function(e) {
@@ -3215,6 +3402,15 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
       document.querySelectorAll(".avatar-option").forEach(a => a.classList.remove("selected"));
       element.classList.add("selected");
       window.appState.selectedAvatar = element.dataset.avatar;
+      if (window.pendingReplyCommentId) {
+        const commentId = window.pendingReplyCommentId;
+        const replyInput = document.getElementById("reply-input-" + commentId);
+        if (replyInput) {
+          replyInput.style.display = "flex";
+          document.getElementById("reply-text-" + commentId)?.focus();
+        }
+        window.pendingReplyCommentId = null;
+      }
     };
 
     // Rating selection
