@@ -1394,37 +1394,42 @@
       padding: 24px;
     }
 
-    .all-comments-container::before {
+    .all-comments-container::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.68);
-      backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      z-index: 0;
     }
 
     .all-comments-container.open {
       display: flex;
     }
 
-    .all-comments-container > .all-comments-header,
-    .all-comments-container > .all-comments-body {
+    .all-comments-header,
+    .all-comments-body {
       position: relative;
       z-index: 1;
       width: min(100%, 860px);
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      margin: 0 auto;
+      background: rgba(255,255,255,0.18);
       backdrop-filter: blur(18px);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
-      border-radius: 24px;
     }
 
     .all-comments-header {
-      padding: 28px 24px 18px;
+      border-radius: 20px 20px 0 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
       display: flex;
-      justify-content: center;
       align-items: center;
-      position: relative;
-      border-radius: 24px 24px 0 0;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .all-comments-header .curtain-close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
     }
 
     .all-comments-header h2 {
@@ -1438,8 +1443,8 @@
 
     .all-comments-header .curtain-close {
       position: absolute;
-      right: 20px;
-      top: 24px;
+      right: 16px;
+      top: 16px;
       background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 50%;
@@ -1452,10 +1457,10 @@
     }
 
     .all-comments-body {
-      padding: 24px;
-      max-height: 80vh;
+      border-radius: 0 0 20px 20px;
+      max-height: 75vh;
       overflow-y: auto;
-      border-radius: 0 0 24px 24px;
+      padding: 20px;
     }
 
     /* ===== SOCIAL SECTION ===== */
