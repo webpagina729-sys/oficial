@@ -2128,6 +2128,51 @@
   flex: none !important;
 }
 
+/* FIX FINAL: neutralizar cualquier estilo global que siga rompiendo el modal */
+.all-comments-container.open {
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 18px 18px !important;
+}
+
+.all-comments-header,
+.all-comments-body {
+  width: min(95vw, 960px) !important;
+  max-width: 960px !important;
+  margin: 0 auto !important;
+}
+
+#allCommentsList,
+#allCommentsList .comment-card,
+#allCommentsList .comment-card.featured,
+#allCommentsList .comentario-item,
+#allCommentsList .comment,
+#allCommentsList .comment-content,
+#allCommentsList .replies-container,
+#allCommentsList .reply-item,
+#allCommentsList .reply-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+#allCommentsList .comment-card {
+  flex-wrap: wrap !important;
+}
+
+.all-comments-body {
+  max-height: calc(100vh - 140px) !important;
+  overflow-y: auto !important;
+}
+
+#allCommentsList .reply-item {
+  margin-left: 0 !important;
+}
+
+#allCommentsList .comment-card > div[style*="flex: 1"] {
+  min-width: 0 !important;
+}
+
 </style>
 </head>
 <body>
