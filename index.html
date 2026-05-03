@@ -2173,6 +2173,93 @@
   min-width: 0 !important;
 }
 
+/* ============================= */
+/* FIX MODAL COMENTARIOS DEFINITIVO */
+/* ============================= */
+
+/* OVERLAY (NO TOCAR JS) */
+.all-comments-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.all-comments-container.open {
+  display: flex;
+}
+
+/* fondo con blur */
+.all-comments-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+}
+
+/* CAJA REAL DEL MODAL */
+.all-comments-modal {
+  position: relative;
+  z-index: 1;
+
+  width: 90%;
+  max-width: 720px;
+  height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 20px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(18px);
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* HEADER */
+.all-comments-header {
+  position: relative;
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.all-comments-header .curtain-close {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+/* BODY */
+.all-comments-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* COLUMNA FINITA */
+#allCommentsList > * {
+  width: 100%;
+  max-width: 100%;
+}
+
+#allCommentsList .comment-card,
+#allCommentsList .comentario-item,
+#allCommentsList .comment {
+  width: 100%;
+  max-width: 100%;
+}
+
 </style>
 </head>
 <body>
@@ -2263,11 +2350,18 @@
 
   <!-- ALL COMMENTS VIEW -->
   <div class="all-comments-container" id="allCommentsContainer">
-    <div class="all-comments-header">
-      <h2 class="curtain-title">Todos los comentarios</h2>
-      <button class="curtain-close" onclick="closeAllComments()">✕</button>
+
+    <div class="all-comments-modal">
+
+      <div class="all-comments-header">
+        <h2>Todos los comentarios</h2>
+        <button class="curtain-close" onclick="closeAllComments()">✕</button>
+      </div>
+
+      <div class="all-comments-body" id="allCommentsList"></div>
+
     </div>
-    <div class="all-comments-body" id="allCommentsList"></div>
+
   </div>
 
   <!-- MAIN CONTENT -->
