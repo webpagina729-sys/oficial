@@ -7,8 +7,16 @@
   <link rel="icon" href="/logoweb.png" type="image/png">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     :root {
       --primary: #000000;
       --secondary: #ffffff;
@@ -16,9 +24,10 @@
       --text-dark: #1a1a1a;
       --text-light: #666666;
       --border-color: #e0e0e0;
-      --shadow: 0 4px 20px rgba(0,0,0,0.1);
-      --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
       line-height: 1.6;
@@ -26,6 +35,7 @@
       overflow-x: hidden;
       position: relative;
     }
+
     body::before {
       content: '';
       position: fixed;
@@ -34,9 +44,11 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      filter: none;
       z-index: -2;
       transform: scale(1.05);
     }
+
     body::after {
       content: '';
       position: fixed;
@@ -45,7 +57,16 @@
       backdrop-filter: blur(2px);
       z-index: -1;
     }
-    img[src$="logoweb.png"] { border-radius: 50%; overflow: hidden; display: inline-block; }
+
+    img {
+      cursor: pointer;
+    }
+
+    img[src$="logoweb.png"] {
+      border-radius: 50%;
+      overflow: hidden;
+      display: inline-block;
+    }
 
     /* ===== HEADER ===== */
     .header {
@@ -62,6 +83,7 @@
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
     }
+
     .header-brand {
       font-size: 18px;
       font-weight: 700;
@@ -71,6 +93,7 @@
       text-align: center;
       color: #111111;
     }
+
     .hamburger {
       background: none;
       border: none;
@@ -82,852 +105,2280 @@
       border-radius: 6px;
       transition: var(--transition);
     }
-    .hamburger span { width: 24px; height: 2px; background: var(--primary); border-radius: 2px; transition: var(--transition); }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(10px,10px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
+
+    .hamburger:hover {
+      background: var(--text-light);
+      opacity: 0.1;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
 
     /* ===== SIDEBAR ===== */
     .sidebar-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5);
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(4px);
       z-index: 200;
-      opacity: 0; pointer-events: none;
+      opacity: 0;
+      pointer-events: none;
       transition: opacity 0.3s;
     }
-    .sidebar-overlay.open { opacity: 1; pointer-events: all; }
+
+    .sidebar-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
     .sidebar {
-      position: fixed; top: 0; left: -300px;
-      width: 280px; height: 100vh;
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 280px;
+      height: 100vh;
       background: var(--secondary);
       border-right: 2px solid var(--primary);
       z-index: 250;
-      transition: left 0.3s cubic-bezier(0.4,0,0.2,1);
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-y: auto;
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
     }
-    .sidebar.open { left: 0; }
+
+    .sidebar.open {
+      left: 0;
+    }
+
     .sidebar-header {
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       justify-content: space-between;
       padding: 20px;
       border-bottom: 2px solid var(--primary);
     }
-    .sidebar-brand {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 700; font-size: 14px;
-      letter-spacing: 1.5px; text-transform: uppercase;
-    }
-    .sidebar-brand img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-    .sidebar-close { background: none; border: none; cursor: pointer; font-size: 20px; transition: var(--transition); padding: 4px; }
-    .sidebar-close:hover { opacity: 0.6; }
-    .sidebar-nav { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-    .sidebar-btn {
-      background: none; border: none; padding: 10px 4px;
-      border-radius: 0; cursor: pointer;
-      font-size: 15px; font-weight: 400;
-      text-align: left; color: var(--text-dark);
-      font-family: Arial, Helvetica, sans-serif;
-      transition: var(--transition);
-    }
-    .sidebar-btn:hover { color: #50e03e; }
 
-    /* ===== CURTAIN ===== */
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .sidebar-brand img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .sidebar-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      transition: var(--transition);
+      padding: 4px;
+    }
+
+    .sidebar-close:hover {
+      opacity: 0.6;
+    }
+
+    .sidebar-nav {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .sidebar-btn {
+      background: none;
+      border: none;
+      padding: 10px 4px;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      transition: var(--transition);
+      text-align: left;
+      color: var(--text-dark);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .sidebar-btn:hover {
+      background: none;
+      color: #50e03e;
+      opacity: 0.85;
+    }
+
+    /* ===== CURTAIN (CORTINA) ===== */
     .curtain-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.3);
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(4px);
       z-index: 300;
-      opacity: 0; pointer-events: none;
+      opacity: 0;
+      pointer-events: none;
       transition: opacity 0.3s;
     }
-    .curtain-overlay.open { opacity: 1; pointer-events: all; }
+
+    .curtain-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
     .curtain {
-      position: fixed; top: 0; right: -100%;
-      width: 90%; max-width: 500px; height: 100vh;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 90%;
+      max-width: 500px;
+      height: 100vh;
       background: var(--secondary);
       border-left: 2px solid var(--primary);
       z-index: 350;
-      transition: right 0.3s cubic-bezier(0.4,0,0.2,1);
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-y: auto;
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
       color: #000000;
     }
-    .curtain-title, .curtain-body, .curtain-body li { color: #000000; }
-    .curtain.open { right: 0; }
+
+    .curtain-title,
+    .curtain-body,
+    .curtain-body li {
+      color: #000000;
+    }
+
+    .curtain.open {
+      right: 0;
+    }
+
     .curtain-header {
       padding: 20px;
       border-bottom: 2px solid var(--primary);
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .curtain-title { font-size: 16px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-    .curtain-close { background: none; border: none; cursor: pointer; font-size: 20px; transition: var(--transition); }
-    .curtain-close:hover { opacity: 0.6; }
-    .curtain-body { padding: 28px 20px; flex: 1; overflow-y: auto; font-size: 14px; line-height: 1.8; }
-    .curtain-body ol { padding-left: 20px; margin: 12px 0; }
-    .curtain-body li { margin-bottom: 10px; }
+
+    .curtain-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .curtain-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      transition: var(--transition);
+    }
+
+    .curtain-close:hover {
+      opacity: 0.6;
+    }
+
+    .curtain-body {
+      padding: 28px 20px;
+      flex: 1;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .curtain-body ol {
+      padding-left: 20px;
+      margin: 12px 0;
+    }
+
+    .curtain-body li {
+      margin-bottom: 10px;
+    }
+
     .curtain-btn {
-      background: var(--primary); color: var(--secondary);
-      border: none; padding: 14px 20px; border-radius: 8px;
-      cursor: pointer; font-weight: 600; letter-spacing: 1px;
-      transition: var(--transition); margin: 16px 20px; text-transform: uppercase;
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      margin: 16px 20px;
+      text-transform: uppercase;
     }
-    .curtain-btn:hover { background: var(--accent); color: var(--primary); }
 
-    /* ===== MAIN ===== */
-    main { flex: 1; padding-bottom: 80px; }
+    .curtain-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
 
-    /* ===== BANNER ===== */
-    .banner { background: #ffffff; padding: 10px 20px; text-align: center; border-bottom: 1px solid #e8e8e8; }
+    /* ===== MAIN CONTENT ===== */
+    main {
+      flex: 1;
+      padding-bottom: 80px;
+    }
+
+    /* ===== HERO BANNER ===== */
+    .banner {
+      background: #ffffff;
+      padding: 10px 20px;
+      text-align: center;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
     .banner-title {
-      font-size: 11px; font-weight: 500;
-      letter-spacing: 4px; text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
       animation: fadeInDown 0.8s ease;
-      color: #111111; display: inline-block;
-      background: #ffffff; padding: 6px 12px;
+      color: #111111;
+      display: inline-block;
+      background: #ffffff;
+      padding: 6px 12px;
       border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
     }
+
     @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ===== SECTIONS ===== */
-    .section { padding: 24px 20px; max-width: 1200px; margin: 40px auto; }
+    .section {
+      padding: 24px 20px;
+      max-width: 1200px;
+      margin: 40px auto;
+    }
+
     .section-title {
-      font-size: 20px; font-weight: 600; color: #111111;
-      line-height: 1.3; margin-bottom: 16px;
-      display: inline-block; background: #ffffff;
-      padding: 10px 14px; border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+      font-size: 20px;
+      font-weight: 600;
+      color: #111111;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      display: inline-block;
+      background: #ffffff;
+      padding: 10px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
     }
+
     .section-text {
-      font-size: 15px; line-height: 1.6; color: #111111;
-      margin-bottom: 16px; text-align: left;
-      background: #ffffff; padding: 16px 18px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #111111;
+      margin-bottom: 16px;
+      text-align: left;
+      letter-spacing: normal;
+      background: #ffffff;
+      padding: 16px 18px;
       border-radius: 18px;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
     }
-    .texto-preview, .texto-resto {
-      font-size: 15px; line-height: 1.6; color: #111111;
-      margin-bottom: 16px; text-align: left;
-      background: #ffffff; padding: 16px 18px;
+
+    .texto-preview,
+    .texto-resto {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #111111;
+      margin-bottom: 16px;
+      text-align: left;
+      letter-spacing: normal;
+      background: #ffffff;
+      padding: 16px 18px;
       border-radius: 18px;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
     }
-    .texto-resto.oculto { display: none; margin-bottom: 0; }
+
+    .texto-resto.oculto {
+      display: none;
+      transition: all 0.3s ease;
+      margin-bottom: 0;
+    }
+
+    .texto-resto {
+      display: block;
+    }
+
     .ver-mas {
-      display: inline; color: var(--primary);
-      text-decoration: underline; cursor: pointer;
-      font-weight: 600; font-size: 13px; margin-left: 4px;
+      display: inline;
+      color: var(--primary);
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      margin-left: 4px;
     }
-    .ver-mas:hover { color: #50e03e; }
-    .section-text-wrapper { min-width: 0; }
+
+    .ver-mas:hover {
+      color: #50e03e;
+    }
+
+    .ver-mas.hidden {
+      display: none;
+    }
+
+    .section-text-wrapper {
+      min-width: 0;
+    }
+
+    .see-more-btn {
+      background: none;
+      color: var(--primary);
+      border: none;
+      padding: 4px 0;
+      border-radius: 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: var(--transition);
+      text-transform: none;
+      letter-spacing: 0;
+      margin: 0 0 0 6px;
+      text-decoration: underline;
+      display: inline-block;
+      vertical-align: baseline;
+    }
+
+    .see-more-btn:hover {
+      color: #50e03e;
+    }
+
+    .see-more-btn.hidden {
+      display: none;
+    }
+
+    .portada-img {
+      width: calc(100% - 24px);
+      max-width: calc(100% - 24px);
+      height: auto;
+      border-radius: 8px;
+      margin: 0 12px 20px 12px;
+      animation: fadeIn 0.6s ease;
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
 
     /* ===== SECTION ROWS ===== */
     .section-row {
-      display: flex; flex-wrap: nowrap; gap: 8px;
-      align-items: center; justify-content: flex-start; min-height: 1px;
-    }
-    .section-row-left .section-side-image { order: -1; }
-    .section-side-image {
-      flex: 0 0 42%; max-width: 42%;
-      display: flex; justify-content: center;
-      align-items: center; align-self: center;
-    }
-    .decor-image {
-      width: 100%; height: auto; max-width: 100%;
-      border-radius: 12px; display: block; object-fit: contain;
-    }
-    .section-text-wrapper { flex: 0 0 58%; max-width: 58%; min-width: 0; }
-
-    /* ===== PORTADA CONTAINER ===== */
-    .portada-container { position: relative; }
-    .portada-img {
-      width: calc(100% - 24px); max-width: calc(100% - 24px);
-      height: auto; border-radius: 8px;
-      margin: 0 12px 20px 12px;
-      animation: fadeIn 0.6s ease; display: block;
-    }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* ===== MENSAJE OVERLAY (overlay dentro de portada-container) ===== */
-    .mensaje-overlay {
-      position: absolute; bottom: 20px; right: 20px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      cursor: pointer;
-      background: rgba(0,0,0,0.4);
-      padding: 12px; border-radius: 18px; z-index: 2;
-    }
-    .mensaje-icon { width: 70px; height: 70px; border-radius: 50%; }
-    .mensaje-overlay span { color: white; margin-top: 6px; font-size: 12px; text-align: center; }
-
-    /* ===== INTRO SECTION (logodos arriba de portadauno) ===== */
-    .intro-section {
       display: flex;
-      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 8px;
       align-items: center;
+      justify-content: flex-start;
+      min-height: 1px;
+    }
+
+    .section-row .section-text {
+      color: #111111;
+    }
+
+    .section-row-left .section-side-image {
+      order: -1;
+    }
+
+    .section-side-image {
+      flex: 0 0 42%;
+      max-width: 42%;
+      display: flex;
       justify-content: center;
-      padding: 28px 20px 20px;
-      gap: 10px;
+      align-items: flex-start;
+      align-self: center;
     }
-    .intro-img-btn {
-      background: none; border: none; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      padding: 0;
+
+    .decor-image {
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+      object-fit: contain;
     }
-    .intro-logo {
-      width: 100px; height: 100px;
-      border-radius: 50%; object-fit: cover;
-      border: 3px solid #ffffff;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-      animation: floatIntro 3s ease-in-out infinite;
-      transition: transform 0.2s ease;
-    }
-    .intro-logo:hover { transform: scale(1.07); }
-    @keyframes floatIntro {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-    .intro-hint {
-      font-size: 11px; color: #ffffff;
-      letter-spacing: 1px; text-align: center;
-      text-transform: uppercase;
-      background: rgba(0,0,0,0.35);
-      padding: 4px 12px; border-radius: 20px;
-    }
-    .intro-arrow {
-      font-size: 20px; color: #ffffff;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+
+    .section-text-wrapper {
+      flex: 0 0 58%;
+      max-width: 58%;
+      min-width: 0;
     }
 
     /* ===== CTA BUTTON ===== */
     .cta-button {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      width: 100%; z-index: 96;
-      display: none; align-items: center; justify-content: center;
-      background: #000; border: none; color: #fff;
-      padding: 12px 0; font-size: 14px; font-weight: 700;
-      cursor: pointer; white-space: nowrap;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 96;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      border: none;
+      color: #fff;
+      padding: 12px 0;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: normal;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      text-transform: none;
       animation: pulseAppear 2.5s ease-in-out infinite;
+      white-space: nowrap;
+      box-shadow: none;
     }
-    .cta-button:active { background: #fff; color: #000; }
-    .cta-button.visible { display: flex; }
+
+    .cta-button:hover {
+      background: #000;
+    }
+
+    .cta-button:active {
+      background: #fff;
+      color: #000;
+    }
+
+    .cta-button.visible {
+      display: flex;
+    }
+
     @keyframes pulseAppear {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
+      0%, 100% {
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        transform: translateX(-50%) scale(1.02);
+      }
+    }
+
+    .arrow-animation {
+      display: inline-block;
+      margin-left: 8px;
+      animation: bounce 2s infinite;
+    }
+
+    .arrow-animation {
+      display: inline-block;
+      margin-left: 8px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
     }
 
     /* ===== PLAN CURTAIN ===== */
     .plan-curtain {
-      position: fixed; top: 0; right: -100%;
-      width: 90%; max-width: 500px; height: 100vh;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 90%;
+      max-width: 500px;
+      height: 100vh;
       background: var(--secondary);
       border-left: 2px solid var(--primary);
       z-index: 400;
-      transition: right 0.3s cubic-bezier(0.4,0,0.2,1);
-      overflow-y: auto; display: flex; flex-direction: column;
-    }
-    .plan-curtain.open { right: 0; }
-    .plan-img { width: 100%; height: auto; object-fit: cover; }
-    .plan-button {
-      background: #ffffff; color: #111111;
-      border: none; padding: 14px 20px; border-radius: 8px;
-      cursor: pointer; font-weight: 600; letter-spacing: 1px;
-      transition: var(--transition); margin: 16px 20px;
-      text-transform: uppercase; animation: pulse 2s infinite;
-    }
-    .plan-button:hover { background: #000000; color: #ffffff; animation: none; }
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(80,224,62,0.7); }
-      50% { box-shadow: 0 0 0 10px rgba(80,224,62,0); }
-    }
-
-    /* ===== PLANES CONTAINER ===== */
-    .planes-container {
-      width: calc(100% - 24px);
-      margin: 0 12px;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 0;
-      align-items: stretch;
     }
-    .btn-planes {
-      width: 100%;
-      background: black;
-      color: white;
-      padding: 14px;
-      border: none;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      display: block;
-      position: relative;
-      overflow: hidden;
+
+    .plan-curtain.open {
+      right: 0;
     }
-    .btn-planes::after {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 60%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-      animation: flashBtn 2s infinite;
-    }
-    @keyframes flashBtn {
-      0% { left: -100%; }
-      40% { left: 160%; }
-      100% { left: 160%; }
-    }
-    .planes-img {
+
+    .plan-img {
       width: 100%;
       height: auto;
-      display: block;
+      object-fit: cover;
+    }
+
+    .plan-button {
+      background: #ffffff;
+      color: #111111;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
       cursor: pointer;
-      margin: 0;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      margin: 16px 20px;
+      text-transform: uppercase;
+      animation: pulse 2s infinite;
+    }
+
+    .plan-button:hover {
+      background: #000000;
+      color: #ffffff;
+      animation: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(80, 224, 62, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(80, 224, 62, 0);
+      }
     }
 
     /* ===== COMMENTS SECTION ===== */
     .comments-section {
-      background: #ffffff; border-radius: 16px;
-      padding: 32px 20px; max-width: 1200px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 32px 20px;
+      max-width: 1200px;
       margin: 40px auto;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
     }
+
     .comments-title {
-      font-size: 22px; font-weight: 700;
-      text-align: center; margin-bottom: 30px;
-      letter-spacing: 1px; color: #000000;
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+      color: #000000;
     }
+
     .avatar-selector {
-      display: flex; justify-content: center;
-      gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
     }
+
     .avatar-option {
-      width: 60px; height: 60px; border-radius: 50%;
-      cursor: pointer; border: 3px solid transparent;
-      transition: var(--transition); object-fit: cover;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: var(--transition);
+      object-fit: cover;
     }
-    .avatar-option:hover, .avatar-option.selected {
-      border-color: var(--primary); transform: scale(1.1);
+
+    .avatar-option:hover,
+    .avatar-option.selected {
+      border-color: var(--primary);
+      transform: scale(1.1);
     }
-    .form-group { margin-bottom: 16px; }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
     .form-label {
-      display: block; font-weight: 600;
-      margin-bottom: 8px; font-size: 14px;
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
       letter-spacing: 0.5px;
-      color: #000000 !important;
     }
+
     .form-input {
-      width: 100%; padding: 12px;
+      width: 100%;
+      padding: 12px;
       border: 2px solid var(--primary);
-      border-radius: 8px; font-size: 14px;
+      border-radius: 8px;
+      font-size: 14px;
       transition: var(--transition);
     }
-    .form-input:focus { outline: none; box-shadow: 0 0 0 3px rgba(0,0,0,0.1); }
-    .stars-row { display: flex; justify-content: center; gap: 12px; margin: 16px 0; }
+
+    .form-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .stars-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
     .star-btn {
-      background: none; border: none; font-size: 32px;
-      cursor: pointer; transition: var(--transition); color: #e0e0e0;
+      background: none;
+      border: none;
+      font-size: 32px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: #e0e0e0;
     }
-    .star-btn:hover, .star-btn.active { color: #ffc107; transform: scale(1.2); }
+
+    .star-btn:hover,
+    .star-btn.active {
+      color: #ffc107;
+      transform: scale(1.2);
+    }
+
     .comment-btn {
-      background: var(--primary); color: var(--secondary);
-      border: none; padding: 14px 20px; border-radius: 8px;
-      cursor: pointer; font-weight: 600; width: 100%;
-      margin-top: 16px; transition: var(--transition); text-transform: uppercase;
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 16px;
+      transition: var(--transition);
+      text-transform: uppercase;
     }
-    .comment-btn:hover { background: var(--accent); color: var(--primary); }
 
-    /* ===== COMMENT CARDS ===== */
+    .comment-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    /* ===== COMMENT CARD ===== */
+    /* NEW COMMENT CARD STYLE - GLASS EFFECT */
     .comment-card {
-      background: #ffffff; border-radius: 18px;
-      padding: 20px; margin-bottom: 18px;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 18px;
       animation: slideIn 0.5s ease;
-      display: flex; gap: 12px; align-items: flex-start;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 18px 36px rgba(0,0,0,0.08);
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .comment-card.featured {
-      border: 1px solid rgba(0,0,0,0.14);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.14);
-      padding: 22px; border-radius: 22px; margin-bottom: 26px;
-    }
-    .comment-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0;
-    }
-    .comment-content { background: transparent; border: none; padding: 0; flex: 1; min-width: 0; }
-    .comment-header { display: flex; gap: 8px; margin-bottom: 4px; align-items: center; flex-wrap: wrap; }
-    .comment-name { font-weight: 700; font-size: 13px; color: #000000; }
-    .comment-stars { color: #ffc107; font-size: 11px; }
-    .comment-text { font-size: 13px; line-height: 1.5; color: #111111; word-break: break-word; }
-    .comment-actions {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      align-items: center; margin-top: 10px;
-    }
-    .comment-date { font-size: 11px; color: #999; font-weight: 400; margin-left: auto; }
-    .like-btn, .reply-btn {
-      background: rgba(0,0,0,0.05); border: none; color: #111111;
-      padding: 6px 12px; border-radius: 999px; cursor: pointer;
-      font-size: 12px; font-weight: 600; transition: var(--transition);
-      display: inline-flex; align-items: center; gap: 4px;
-    }
-    .like-btn:hover, .reply-btn:hover { background: rgba(0,0,0,0.12); }
-    .like-btn.liked { color: #25D366; }
-    .comment-likes { font-size: 13px; color: #111111; font-weight: 700; }
-    .featured-badge {
-      display: inline-block; background: var(--accent); color: var(--primary);
-      padding: 4px 12px; border-radius: 20px; font-size: 11px;
-      font-weight: 700; margin-bottom: 8px; text-transform: uppercase;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.08);
     }
 
-    /* ===== REPLIES ===== */
-    .replies-container { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.1); }
-    .reply-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; margin-left: 16px; }
-    .reply-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .comment-card.featured {
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      background: #ffffff;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.14);
+      padding: 22px;
+      border-radius: 22px;
+      margin-bottom: 26px;
+    }
+
+    .comment-card.featured .comment-content {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
     .reply-content {
-      background: rgba(240,242,245,0.9); padding: 10px 12px;
-      border-radius: 14px; flex: 1;
+      background: #ffffff;
+      padding: 12px 14px;
+      border-radius: 16px;
+      flex: 1;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
     }
-    .reply-name { font-weight: 700; font-size: 12px; color: #000000; }
-    .reply-text { font-size: 12px; line-height: 1.5; color: #111111; margin-top: 2px; word-break: break-word; }
-    .reply-actions { display: flex; gap: 8px; align-items: center; margin-top: 4px; flex-wrap: wrap; }
-    .reply-date { font-size: 10px; color: #999; }
-    .reply-likes { font-size: 12px; color: #111111; font-weight: 700; }
+
+    .comment-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+      flex-shrink: 0;
+    }
+
+    .comment-content {
+      background: transparent;
+      border: none;
+      padding: 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .comment-header {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .comment-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: #000000;
+    }
+
+    .comment-stars {
+      color: #ffc107;
+      font-size: 11px;
+    }
+
+    .comment-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #111111;
+      word-break: break-word;
+    }
+
+    .comment-actions,
+    .reply-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .comment-actions .comment-date,
+    .reply-actions .reply-date {
+      color: #777;
+      font-size: 12px;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .like-btn,
+    .reply-btn {
+      background: rgba(0, 0, 0, 0.05);
+      border: none;
+      color: #111111;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .reply-btn.small {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .like-btn:hover,
+    .reply-btn:hover,
+    .reply-like-btn:hover {
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .like-btn.liked,
+    .reply-like-btn.liked {
+      color: #25D366;
+    }
+
+    .comment-likes,
+    .reply-likes {
+      font-size: 13px;
+      color: #111111;
+      font-weight: 700;
+      margin-left: 0;
+    }
+
     .reply-like-btn {
-      background: rgba(0,0,0,0.05); border: none; color: #111111;
-      padding: 4px 10px; border-radius: 999px; cursor: pointer;
-      font-size: 12px; font-weight: 600; transition: var(--transition);
+      background: rgba(0, 0, 0, 0.05);
+      border: none;
+      color: #111111;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: var(--transition);
     }
-    .reply-like-btn:hover { background: rgba(0,0,0,0.12); }
-    .reply-like-btn.liked { color: #25D366; }
-    .reply-btn.small { padding: 4px 10px; font-size: 11px; }
+
+    .reply-like-btn.liked {
+      color: #25D366;
+    }
+
+    .reply-btn {
+      position: relative;
+    }
+
+    .comment-date {
+      font-size: 11px;
+      color: #999;
+      font-weight: 400;
+      margin-left: auto;
+    }
+
+    /* REPLIES SECTION */
+    .replies-container {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .reply-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+      margin-left: 16px;
+    }
+
+    .reply-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .reply-content {
+      background: #ffffff;
+      padding: 12px 14px;
+      border-radius: 16px;
+      flex: 1;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .reply-name {
+      font-weight: 700;
+      font-size: 12px;
+      color: #000000;
+    }
+
+    .reply-text {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #111111;
+      margin-top: 2px;
+      word-break: break-word;
+    }
+
+    .reply-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .reply-date {
+      font-size: 10px;
+      color: #999;
+    }
+
+    /* REPLY INPUT */
     .reply-input-container {
-      display: flex; gap: 10px; align-items: flex-end;
-      margin-left: 16px; margin-top: 10px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      margin-left: 16px;
+      margin-top: 12px;
     }
-    .reply-input-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-    .reply-input-box { flex: 1; display: flex; gap: 8px; }
+
+    .reply-input-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .reply-input-box {
+      flex: 1;
+      display: flex;
+      gap: 8px;
+    }
+
     .reply-textarea {
-      flex: 1; padding: 8px 12px; border: none;
-      border-radius: 20px; background: rgba(240,242,245,0.9);
-      font-family: inherit; font-size: 13px; resize: none; min-height: 32px;
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 20px;
+      background: rgba(240, 242, 245, 0.9);
+      font-family: inherit;
+      font-size: 13px;
+      resize: none;
+      min-height: 32px;
+      transition: var(--transition);
     }
-    .reply-textarea:focus { outline: none; box-shadow: 0 0 0 2px rgba(80,224,62,0.2); }
+
+    .reply-textarea:focus {
+      outline: none;
+      background: rgba(240, 242, 245, 1);
+      box-shadow: 0 0 0 2px rgba(80, 224, 62, 0.2);
+    }
+
     .reply-submit-btn {
-      background: var(--accent); border: none; border-radius: 50%;
-      width: 32px; height: 32px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; color: var(--primary); transition: var(--transition);
+      background: var(--accent);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      font-weight: 700;
+      color: var(--primary);
     }
-    .reply-submit-btn:hover { background: var(--primary); color: var(--secondary); }
+
+    .reply-submit-btn:hover {
+      background: var(--primary);
+      color: var(--secondary);
+    }
+
+    .featured-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
 
     /* ===== MODAL ===== */
     .modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7);
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(6px);
-      z-index: 500; display: none;
-      align-items: center; justify-content: center; padding: 20px;
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
-    .modal-backdrop.open { display: flex; }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
     .modal {
       background: rgba(10,10,10,0.88);
       border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 12px; max-width: 480px; width: 100%;
-      padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      animation: modalSlideIn 0.3s ease; max-height: 85vh;
-      overflow-y: auto; color: #ffffff;
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease;
+      max-height: 85vh;
+      overflow-y: auto;
+      color: #ffffff;
     }
-    @keyframes modalSlideIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .modal-header {
-      font-size: 18px; font-weight: 700; margin-bottom: 20px;
-      text-align: center; letter-spacing: 1px; color: #ffffff;
-    }
-    .modal-textarea {
-      width: 100%; min-height: 120px; padding: 14px 16px;
-      border: none; border-radius: 20px; font-family: inherit;
-      font-size: 14px; resize: vertical;
-      background: rgba(255,255,255,0.08); color: #ffffff;
-    }
-    .modal-textarea:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.12); }
-    .modal-textarea::placeholder { color: rgba(255,255,255,0.7); }
-    .modal-actions { display: flex; gap: 12px; margin-top: 20px; }
-    .modal-btn {
-      flex: 1; padding: 12px;
-      border: 2px solid rgba(255,255,255,0.15);
-      background: transparent; border-radius: 8px;
-      cursor: pointer; font-weight: 600;
-      transition: var(--transition); text-transform: uppercase;
-      font-size: 12px; color: #ffffff;
-    }
-    .modal-btn.primary { background: #111111; color: #ffffff; border-color: #ffffff; }
-    .modal-btn:hover { background: rgba(255,255,255,0.12); }
 
-    /* Comment modal overrides */
     #commentModal .modal {
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.28);
-      color: #111111; backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #111111;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
     }
-    #commentModal .modal-header { color: #111111 !important; }
-    #commentModal .modal-textarea { background: #ffffff !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.12) !important; }
-    #commentModal .modal-btn { background: #f4f4f4 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.12) !important; }
-    #commentModal .modal-btn.primary { background: #111111 !important; color: #ffffff !important; }
-    #commentModal .modal-btn:hover { background: #000000 !important; color: #ffffff !important; }
 
-    /* Avatar choice modal */
-    #avatarChoiceModal .modal { gap: 12px; display: flex; flex-direction: column; }
+    #commentModal .modal-header {
+      color: #111111;
+    }
+
+    #commentModal .modal-textarea {
+      background: #ffffff;
+      color: #111111;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    #commentModal .modal-textarea:focus {
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+    }
+
+    #commentModal .modal-btn {
+      background: #f4f4f4 !important;
+      color: #111111 !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    }
+
+    #commentModal .modal-btn.primary {
+      background: #111111 !important;
+      color: #ffffff !important;
+      border-color: rgba(0, 0, 0, 0.15) !important;
+    }
+
+    #commentModal .modal-btn:hover {
+      background: #000000 !important;
+      color: #ffffff !important;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-header {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    #commentModal .modal-header {
+      color: #111111 !important;
+    }
+
+    .modal-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+      transition: var(--transition);
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+    }
+
+    .modal-textarea:focus {
+      outline: none;
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.12);
+    }
+
+    #commentModal .modal-textarea {
+      background: #ffffff !important;
+      color: #111111 !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    }
+
+    #commentModal .modal-textarea:focus {
+      background: #ffffff !important;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .modal-textarea::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #ffffff;
+    }
+
+    .modal-btn.primary {
+      background: #111111;
+      color: #ffffff;
+      border-color: #ffffff;
+    }
+
+    .modal-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+      color: #ffffff;
+    }
 
     /* ===== PLANS MODAL ===== */
     .plans-modal {
       background: rgba(10,10,10,0.88);
       border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 12px; max-width: 900px; width: min(100%,900px);
-      padding: 0; max-height: 92vh; overflow-y: auto;
-      display: flex; flex-direction: column; color: #ffffff;
+      border-radius: 12px;
+      max-width: 900px;
+      width: min(100%, 900px);
+      padding: 0;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: modalSlideIn 0.3s ease;
+      max-height: 92vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      color: #ffffff;
     }
+
+    .plans-modal > div:nth-child(2) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 16px;
+    }
+
+    .plans-modal > div:nth-child(2) > div {
+      flex: 1 1 calc(33.333% - 12px);
+      min-width: 160px;
+      max-width: 220px;
+    }
+
+    .plans-modal-img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
     .plans-modal-btn {
-      background: #ffffff; color: #111111;
+      background: #ffffff;
+      color: #111111;
       border: 1px solid rgba(0,0,0,0.12);
-      padding: 14px 20px; border-radius: 0; cursor: pointer;
-      font-weight: 600; letter-spacing: 1px;
-      transition: var(--transition); margin: 16px 20px;
-      text-transform: uppercase; font-size: 12px;
+      padding: 14px 20px;
+      border-radius: 0;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      margin: 16px 20px;
+      text-transform: uppercase;
+      font-size: 12px;
     }
-    .plans-modal-btn:hover { background: #000000; color: #ffffff; }
+
+    .plans-modal-btn:hover {
+      background: #000000;
+      color: #ffffff;
+    }
 
     /* ===== PLAN INFO MODAL ===== */
     .plan-info-modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
-      z-index: 600; display: none;
-      align-items: center; justify-content: center; padding: 20px; overflow-y: auto;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 600;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
     }
-    .plan-info-modal-backdrop.open { display: flex; }
+
+    .plan-info-modal-backdrop.open {
+      display: flex;
+    }
+
     .plan-info-modal {
       background: rgba(10,10,10,0.88);
       border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 12px; max-width: 600px; width: 100%;
-      padding: 28px; max-height: 80vh; overflow-y: auto;
-      margin: auto; color: #ffffff; animation: modalSlideIn 0.3s ease;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease;
+      max-height: 80vh;
+      overflow-y: auto;
+      margin: auto;
+      color: #ffffff;
     }
-    .plan-info-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; text-align: center; letter-spacing: 1px; }
-    .plan-info-text { font-size: 14px; line-height: 1.8; text-align: justify; margin-bottom: 20px; white-space: pre-wrap; }
-    .plan-info-close {
-      background: #111111; color: #ffffff; border: none;
-      padding: 12px 20px; border-radius: 8px; cursor: pointer;
-      font-weight: 600; width: 100%; text-transform: uppercase; font-size: 12px;
-    }
-    .plan-info-close:hover { background: rgba(255,255,255,0.12); }
 
-    /* ===== ALL COMMENTS MODAL ===== */
-    .all-comments-container {
-      position: fixed; inset: 0;
-      z-index: 9999; display: none;
-      align-items: center; justify-content: center;
-    }
-    .all-comments-container.open { display: flex; }
-    .all-comments-container::before {
-      content: ""; position: absolute; inset: 0;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
-    }
-    .all-comments-modal {
-      position: relative; z-index: 1;
-      width: 92%; max-width: 680px; height: 82vh;
-      display: flex; flex-direction: column;
-      border-radius: 20px; overflow: hidden;
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    /* Header bien centrado con X simétrica */
-    .all-comments-header {
-      position: relative;
-      padding: 18px 56px;
+    .plan-info-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
       text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      flex-shrink: 0;
+      letter-spacing: 1px;
+      color: #ffffff;
     }
-    .all-comments-header h2 {
-      margin: 0; font-size: 17px; font-weight: 700;
-      color: #ffffff; letter-spacing: 0.5px;
+
+    .plan-info-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #ffffff;
+      text-align: justify;
+      margin-bottom: 20px;
     }
-    .all-comments-close-btn {
-      position: absolute; right: 16px; top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.15); border: none;
-      color: #ffffff; width: 32px; height: 32px;
-      border-radius: 50%; cursor: pointer;
-      font-size: 16px; display: flex; align-items: center; justify-content: center;
+
+    .plan-info-close {
+      background: #111111;
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
       transition: var(--transition);
-    }
-    .all-comments-close-btn:hover { background: rgba(255,255,255,0.3); }
-    .all-comments-body {
-      flex: 1; overflow-y: auto; padding: 16px;
+      text-transform: uppercase;
+      font-size: 12px;
     }
 
-    /* Comment cards inside modal — compact horizontal layout */
-    #allCommentsList .comment-card {
-      display: flex !important;
-      gap: 10px !important;
-      align-items: flex-start !important;
-      background: rgba(255,255,255,0.12) !important;
-      border: none !important;
-      box-shadow: none !important;
-      border-radius: 14px !important;
-      padding: 12px !important;
-      margin-bottom: 10px !important;
+    .plan-info-close:hover {
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
     }
-    #allCommentsList .comment-avatar {
-      width: 40px !important; height: 40px !important;
-      flex-shrink: 0 !important;
-    }
-    #allCommentsList .comment-content { flex: 1 !important; min-width: 0 !important; }
-    #allCommentsList .comment-name { color: #ffffff !important; }
-    #allCommentsList .comment-text {
-      color: rgba(255,255,255,0.9) !important;
-      margin-top: 2px !important;
-    }
-    #allCommentsList .comment-actions {
-      display: flex !important; gap: 6px !important;
-      align-items: center !important; margin-top: 6px !important;
-      flex-wrap: wrap !important;
-    }
-    #allCommentsList .like-btn, #allCommentsList .reply-btn {
-      background: rgba(255,255,255,0.15) !important;
-      color: #ffffff !important; font-size: 11px !important;
-      padding: 4px 10px !important;
-    }
-    #allCommentsList .like-btn.liked { color: #50e03e !important; }
-    #allCommentsList .comment-likes {
-      color: rgba(255,255,255,0.9) !important;
-      font-size: 12px !important; margin-left: auto !important;
-    }
-    #allCommentsList .comment-date { color: rgba(255,255,255,0.6) !important; font-size: 10px !important; }
-    #allCommentsList .featured-badge { display: none !important; }
-    #allCommentsList .replies-container { border-top: 1px solid rgba(255,255,255,0.15) !important; }
-    #allCommentsList .reply-item { margin-left: 10px !important; }
-    #allCommentsList .reply-avatar { width: 26px !important; height: 26px !important; }
-    #allCommentsList .reply-content { background: rgba(255,255,255,0.1) !important; }
-    #allCommentsList .reply-name { color: #ffffff !important; }
-    #allCommentsList .reply-text { color: rgba(255,255,255,0.85) !important; }
-    #allCommentsList .reply-like-btn { background: rgba(255,255,255,0.12) !important; color: #ffffff !important; }
-    #allCommentsList .reply-likes { color: rgba(255,255,255,0.9) !important; font-size: 11px !important; margin-left: auto !important; }
-    #allCommentsList .reply-date { color: rgba(255,255,255,0.55) !important; }
-    #allCommentsList .reply-input-container { margin-left: 10px !important; }
-    #allCommentsList .reply-textarea { background: rgba(255,255,255,0.12) !important; color: #ffffff !important; }
-    #allCommentsList .reply-textarea::placeholder { color: rgba(255,255,255,0.5) !important; }
 
-    /* ===== AVATAR FULL GRID MODAL ===== */
-    #avatarGridModal .modal {
-      max-width: 520px;
+    /* ===== ALL COMMENTS VIEW ===== */
+    .all-comments-container {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
     }
-    .avatar-grid-full {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-      max-height: 55vh; overflow-y: auto; padding: 4px;
+
+    .all-comments-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      z-index: 0;
     }
-    .avatar-grid-full .avatar-option { width: 52px; height: 52px; }
+
+    .all-comments-container.open {
+      display: flex;
+    }
+
+    .all-comments-body {
+      border-radius: 0 0 20px 20px;
+      max-height: 75vh;
+      overflow-y: auto;
+      padding: 20px;
+      display: block !important;
+    }
+
+    .all-comments-body > * {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .all-comments-body .comment-card,
+    .all-comments-body .comment,
+    .all-comments-body .comentario-item {
+      width: 100% !important;
+      max-width: 100% !important;
+      display: block !important;
+    }
 
     /* ===== SOCIAL SECTION ===== */
-    .social-section { background: transparent; padding: 40px 20px; text-align: center; }
-    .social-title { font-size: 20px; font-weight: 700; margin-bottom: 28px; letter-spacing: 1px; }
-    .social-icons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-    .social-icon {
-      width: 32px; height: 32px; border-radius: 8px;
-      overflow: hidden; cursor: pointer; border: none;
-      transition: var(--transition); object-fit: cover;
+    .social-section {
+      background: transparent;
+      padding: 40px 20px;
+      text-align: center;
     }
-    .social-icon:hover { transform: scale(1.1); box-shadow: var(--shadow); }
+
+    .social-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      object-fit: cover;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== FULL WIDTH IMAGES ===== */
+    .full-width-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 40px 0;
+    }
 
     /* ===== FLOATING MESSAGE ===== */
     .floating-message {
-      text-align: center; padding: 40px 22px; margin: 60px 0;
+      text-align: center;
+      padding: 40px 22px;
+      margin: 60px 0;
       background: transparent;
+      border: none;
+      box-shadow: none;
+      border-radius: 24px;
+      color: #111111;
     }
+
     .message-image {
-      width: 120px; height: 120px; border-radius: 50%;
-      object-fit: cover; cursor: pointer;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
       border: 3px solid var(--primary);
-      margin: 0 auto; transition: var(--transition);
-      animation: floatIntro 3s ease-in-out infinite;
+      margin: 0 auto;
+      transition: var(--transition);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .message-image:hover {
+      transform: scale(1.1);
+    }
+
+    .arrow-down {
+      font-size: 24px;
+      color: var(--primary);
+      animation: bounce 2s infinite;
+      margin-top: 12px;
+    }
+
+    .message-hint {
+      font-size: 12px;
+      color: #111111;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     /* ===== FOOTER ===== */
     footer {
-      background: #000000; color: #aaaaaa;
-      padding: 40px 20px; text-align: left;
+      background: #000000;
+      color: #aaaaaa;
+      padding: 40px 20px;
+      text-align: left;
       border-top: 2px solid #000000;
     }
+
     .footer-logo {
-      width: 60px; height: 60px; border-radius: 50%;
-      object-fit: cover; margin-bottom: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
       border: 2px solid rgba(255,255,255,0.35);
       transition: var(--transition);
     }
-    .footer-logo:hover { transform: scale(1.1); }
-    .footer-links { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
-    .footer-link {
-      background: transparent; border: 1px solid rgba(255,255,255,0.35);
-      color: #aaaaaa; padding: 6px 0; border-radius: 8px;
-      cursor: pointer; font-size: 14px; text-align: left;
-      display: inline-block; font-family: Arial, Helvetica, sans-serif;
-      transition: var(--transition);
+
+    .footer-logo:hover {
+      transform: scale(1.1);
     }
-    .footer-link:hover { color: #ffffff; background: rgba(255,255,255,0.08); }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .footer-link {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #aaaaaa;
+      padding: 6px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      transition: var(--transition);
+      text-align: left;
+      display: inline-block;
+      width: auto;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .footer-link:hover {
+      color: #ffffff;
+      background: rgba(255,255,255,0.08);
+    }
 
     /* ===== SUCCESS NOTIFICATION ===== */
     .success-notification {
-      position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      background: var(--secondary); border: 2px solid var(--accent);
-      border-radius: 12px; padding: 28px; max-width: 400px; width: 90%;
-      z-index: 700; display: none; text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--secondary);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 28px;
+      max-width: 400px;
+      width: 90%;
+      z-index: 600;
+      display: none;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s ease;
     }
-    .success-notification.show { display: block; }
-    .success-notification h3 { font-size: 18px; margin-bottom: 12px; color: #000; }
-    .success-notification p { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
-    .success-buttons { display: flex; gap: 12px; }
-    .success-btn {
-      flex: 1; padding: 12px; border: 2px solid var(--primary);
-      background: var(--secondary); border-radius: 8px;
-      cursor: pointer; font-weight: 600; text-transform: uppercase; font-size: 12px;
-      color: #000; transition: var(--transition);
-    }
-    .success-btn.primary { background: var(--primary); color: var(--secondary); }
-    .success-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--primary); }
 
-    /* ===== RECAPTCHA ===== */
-    .g-recaptcha {
-      margin: 12px 0; display: flex; justify-content: center;
-      transform-origin: center top; overflow: hidden; max-width: 100%;
+    .success-notification.show {
+      display: block;
     }
+
+    .success-notification h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .success-notification p {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .success-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .success-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--primary);
+      background: var(--secondary);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .success-btn.primary {
+      background: var(--primary);
+      color: var(--secondary);
+    }
+
+    .success-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .g-recaptcha {
+      margin: 12px 0;
+      display: flex;
+      justify-content: center;
+      transform-origin: center top;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .g-recaptcha > div {
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
     @media (max-width: 400px) {
-      .g-recaptcha { transform: scale(0.75); transform-origin: left top; }
+      .g-recaptcha {
+        transform: scale(0.75);
+        transform-origin: left top;
+        margin: 8px 0 -12px 0;
+      }
     }
 
     /* ===== IMAGE MODAL ===== */
     .image-modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.95); z-index: 700;
-      display: none; align-items: center; justify-content: center; padding: 20px;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 700;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
-    .image-modal-backdrop.open { display: flex; }
+
+    .image-modal-backdrop.open {
+      display: flex;
+    }
+
     .image-modal-content {
-      max-width: 90vw; max-height: 90vh;
-      display: flex; align-items: center; justify-content: center;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       animation: zoomIn 0.3s ease;
     }
-    .image-modal-img { max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 8px; }
-    .image-modal-close {
-      position: absolute; top: 20px; right: 20px;
-      background: rgba(255,255,255,0.9); border: none;
-      border-radius: 50%; width: 40px; height: 40px;
-      font-size: 24px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 800; transition: var(--transition);
-    }
-    @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-    /* ===== FLOATING BUTTONS ===== */
+    .image-modal-img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 800;
+      transition: var(--transition);
+    }
+
+    .image-modal-close:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: scale(1.1);
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* ===== FLOATING SHORTCUTS BTN ===== */
     .floating-shortcuts-btn {
-      position: fixed; bottom: 100px; right: 16px;
-      background: var(--primary); color: var(--secondary);
-      border: none; border-radius: 24px; padding: 10px 18px;
-      font-size: 13px; font-weight: 600; cursor: pointer;
-      display: none; align-items: center; justify-content: center;
-      z-index: 99; box-shadow: var(--shadow); transition: var(--transition);
+      position: fixed;
+      bottom: 100px;
+      right: 16px;
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      letter-spacing: 0.5px;
     }
-    .floating-shortcuts-btn.visible { display: flex; }
-    .floating-shortcuts-btn:hover { background: var(--accent); color: var(--primary); }
+
+    .floating-shortcuts-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .floating-shortcuts-btn.visible {
+      display: flex;
+    }
+
     .floating-whatsapp-btn {
-      display: flex !important; align-items: center; justify-content: center;
-      background: #25D366 !important; border: none !important; color: #fff !important;
-      box-shadow: 0 8px 20px rgba(37,211,102,0.25);
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      background: #25D366 !important;
+      border: none !important;
+      color: #ffffff !important;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+      transition: background 0.2s ease, transform 0.2s ease;
     }
-    .floating-whatsapp-btn:hover { background: #1ebe5d !important; transform: scale(1.03); }
+
+    .floating-whatsapp-btn:hover {
+      background: #1ebe5d !important;
+      transform: scale(1.03);
+    }
 
     /* ===== SHORTCUTS MODAL ===== */
     .shortcuts-modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-      z-index: 600; display: none;
-      align-items: center; justify-content: center; padding: 20px;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 600;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
-    .shortcuts-modal-backdrop.open { display: flex; }
+
+    .shortcuts-modal-backdrop.open {
+      display: flex;
+    }
+
     .shortcuts-modal {
       background: rgba(10,10,10,0.88);
       border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 12px; padding: 28px; max-width: 400px; width: 100%;
-      display: flex; flex-direction: column; gap: 12px; color: #ffffff;
+      border-radius: 12px;
+      padding: 28px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: modalSlideIn 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: #ffffff;
     }
-    .shortcuts-modal-title { font-size: 18px; font-weight: 700; text-align: center; letter-spacing: 1px; }
+
+    .shortcuts-modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-align: center;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
     .shortcuts-modal-btn {
-      background: transparent; color: #ffffff;
+      background: transparent;
+      color: #ffffff;
       border: 1px solid rgba(255,255,255,0.15);
-      padding: 12px 16px; border-radius: 8px;
-      cursor: pointer; font-weight: 600; text-align: left; font-size: 14px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
       transition: var(--transition);
+      text-align: left;
+      font-size: 14px;
     }
-    .shortcuts-modal-btn:hover { background: rgba(255,255,255,0.12); }
+
+    .shortcuts-modal-btn:hover {
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
+    }
+
     .shortcuts-modal-close {
-      background: transparent; border: 1px solid rgba(255,255,255,0.35);
-      padding: 12px 16px; border-radius: 8px; cursor: pointer;
-      font-weight: 600; color: #ffffff; margin-top: 8px; transition: var(--transition);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      margin-top: 8px;
+      color: #ffffff;
     }
-    .shortcuts-modal-close:hover { background: rgba(255,255,255,0.12); }
+
+    .shortcuts-modal-close:hover {
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .section { padding: 30px 14px; }
-      .section-title { font-size: 17px; }
-      .section-text { font-size: 14px; }
-      .comments-section { padding: 30px 14px; }
+      .banner-title {
+        font-size: 20px;
+        letter-spacing: 2px;
+      }
+
+      .section {
+        padding: 30px 14px;
+      }
+
+      .section-title {
+        font-size: 17px;
+        line-height: 1.4;
+      }
+
+      .section-text {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .modal {
+        padding: 20px;
+      }
+
+      .avatar-selector {
+        gap: 12px;
+      }
+
+      .avatar-option {
+        width: 50px;
+        height: 50px;
+      }
+
+      footer {
+        padding: 30px 16px;
+      }
+
+      .footer-links {
+        gap: 8px;
+      }
+
+      .footer-link {
+        padding: 8px 12px;
+        font-size: 10px;
+      }
+
+      .portada-img {
+        padding: 0 12px;
+      }
+
+      .comments-section {
+        padding: 30px 14px;
+      }
+
+      .social-section {
+        padding: 30px 14px;
+      }
     }
+
     @media (max-width: 480px) {
-      .header { padding: 12px 16px; }
-      .header-brand { font-size: 16px; }
-      .section { padding: 24px 12px; }
-      .section-title { font-size: 16px; }
-      .section-text { font-size: 13px; }
-      .sidebar { width: 250px; }
-      .modal { padding: 16px; }
-      .avatar-option { width: 44px; height: 44px; }
-      .all-comments-modal { width: 96%; }
-    }
-  </style>
+      .header {
+        padding: 12px 16px;
+      }
+
+      .header-brand {
+        font-size: 16px;
+      }
+
+      .banner-title {
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+
+      .section {
+        padding: 24px 12px;
+      }
+
+      .section-title {
+        font-size: 16px;
+      }
+
+      .section-text {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .portada-img {
+        padding: 0 12px;
+      }
+
+      .sidebar {
+        width: 250px;
+      }
+
+      .curtain,
+      .plan-curtain,
+      .all-comments-container {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .comment-card {
+        padding: 12px;
+      }
+
+      .modal {
+        max-width: 90%;
+        padding: 16px;
+        width: 90%;
+        max-width: 400px;
+      }
+
+      .modal-backdrop {
+        padding: 16px;
+      }
+
+      .stars-row {
+        gap: 10px;
+      }
+
+      .star-btn {
+        font-size: 24px;
+      }
+
+      .avatar-option {
+        width: 44px;
+        height: 44px;
+      }
+
+      .social-icons {
+        gap: 16px;
+      }
+
+      .footer-logo {
+        width: 50px;
+        height: 50px;
+      }
+
+  }
+
+/* ========================= */
+/* FIX MODAL COMENTARIOS OK */
+/* ========================= */
+
+/* contenedor (NO cambiar lógica existente) */
+.all-comments-container {
+  display: none;
+}
+
+.all-comments-container.open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🔥 SOLUCIÓN AL PROBLEMA REAL */
+.all-comments-body {
+  display: block;
+}
+
+/* evitar columna finita */
+.all-comments-body > * {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* evitar que las cards internas se achiquen */
+.all-comments-body .comment-card,
+.all-comments-body .comentario-item,
+.all-comments-body .comment {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* scroll correcto */
+.all-comments-body {
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+/* SOLO afecta el modal */
+#allCommentsList,
+#allCommentsList .comment-card,
+#allCommentsList .comment-card.featured,
+#allCommentsList .comentario-item,
+#allCommentsList .comment,
+#allCommentsList .comment-content,
+#allCommentsList .replies-container,
+#allCommentsList .reply-item {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+#allCommentsList {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+#allCommentsList > .comment-card,
+#allCommentsList > .comment-card.featured,
+#allCommentsList > .comentario-item,
+#allCommentsList > .comment {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  flex: none !important;
+}
+
+/* FIX FINAL: neutralizar cualquier estilo global que siga rompiendo el modal */
+.all-comments-container.open {
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 18px 18px !important;
+}
+
+#allCommentsList,
+#allCommentsList .comment-card,
+#allCommentsList .comment-card.featured,
+#allCommentsList .comentario-item,
+#allCommentsList .comment,
+#allCommentsList .comment-content,
+#allCommentsList .replies-container,
+#allCommentsList .reply-item,
+#allCommentsList .reply-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+#allCommentsList .comment-card {
+  flex-wrap: wrap !important;
+}
+
+.all-comments-body {
+  max-height: calc(100vh - 140px) !important;
+  overflow-y: auto !important;
+}
+
+#allCommentsList .reply-item {
+  margin-left: 0 !important;
+}
+
+#allCommentsList .comment-card > div[style*="flex: 1"] {
+  min-width: 0 !important;
+}
+
+/* ============================= */
+/* FIX MODAL COMENTARIOS DEFINITIVO */
+/* ============================= */
+
+/* OVERLAY (NO TOCAR JS) */
+.all-comments-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.all-comments-container.open {
+  display: flex;
+}
+
+/* fondo con blur */
+.all-comments-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+}
+
+/* CAJA REAL DEL MODAL */
+.all-comments-modal {
+  position: relative;
+  z-index: 1;
+
+  width: 90%;
+  max-width: 720px;
+  height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 20px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(18px);
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* BODY */
+.all-comments-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* COLUMNA FINITA */
+#allCommentsList > * {
+  width: 100%;
+  max-width: 100%;
+}
+
+#allCommentsList .comment-card,
+#allCommentsList .comentario-item,
+#allCommentsList .comment {
+  width: 100%;
+  max-width: 100%;
+}
+
+#allCommentsList > * {
+  margin-bottom: 12px;
+}
+
+#allCommentsList .comment-card,
+#allCommentsList .comment-card.featured {
+  background: transparent !important;
+  padding: 8px 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#allCommentsList .comment-text,
+#allCommentsList .comentario-texto {
+  display: inline-block !important;
+  background: rgba(255,255,255,0.15) !important;
+  backdrop-filter: blur(6px) !important;
+  padding: 8px 12px !important;
+  border-radius: 12px !important;
+  max-width: 100% !important;
+}
+
+#allCommentsList .comment-actions {
+  margin-top: 6px !important;
+  display: flex !important;
+  gap: 10px !important;
+  background: transparent !important;
+}
+
+#allCommentsList .reply-item {
+  margin-left: 40px !important;
+  margin-top: 6px !important;
+}
+
+#allCommentsList .reply-content {
+  background: transparent !important;
+  padding: 8px 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.all-comments-header {
+  position: relative;
+
+  padding: 18px 20px;
+
+  text-align: center;
+
+  display: block;
+}
+
+.all-comments-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+
+  position: relative;
+  z-index: 1;
+}
+
+.all-comments-header .curtain-close {
+  position: absolute;
+
+  right: 12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  z-index: 2;
+}
+
+.portada-container {
+  position: relative;
+}
+
+.portada-img {
+  width: calc(100% - 24px);
+  display: block;
+  margin: 0 12px;
+  border-radius: 8px;
+}
+
+.mensaje-overlay {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 12px;
+  border-radius: 18px;
+  z-index: 2;
+}
+
+.mensaje-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.mensaje-overlay span {
+  color: white;
+  margin-top: 6px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.planes-container {
+  position: relative;
+  width: calc(100% - 24px);
+  margin: 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-planes {
+  width: 100%;
+  background: black;
+  color: white;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  animation: flash 2s infinite;
+}
+
+@keyframes flash {
+  0% { box-shadow: 0 0 0px white; }
+  50% { box-shadow: 0 0 15px white; }
+  100% { box-shadow: 0 0 0px white; }
+}
+
+.label-avatar,
+.label-rating {
+  color: black;
+}
+
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#allCommentsList .comment-card,
+#allCommentsList .comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#allCommentsList .comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#allCommentsList .comment-content {
+  flex: 1;
+}
+
+#allCommentsList .comment-name {
+  font-weight: bold;
+}
+
+#allCommentsList .comment-text {
+  margin: 2px 0;
+}
+
+#allCommentsList .comment-actions {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  background: transparent;
+  margin-top: 6px;
+}
+
+#allCommentsList .comment-like-count {
+  margin-left: auto;
+}
+
+#allCommentsList .reply-item {
+  margin-left: 40px;
+  margin-top: 6px;
+}
+
+</style>
 </head>
 <body>
-
   <!-- HEADER -->
   <header class="header">
     <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
-      <span></span><span></span><span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
     <h1 class="header-brand">TUWEB</h1>
     <img src="/logoweb.png" alt="Logo TUWEB" style="width:40px;height:40px;object-fit:contain;">
@@ -948,15 +2399,13 @@
     <nav class="sidebar-nav">
       <button class="sidebar-btn" onclick="openCurtain('how-obtain')">Cómo obtengo mi web</button>
       <button class="sidebar-btn" onclick="closeSidebar(); scrollToElement('comments-section')">Dejar comentario</button>
-      <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.','_blank'); closeSidebar();">📞 Contacto</button>
+      <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">📞 Contacto</button>
       <button class="sidebar-btn" onclick="scrollToElement('social-section')">Seguinos en redes</button>
     </nav>
   </aside>
 
-  <!-- CURTAIN OVERLAY -->
-  <div class="curtain-overlay" id="curtainOverlay"></div>
-
   <!-- CURTAIN: CÓMO OBTENGO MI WEB -->
+  <div class="curtain-overlay" id="curtainOverlay"></div>
   <div class="curtain" id="curtain-how-obtain">
     <div class="curtain-header">
       <h2 class="curtain-title">Cómo obtengo mi web</h2>
@@ -970,31 +2419,29 @@
         <li>¡Y listo! te vas directo a hablar con Nicolás y construir lo tuyo</li>
       </ol>
     </div>
-    <a href="#" onclick="closeCurtain('how-obtain'); setTimeout(function(){ var el=document.getElementById('messageImage'); if(el) el.scrollIntoView({behavior:'smooth'}); },350); return false;" class="curtain-btn" style="display:block;text-align:center;text-decoration:none;margin:16px 20px;">Ver más información</a>
+    <a href="#" onclick="closeCurtain('how-obtain'); setTimeout(function(){ var el = document.getElementById('messageImage'); if(el) el.scrollIntoView({behavior:'smooth'}); }, 350); return false;" class="curtain-btn" style="display:block;text-align:center;text-decoration:none;margin:16px 20px;">Ver más información</a>
   </div>
 
-  <!-- PLAN CURTAIN OVERLAY -->
-  <div id="planCurtainOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:399;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(4px);"></div>
-
   <!-- PLAN CURTAIN -->
+  <div class="plan-curtain-overlay" id="planCurtainOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:399;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(4px);"></div>
   <div class="plan-curtain" id="planCurtain">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:2px solid var(--primary);">
-      <span style="font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#000;">Planes</span>
-      <button onclick="closePlanCurtain()" style="background:none;border:none;cursor:pointer;font-size:22px;padding:4px;color:#000;">✕</button>
+      <span style="font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;">Planes</span>
+      <button onclick="closePlanCurtain()" style="background:none;border:none;cursor:pointer;font-size:22px;padding:4px;">✕</button>
     </div>
     <img src="/planesuno.png" alt="Plans" class="plan-img">
-    <div style="padding:20px;">
+    <div style="padding: 20px;">
       <button class="plan-button" onclick="openPlansGridModal()">Más Información</button>
     </div>
   </div>
 
   <!-- PLANS GRID MODAL -->
-  <div class="modal-backdrop" id="plansGridBackdrop" style="z-index:550;">
+  <div class="modal-backdrop" id="plansGridBackdrop" style="z-index: 550;">
     <div class="plans-modal" role="dialog" aria-modal="true" aria-label="Planes disponibles">
-      <div style="padding:20px 16px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">
-        <h2 style="margin:0;font-size:18px;font-weight:700;color:#fff;">Elegí tu plan</h2>
+      <div style="padding: 20px 16px; text-align: center; border-bottom: 1px solid #e5e5e5;">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 700;">Elegí tu plan</h2>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;padding:16px;justify-content:center;align-items:flex-start;">
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; padding: 16px; justify-content: center; align-items: flex-start;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:10px;flex:1 1 180px;min-width:140px;max-width:220px;">
           <img src="/infouno.png" alt="Info Uno" style="width:100%;height:120px;object-fit:cover;border-radius:12px;display:block;">
           <button class="plans-modal-btn" onclick="openWhatsAppPlan('Plan Básico')">Ver más</button>
@@ -1011,37 +2458,32 @@
     </div>
   </div>
 
-  <!-- ALL COMMENTS MODAL -->
+  <!-- ALL COMMENTS VIEW -->
   <div class="all-comments-container" id="allCommentsContainer">
+
     <div class="all-comments-modal">
+
       <div class="all-comments-header">
         <h2>Todos los comentarios</h2>
-        <button class="all-comments-close-btn" onclick="closeAllComments()">✕</button>
+        <button class="curtain-close" onclick="closeAllComments()">✕</button>
       </div>
+
       <div class="all-comments-body" id="allCommentsList"></div>
+
     </div>
+
   </div>
 
   <!-- MAIN CONTENT -->
   <main>
-
     <!-- BANNER -->
     <section class="banner">
       <h2 class="banner-title">Tu Empleado Digital</h2>
     </section>
 
-    <!-- INTRO SECTION: logodos.png arriba de portadauno -->
-    <div class="intro-section">
-      <button class="intro-img-btn" onclick="openIntroModal()" aria-label="Mensaje de Nicolás">
-        <img src="/logodos.png" alt="Nicolás - Toca para leer" class="intro-logo">
-        <span class="intro-hint">✨ Tocá para leer ✨</span>
-        <span class="intro-arrow">▼</span>
-      </button>
-    </div>
-
-    <!-- PORTADA 1 -->
+    <!-- PORTADA 1 - FULL BLEED -->
     <div class="portada-container">
-      <img src="/portadauno.png" alt="Portada Principal" class="portada-img" style="margin-bottom:0;">
+      <img src="/portadauno.png" alt="Portada Principal" class="portada-img">
       <div class="mensaje-overlay" onclick="openMensajeModal()">
         <img src="/logodos.png" alt="Toca para leer" class="mensaje-icon">
         <span>Toca para leer</span>
@@ -1049,7 +2491,7 @@
     </div>
 
     <!-- PORTADA 2 -->
-    <img src="/portadados.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:20px 12px 0;border-radius:8px;">
+    <img src="/portadados.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
     <section class="section section-row section-row-right">
       <div class="section-text-wrapper">
         <h2 class="section-title">Tu negocio no debería depender de vos todo el tiempo</h2>
@@ -1069,13 +2511,15 @@
       </div>
       <div class="section-text-wrapper">
         <h2 class="section-title">Tu web deja de ser una vidriera y pasa a ser un sistema que vende</h2>
-        <p class="texto-preview" id="text-preview-3">No alcanza con "tener presencia online". La diferencia está en lo que pasa cuando alguien entra... <span class="ver-mas">Ver más</span></p>
+        <p class="texto-preview" id="text-preview-3">No alcanza con “tener presencia online”. La diferencia está en lo que pasa cuando alguien entra... <span class="ver-mas">Ver más</span></p>
         <p class="texto-resto oculto" id="full-text-3">TUWEB está pensada para que cada persona entienda en segundos qué ofrecés, cómo funciona y qué tiene que hacer. Sin confusión, sin dudas, sin vueltas. Cada paso está ordenado para que el visitante avance naturalmente hasta tomar acción: consultar, reservar o comprar. Es como tener a alguien guiando a cada cliente, pero sin que vos tengas que intervenir.</p>
       </div>
     </section>
 
-    <!-- CTA BUTTON (fixed) -->
-    <button class="cta-button" onclick="openPlansGridModal()">Ver planes que se adaptan a vos</button>
+    <!-- CTA BUTTON -->
+    <button class="cta-button" onclick="openPlansGridModal()">
+      Ver planes que se adaptan a vos
+    </button>
 
     <!-- PORTADA 4 -->
     <img src="/portadacuatro.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
@@ -1085,7 +2529,8 @@
         <p class="texto-preview" id="text-preview-4">Tu negocio no tiene por qué frenar cuando vos descansás. La web sigue funcionando todo el tiempo... <span class="ver-mas">Ver más</span></p>
         <p class="texto-resto oculto" id="full-text-4">Responde consultas frecuentes, muestra tus servicios de forma clara, organiza pedidos y deja a cada cliente listo para avanzar. Esto significa menos interrupciones para vos, menos tareas repetitivas y más oportunidades aprovechadas, incluso fuera de horario.
 
-Gestión de turnos sin esfuerzo. Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
+Gestión de turnos sin esfuerzo
+Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que van y vienen, cambios, confusiones… todo eso se elimina.</p>
       </div>
       <div class="section-side-image">
         <img src="/decotres.png" alt="Decoración" class="decor-image">
@@ -1103,7 +2548,12 @@ Gestión de turnos sin esfuerzo. Uno de los mayores desgastes del día a día es
         <p class="texto-preview" id="text-preview-5">El turno queda registrado automáticamente, sin errores ni superposiciones. Vos dejás de estar pendiente de organizar la agenda... <span class="ver-mas">Ver más</span></p>
         <p class="texto-resto oculto" id="full-text-5">Y pasás a tener todo claro, ordenado y funcionando solo.
 
-Confirmaciones simples y directas: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan. A vos te llega la confirmación directamente por WhatsApp. Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo.</p>
+Confirmaciones simples y directas
+El proceso es claro y rápido: te descubren en redes o les compartís tu link, entran a tu web, eligen y reservan.
+A vos te llega la confirmación directamente por WhatsApp.
+Sin intercambios largos, sin explicaciones repetidas. Solo recibís el resultado: un cliente listo.
+
+Menos mensajes innecesarios, más clientes decididos.</p>
       </div>
     </section>
 
@@ -1115,7 +2565,10 @@ Confirmaciones simples y directas: te descubren en redes o les compartís tu lin
         <p class="texto-preview" id="text-preview-6">Las personas que llegan ya vieron la información, entendieron cómo trabajás y eligieron avanzar... <span class="ver-mas">Ver más</span></p>
         <p class="texto-resto oculto" id="full-text-6">Eso significa menos preguntas básicas y más personas preparadas para tomar una decisión.
 
-Todo conectado en un solo lugar: TUWEB integra todo lo que necesitás para ordenar tu negocio. Información clara de tus servicios o productos. Agenda de turnos.</p>
+Todo conectado en un solo lugar
+TUWEB integra todo lo que necesitás para ordenar tu negocio:
+Información clara de tus servicios o productos
+Agenda de turnos.</p>
       </div>
       <div class="section-side-image">
         <img src="/decocinco.png" alt="Decoración" class="decor-image">
@@ -1133,7 +2586,11 @@ Todo conectado en un solo lugar: TUWEB integra todo lo que necesitás para orden
         <p class="texto-preview" id="text-preview-7">Espacios para mostrar opiniones o consultas. Todo funciona en conjunto para que la experiencia sea simple... <span class="ver-mas">Ver más</span></p>
         <p class="texto-resto oculto" id="full-text-7">Tanto para vos como para tus clientes.
 
-Tu cliente hace todo el recorrido sin perderse. Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas. Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte.</p>
+Tu cliente hace todo el recorrido sin perderse.
+Desde que llega hasta que toma acción, todo está pensado para que avance sin trabas.
+Encuentra lo que busca rápido, entiende cómo funciona tu servicio y puede decidir sin necesidad de escribirte.
+
+Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
       </div>
     </section>
 
@@ -1145,7 +2602,8 @@ Tu cliente hace todo el recorrido sin perderse. Desde que llega hasta que toma a
         <p class="texto-preview" id="text-preview-8">No se trata solo de tener una web, sino de entender cómo está funcionando... <span class="ver-mas">Ver más</span></p>
         <p class="texto-resto oculto" id="full-text-8">Podés ver cuántas y qué acciones realizan y qué partes funcionan mejor. Con esa información, se mejora constantemente para que cada vez funcione mejor y genere más resultados.
 
-Optimización constante basada en resultados reales. Nada queda estático.</p>
+Optimización constante basada en resultados reales.
+Nada queda estático.</p>
       </div>
       <div class="section-side-image">
         <img src="/decosiete.png" alt="Decoración" class="decor-image">
@@ -1163,7 +2621,17 @@ Optimización constante basada en resultados reales. Nada queda estático.</p>
         <p class="texto-preview" id="text-preview-9">Con esos datos, la web se ajusta para mejorar la experiencia y aumentar los resultados... <span class="ver-mas">Ver más</span></p>
         <p class="texto-resto oculto" id="full-text-9">Esto permite que tu sistema crezca junto con tu negocio.
 
-Más orden, más tiempo y más resultados. El cambio es claro: menos tareas manuales, menos desorden, menos tiempo perdido. Y a cambio: más claridad, más organización, más oportunidades concretas.</p>
+Más orden, más tiempo y más resultados.
+
+El cambio es claro:
+Menos tareas manuales.
+Menos desorden.
+Menos tiempo perdido.
+
+Y a cambio:
+Más claridad.
+Más organización.
+Más oportunidades concretas.</p>
       </div>
     </section>
 
@@ -1174,27 +2642,29 @@ Más orden, más tiempo y más resultados. El cambio es claro: menos tareas manu
       <p class="texto-preview" id="text-preview-10">Podés seguir haciendo todo manual, dependiendo de tu tiempo y energía… o podés dar el paso hacia un sistema que trabaja por vos... <span class="ver-mas">Ver más</span></p>
       <p class="texto-resto oculto" id="full-text-10">En internet, organiza tu negocio y te ayuda a crecer todos los días.
 
-Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web puede ser mucho más que una presencia… puede ser la herramienta que haga avanzar tu negocio incluso cuando vos no estás.</p>
+Elegí empezar a simplificar tu trabajo y a potenciar tus resultados.
+Tu web puede ser mucho más que una presencia… puede ser la herramienta que haga avanzar tu negocio incluso cuando vos no estás.</p>
     </section>
 
     <!-- PORTADA 11 -->
     <img src="/portadaonce.png" alt="Portada" style="width:calc(100% - 24px);display:block;margin:0 12px;border-radius:8px;">
 
     <!-- FLOATING MESSAGE SECTION -->
-    <section class="floating-message" style="position:relative;padding:40px 20px;margin:40px 0;">
-      <div style="display:flex;align-items:flex-start;gap:20px;max-width:700px;margin:0 auto;flex-wrap:wrap;justify-content:center;">
-        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
-          <img src="/mensajeweb.png" alt="Mensaje" class="message-image" id="messageImage" onclick="openMessageModal()" style="width:110px;height:110px;border-radius:50%;object-fit:cover;cursor:pointer;border:3px solid var(--primary);animation:floatIntro 3s ease-in-out infinite;">
+    <section class="floating-message" style="position:relative; padding: 40px 20px; margin: 40px 0;">
+      <div style="display:flex; align-items:flex-start; gap:20px; max-width:700px; margin:0 auto; flex-wrap:wrap; justify-content:center;">
+        <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+          <img src="/mensajeweb.png" alt="Mensaje" class="message-image" id="messageImage" onclick="openMessageModal()" style="width:110px;height:110px;border-radius:50%;object-fit:cover;cursor:pointer;border:3px solid var(--primary);animation:float 3s ease-in-out infinite;">
           <div style="font-size:11px;color:#ffffff;margin-top:8px;text-align:center;letter-spacing:0.5px;">✨ Tocá para leer ✨</div>
           <div style="font-size:20px;color:var(--primary);animation:bounce 2s infinite;cursor:pointer;" onclick="openMessageModal()">▼</div>
         </div>
+        <div id="messagePreviewText" style="flex:1;min-width:220px;font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:1.7;color:#050505;background:#f0f2f5;border-radius:18px;padding:16px 20px;display:none;"></div>
       </div>
     </section>
 
-    <!-- PLANES CONTAINER: botón + imagen pegados -->
+    <!-- FULL WIDTH IMAGE -->
     <div class="planes-container">
       <button class="btn-planes" onclick="irPlanes()">CLIC ACÁ</button>
-      <img src="/planesdos.png" alt="Planes" class="planes-img" onclick="irPlanes()">
+      <img src="/planesdos.png" alt="Planes" class="full-width-img" style="cursor:pointer;" onclick="irPlanes()">
     </div>
 
     <!-- COMMENTS SECTION -->
@@ -1203,7 +2673,7 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
 
       <!-- Avatar Selector -->
       <div class="form-group">
-        <label class="form-label" style="color:#000000;">Elegí tu avatar:</label>
+        <label class="form-label label-avatar">Elegí tu avatar:</label>
         <div class="avatar-selector">
           <img src="/avataruno.png" alt="Avatar 1" class="avatar-option selected" data-avatar="/avataruno.png" onclick="selectAvatar(this)">
           <img src="/avatardos.png" alt="Avatar 2" class="avatar-option" data-avatar="/avatardos.png" onclick="selectAvatar(this)">
@@ -1215,7 +2685,8 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
             ver más <span id="avatarDrawerArrow" style="font-size:9px;transition:transform 0.2s;">▼▼</span>
           </button>
         </div>
-        <div id="avatarDrawer" style="display:none;background:#f0f2f5;border-radius:16px;padding:16px;margin-top:8px;">
+        <!-- Avatar Drawer -->
+        <div id="avatarDrawer" style="display:none;background:#f0f2f5;border-radius:16px;padding:16px;margin-top:8px;animation:slideIn 0.3s ease;">
           <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
             <img src="/avatarcinco.png" alt="Avatar 5" class="avatar-option" data-avatar="/avatarcinco.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
             <img src="/avatarseis.png" alt="Avatar 6" class="avatar-option" data-avatar="/avatarseis.png" onclick="selectAvatar(this);toggleAvatarDrawer()">
@@ -1246,15 +2717,15 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
         </div>
       </div>
 
-      <!-- Name -->
+      <!-- Name Input -->
       <div class="form-group">
-        <label class="form-label" style="color:#000000;">Tu nombre:</label>
+        <label class="form-label">Tu nombre:</label>
         <input type="text" id="commentName" class="form-input" placeholder="Decinos tu nombre...">
       </div>
 
-      <!-- Rating -->
+      <!-- Rating Stars -->
       <div class="form-group">
-        <label class="form-label" style="color:#000000;">Calificación:</label>
+        <label class="form-label label-rating">Calificación:</label>
         <div class="stars-row" id="starsRow">
           <button class="star-btn" data-value="1" onclick="selectRating(1)">★</button>
           <button class="star-btn" data-value="2" onclick="selectRating(2)">★</button>
@@ -1264,18 +2735,30 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
         </div>
       </div>
 
+      <!-- Comment Button -->
       <button class="comment-btn" onclick="openCommentModal()">✍️ Dejanos tu comentario</button>
-      <div id="featuredCommentContainer" style="margin-top:28px;"></div>
-      <button class="comment-btn" style="background:none;border:2px solid #000;color:#000;margin-top:28px;" onclick="openAllComments()">Ver todos los comentarios ↓</button>
+
+      <!-- Featured Comment -->
+      <div id="featuredCommentContainer" style="margin-top: 28px;"></div>
+      <div id="commentsContainer" style="margin-top: 24px;"></div>
+
+      <!-- All Comments Button -->
+      <button class="comment-btn" style="background: none; border: 2px solid #000; color: #000; margin-top: 28px;" onclick="openAllComments()">Ver todos los comentarios ↓</button>
     </section>
 
-    <!-- SOCIAL -->
+    <!-- SOCIAL SECTION -->
     <section class="social-section" id="social-section">
       <h2 class="social-title">Seguinos para no perderte las Novedades</h2>
       <div class="social-icons">
-        <a href="https://www.facebook.com" target="_blank"><img src="/facebookweb.png" alt="Facebook" class="social-icon"></a>
-        <a href="https://www.instagram.com" target="_blank"><img src="/instagramweb.png" alt="Instagram" class="social-icon"></a>
-        <a href="https://www.tiktok.com" target="_blank"><img src="/tiktokweb.png" alt="TikTok" class="social-icon"></a>
+        <a href="https://www.facebook.com" target="_blank">
+          <img src="/facebookweb.png" alt="Facebook" class="social-icon">
+        </a>
+        <a href="https://www.instagram.com" target="_blank">
+          <img src="/instagramweb.png" alt="Instagram" class="social-icon">
+        </a>
+        <a href="https://www.tiktok.com" target="_blank">
+          <img src="/tiktokweb.png" alt="TikTok" class="social-icon">
+        </a>
       </div>
     </section>
   </main>
@@ -1286,7 +2769,7 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
     <div class="footer-links">
       <button class="footer-link" onclick="openCurtain('how-obtain')">Cómo obtengo mi web</button>
       <button class="footer-link" onclick="scrollToPlans()">Ir a los Planes</button>
-      <button class="footer-link" onclick="window.open('https://wa.me/592395407700?text=Hola%20quiero%20consultarte%20sobre%20TUWEB','_blank')">Contacto</button>
+      <button class="footer-link" onclick="window.open('https://wa.me/592395407700?text=Hola%20quiero%20consultarte%20sobre%20TUWEB', '_blank')">Contacto</button>
       <button class="footer-link" onclick="scrollToElement('social-section')">Seguinos en redes</button>
     </div>
   </footer>
@@ -1299,12 +2782,12 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
     </div>
   </div>
 
-  <!-- FLOATING SHORTCUTS BTN -->
+  <!-- FLOATING SHORTCUTS BUTTON -->
   <button class="floating-shortcuts-btn" id="floatingShortcutsBtn" onclick="openShortcutsModal()">Atajos</button>
 
-  <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta." target="_blank" class="floating-whatsapp-btn" id="floatingWhatsappBtn" style="position:fixed;bottom:30px;right:100px;width:60px;height:60px;border-radius:50%;display:none;align-items:center;justify-content:center;z-index:98;text-decoration:none;">
-    <img src="/whatsappweb.png" alt="WhatsApp" style="width:100%;height:100%;border-radius:50%;object-fit:contain;">
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta." target="_blank" class="floating-whatsapp-btn" id="floatingWhatsappBtn" style="position: fixed; bottom: 30px; right: 100px; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 98; text-decoration: none; background: none; border: none; cursor: pointer;">
+    <img src="/whatsappweb.png" alt="WhatsApp" style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain;">
   </a>
 
   <!-- SHORTCUTS MODAL -->
@@ -1319,7 +2802,7 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
     </div>
   </div>
 
-  <!-- PLAN INFO MODAL -->
+  <!-- PLANS INFO MODALS -->
   <div class="plan-info-modal-backdrop" id="planInfoModal">
     <div class="plan-info-modal">
       <div class="plan-info-title" id="planInfoTitle"></div>
@@ -1334,7 +2817,7 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
       <div class="modal-header">Dejanos tu comentario</div>
       <textarea id="commentText" class="modal-textarea" placeholder="Dejanos un comentario contandonos cuál es tu tarea repetitiva."></textarea>
       <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
-      <div id="recaptchaError" style="color:#e74c3c;font-size:12px;margin-top:8px;display:none;">Por favor verifica que no eres un robot</div>
+      <div id="recaptchaError" style="color: #e74c3c; font-size: 12px; margin-top: 8px; display: none;">Por favor verifica que no eres un robot</div>
       <div class="modal-actions">
         <button class="modal-btn" onclick="closeCommentModal()">Cancelar</button>
         <button class="modal-btn primary" onclick="submitComment()">Enviar comentario</button>
@@ -1342,46 +2825,20 @@ Elegí empezar a simplificar tu trabajo y a potenciar tus resultados. Tu web pue
     </div>
   </div>
 
-  <!-- INTRO MODAL (logodos) — misma estética que messageModal -->
-  <div class="modal-backdrop" id="introModal">
-    <div class="modal" style="max-height:88vh;overflow-y:auto;">
-      <div class="modal-header" style="color:#ffffff;">Mensaje de Nicolás</div>
-      <div style="font-size:14px;line-height:1.85;color:rgba(255,255,255,0.92);white-space:pre-wrap;">Hola, ¿cómo estás?
-
-Me llamo Nicolás.
-
-También soy emprendedor, y sé lo que significa estar en todo: responder, ordenar, coordinar, trabajar… y sentir que el tiempo no alcanza.
-
-Después de tres años estudiando conexiones digitales, entendí algo clave:
-la diferencia no está solo en "tener presencia", sino en cómo conectás al cliente con lo que ofrecés.
-Cuando esa conexión es clara, rápida y directa… todo cambia.
-
-A partir de eso creé TUWEB, un emprendimiento pensado para algo muy concreto:
-"hacerte ganar tiempo."
-
-Te invito a que mires la información de esta web punto por punto.
-Cada herramienta, cada función y cada detalle están pensados para lo mismo:
-que dejes de ocuparte de tareas repetitivas y tu negocio funcione con más orden y autonomía.
-
-Al terminar, lo más probable es que ya tengas una conexión clara de lo que podés lograr aplicándolo a tu negocio o servicio.
-
-De mi lado, estoy para implementarlo así que realmente te libere tiempo y energía.</div>
-      <button class="modal-btn primary" onclick="closeIntroModal()" style="width:100%;margin-top:20px;">Entendido</button>
-    </div>
-  </div>
-
-  <!-- MESSAGE MODAL (mensajeweb) -->
+  <!-- MESSAGE MODAL -->
   <div class="modal-backdrop" id="messageModal">
-    <div class="modal" style="max-height:88vh;overflow-y:auto;">
+    <div class="modal">
       <div class="modal-header">Nuestro enfoque</div>
-      <div style="font-size:14px;line-height:1.85;color:rgba(255,255,255,0.92);white-space:pre-wrap;">Hola, ¿cómo estás?
+      <div class="modal-content">
+        <p>
+Hola, ¿cómo estás?
 
 Me llamo Nicolás.
 
 También soy emprendedor, y sé lo que significa estar en todo: responder, ordenar, coordinar, trabajar… y sentir que el tiempo no alcanza.
 
 Después de tres años estudiando conexiones digitales, entendí algo clave:
-la diferencia no está solo en "tener presencia", sino en cómo conectás al cliente con lo que ofrecés.
+la diferencia no está solo en “tener presencia”, sino en cómo conectás al cliente con lo que ofrecés.
 Cuando esa conexión es clara, rápida y directa… todo cambia.
 
 A partir de eso creé TUWEB, un emprendimiento pensado para algo muy concreto:
@@ -1393,27 +2850,20 @@ que dejes de ocuparte de tareas repetitivas y tu negocio funcione con más orden
 
 Al terminar, lo más probable es que ya tengas una conexión clara de lo que podés lograr aplicándolo a tu negocio o servicio.
 
-De mi lado, estoy para implementarlo y así, que realmente te libere tiempo y energía.</div>
-      <button class="modal-btn primary" onclick="closeMessageModal()" style="width:100%;margin-top:20px;">Entendido</button>
+De mi lado, estoy para implementarlo y así que realmente te libere tiempo y energía.
+        </p>
+      </div>
+      <button class="modal-btn primary" onclick="closeMessageModal()" style="width: 100%; margin-top: 20px;">Entendido</button>
     </div>
   </div>
 
   <!-- AVATAR CHOICE MODAL -->
   <div class="modal-backdrop" id="avatarChoiceModal">
-    <div class="modal" style="display:flex;flex-direction:column;gap:12px;">
+    <div class="modal">
       <div class="modal-header">¿Con qué avatar querés responder?</div>
-      <button class="modal-btn primary" onclick="usarAvatarActual()">Usar Avatar Seleccionado</button>
-      <button class="modal-btn" onclick="elegirNuevoAvatar()">Usar otro avatar</button>
+      <button class="modal-btn" onclick="usarAvatarActual()">Usar Avatar Seleccionado</button>
+      <button class="modal-btn primary" onclick="elegirNuevoAvatar()">Usar otro avatar</button>
       <button class="modal-btn" onclick="closeAvatarChoiceModal()">Cancelar</button>
-    </div>
-  </div>
-
-  <!-- AVATAR GRID MODAL (para elegir nuevo avatar desde respuesta) -->
-  <div class="modal-backdrop" id="avatarGridModal" style="z-index:600;">
-    <div class="modal" id="avatarGridModalInner" style="max-width:520px;padding:20px;">
-      <div class="modal-header">Elegí tu avatar</div>
-      <div class="avatar-grid-full" id="avatarGridFull"></div>
-      <button class="modal-btn" onclick="closeAvatarGridModal()" style="width:100%;margin-top:14px;">Cancelar</button>
     </div>
   </div>
 
@@ -1429,13 +2879,13 @@ De mi lado, estoy para implementarlo y así, que realmente te libere tiempo y en
 
   <!-- FIREBASE -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
     import {
       getFirestore, collection, addDoc, getDocs, query, orderBy,
       updateDoc, doc, increment, onSnapshot
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCuC69MOmZs3JEzG8RfD_AU92dUr42VkVM",
@@ -1452,36 +2902,46 @@ De mi lado, estoy para implementarlo y así, que realmente te libere tiempo y en
     const auth = getAuth(app);
     const analytics = getAnalytics(app);
 
+    // Anonymous login
     signInAnonymously(auth).catch(err => console.error("Auth error:", err));
 
+    // Global state
     window.appState = {
       selectedAvatar: "/avataruno.png",
       selectedRating: 5,
       allComments: [],
       likedComments: JSON.parse(localStorage.getItem("likedComments") || "{}"),
-      db, auth
+      db,
+      auth
     };
 
+    // Load comments from Firestore
     async function loadComments() {
       try {
         const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
         const snapshot = await getDocs(q);
         window.appState.allComments = [];
-        snapshot.forEach(d => window.appState.allComments.push({ id: d.id, ...d.data() }));
+        snapshot.forEach(doc => {
+          window.appState.allComments.push({ id: doc.id, ...doc.data() });
+        });
         renderFeaturedComment();
-      } catch (e) { console.error("Error loading comments:", e); }
+        renderAllComments();
+      } catch (error) {
+        console.error("Error loading comments:", error);
+      }
     }
 
+    // Real-time listener
     onSnapshot(query(collection(db, "comentarios"), orderBy("fecha", "desc")), snapshot => {
       window.appState.allComments = [];
-      snapshot.forEach(d => window.appState.allComments.push({ id: d.id, ...d.data() }));
+      snapshot.forEach(doc => {
+        window.appState.allComments.push({ id: doc.id, ...doc.data() });
+      });
       renderFeaturedComment();
-      const list = document.getElementById("allCommentsList");
-      if (list && list.closest('.all-comments-container')?.classList.contains('open')) {
-        renderAllComments();
-      }
+      renderAllComments();
     });
 
+    // Submit comment
     window.submitComment = async function() {
       const recaptchaResponse = grecaptcha.getResponse();
       if (!recaptchaResponse) {
@@ -1489,375 +2949,490 @@ De mi lado, estoy para implementarlo y así, que realmente te libere tiempo y en
         return;
       }
       document.getElementById("recaptchaError").style.display = "none";
+
       const commentText = document.getElementById("commentText").value.trim();
       const commentName = document.getElementById("commentName").value.trim() || "Anónimo";
-      if (commentText.length < 5) { alert("El comentario debe tener al menos 5 caracteres"); return; }
+
+      if (commentText.length < 5) {
+        alert("El comentario debe tener al menos 5 caracteres");
+        return;
+      }
+
       try {
         await addDoc(collection(db, "comentarios"), {
-          nombre: commentName, comentario: commentText,
+          nombre: commentName,
+          comentario: commentText,
           estrellas: window.appState.selectedRating,
           avatar: window.appState.selectedAvatar,
-          fecha: new Date(), likes: 0, respuestas: []
+          fecha: new Date(),
+          likes: 0,
+          respuestas: []
         });
+
         document.getElementById("commentText").value = "";
         grecaptcha.reset();
         closeCommentModal();
         showSuccessNotification();
-      } catch (e) { console.error("Error submitting comment:", e); alert("Error al guardar el comentario"); }
+      } catch (error) {
+        console.error("Error submitting comment:", error);
+        alert("Error al guardar el comentario");
+      }
     };
 
+    // Like/Unlike comment
     window.likeComment = async function(commentId) {
-      const liked = window.appState.likedComments;
-      if (liked[commentId]) {
-        delete liked[commentId];
+      const likedComments = window.appState.likedComments;
+      const isLiked = likedComments[commentId];
+
+      if (isLiked) {
+        delete likedComments[commentId];
         await updateDoc(doc(db, "comentarios", commentId), { likes: increment(-1) });
       } else {
-        liked[commentId] = true;
+        likedComments[commentId] = true;
         await updateDoc(doc(db, "comentarios", commentId), { likes: increment(1) });
       }
-      localStorage.setItem("likedComments", JSON.stringify(liked));
+
+      localStorage.setItem("likedComments", JSON.stringify(likedComments));
       renderAllComments();
-      renderFeaturedComment();
     };
 
+    // XSS sanitization helper
     window.sanitize = function(str) {
       if (!str) return '';
-      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
     };
 
-    window.renderFeaturedComment = function() {
-      const container = document.getElementById("featuredCommentContainer");
-      if (!window.appState.allComments.length) { container.innerHTML = ""; return; }
-      const withLikes = window.appState.allComments.filter(c => (c.likes||0) >= 1);
-      const featured = withLikes.length > 0
-        ? withLikes.reduce((p, c) => (c.likes||0) > (p.likes||0) ? c : p)
-        : window.appState.allComments[0];
-      const isLiked = window.appState.likedComments[featured.id];
-      const stars = "★".repeat(Math.min(5, featured.estrellas||0));
-      const fecha = getRelativeTime(featured.fecha?.toDate?.() || new Date());
-      container.innerHTML = `
-        <div class="comment-card featured">
-          <img src="${featured.avatar}" alt="Avatar" class="comment-avatar">
-          <div style="flex:1;min-width:0;">
-            <div class="featured-badge">⭐ Comentario destacado</div>
-            <div class="comment-header">
-              <span class="comment-name">${sanitize(featured.nombre)}</span>
-              <span class="comment-stars">${stars}</span>
+    window.getSafePathId = function(path) {
+      return String(path || "").replace(/\|/g, "_");
+    };
+
+    window.findCommentData = function(path) {
+      const parts = String(path || "").split("|");
+      const rootId = parts[0];
+      const rootComment = window.appState.allComments.find(c => c.id === rootId);
+      if (!rootComment) return null;
+
+      if (parts.length === 1) {
+        return { root: rootComment, target: rootComment, parent: rootComment, indices: [] };
+      }
+
+      let parent = rootComment;
+      let target = null;
+      const indices = parts.slice(1).map(num => parseInt(num, 10));
+      for (let i = 0; i < indices.length; i++) {
+        const idx = indices[i];
+        if (!Array.isArray(parent.respuestas) || !parent.respuestas[idx]) return null;
+        target = parent.respuestas[idx];
+        if (i < indices.length - 1) {
+          parent = target;
+        }
+      }
+
+      return { root: rootComment, target, parent, indices };
+    };
+
+    window.renderReplies = function(comment, path) {
+      if (!Array.isArray(comment.respuestas) || comment.respuestas.length === 0) {
+        return "";
+      }
+
+      return `
+        <div class="replies-container">
+          ${comment.respuestas.map((reply, index) => window.renderCommentTree(reply, `${path}|${index}`)).join("")}
+        </div>
+      `;
+    };
+
+    window.renderCommentTree = function(comment, path) {
+      const safeId = window.getSafePathId(path);
+      const isReply = path.includes("|");
+      const liked = !!window.appState.likedComments[path];
+      const stars = "★".repeat(Math.min(5, comment.estrellas || 0));
+      const fechaRelativa = window.getRelativeTime(comment.fecha?.toDate?.() || new Date(comment.fecha || new Date()));
+
+      return `
+        <div class="${isReply ? "reply-item" : "comment-card"}">
+          <img src="${sanitize(comment.avatar || window.appState.selectedAvatar)}" alt="Avatar" class="${isReply ? "reply-avatar" : "comment-avatar"}" onclick="openImageModal(this.src)" style="cursor:pointer;">
+          <div style="flex: 1; min-width: 0;">
+            <div class="${isReply ? "reply-content" : "comment-content"}">
+              <div class="${isReply ? "reply-header" : "comment-header"}">
+                <span class="${isReply ? "reply-name" : "comment-name"}">${sanitize(comment.nombre)}</span>
+                ${!isReply ? `<span class="comment-stars">${stars}</span>` : ""}
+              </div>
+              <p class="${isReply ? "reply-text" : "comment-text"}">${sanitize(comment.comentario)}</p>
             </div>
-            <p class="comment-text">${sanitize(featured.comentario)}</p>
-            <div class="comment-actions">
-              <button class="like-btn ${isLiked?'liked':''}" onclick="likeComment('${featured.id}')">Me gusta</button>
-              <button class="reply-btn" onclick="requestReplyInput('${featured.id}')">Responder</button>
-              <span class="comment-likes" style="margin-left:auto;">👍 ${featured.likes||0}</span>
-              <span class="comment-date">${fecha}</span>
+            <div class="${isReply ? "reply-actions" : "comment-actions"}">
+              <button class="${isReply ? "reply-like-btn" : "like-btn"} ${liked ? "liked" : ""}" onclick="${isReply ? `likeReply('${path}')` : `likeComment('${path}')`}">Me gusta</button>
+              <button class="${isReply ? "reply-btn small" : "reply-btn"}" onclick="requestReplyInput('${path}')">Responder</button>
+              <span class="${isReply ? "reply-likes" : "comment-likes"}">👍 ${comment.likes || 0}</span>
+              <span class="${isReply ? "reply-date" : "comment-date"}">${fechaRelativa}</span>
             </div>
-            ${featured.respuestas?.length ? `<div class="replies-container">${featured.respuestas.map((r,i)=>{
-              const rLiked = window.appState.likedComments[featured.id+'_reply_'+i];
-              const rTime = getRelativeTime(r.fecha?.toDate?.() || new Date(r.fecha));
-              return `<div class="reply-item">
-                <img src="${r.avatar||'/avataruno.png'}" class="reply-avatar">
-                <div style="flex:1;">
-                  <div class="reply-content">
-                    <div class="reply-name">${r.nombre}</div>
-                    <p class="reply-text">${r.comentario}</p>
-                  </div>
-                  <div class="reply-actions">
-                    <button class="reply-like-btn ${rLiked?'liked':''}" onclick="likeReply('${featured.id}',${i})">Me gusta</button>
-                    <button class="reply-btn small" onclick="requestReplyInput('${featured.id}')">Responder</button>
-                    <span class="reply-likes" style="margin-left:auto;">👍 ${r.likes||0}</span>
-                    <span class="reply-date">${rTime}</span>
-                  </div>
-                </div>
-              </div>`;
-            }).join('')}</div>` : ''}
-            <div id="reply-input-${featured.id}" class="reply-input-container" style="display:none;">
-              <img src="${window.appState.selectedAvatar}" class="reply-input-avatar">
+            ${window.renderReplies(comment, path)}
+            <div id="reply-input-${safeId}" class="reply-input-container" style="display: none; align-items: flex-start;">
+              <img src="${sanitize(window.appState.selectedAvatar)}" alt="Avatar" class="reply-input-avatar">
               <div class="reply-input-box">
-                <textarea class="reply-textarea" id="reply-text-${featured.id}" placeholder="Escribe una respuesta..."></textarea>
-                <button class="reply-submit-btn" onclick="submitReply('${featured.id}')">→</button>
+                <textarea class="reply-textarea" id="reply-text-${safeId}" placeholder="Escribe una respuesta..."></textarea>
+                <button class="reply-submit-btn" onclick="submitReply('${path}')">→</button>
               </div>
             </div>
           </div>
-        </div>`;
+        </div>
+      `;
     };
 
-    window.renderAllComments = function() {
-      const container = document.getElementById("allCommentsList");
+    // Render featured comment
+    window.renderFeaturedComment = function() {
+      const container = document.getElementById("featuredCommentContainer");
       if (!window.appState.allComments.length) {
-        container.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.7);padding:28px;">Todavía no hay comentarios</p>';
+        container.innerHTML = "";
         return;
       }
-      const liked = window.appState.likedComments;
-      container.innerHTML = window.appState.allComments.map(c => {
-        const isLiked = liked[c.id];
-        const stars = "★".repeat(Math.min(5, c.estrellas||0));
-        const fecha = getRelativeTime(c.fecha?.toDate?.() || new Date());
-        return `
-          <div class="comment-card">
-            <img src="${c.avatar}" alt="Avatar" class="comment-avatar">
-            <div style="flex:1;min-width:0;">
-              <div class="comment-header">
-                <span class="comment-name">${sanitize(c.nombre)}</span>
-                <span class="comment-stars">${stars}</span>
-              </div>
-              <p class="comment-text">${sanitize(c.comentario)}</p>
-              <div class="comment-actions">
-                <button class="like-btn ${isLiked?'liked':''}" onclick="likeComment('${c.id}')">Me gusta</button>
-                <button class="reply-btn" onclick="requestReplyInput('${c.id}')">Responder</button>
-                <span class="comment-likes" style="margin-left:auto;">👍 ${c.likes||0}</span>
-                <span class="comment-date">${fecha}</span>
-              </div>
-              ${c.respuestas?.length ? `<div class="replies-container">${c.respuestas.map((r,i)=>{
-                const rLiked = liked[c.id+'_reply_'+i];
-                const rTime = getRelativeTime(r.fecha?.toDate?.() || new Date(r.fecha));
-                return `<div class="reply-item">
-                  <img src="${r.avatar||'/avataruno.png'}" class="reply-avatar">
-                  <div style="flex:1;">
-                    <div class="reply-content">
-                      <div class="reply-name">${r.nombre}</div>
-                      <p class="reply-text">${r.comentario}</p>
-                    </div>
-                    <div class="reply-actions">
-                      <button class="reply-like-btn ${rLiked?'liked':''}" onclick="likeReply('${c.id}',${i})">Me gusta</button>
-                      <button class="reply-btn small" onclick="requestReplyInput('${c.id}')">Responder</button>
-                      <span class="reply-likes" style="margin-left:auto;">👍 ${r.likes||0}</span>
-                      <span class="reply-date">${rTime}</span>
-                    </div>
-                  </div>
-                </div>`;
-              }).join('')}</div>` : ''}
-              <div id="reply-input-${c.id}" class="reply-input-container" style="display:none;">
-                <img src="${window.appState.selectedAvatar}" class="reply-input-avatar">
-                <div class="reply-input-box">
-                  <textarea class="reply-textarea" id="reply-text-${c.id}" placeholder="Escribe una respuesta..."></textarea>
-                  <button class="reply-submit-btn" onclick="submitReply('${c.id}')">→</button>
-                </div>
-              </div>
-            </div>
-          </div>`;
-      }).join("");
+
+      const withLikes = window.appState.allComments.filter(c => (c.likes || 0) >= 1);
+      const featured = withLikes.length > 0
+        ? withLikes.reduce((prev, curr) => (curr.likes || 0) > (prev.likes || 0) ? curr : prev)
+        : window.appState.allComments[0];
+
+      container.innerHTML = window.renderCommentTree(featured, featured.id);
     };
 
-    window.toggleReplyInput = function(commentId) {
-      const el = document.getElementById("reply-input-"+commentId);
-      if (!el) return;
-      const open = el.style.display !== "none";
-      el.style.display = open ? "none" : "flex";
-      if (!open) document.getElementById("reply-text-"+commentId)?.focus();
+    // Render all comments
+    window.renderAllComments = function() {
+      const modalContainer = document.getElementById("allCommentsList");
+      const pageContainer = document.getElementById("commentsContainer");
+      const html = window.appState.allComments.length
+        ? window.appState.allComments.map(comment => window.renderCommentTree(comment, comment.id)).join("")
+        : '<p style="text-align: center; color: #999; padding: 28px;">Todavía no hay comentarios</p>';
+
+      if (modalContainer) modalContainer.innerHTML = html;
+      if (pageContainer) pageContainer.innerHTML = html;
     };
 
-    window.submitReply = async function(commentId) {
-      const replyText = document.getElementById("reply-text-"+commentId)?.value?.trim();
-      if (!replyText || replyText.length < 2) { alert("La respuesta debe tener al menos 2 caracteres"); return; }
+    // Toggle reply input
+    window.toggleReplyInput = function(path) {
+      const safeId = window.getSafePathId(path);
+      const replyInput = document.getElementById("reply-input-" + safeId);
+      if (!replyInput) return;
+
+      replyInput.style.display = replyInput.style.display === "flex" ? "none" : "flex";
+      if (replyInput.style.display === "flex") {
+        document.getElementById("reply-text-" + safeId)?.focus();
+      }
+    };
+
+    // Submit reply
+    window.submitReply = async function(path) {
+      const safeId = window.getSafePathId(path);
+      const textarea = document.getElementById("reply-text-" + safeId);
+      const replyText = textarea?.value?.trim();
+
+      if (!replyText || replyText.length < 2) {
+        alert("La respuesta debe tener al menos 2 caracteres");
+        return;
+      }
+
+      const commentName = document.getElementById("commentName")?.value.trim() || "Anónimo";
+      const info = window.findCommentData(path);
+      if (!info) return;
+
+      const newReply = {
+        nombre: commentName,
+        comentario: replyText,
+        fecha: new Date(),
+        avatar: window.appState.selectedAvatar,
+        likes: 0,
+        respuestas: []
+      };
+
+      const target = info.target;
+      if (!Array.isArray(target.respuestas)) target.respuestas = [];
+      target.respuestas.push(newReply);
+
       try {
-        const comment = window.appState.allComments.find(c => c.id === commentId);
-        if (!comment) return;
-        if (!comment.respuestas) comment.respuestas = [];
-        const newReply = {
-          nombre: document.getElementById("commentName")?.value?.trim() || "Anónimo",
-          comentario: replyText,
-          fecha: new Date(),
-          avatar: window.appState.selectedAvatar,
-          likes: 0
-        };
-        comment.respuestas.push(newReply);
-        await updateDoc(doc(db, "comentarios", commentId), { respuestas: comment.respuestas });
-        document.getElementById("reply-text-"+commentId).value = "";
-        toggleReplyInput(commentId);
-        renderAllComments();
-        renderFeaturedComment();
-      } catch (e) { console.error("Error submitting reply:", e); alert("Error al guardar la respuesta"); }
+        await updateDoc(doc(db, "comentarios", info.root.id), { respuestas: info.root.respuestas });
+        if (textarea) textarea.value = "";
+        window.toggleReplyInput(path);
+        window.renderAllComments();
+      } catch (error) {
+        console.error("Error submitting reply:", error);
+        alert("Error al guardar la respuesta");
+      }
     };
 
-    window.likeReply = async function(commentId, replyIndex) {
-      const key = commentId+"_reply_"+replyIndex;
-      const liked = window.appState.likedComments;
+    // Like reply
+    window.likeReply = async function(path) {
+      const likedComments = window.appState.likedComments;
+      const isLiked = likedComments[path];
+      const info = window.findCommentData(path);
+      if (!info || !info.target) return;
+
+      if (isLiked) {
+        delete likedComments[path];
+        info.target.likes = Math.max(0, (info.target.likes || 1) - 1);
+      } else {
+        likedComments[path] = true;
+        info.target.likes = (info.target.likes || 0) + 1;
+      }
+
       try {
-        const comment = window.appState.allComments.find(c => c.id === commentId);
-        if (!comment?.respuestas?.[replyIndex]) return;
-        if (liked[key]) {
-          delete liked[key];
-          comment.respuestas[replyIndex].likes = Math.max(0, (comment.respuestas[replyIndex].likes||1)-1);
-        } else {
-          liked[key] = true;
-          comment.respuestas[replyIndex].likes = (comment.respuestas[replyIndex].likes||0)+1;
-        }
-        await updateDoc(doc(db, "comentarios", commentId), { respuestas: comment.respuestas });
-        localStorage.setItem("likedComments", JSON.stringify(liked));
-        renderAllComments();
-        renderFeaturedComment();
-      } catch (e) { console.error("Error liking reply:", e); }
+        await updateDoc(doc(db, "comentarios", info.root.id), { respuestas: info.root.respuestas });
+        localStorage.setItem("likedComments", JSON.stringify(likedComments));
+        window.renderAllComments();
+      } catch (error) {
+        console.error("Error liking reply:", error);
+      }
     };
 
+    // Utility: Relative time
     window.getRelativeTime = function(date) {
-      const diff = Math.floor((new Date() - date)/1000);
+      const now = new Date();
+      const diff = Math.floor((now - date) / 1000);
+
       if (diff < 60) return "hace un momento";
-      if (diff < 3600) return `hace ${Math.floor(diff/60)} min`;
-      if (diff < 86400) return `hace ${Math.floor(diff/3600)}h`;
-      if (diff < 2592000) return `hace ${Math.floor(diff/86400)}d`;
-      return `hace ${Math.floor(diff/2592000)}m`;
+      if (diff < 3600) return `hace ${Math.floor(diff / 60)} min`;
+      if (diff < 86400) return `hace ${Math.floor(diff / 3600)}h`;
+      if (diff < 2592000) return `hace ${Math.floor(diff / 86400)}d`;
+      return `hace ${Math.floor(diff / 2592000)}m`;
     };
 
+    // Load comments on page load
     loadComments();
-    window.selectRating && window.selectRating(5);
+
+    // Initialize default rating (moved here to ensure appState exists)
+    window.selectRating(5);
   </script>
 
-  <!-- VANILLA JS -->
+  <!-- VANILLA JAVASCRIPT -->
   <script>
-    // ===== SIDEBAR =====
+    // Sidebar toggle
     document.getElementById("hamburgerBtn").addEventListener("click", function() {
       this.classList.add("active");
       document.getElementById("sidebar").classList.add("open");
       document.getElementById("sidebarOverlay").classList.add("open");
     });
-    document.getElementById("sidebarClose").addEventListener("click", closeSidebar);
-    document.getElementById("sidebarOverlay").addEventListener("click", closeSidebar);
+
+    document.getElementById("sidebarClose").addEventListener("click", function() {
+      closeSidebar();
+    });
+
+    document.getElementById("sidebarOverlay").addEventListener("click", function() {
+      closeSidebar();
+    });
+
     function closeSidebar() {
       document.getElementById("hamburgerBtn").classList.remove("active");
       document.getElementById("sidebar").classList.remove("open");
       document.getElementById("sidebarOverlay").classList.remove("open");
     }
 
-    // ===== CURTAIN =====
-    window.openCurtain = function(id) {
+    // Curtain management
+    window.openCurtain = function(curtainId) {
       closeSidebar();
       document.getElementById("curtainOverlay").classList.add("open");
-      document.getElementById("curtain-"+id).classList.add("open");
+      document.getElementById("curtain-" + curtainId).classList.add("open");
     };
-    window.closeCurtain = function(id) {
+
+    window.closeCurtain = function(curtainId) {
       document.getElementById("curtainOverlay").classList.remove("open");
-      document.getElementById("curtain-"+id).classList.remove("open");
+      document.getElementById("curtain-" + curtainId).classList.remove("open");
     };
+
     document.getElementById("curtainOverlay").addEventListener("click", function() {
       document.querySelectorAll(".curtain.open").forEach(c => c.classList.remove("open"));
       this.classList.remove("open");
     });
 
-    // ===== PLAN CURTAIN =====
+    // Plan curtain
     window.openPlanCurtain = function() {
       document.getElementById("planCurtain").classList.add("open");
       const ov = document.getElementById("planCurtainOverlay");
-      ov.style.opacity = "1"; ov.style.pointerEvents = "all";
+      ov.style.opacity = "1";
+      ov.style.pointerEvents = "all";
     };
+
     window.closePlanCurtain = function() {
       document.getElementById("planCurtain").classList.remove("open");
       const ov = document.getElementById("planCurtainOverlay");
-      ov.style.opacity = "0"; ov.style.pointerEvents = "none";
+      ov.style.opacity = "0";
+      ov.style.pointerEvents = "none";
     };
+
     document.getElementById("planCurtainOverlay").addEventListener("click", closePlanCurtain);
+
+    document.getElementById("planCurtain").addEventListener("click", function(e) {
+      if (e.target === this) closePlanCurtain();
+    });
+
     window.scrollToPlans = function() {
       document.querySelectorAll(".curtain").forEach(c => c.classList.remove("open"));
       document.getElementById("curtainOverlay").classList.remove("open");
       openPlanCurtain();
     };
 
-    // ===== ALL COMMENTS =====
+    // All comments view
     window.openAllComments = function() {
       document.getElementById("allCommentsContainer").classList.add("open");
       renderAllComments();
+      document.body.style.overflow = "hidden";
     };
+
     window.closeAllComments = function() {
       document.getElementById("allCommentsContainer").classList.remove("open");
+      const anyOpen = document.querySelector('.modal-backdrop.open, .all-comments-container.open, .shortcuts-modal-backdrop.open, .plan-info-modal-backdrop.open');
+      document.body.style.overflow = anyOpen ? 'hidden' : '';
     };
 
-    // ===== COMMENT MODAL =====
-    window.openCommentModal = function() { document.getElementById("commentModal").classList.add("open"); };
-    window.closeCommentModal = function() { document.getElementById("commentModal").classList.remove("open"); };
-    document.getElementById("commentModal").addEventListener("click", function(e) { if (e.target===this) this.classList.remove("open"); });
+    document.getElementById("allCommentsContainer").addEventListener("click", function(e) {
+      if (e.target === this) {
+        closeAllComments();
+      }
+    });
 
-    // ===== INTRO MODAL (logodos) =====
-    window.openIntroModal = function() { document.getElementById("introModal").classList.add("open"); };
-    window.closeIntroModal = function() { document.getElementById("introModal").classList.remove("open"); };
-    document.getElementById("introModal").addEventListener("click", function(e) { if (e.target===this) this.classList.remove("open"); });
+    // Comment modal
+    window.openCommentModal = function() {
+      const modal = document.getElementById("commentModal");
+      if (modal) modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => document.getElementById("commentText")?.focus(), 50);
+    };
 
-    // ===== MESSAGE MODAL (mensajeweb) =====
-    window.openMessageModal = function() { document.getElementById("messageModal").classList.add("open"); };
-    window.closeMessageModal = function() { document.getElementById("messageModal").classList.remove("open"); };
-    window.openMensajeModal = function() { openMessageModal(); };
-    document.getElementById("messageModal").addEventListener("click", function(e) { if (e.target===this) this.classList.remove("open"); });
+    window.closeCommentModal = function() {
+      const modal = document.getElementById("commentModal");
+      if (modal) modal.classList.remove("open");
+      const anyOpen = document.querySelector('.modal-backdrop.open, .all-comments-container.open, .shortcuts-modal-backdrop.open, .plan-info-modal-backdrop.open');
+      document.body.style.overflow = anyOpen ? 'hidden' : '';
+    };
 
-    // ===== AVATAR CHOICE MODAL =====
+    document.getElementById("commentModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        this.classList.remove("open");
+        const anyOpen = document.querySelector('.modal-backdrop.open, .all-comments-container.open, .shortcuts-modal-backdrop.open, .plan-info-modal-backdrop.open');
+        document.body.style.overflow = anyOpen ? 'hidden' : '';
+      }
+    });
+
+    // Message modal
+    window.openMessageModal = function() {
+      const modal = document.getElementById("messageModal");
+      if (modal) modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    };
+
+    window.closeMessageModal = function() {
+      const modal = document.getElementById("messageModal");
+      if (modal) modal.classList.remove("open");
+      const anyOpen = document.querySelector('.modal-backdrop.open, .all-comments-container.open, .shortcuts-modal-backdrop.open, .plan-info-modal-backdrop.open');
+      document.body.style.overflow = anyOpen ? 'hidden' : '';
+    };
+
+    window.openMensajeModal = function() {
+      window.openMessageModal();
+    };
+
+    document.getElementById("messageModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        this.classList.remove("open");
+        const anyOpen = document.querySelector('.modal-backdrop.open, .all-comments-container.open, .shortcuts-modal-backdrop.open, .plan-info-modal-backdrop.open');
+        document.body.style.overflow = anyOpen ? 'hidden' : '';
+      }
+    });
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        closeImageModal();
+        closeCommentModal();
+        closeAllComments();
+        closeShortcutsModal();
+        closePlanInfoModal();
+      }
+    });
+
     window.requestReplyInput = function(commentId) {
       window.pendingReplyCommentId = commentId;
-      document.getElementById("avatarChoiceModal").classList.add("open");
-    };
-    window.closeAvatarChoiceModal = function() {
-      document.getElementById("avatarChoiceModal").classList.remove("open");
-    };
-    window.usarAvatarActual = function() {
-      const id = window.pendingReplyCommentId;
-      window.pendingReplyCommentId = null;
-      closeAvatarChoiceModal();
-      if (id) toggleReplyInput(id);
-    };
-    window.elegirNuevoAvatar = function() {
-      closeAvatarChoiceModal();
-      openAvatarGridModal();
-    };
-    document.getElementById("avatarChoiceModal").addEventListener("click", function(e) { if (e.target===this) closeAvatarChoiceModal(); });
-
-    // ===== AVATAR GRID MODAL (todos los avatares para respuesta) =====
-    const ALL_AVATARS = [
-      "/avataruno.png","/avatardos.png","/avatartres.png","/avatarcuatro.png",
-      "/avatarcinco.png","/avatarseis.png","/avatarsiete.png","/avatarocho.png",
-      "/avatarnueve.png","/avatardiez.png","/avataronce.png","/avatardoce.png",
-      "/avatartrece.png","/avatarcatorce.jfif","/avatarquince.png","/avatardieciseis.png",
-      "/avatardieciocho.png","/avatardiecinueve.png","/avatarveinte.png","/avatarveintiuno.png",
-      "/avatarveintidos.png","/avatarveintitres.png","/veinticuatroavatar.png",
-      "/avatarveinticinco.png","/avatarveintiseis.png","/avatarveintisiete.png",
-      "/avatarveintiocho.png","/avatarveintinueve.png","/avatartreinta.png"
-    ];
-    window.openAvatarGridModal = function() {
-      const grid = document.getElementById("avatarGridFull");
-      grid.innerHTML = ALL_AVATARS.map((src,i) => `
-        <img src="${src}" alt="Avatar ${i+1}" class="avatar-option"
-          data-avatar="${src}"
-          onclick="selectAvatarFromGrid(this)"
-          style="width:52px;height:52px;border-radius:50%;object-fit:cover;cursor:pointer;border:3px solid transparent;transition:all 0.2s;">
-      `).join("");
-      document.getElementById("avatarGridModal").classList.add("open");
-    };
-    window.closeAvatarGridModal = function() {
-      document.getElementById("avatarGridModal").classList.remove("open");
-    };
-    window.selectAvatarFromGrid = function(el) {
-      // Update selected avatar globally
-      document.querySelectorAll(".avatar-option").forEach(a => a.classList.remove("selected"));
-      el.classList.add("selected");
-      window.appState.selectedAvatar = el.dataset.avatar;
-      closeAvatarGridModal();
-      // Now open reply input for pending comment
-      const id = window.pendingReplyCommentId;
-      window.pendingReplyCommentId = null;
-      if (id) {
-        // Update avatar image in reply inputs
-        document.querySelectorAll('.reply-input-avatar').forEach(img => { img.src = window.appState.selectedAvatar; });
-        toggleReplyInput(id);
+      const modal = document.getElementById("avatarChoiceModal");
+      if (modal) {
+        modal.classList.add("open");
+      } else {
+        toggleReplyInput(commentId);
       }
     };
-    document.getElementById("avatarGridModal").addEventListener("click", function(e) { if (e.target===this) closeAvatarGridModal(); });
 
-    // ===== SUCCESS NOTIFICATION =====
-    window.showSuccessNotification = function() { document.getElementById("successNotification").classList.add("show"); };
-    window.closeSuccessNotification = function() { document.getElementById("successNotification").classList.remove("show"); };
-
-    // ===== AVATAR SELECTION =====
-    window.selectAvatar = function(el) {
-      document.querySelectorAll(".avatar-option").forEach(a => a.classList.remove("selected"));
-      el.classList.add("selected");
-      window.appState.selectedAvatar = el.dataset.avatar;
+    window.closeAvatarChoiceModal = function() {
+      const modal = document.getElementById("avatarChoiceModal");
+      if (modal) modal.classList.remove("open");
     };
 
-    // ===== RATING =====
+    window.usarAvatarActual = function() {
+      const commentId = window.pendingReplyCommentId;
+      if (commentId) {
+        toggleReplyInput(commentId);
+      }
+      window.pendingReplyCommentId = null;
+      window.closeAvatarChoiceModal();
+    };
+
+    window.elegirNuevoAvatar = function() {
+      window.closeAvatarChoiceModal();
+      if (window.toggleAvatarDrawer) window.toggleAvatarDrawer();
+    };
+
+    window.irPlanes = function() {
+      window.location.href = "https://planes.webpagina729.workers.dev";
+    };
+
+    document.getElementById("messageModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        this.classList.remove("open");
+      }
+    });
+
+    // Success notification
+    window.showSuccessNotification = function() {
+      document.getElementById("successNotification").classList.add("show");
+    };
+
+    window.closeSuccessNotification = function() {
+      document.getElementById("successNotification").classList.remove("show");
+    };
+
+    // Avatar selection
+    window.selectAvatar = function(element) {
+      document.querySelectorAll(".avatar-option").forEach(a => a.classList.remove("selected"));
+      element.classList.add("selected");
+      window.appState.selectedAvatar = element.dataset.avatar;
+      if (window.pendingReplyCommentId) {
+        const commentId = window.pendingReplyCommentId;
+        const replyInput = document.getElementById("reply-input-" + commentId);
+        if (replyInput) {
+          replyInput.style.display = "flex";
+          document.getElementById("reply-text-" + commentId)?.focus();
+        }
+        window.pendingReplyCommentId = null;
+      }
+    };
+
+    // Rating selection
     window.selectRating = function(value) {
-      if (!window.appState) return;
+      if (!window.appState) {
+        console.warn("appState not ready yet");
+        return;
+      }
       window.appState.selectedRating = value;
       document.querySelectorAll(".star-btn").forEach(btn => {
-        btn.classList.toggle("active", parseInt(btn.dataset.value) <= value);
+        if (parseInt(btn.dataset.value) <= value) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
       });
     };
 
-    // ===== AVATAR DRAWER =====
+    // Avatar drawer toggle
     window.toggleAvatarDrawer = function() {
       const drawer = document.getElementById("avatarDrawer");
       const arrow = document.getElementById("avatarDrawerArrow");
@@ -1866,146 +3441,460 @@ De mi lado, estoy para implementarlo y así, que realmente te libere tiempo y en
       arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
     };
 
-    // ===== SCROLL HELPERS =====
-    window.scrollToElement = function(id) {
+    // Scroll helpers
+    window.scrollToElement = function(elementId) {
       closeSidebar();
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     };
 
-    // ===== IMAGE MODAL =====
-    window.openImageModal = function(src) {
-      document.getElementById("imageModalImg").src = src;
-      document.getElementById("imageModalBackdrop").classList.add("open");
-      document.body.style.overflow = "hidden";
+    // Scroll to message image
+    window.scrollToMessageImage = function() {
+      const messageImage = document.getElementById("messageImage");
+      if (messageImage) {
+        messageImage.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     };
+
+    // Image modal functions
+    window.openImageModal = function(imgSrc) {
+      const modalBackdrop = document.getElementById("imageModalBackdrop");
+      const modalImg = document.getElementById("imageModalImg");
+      if (modalBackdrop && modalImg) {
+        modalImg.src = imgSrc;
+        modalBackdrop.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+    };
+
     window.closeImageModal = function() {
-      document.getElementById("imageModalBackdrop").classList.remove("open");
-      document.body.style.overflow = "auto";
-    };
-    document.getElementById("imageModalBackdrop").addEventListener("click", function(e) { if (e.target===this) closeImageModal(); });
-
-    // ===== REDIRECT =====
-    window.irPlanes = function() { window.location.href = "https://planes.webpagina729.workers.dev"; };
-
-    // ===== PLANS MODAL =====
-    window.openPlansGridModal = function() { document.getElementById("plansGridBackdrop").classList.add("open"); };
-    window.closePlansGridModal = function() { document.getElementById("plansGridBackdrop").classList.remove("open"); };
-    document.getElementById("plansGridBackdrop").addEventListener("click", function(e) { if (e.target===this) closePlansGridModal(); });
-    window.openWhatsAppPlan = function(planName) {
-      closePlansGridModal();
-      const msg = `Hola Nicolas! Buenass... Quiero el plan ${planName} para liberar más mi tiempo! Te cuento un poco en donde la organización de mi trabajo más tiempo me ocupa así me recomendás un mejor sistema de gestión: Me gustaría solucionar...`;
-      window.open(`https://wa.me/5492395407700?text=${encodeURIComponent(msg)}`, "_blank");
+      const modalBackdrop = document.getElementById("imageModalBackdrop");
+      if (modalBackdrop) {
+        modalBackdrop.classList.remove("open");
+      }
+      const anyOpenDialog = document.querySelector('.modal-backdrop.open, .all-comments-container.open, .shortcuts-modal-backdrop.open, .plan-info-modal-backdrop.open');
+      document.body.style.overflow = anyOpenDialog ? 'hidden' : '';
     };
 
-    // ===== PLAN INFO MODAL =====
-    window.closePlanInfoModal = function() { document.getElementById("planInfoModal").classList.remove("open"); };
-    document.getElementById("planInfoModal").addEventListener("click", function(e) { if (e.target===this) closePlanInfoModal(); });
+    // Image modal close on background click
+    const imageModalBackdrop = document.getElementById("imageModalBackdrop");
+    if (imageModalBackdrop) {
+      imageModalBackdrop.addEventListener("click", function(e) {
+        if (e.target === this) {
+          closeImageModal();
+        }
+      });
+    }
 
-    // ===== SHORTCUTS =====
-    window.openShortcutsModal = function() { document.getElementById("shortcutsModal").classList.add("open"); };
-    window.closeShortcutsModal = function() { document.getElementById("shortcutsModal").classList.remove("open"); };
-    window.shortcutToTurnos = function() { closeShortcutsModal(); document.querySelector('img[src="/portadacuatro.png"]')?.scrollIntoView({behavior:"smooth"}); };
-    window.shortcutToSistemas = function() { closeShortcutsModal(); document.querySelector('img[src="/portadasiete.png"]')?.scrollIntoView({behavior:"smooth"}); };
-    window.shortcutToPlanes = function() { closeShortcutsModal(); openPlanCurtain(); };
-    window.shortcutToComments = function() { closeShortcutsModal(); scrollToElement("comments-section"); };
-
-    // ===== VISIBILITY UPDATES =====
+    // Floating shortcuts button visibility and handler
     window.updateShortcutsButtonVisibility = function() {
       const btn = document.getElementById("floatingShortcutsBtn");
       if (!btn) return;
-      const p4 = document.querySelector('img[src="/portadacuatro.png"]');
-      const p9 = document.querySelector('img[src="/portadanueve.png"]');
-      if (!p4 || !p9) { btn.classList.remove("visible"); return; }
-      const r4 = p4.getBoundingClientRect();
-      const r9 = p9.getBoundingClientRect();
-      btn.classList.toggle("visible", r4.bottom >= 0 && r9.top <= window.innerHeight);
+
+      const portadaCuatro = document.querySelector('img[src="/portadacuatro.png"]');
+      const portadaNueve = document.querySelector('img[src="/portadanueve.png"]');
+
+      if (!portadaCuatro || !portadaNueve) {
+        btn.classList.remove("visible");
+        return;
+      }
+
+      const rect4 = portadaCuatro.getBoundingClientRect();
+      const rect9 = portadaNueve.getBoundingClientRect();
+
+      // Show button between portadacuatro and portadanueve
+      if ((rect4.bottom >= 0 || portadaCuatro.offsetTop >= window.scrollY) &&
+          (rect9.top <= window.innerHeight || portadaNueve.offsetTop <= window.scrollY + window.innerHeight)) {
+        btn.classList.add("visible");
+      } else {
+        btn.classList.remove("visible");
+      }
     };
+
+    window.openShortcutsModal = function() {
+      const modal = document.getElementById("shortcutsModal");
+      if (modal) {
+        modal.classList.add("open");
+      }
+    };
+
+    window.closeShortcutsModal = function() {
+      const modal = document.getElementById("shortcutsModal");
+      if (modal) {
+        modal.classList.remove("open");
+      }
+    };
+
+    window.shortcutToTurnos = function() {
+      closeShortcutsModal();
+      const portada = document.querySelector('img[src="/portadacuatro.png"]');
+      if (portada) portada.scrollIntoView({ behavior: "smooth" });
+    };
+
+    window.shortcutToSistemas = function() {
+      closeShortcutsModal();
+      const portada = document.querySelector('img[src="/portadasiete.png"]');
+      if (portada) portada.scrollIntoView({ behavior: "smooth" });
+    };
+
+    window.shortcutToPlanes = function() {
+      closeShortcutsModal();
+      openPlanCurtain();
+    };
+
+    window.shortcutToComments = function() {
+      closeShortcutsModal();
+      scrollToElement("comments-section");
+    };
+
+    // Monitor scroll for shortcuts button
     window.addEventListener("scroll", updateShortcutsButtonVisibility);
     window.addEventListener("load", updateShortcutsButtonVisibility);
     window.addEventListener("resize", updateShortcutsButtonVisibility);
 
+    // Floating WhatsApp button visibility
     window.updateWhatsappButtonVisibility = function() {
       const btn = document.getElementById("floatingWhatsappBtn");
       if (!btn) return;
-      const p1 = document.querySelector('img[src="/portadauno.png"]');
-      const p4 = document.querySelector('img[src="/portadacuatro.png"]');
-      const p9 = document.querySelector('img[src="/portadanueve.png"]');
+
+      const portadaUno = document.querySelector('img[src="/portadauno.png"]') || document.querySelector('img[src*="portadauno"]');
+      const portadaCuatro = document.querySelector('img[src="/portadacuatro.png"]') || document.querySelector('img[src*="portadacuatro"]');
+      const portadaNueve = document.querySelector('img[src="/portadanueve.png"]') || document.querySelector('img[src*="portadanueve"]');
+
+      const scrollY = window.scrollY;
       const vh = window.innerHeight;
+
       let show = false;
-      if (p1 && p4) { const r1=p1.getBoundingClientRect(), r4=p4.getBoundingClientRect(); if (r1.top<=vh && r4.bottom>=0) show=true; }
-      if (p9) { const r9=p9.getBoundingClientRect(); if (r9.top<=vh && r9.bottom>=0) show=true; if (r9.bottom<0) show=false; }
+
+      // Zone 1: from portadauno to portadacuatro
+      if (portadaUno && portadaCuatro) {
+        const r1 = portadaUno.getBoundingClientRect();
+        const r4 = portadaCuatro.getBoundingClientRect();
+        if (r1.top <= vh && r4.bottom >= 0) {
+          show = true;
+        }
+      }
+
+      // Zone 2: at portadanueve, hide after it goes off screen
+      if (portadaNueve) {
+        const r9 = portadaNueve.getBoundingClientRect();
+        if (r9.top <= vh && r9.bottom >= 0) {
+          show = true;
+        }
+        // Once portadanueve scrolled past (top above viewport), hide
+        if (r9.bottom < 0) {
+          show = false;
+        }
+      }
+
       btn.style.display = show ? "flex" : "none";
     };
+
     window.addEventListener("scroll", updateWhatsappButtonVisibility);
     window.addEventListener("load", updateWhatsappButtonVisibility);
     window.addEventListener("resize", updateWhatsappButtonVisibility);
+    window.addEventListener("load", updateDecoHeights);
+    window.addEventListener("resize", updateDecoHeights);
 
     window.updateCtaButtonVisibility = function() {
       const btn = document.querySelector(".cta-button");
-      const p4 = document.querySelector('img[src="/portadacuatro.png"]');
-      const p11 = document.querySelector('img[src="/portadaonce.png"]');
-      if (!btn || !p4 || !p11) return;
-      btn.classList.toggle("visible", p4.getBoundingClientRect().top < window.innerHeight && p11.getBoundingClientRect().top > 0);
+      const portadaCuatro = document.querySelector('img[src="/portadacuatro.png"]');
+      const portadaOnce = document.querySelector('img[src="/portadaonce.png"]');
+      if (!btn || !portadaCuatro || !portadaOnce) return;
+
+      const rect4 = portadaCuatro.getBoundingClientRect();
+      const rect11 = portadaOnce.getBoundingClientRect();
+      const visible = rect4.top < window.innerHeight && rect11.top > 0;
+      btn.classList.toggle("visible", visible);
     };
+
     window.addEventListener("scroll", updateCtaButtonVisibility);
     window.addEventListener("load", updateCtaButtonVisibility);
     window.addEventListener("resize", updateCtaButtonVisibility);
 
-    // ===== VER MÁS =====
+    // Plans modal functions
+    window.openPlansGridModal = function() {
+      const backdrop = document.getElementById("plansGridBackdrop");
+      if (backdrop) {
+        backdrop.classList.add("open");
+      }
+    };
+
+    window.closePlansGridModal = function() {
+      const backdrop = document.getElementById("plansGridBackdrop");
+      if (backdrop) {
+        backdrop.classList.remove("open");
+      }
+    };
+
+    window.openWhatsAppPlan = function(planName) {
+      closePlansGridModal();
+      const message = `Hola Nicolas! Buenass... Quiero el plan ${planName} para liberar más mi tiempo! Te cuento un poco en donde la organización de mi trabajo más tiempo me ocupa así me recomendás un mejor sistema de gestión: Me gustaría solucionar...`;
+      const url = `https://wa.me/5492395407700?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    };
+
+    // Plan info data
+    window.planInfoData = {
+      basico: {
+        title: "Plan Básico",
+        content: `Para empezar a tener presencia que convierta
+
+Imaginá que alguien entra a tu web y en segundos entiende qué hacés, qué ofrecés y cómo comprarte.
+Sin escribirte. Sin vueltas.
+
+Imaginá que ve tus productos bien ordenados, elige lo que quiere, toca un botón…
+y el pedido te llega a WhatsApp armado automáticamente, con todo listo.
+
+Eso es este plan.
+
+Tenés una web diseñada a medida, con la estética de tu negocio.
+No es una plantilla más: es tu identidad bien mostrada.
+
+Carga rápido, funciona perfecto en el celular y no pierde tiempo (ni el tuyo ni el del cliente).
+
+Incluye un catálogo de hasta 20 productos, donde cada persona puede seleccionar lo que necesita y enviarte el pedido sin fricción.
+Todo llega claro, ordenado y listo para responder.
+
+Y además, una calculadora automática que ayuda a tomar decisiones en el momento.
+Menos dudas, más acción.
+
+👉 ¿Qué cambia acá?
+
+Imaginá dejar de responder siempre lo mismo.
+Imaginá que la web ya explica, muestra y ordena por vos.
+
+No es urgencia, es claridad:
+cuando todo está bien presentado, el cliente avanza solo.
+
+Vos dejás de correr atrás de cada mensaje…
+y empezás a enfocarte en lo que realmente mueve tu negocio.`
+      },
+      estandar: {
+        title: "Plan Estándar",
+        content: `Para ordenar tu negocio y mejorar resultados
+
+Imaginá que alguien entra a tu web y no solo entiende lo que hacés…
+sino que siente que está en el lugar correcto.
+
+Imaginá que recorre tus productos, encuentra justo lo que busca, elige sin dudas
+y en segundos te llega el pedido completo a WhatsApp, con todo claro y listo.
+
+Eso ya no es casualidad. Está pensado.
+
+Mantenés todo lo del plan básico, pero lo llevás más lejos:
+
+Tenés una web diseñada a medida, con la estética de tu negocio, cuidada en cada detalle.
+Carga rápido, se ve perfecta en el celular y transmite profesionalismo desde el primer segundo.
+
+Sumás un catálogo de hasta 50 productos, donde el cliente puede elegir y enviarte el pedido automáticamente por WhatsApp, con toda la información organizada.
+Menos preguntas, más decisiones.
+
+Incluye una calculadora automática, que facilita la compra y evita fricciones innecesarias.
+
+Y además, incorporás una mini aplicación dentro de la web:
+puede ser una caja de comentarios para generar confianza y comunidad,
+o un sistema de turnos automáticos que ordena tu agenda sin que tengas que intervenir.
+
+Pero lo más importante no es lo que tiene…
+es cómo está pensado.
+
+Cada sección, cada texto y cada paso están diseñados estratégicamente para guiar al cliente:
+entender → confiar → avanzar.
+
+👉 ¿Qué cambia acá?
+
+Imaginá dejar de recibir consultas sin sentido.
+Imaginá que las personas que te escriben ya saben lo que quieren.
+
+No solo mostrás lo que hacés.
+Empezás a atraer gente más decidida.
+
+Filtrás mejor.
+Perdés menos tiempo.
+Y tu negocio sigue funcionando incluso cuando vos no estás.`
+      },
+      pro: {
+        title: "Plan Pro",
+        content: `Para escalar y sacarle el máximo rendimiento
+
+Imaginá un día normal de trabajo… pero sin el desgaste de siempre.
+
+No respondés "¿precio?" diez veces.
+No explicás cómo comprar una y otra vez.
+No ordenás pedidos que llegan mal o incompletos.
+
+La persona entra, busca con la lupita, encuentra lo que quiere, usa la calculadora si lo necesita…
+y cuando decide, el pedido te llega a WhatsApp listo, con todo claro.
+
+Sin que tengas que intervenir.
+
+Ahora, ¿qué hace posible eso?
+
+Tenés una web diseñada a medida, con la estética real de tu negocio.
+No es algo genérico: está pensada para que todo tenga sentido desde que alguien entra.
+
+La web tiene carga rápida y funciona perfecto en el celular, para no perder oportunidades por algo básico.
+
+Incluye un buscador con lupa, para que la persona encuentre lo que quiere en segundos, sin frustrarse ni abandonar.
+
+Sumás un catálogo de hasta 50 productos, conectado directamente a WhatsApp:
+el cliente elige, agrega y envía…
+y vos recibís el pedido automático con toda la información organizada.
+
+También tenés una calculadora automática, que evita preguntas innecesarias y ayuda a decidir en el momento.
+
+Además, integrás 2 mini aplicaciones dentro de la web:
+
+una caja de comentarios, que muestra experiencias reales y genera confianza sin que tengas que convencer
+un sistema de turnos automáticos, que ordena tu agenda sin mensajes cruzados ni errores
+
+Y algo clave:
+
+Contás con seguimiento de datos, para entender qué está pasando:
+qué miran, qué funciona, qué se mueve más.
+
+No es intuición. Es información.
+
+👉 ¿Qué cambia acá?
+
+Cosas concretas, todos los días:
+
+Dejás de responder lo mismo constantemente
+Dejás de ordenar pedidos mal armados
+Dejás de perder tiempo en consultas que no avanzan
+
+Y empezás a tener:
+
+Pedidos más claros
+Clientes más decididos
+Un negocio más ordenado
+Más tiempo para enfocarte en lo importante
+
+No es una suma de funciones.
+
+Es sacarte de encima todo lo que hoy te consume tiempo…
+y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
+      }
+    };
+
+    window.openPlanInfo = function(plan) {
+      const data = window.planInfoData[plan];
+      if (!data) return;
+
+      document.getElementById("planInfoTitle").textContent = data.title;
+      document.getElementById("planInfoContent").textContent = data.content;
+      document.getElementById("planInfoModal").classList.add("open");
+    };
+
+    window.closePlanInfoModal = function() {
+      document.getElementById("planInfoModal").classList.remove("open");
+    };
+
+    document.getElementById("planInfoModal")?.addEventListener("click", function(e) {
+      if (e.target === this) {
+        closePlanInfoModal();
+      }
+    });
+
+    document.getElementById("plansGridBackdrop")?.addEventListener("click", function(e) {
+      if (e.target === this) {
+        closePlansGridModal();
+      }
+    });
+
+    // Toggle see-more for section texts
+    window.toggleSeeMore = function(id) {
+      const trigger = document.getElementById('see-more-' + id);
+      const resto = trigger?.closest('.section-text-wrapper')?.querySelector('.texto-resto') || trigger?.closest('section')?.querySelector('.texto-resto');
+      if (!resto || !trigger) return;
+      resto.classList.remove('oculto');
+      trigger.style.display = 'none';
+      updateDecoHeights();
+    };
+
     window.updateDecoHeights = function() {
       document.querySelectorAll('.section-row').forEach(row => {
         const title = row.querySelector('.section-title');
         const preview = row.querySelector('.texto-preview');
-        const deco = row.querySelector('.decor-image');
-        if (!title || !preview || !deco) return;
-        const h = (preview.offsetTop + preview.offsetHeight) - title.offsetTop;
-        if (h > 0) { deco.style.height = h+'px'; deco.style.width = 'auto'; }
+        const decoImg = row.querySelector('.decor-image');
+        if (!title || !preview || !decoImg) return;
+        const titleTop = title.offsetTop;
+        const previewBottom = preview.offsetTop + preview.offsetHeight;
+        const height = previewBottom - titleTop;
+        if (height > 0) {
+          decoImg.style.height = height + 'px';
+          decoImg.style.width = 'auto';
+        }
       });
     };
-    window.addEventListener("load", updateDecoHeights);
-    window.addEventListener("resize", updateDecoHeights);
 
-    document.addEventListener("DOMContentLoaded", function() {
+    // Make portada images clickable for full screen with pinch zoom support
+    function setupImageInteractions() {
       updateDecoHeights();
-      // Ver más buttons
       document.querySelectorAll('.ver-mas').forEach(btn => {
         btn.addEventListener('click', function() {
-          const wrapper = btn.closest('.section-text-wrapper') || btn.closest('section');
-          const resto = wrapper?.querySelector('.texto-resto');
-          if (resto) { resto.classList.remove('oculto'); resto.style.display = 'block'; }
+          const resto = btn.closest('.section-text-wrapper')?.querySelector('.texto-resto') || btn.closest('section')?.querySelector('.texto-resto');
+          if (!resto) return;
+          resto.classList.remove('oculto');
           btn.style.display = 'none';
           updateDecoHeights();
         });
       });
-
-      // Portada images: pinch zoom + click to full screen
-      document.querySelectorAll("img[src*='portada']").forEach(img => {
-        img.style.cursor = "pointer";
-        let initDist = null, curScale = 1;
-        img.addEventListener('touchstart', e => {
-          if (e.touches.length===2) { e.preventDefault(); initDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); }
-        }, {passive:false});
-        img.addEventListener('touchmove', e => {
-          if (e.touches.length===2 && initDist) {
+      const allImages = Array.from(document.querySelectorAll('img')).filter(img => !img.classList.contains('image-modal-img') && !img.closest('a'));
+      allImages.forEach(img => {
+        img.style.cursor = 'pointer';
+        let initialDistance = null;
+        let currentScale = 1;
+        img.addEventListener('touchstart', function(e) {
+          if (e.touches.length === 2) {
             e.preventDefault();
-            const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
-            curScale=Math.min(Math.max(d/initDist,0.5),4);
-            img.style.transform=`scale(${curScale})`;
-            img.style.transformOrigin='center center';
-            img.style.transition='none';
-            img.style.zIndex='50';
-            img.style.position='relative';
+            initialDistance = Math.hypot(
+              e.touches[0].clientX - e.touches[1].clientX,
+              e.touches[0].clientY - e.touches[1].clientY
+            );
           }
-        }, {passive:false});
-        img.addEventListener('touchend', e => {
-          if (e.touches.length<2) {
-            initDist=null;
-            setTimeout(()=>{ img.style.transform=''; img.style.zIndex=''; img.style.position=''; img.style.transition='transform 0.3s ease'; curScale=1; },300);
+        }, { passive: false });
+        img.addEventListener('touchmove', function(e) {
+          if (e.touches.length === 2 && initialDistance) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              e.touches[0].clientX - e.touches[1].clientX,
+              e.touches[0].clientY - e.touches[1].clientY
+            );
+            currentScale = Math.min(Math.max(dist / initialDistance, 0.5), 4);
+            img.style.transform = 'scale(' + currentScale + ')';
+            img.style.transformOrigin = 'center center';
+            img.style.transition = 'none';
+            img.style.zIndex = '50';
+            img.style.position = 'relative';
+          }
+        }, { passive: false });
+        img.addEventListener('touchend', function(e) {
+          if (e.touches.length < 2) {
+            initialDistance = null;
+            setTimeout(() => {
+              img.style.transform = '';
+              img.style.zIndex = '';
+              img.style.position = '';
+              img.style.transition = 'transform 0.3s ease';
+              currentScale = 1;
+            }, 300);
           }
         });
-        img.addEventListener("click", function() { if (curScale===1) openImageModal(this.src); });
+        img.addEventListener('click', function() {
+          if (currentScale === 1) openImageModal(this.src);
+        });
       });
-    });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupImageInteractions);
+    } else {
+      setupImageInteractions();
+    }
+
   </script>
 </body>
 </html>
