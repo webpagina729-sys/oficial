@@ -788,6 +788,83 @@
       color: var(--primary);
     }
 
+    .cuadro-comentarios,
+    .modal-ver-todos,
+    .modal-formulario {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 14px;
+      padding: 12px;
+      max-height: 90vh;
+      overflow-y: auto;
+      color: #fff;
+    }
+
+    .modal-ver-todos .all-comments-body {
+      max-height: 90vh;
+      overflow-y: auto;
+      background: transparent;
+      border-radius: 0 0 14px 14px;
+    }
+
+    .preview-comentario {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      padding: 8px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .preview-comentario input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 13px;
+      padding: 6px;
+      outline: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .preview-comentario button {
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .comentario,
+    .comment-text,
+    .reply-text,
+    .comment-name,
+    .reply-name {
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .comment-textarea,
+    .reply-textarea,
+    .form-input {
+      font-size: 13px;
+      padding: 6px;
+    }
+
+    .comment-card,
+    .reply-item {
+      margin-bottom: 8px;
+      padding: 12px;
+    }
+
     /* ===== COMMENT CARD ===== */
     /* NEW COMMENT CARD STYLE - GLASS EFFECT */
     .comment-card {
@@ -2305,6 +2382,31 @@
   animation: flash 2s infinite;
 }
 
+.contenedor-planesdos {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.boton-click-planes {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 28px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  z-index: 2;
+}
+
 @keyframes flash {
   0% { box-shadow: 0 0 0px white; }
   50% { box-shadow: 0 0 15px white; }
@@ -2453,8 +2555,7 @@
   </div>
 
   <!-- ALL COMMENTS VIEW -->
-  <div class="all-comments-container" id="allCommentsContainer">
-
+  <div class="all-comments-container modal-ver-todos" id="allCommentsContainer">
     <div class="all-comments-modal">
 
       <div class="all-comments-header">
@@ -2657,12 +2758,14 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
     <!-- FULL WIDTH IMAGE -->
     <div class="planes-container">
-      <button class="btn-planes" onclick="irPlanes()">CLIC ACÁ</button>
-      <img src="/planesdos.png" alt="Planes" class="full-width-img" style="cursor:pointer;" onclick="irPlanes()">
+      <div class="contenedor-planesdos">
+        <img src="/planesdos.png" alt="Planes" class="full-width-img" style="cursor:pointer;" onclick="irPlanes()">
+        <a href="https://planes.tuweb.workers.dev" class="boton-click-planes">Click acá</a>
+      </div>
     </div>
 
     <!-- COMMENTS SECTION -->
-    <section class="comments-section" id="comments-section">
+    <section class="comments-section cuadro-comentarios" id="comments-section">
       <h2 class="comments-title">Dejá un comentario!</h2>
 
       <!-- Avatar Selector -->
@@ -2730,6 +2833,11 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
       </div>
 
       <!-- Comment Button -->
+        <div class="preview-comentario" onclick="openCommentModal()">
+        <input type="text" placeholder="Dejá tu comentario..." readonly>
+        <button type="button">Añadir</button>
+      </div>
+
       <button class="comment-btn" onclick="openCommentModal()">✍️ Dejanos tu comentario</button>
 
       <!-- Featured Comment -->
@@ -2802,9 +2910,9 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
   <!-- COMMENT MODAL -->
   <div class="modal-backdrop" id="commentModal">
-    <div class="modal">
+    <div class="modal modal-formulario">
       <div class="modal-header">Dejanos tu comentario</div>
-      <form id="commentForm" onsubmit="return validarCaptcha()" style="display:flex;flex-direction:column;gap:16px;">
+      <form id="form-comentario" style="display:flex;flex-direction:column;gap:16px;">
         <textarea id="commentText" class="modal-textarea" placeholder="Dejanos un comentario contandonos cuál es tu tarea repetitiva."></textarea>
         <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
         <div id="recaptchaError" style="color: #e74c3c; font-size: 12px; margin-top: 8px; display: none;">Por favor verifica que no eres un robot</div>
@@ -2952,6 +3060,7 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
       try {
         await addDoc(collection(db, "comentarios"), {
           nombre: commentName,
+          texto: commentText,
           comentario: commentText,
           estrellas: window.appState.selectedRating,
           avatar: window.appState.selectedAvatar,
@@ -3862,6 +3971,34 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
       }
       return false;
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("form-comentario");
+      if (form) {
+        form.addEventListener("submit", async function(e) {
+          e.preventDefault();
+          const token = grecaptcha.getResponse();
+          if (!token) {
+            alert("Completá el captcha");
+            const err = document.getElementById("recaptchaError");
+            if (err) err.style.display = "block";
+            return;
+          }
+          const commentText = document.getElementById("commentText").value.trim();
+          if (!commentText || commentText.length < 5) {
+            alert("El comentario debe tener al menos 5 caracteres");
+            return;
+          }
+          document.getElementById("recaptchaError").style.display = "none";
+          await window.submitComment();
+        });
+      }
+
+      const preview = document.querySelector(".preview-comentario");
+      if (preview) {
+        preview.addEventListener("click", openCommentModal);
+      }
+    });
   </script>
 </body>
 </html>
