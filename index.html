@@ -1777,22 +1777,6 @@
       display: flex;
     }
 
-    .floating-whatsapp-btn {
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      background: #25D366 !important;
-      border: none !important;
-      color: #ffffff !important;
-      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .floating-whatsapp-btn:hover {
-      background: #1ebe5d !important;
-      transform: scale(1.03);
-    }
-
     /* ===== SHORTCUTS MODAL ===== */
     .shortcuts-modal-backdrop {
       position: fixed;
@@ -2273,9 +2257,8 @@
 }
 
 .mensaje-overlay {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  position: static;
+  margin: 0 auto 16px;
 
   display: flex;
   flex-direction: column;
@@ -2494,11 +2477,11 @@
 
     <!-- PORTADA 1 - FULL BLEED -->
     <div class="portada-container">
-      <img src="/portadauno.png" alt="Portada Principal" class="portada-img">
       <div class="mensaje-overlay" onclick="openMensajeModal()">
         <img src="/logodos.png" alt="Toca para leer" class="mensaje-icon">
         <span>Toca para leer</span>
       </div>
+      <img src="/portadauno.png" alt="Portada Principal" class="portada-img">
     </div>
 
     <!-- PORTADA 2 -->
@@ -2795,11 +2778,6 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
   <!-- FLOATING SHORTCUTS BUTTON -->
   <button class="floating-shortcuts-btn" id="floatingShortcutsBtn" onclick="openShortcutsModal()">Atajos</button>
-
-  <!-- FLOATING WHATSAPP BUTTON -->
-  <a href="https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta." target="_blank" class="floating-whatsapp-btn" id="floatingWhatsappBtn" style="position: fixed; bottom: 30px; right: 100px; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 98; text-decoration: none; background: none; border: none; cursor: pointer;">
-    <img src="/whatsappweb.png" alt="WhatsApp" style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain;">
-  </a>
 
   <!-- SHORTCUTS MODAL -->
   <div class="shortcuts-modal-backdrop" id="shortcutsModal">
@@ -3395,7 +3373,7 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
     };
 
     window.irPlanes = function() {
-      window.location.href = "https://planes.webpagina729.workers.dev";
+      window.location.href = "https://planes.tuweb.workers.dev";
     };
 
     document.getElementById("messageModal").addEventListener("click", function(e) {
@@ -3567,47 +3545,6 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
     window.addEventListener("load", updateShortcutsButtonVisibility);
     window.addEventListener("resize", updateShortcutsButtonVisibility);
 
-    // Floating WhatsApp button visibility
-    window.updateWhatsappButtonVisibility = function() {
-      const btn = document.getElementById("floatingWhatsappBtn");
-      if (!btn) return;
-
-      const portadaUno = document.querySelector('img[src="/portadauno.png"]') || document.querySelector('img[src*="portadauno"]');
-      const portadaCuatro = document.querySelector('img[src="/portadacuatro.png"]') || document.querySelector('img[src*="portadacuatro"]');
-      const portadaNueve = document.querySelector('img[src="/portadanueve.png"]') || document.querySelector('img[src*="portadanueve"]');
-
-      const scrollY = window.scrollY;
-      const vh = window.innerHeight;
-
-      let show = false;
-
-      // Zone 1: from portadauno to portadacuatro
-      if (portadaUno && portadaCuatro) {
-        const r1 = portadaUno.getBoundingClientRect();
-        const r4 = portadaCuatro.getBoundingClientRect();
-        if (r1.top <= vh && r4.bottom >= 0) {
-          show = true;
-        }
-      }
-
-      // Zone 2: at portadanueve, hide after it goes off screen
-      if (portadaNueve) {
-        const r9 = portadaNueve.getBoundingClientRect();
-        if (r9.top <= vh && r9.bottom >= 0) {
-          show = true;
-        }
-        // Once portadanueve scrolled past (top above viewport), hide
-        if (r9.bottom < 0) {
-          show = false;
-        }
-      }
-
-      btn.style.display = show ? "flex" : "none";
-    };
-
-    window.addEventListener("scroll", updateWhatsappButtonVisibility);
-    window.addEventListener("load", updateWhatsappButtonVisibility);
-    window.addEventListener("resize", updateWhatsappButtonVisibility);
     window.addEventListener("load", updateDecoHeights);
     window.addEventListener("resize", updateDecoHeights);
 
