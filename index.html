@@ -788,6 +788,22 @@
       color: var(--primary);
     }
 
+    .ver-todos {
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      padding: 6px 0;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: 0.3s;
+      margin-top: 16px;
+    }
+
+    .ver-todos:hover {
+      opacity: 1;
+    }
+
     .cuadro-comentarios,
     .modal-ver-todos,
     .modal-formulario {
@@ -1192,18 +1208,13 @@
       display: flex;
     }
 
-    .modal {
-      background: rgba(10,10,10,0.88);
-      border: 1px solid rgba(255,255,255,0.10);
+    .modal textarea {
       border-radius: 12px;
-      max-width: 480px;
-      width: 100%;
-      padding: 28px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: modalSlideIn 0.3s ease;
-      max-height: 85vh;
-      overflow-y: auto;
-      color: #ffffff;
+      padding: 10px;
+    }
+
+    .modal button {
+      border-radius: 20px;
     }
 
     #commentModal .modal {
@@ -1478,25 +1489,23 @@
     /* ===== ALL COMMENTS VIEW ===== */
     .all-comments-container {
       position: fixed;
-      inset: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
       z-index: 500;
       display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .all-comments-container::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      backdrop-filter: blur(6px);
-      z-index: 0;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      background: #f1f1f1;
+      border-radius: 16px 16px 0 0;
+      padding: 16px;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .all-comments-container.open {
-      display: flex;
+      display: block;
+      transform: translateY(0);
     }
 
     .all-comments-body {
@@ -2336,6 +2345,7 @@
 .mensaje-overlay {
   position: static;
   margin: 0 auto 16px;
+  margin-top: 4px !important;
 
   display: flex;
   flex-direction: column;
@@ -2386,11 +2396,12 @@
   position: relative;
   display: inline-block;
   width: 100%;
+  margin-bottom: 4px !important;
 }
 
 .boton-click-planes {
   position: absolute;
-  bottom: 6px;
+  top: 6px;
   left: 50%;
   transform: translateX(-50%);
   height: 28px;
@@ -2840,12 +2851,11 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
       <button class="comment-btn" onclick="openCommentModal()">✍️ Dejanos tu comentario</button>
 
+      <!-- Ver todos button -->
+      <div class="ver-todos" onclick="openAllComments()">Ver todos los comentarios</div>
+
       <!-- Featured Comment -->
       <div id="featuredCommentContainer" style="margin-top: 28px;"></div>
-      <div id="commentsContainer" style="margin-top: 24px;"></div>
-
-      <!-- All Comments Button -->
-      <button class="comment-btn" style="background: none; border: 2px solid #000; color: #000; margin-top: 28px;" onclick="openAllComments()">Ver todos los comentarios ↓</button>
     </section>
 
     <!-- SOCIAL SECTION -->
@@ -2980,7 +2990,7 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
     import {
-      getFirestore, collection, addDoc, getDocs, query, orderBy,
+      getFirestore, collection, addDoc, getDocs, query, orderBy, limit,
       updateDoc, doc, increment, onSnapshot
     } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
     import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
@@ -3399,6 +3409,10 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
       if (modal) modal.classList.add("open");
       document.body.style.overflow = "hidden";
       setTimeout(() => document.getElementById("commentText")?.focus(), 50);
+      // Render reCAPTCHA when modal opens
+      if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.render(document.querySelector('.g-recaptcha'));
+      }
     };
 
     window.closeCommentModal = function() {
