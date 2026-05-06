@@ -231,7 +231,7 @@
       text-transform: none;
       transition: var(--transition);
       text-align: left;
-      color: var(--text-dark);
+      color: #000000;
       font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -363,6 +363,7 @@
       padding: 10px 20px;
       text-align: center;
       border-bottom: 1px solid #e8e8e8;
+      transition: opacity 0.4s ease;
     }
 
     .banner-title {
@@ -378,6 +379,13 @@
       border-radius: 16px;
       border: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .banner:not(:first-of-type) .banner-title {
+      opacity: 0;
+      pointer-events: none;
     }
 
     @keyframes fadeInDown {
@@ -1231,7 +1239,8 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
+      overflow-y: auto;
     }
 
     .modal-backdrop.open {
@@ -1250,8 +1259,10 @@
     .modal-comentario {
       background: #f1f1f1;
       border-radius: 16px;
-      padding: 16px;
+      padding: 20px;
       max-width: 95%;
+      width: 100%;
+      max-width: 500px;
       margin: auto;
     }
 
@@ -1867,13 +1878,15 @@
     }
 
     .image-modal-content {
-      max-width: 90vw;
+      max-width: 95vw;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       animation: zoomIn 0.3s ease;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
     }
 
     .image-modal-img {
@@ -1969,8 +1982,8 @@
       background: rgba(10,10,10,0.88);
       border: 1px solid rgba(255,255,255,0.10);
       border-radius: 12px;
-      padding: 28px;
-      max-width: 400px;
+      padding: 20px;
+      max-width: 95%;
       width: 100%;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: modalSlideIn 0.3s ease;
@@ -2105,7 +2118,8 @@
       }
 
       .banner-title {
-        font-size: 18px;
+        font-size: 10px;
+        padding: 4px 8px;
         letter-spacing: 1px;
       }
 
@@ -2135,10 +2149,22 @@
       .all-comments-container {
         width: 100%;
         max-width: 100%;
+        border-radius: 16px 16px 0 0;
       }
 
       .comment-card {
         padding: 12px;
+      }
+
+      .modal-comentario {
+        max-width: 95%;
+        padding: 16px;
+        max-height: 90vh;
+      }
+
+      .modal-comentario h2 {
+        font-size: 14px;
+        margin-bottom: 12px;
       }
 
       .modal {
@@ -2149,7 +2175,7 @@
       }
 
       .modal-backdrop {
-        padding: 16px;
+        padding: 12px;
       }
 
       .stars-row {
@@ -2172,6 +2198,16 @@
       .footer-logo {
         width: 50px;
         height: 50px;
+      }
+
+      .plan-info-modal {
+        max-width: 95%;
+        padding: 16px;
+      }
+
+      .shortcuts-modal {
+        max-width: 95%;
+        padding: 16px;
       }
 
   }
@@ -2428,13 +2464,16 @@
 .portada-container {
   position: relative;
   padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .portada-img {
   width: calc(100% - 24px);
   display: block;
   margin: 0 12px;
-  border-radius: 18px;
+  border-radius: 8px;
 }
 
 .mensaje-overlay {
@@ -2496,9 +2535,12 @@
 .contenedor-planesdos {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   margin-bottom: 4px !important;
+  gap: 0;
 }
 
 .boton-click-planes {
@@ -2506,17 +2548,21 @@
   top: auto;
   left: auto;
   transform: none;
-  margin: 0 auto;
+  margin: 0 12px 12px 12px;
   display: block;
-  width: 100%;
+  width: calc(100% - 24px);
   align-items: center;
   justify-content: center;
   font-size: 12px;
   background: #000000;
   color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: pointer;
+  text-align: center;
+  order: -1;
+}
 .label-avatar,
 .label-rating {
   color: black;
@@ -2967,7 +3013,7 @@
     <nav class="sidebar-nav">
       <button class="sidebar-btn" onclick="openCurtain('how-obtain')">Cómo obtengo mi web</button>
       <button class="sidebar-btn" onclick="closeSidebar(); scrollToElement('comments-section')">Dejar comentario</button>
-      <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">📞 Contacto</button>
+      <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">Contacto</button>
       <button class="sidebar-btn" onclick="scrollToElement('social-section')">Seguinos en redes</button>
     </nav>
   </aside>
@@ -3054,7 +3100,7 @@
         <img src="/logodos.png" alt="Toca para leer" class="mensaje-icon">
         <span>Toca para leer</span>
       </div>
-      <img src="/portadauno.png" alt="Portada Principal" class="portada-img">
+      <img src="/portadauno.png" alt="Portada Principal" class="portada-img" style="width: calc(100% - 24px); margin: 0 12px;">
     </div>
 
     <!-- PORTADA 2 -->
@@ -3987,6 +4033,22 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
       }
     });
 
+    // Hide banner title on scroll
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+      const banner = document.querySelector('.banner');
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (banner && currentScroll > lastScrollTop + 50) {
+        banner.style.opacity = '0';
+        banner.style.pointerEvents = 'none';
+      } else if (banner && currentScroll < 50) {
+        banner.style.opacity = '1';
+        banner.style.pointerEvents = 'auto';
+      }
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }, false);
+
     window.requestReplyInput = function(commentId) {
       window.pendingReplyCommentId = commentId;
       const modal = document.getElementById("avatarChoiceModal");
@@ -4513,6 +4575,8 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
       }
       return false;
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
       const form = document.getElementById("form-comentario");
       if (form) {
         form.addEventListener("submit", window.submitComment);
