@@ -3340,7 +3340,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
           </div>
         </div>
         <textarea id="input-comentario" class="modal-textarea" placeholder="Dejanos un comentario contandonos cuál es tu tarea repetitiva."></textarea>
-        <div id="captcha-container"></div>
+        <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
         <div id="recaptchaError" style="color: #e74c3c; font-size: 12px; margin-top: 8px; display: none;">Por favor verifica que no eres un robot</div>
         <div class="modal-actions">
           <button type="button" class="modal-btn" onclick="closeCommentModal()">Cancelar</button>
@@ -3473,7 +3473,7 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
       const commentText = document.getElementById("input-comentario").value.trim();
       const commentName = document.getElementById("commentName").value.trim();
       const rating = document.querySelector('.star-btn.active')?.dataset.value || 0;
-      const token = grecaptcha.getResponse(widgetId);
+      const token = grecaptcha.getResponse();
 
       if (!commentText) {
         alert("Por favor escribe un comentario.");
@@ -3514,7 +3514,7 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
         document.getElementById("input-comentario").value = "";
         document.getElementById("commentName").value = "";
         document.querySelectorAll('.star-btn').forEach(btn => btn.classList.remove('active'));
-        grecaptcha.reset(widgetId);
+        grecaptcha.reset();
         closeCommentModal();
         loadComments();
       } catch (error) {
@@ -3863,24 +3863,6 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
     // Comment modal
     let widgetId = null;
 
-    window.renderRecaptcha = function() {
-      if (typeof grecaptcha === 'undefined') return;
-      if (widgetId === null) {
-        widgetId = grecaptcha.render('captcha-container', {
-          sitekey: '6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_'
-        });
-      } else {
-        grecaptcha.reset(widgetId);
-      }
-    };
-
-    window.onRecaptchaLoad = function() {
-      if (document.getElementById("commentModal")?.classList.contains("open")) {
-        window.renderRecaptcha();
-      }
-    };
-
-    // Comment modal
     window.openCommentModal = function() {
       const modal = document.getElementById("commentModal");
       const avatarPreview = document.getElementById("avatarSelected");
@@ -3890,7 +3872,22 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
       if (modal) modal.classList.add("open");
       document.body.style.overflow = "hidden";
       setTimeout(() => document.getElementById("input-comentario")?.focus(), 50);
-      window.renderRecaptcha();
+      
+      // Renderizar reCAPTCHA explícitamente cuando el modal se abre
+      if (typeof grecaptcha !== 'undefined') {
+        const captchaElement = document.querySelector('.g-recaptcha');
+        if (captchaElement && captchaElement.innerHTML === '') {
+          try {
+            widgetId = grecaptcha.render(captchaElement, {
+              sitekey: '6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_'
+            });
+          } catch(e) {
+            console.log('reCAPTCHA ya renderizado o error:', e);
+          }
+        } else if (widgetId !== null) {
+          grecaptcha.reset(widgetId);
+        }
+      }
     };
 
     window.closeCommentModal = function() {
@@ -4453,7 +4450,7 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
   </script>
   <script>
     function validarCaptcha() {
-      var response = grecaptcha.getResponse(widgetId);
+      var response = grecaptcha.getResponse();
       if (!response || response.length === 0) {
         alert("Por favor verificá que no sos un robot");
         var err = document.getElementById("recaptchaError");
@@ -4483,6 +4480,6 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
       }
     });
   </script>
-  <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
