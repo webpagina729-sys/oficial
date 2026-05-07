@@ -615,6 +615,34 @@
             text-shadow: var(--glow-purple);
         }
 
+        .ver-todos-comentarios {
+            text-align: center;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+        .ver-todos-link {
+            color: #7b2cff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .ver-todos-link:hover {
+            color: #ff00aa;
+            text-shadow: var(--glow-pink);
+        }
+
+        .arrow-down-mini {
+            display: inline-block;
+            font-size: 12px;
+            animation: arrow-bounce 2s infinite;
+        }
+
         .comentarios-form {
             display: flex;
             flex-direction: column;
@@ -703,6 +731,14 @@
             max-height: 70vh;
             overflow-y: auto;
             box-shadow: 0 0 50px rgba(123, 44, 255, 0.3);
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .avatar-modal-content {
+                max-width: 90vw;
+                padding: 20px;
+            }
         }
 
         .avatar-modal-title {
@@ -796,21 +832,27 @@
 
         /* Comentario Principal */
         .comentario-main {
-            padding: 20px;
-            background: rgba(123, 44, 255, 0.08);
-            border: 1px solid rgba(123, 44, 255, 0.2);
-            border-radius: 8px;
-            cursor: pointer;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(123, 44, 255, 0.3);
+            border-radius: 6px;
+            cursor: default;
             transition: var(--transition);
+            color: #d9d9d9;
+            font-size: 14px;
+            min-height: 100px;
+            resize: vertical;
         }
 
-        .comentario-main:hover {
-            background: rgba(123, 44, 255, 0.12);
-            border-color: rgba(123, 44, 255, 0.4);
+        .comentario-main:focus {
+            outline: none;
+            background: rgba(123, 44, 255, 0.1);
+            border-color: #7b2cff;
+            box-shadow: 0 0 15px rgba(123, 44, 255, 0.2);
         }
 
         .comentario-placeholder {
-            color: rgba(217, 217, 217, 0.6);
+            color: rgba(217, 217, 217, 0.5);
             font-size: 14px;
         }
 
@@ -1014,7 +1056,7 @@
             color: #d9d9d9;
             font-size: 12px;
             line-height: 1.5;
-            margin-bottom: 8px;
+            margin-top: 4px;
             word-wrap: break-word;
         }
 
@@ -1816,6 +1858,14 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     </div>
                 </div>
 
+                <!-- Avatar Seleccionado -->
+                <div class="form-group">
+                    <label class="form-label">Avatar Seleccionado</label>
+                    <div style="display: flex; justify-content: center;">
+                        <img id="avatarCommentDisplay" src="/avataruno.png" alt="Avatar" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #7b2cff;">
+                    </div>
+                </div>
+
                 <!-- Nombre -->
                 <div class="form-group">
                     <label class="form-label">Tu Nombre</label>
@@ -1830,18 +1880,20 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
                 <!-- Comentario Principal -->
                 <div class="form-group">
-                    <div class="comentario-main" id="comentarioMainBox" onclick="openCommentModal()">
-                        <p class="comentario-placeholder">Dejanos un comentario contandonos cuál es tu tarea repetitiva.</p>
-                    </div>
+                    <label class="form-label">Dejanos un Comentario</label>
+                    <textarea id="comentarioTexto" class="form-input comentario-textarea" placeholder="Decinos cuál es tu tarea repetitiva..."></textarea>
                 </div>
             </div>
 
             <!-- Comentarios Mostrados -->
             <div id="comentariosLista" style="margin-top: 40px;"></div>
 
-            <!-- Ver Todos Comentarios Button -->
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn-enviar" onclick="openTodosModal()" style="max-width: 300px;">Ver todos los comentarios</button>
+            <!-- Ver Todos Comentarios Link -->
+            <div class="ver-todos-comentarios">
+                <a class="ver-todos-link" onclick="openTodosModal()" style="cursor: pointer;">
+                    "Ver todos los comentarios"
+                    <span class="arrow-down-mini">↓</span>
+                </a>
             </div>
         </section>
 
@@ -2098,6 +2150,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             element.classList.add("selected");
             selectedAvatar = element.getAttribute("data-avatar");
             document.getElementById("avatarSelectedDisplay").src = "/" + selectedAvatar;
+            document.getElementById("avatarCommentDisplay").src = "/" + selectedAvatar;
         }
 
         // Avatar Modal
@@ -2166,15 +2219,26 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
         function initRecaptcha() {
             const container = document.getElementById("recaptchaContainer");
+            if (!container) return;
+            
             container.innerHTML = '<div class="g_recaptcha_container" id="recaptcha"></div>';
             
-            if (window.grecaptcha) {
-                window.grecaptcha.render("recaptcha", {
-                    sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
-                    callback: onRecaptchaSuccess,
-                    "error-callback": onRecaptchaError
-                });
-            }
+            setTimeout(() => {
+                if (window.grecaptcha) {
+                    try {
+                        window.grecaptcha.render("recaptcha", {
+                            sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
+                            callback: "onRecaptchaSuccess",
+                            "error-callback": "onRecaptchaError"
+                        });
+                    } catch (e) {
+                        console.error("Error renderizando reCAPTCHA:", e);
+                    }
+                } else {
+                    console.log("grecaptcha no disponible, reintentando...");
+                    setTimeout(initRecaptcha, 500);
+                }
+            }, 100);
         }
 
         window.onRecaptchaSuccess = function(token) {
@@ -2285,9 +2349,9 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                         <img src="/${resp.avatar}" alt="Avatar" class="respuesta-avatar">
                         <div class="respuesta-info">
                             <div class="respuesta-nombre">${resp.nombre}</div>
+                            <div class="respuesta-texto">${resp.comentario}</div>
                         </div>
                     </div>
-                    <div class="respuesta-texto">${resp.comentario}</div>
                     ${resp.rating > 0 ? `
                         <div class="respuesta-rating">
                             ${"★".repeat(resp.rating)}
@@ -2306,9 +2370,9 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                         <div class="comentario-info">
                             <div class="comentario-nombre">${comentario.nombre}</div>
                             <div class="comentario-fecha">${fecha}</div>
+                            <div class="comentario-texto">${comentario.comentario}</div>
                         </div>
                     </div>
-                    <div class="comentario-texto">${comentario.comentario}</div>
                     ${comentario.rating > 0 ? `
                         <div class="comentario-rating">
                             ${"★".repeat(comentario.rating)}
@@ -2370,14 +2434,20 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             // Inicializar reCAPTCHA para respuesta
             setTimeout(() => {
                 const container = document.getElementById("recaptchaReplyContainer");
+                if (!container) return;
+                
                 container.innerHTML = '<div class="g_recaptcha_container" id="recaptchaReply"></div>';
                 
                 if (window.grecaptcha) {
-                    window.grecaptcha.render("recaptchaReply", {
-                        sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
-                        callback: onRecaptchaSuccessReply,
-                        "error-callback": onRecaptchaErrorReply
-                    });
+                    try {
+                        window.grecaptcha.render("recaptchaReply", {
+                            sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
+                            callback: "onRecaptchaSuccessReply",
+                            "error-callback": "onRecaptchaErrorReply"
+                        });
+                    } catch (e) {
+                        console.error("Error renderizando reCAPTCHA reply:", e);
+                    }
                 }
             }, 100);
         }
