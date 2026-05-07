@@ -354,10 +354,10 @@
         /* ===== INFO CARDS ===== */
         .info-section {
             display: flex;
-            align-items: center;
+            align-items: stretch;
             gap: 30px;
             margin: 60px 0;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .info-section.reverse {
@@ -365,8 +365,9 @@
         }
 
         .info-section-image {
-            flex: 1;
-            min-width: 100%;
+            flex: 0 0 auto;
+            min-width: 300px;
+            width: 300px;
         }
 
         .info-section-image img {
@@ -378,7 +379,10 @@
 
         .info-section-content {
             flex: 1;
-            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
         }
 
         .info-section-title {
@@ -394,6 +398,18 @@
             line-height: 1.7;
             color: #d9d9d9;
             margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info-section-subtitle.expanded {
+            display: block;
+            -webkit-line-clamp: unset;
+            overflow: visible;
+            text-overflow: clip;
         }
 
         .ver-mas-btn {
@@ -408,11 +424,16 @@
             transition: var(--transition);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-top: auto;
         }
 
         .ver-mas-btn:hover {
             background: rgba(123, 44, 255, 0.2);
             box-shadow: var(--glow-purple);
+        }
+
+        .ver-mas-btn.hidden {
+            display: none;
         }
 
         .info-section-content.expanded .info-section-subtitle {
@@ -430,8 +451,8 @@
 
         .mensaje-wrapper {
             position: relative;
-            width: 180px;
-            height: 180px;
+            width: 120px;
+            height: 120px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -488,9 +509,11 @@
             bottom: -50px;
             left: 50%;
             transform: translateX(-50%);
-            color: #ff00aa;
-            font-size: 20px;
+            color: rgba(123, 44, 255, 0.6);
+            font-size: 16px;
+            font-weight: 300;
             animation: arrow-bounce 2s infinite;
+            letter-spacing: 2px;
         }
 
         @keyframes arrow-bounce {
@@ -892,6 +915,25 @@
             cursor: not-allowed;
         }
 
+        .btn-small {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #7b2cff 0%, #ff00aa 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            box-shadow: 0 0 15px rgba(255, 0, 170, 0.15);
+        }
+
+        .btn-small:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 25px rgba(255, 0, 170, 0.3);
+        }
+
         /* Comentario Card */
         .comentario-card {
             background: rgba(123, 44, 255, 0.08);
@@ -1173,13 +1215,19 @@
 
         .todos-modal-header {
             position: relative;
-            height: 200px;
-            background-size: cover;
-            background-position: center;
+            height: auto;
+            padding: 20px;
             border-bottom: 2px solid #7b2cff;
             display: flex;
-            align-items: flex-end;
-            padding: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .todos-modal-title {
+            color: #050816;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
         }
 
         .todos-modal-header::after {
@@ -1187,6 +1235,7 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(5, 8, 22, 0.9));
+            display: none;
         }
 
         .todos-modal-close {
@@ -1305,7 +1354,8 @@
         .footer-nav {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            gap: 0;
             flex-wrap: wrap;
             margin-bottom: 20px;
             font-size: 14px;
@@ -1314,11 +1364,21 @@
         .footer-link {
             background: none;
             border: none;
+            border-right: 1px solid #d0d0d0;
             color: #050816;
             cursor: pointer;
             font-weight: 600;
             transition: var(--transition);
             text-decoration: none;
+            padding: 12px 20px;
+        }
+
+        .footer-link:last-child {
+            border-right: none;
+        }
+
+        .footer-link:first-child {
+            border-left: 1px solid #d0d0d0;
         }
 
         .footer-link:hover {
@@ -1456,10 +1516,10 @@
             <button class="close-sidebar" id="closeSidebar">←</button>
         </div>
         <div class="sidebar-menu">
-            <button class="sidebar-btn" id="btnPlanes">📋 Como obtengo mi web</button>
-            <button class="sidebar-btn" onclick="scrollToComments()">💬 Dejar comentario</button>
-            <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">📞 Contacto</button>
-            <button class="sidebar-btn" onclick="scrollToSocial()">📱 Seguinos en redes</button>
+            <button class="sidebar-btn" id="btnPlanes">Como obtengo mi web</button>
+            <button class="sidebar-btn" onclick="scrollToComments()">Dejar comentario</button>
+            <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">Contacto</button>
+            <button class="sidebar-btn" onclick="scrollToSocial()">Seguinos en redes</button>
         </div>
     </aside>
 
@@ -1684,7 +1744,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         <section class="mensaje-container" id="mensajeSection">
             <div class="mensaje-wrapper">
                 <img src="/logodos.png" alt="Mensaje" class="mensaje-image" id="mensajeImage">
-                <div class="mensaje-arrows">⬇️</div>
+                <div class="mensaje-arrows">↓</div>
                 <div class="mensaje-hint">toca para leer</div>
             </div>
         </section>
@@ -1819,6 +1879,31 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         </div>
     </div>
 
+    <!-- Reply Modal -->
+    <div class="modal-backdrop" id="replyModalBackdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Responder Comentario</h3>
+                <button class="modal-close" onclick="closeReplyModal()">✕</button>
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label class="form-label">Avatar Seleccionado</label>
+                <div style="display: flex; justify-content: center; gap: 15px; align-items: center;">
+                    <img id="avatarReplyDisplay" src="/avataruno.png" alt="Avatar" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #7b2cff;">
+                    <button class="btn-small" onclick="openAvatarModalForReply()">Cambiar Avatar</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Tu respuesta</label>
+                <textarea id="replyTexto" class="comentario-textarea" placeholder="Escribí tu respuesta..."></textarea>
+            </div>
+
+            <button class="btn-enviar" onclick="enviarRespuesta()">Enviar respuesta</button>
+        </div>
+    </div>
+
     <!-- Mensaje Modal -->
     <div class="modal-backdrop" id="mensajeModal">
         <div class="modal-content">
@@ -1873,7 +1958,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
     <!-- Ver Todos Modal -->
     <div class="todos-modal-backdrop" id="todosModalBackdrop">
         <div class="todos-modal-content">
-            <div class="todos-modal-header" style="background-image: url('/portadaocho.png');">
+            <div class="todos-modal-header">
+                <h2 class="todos-modal-title">Comentarios</h2>
                 <button class="todos-modal-close" onclick="closeTodosModal()">✕</button>
             </div>
             <div class="todos-comments-list" id="todosComenariosList"></div>
@@ -2185,6 +2271,9 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                         <button class="comentario-accion ${yaLiked ? "liked" : ""}" onclick="toggleLike('${comentario.id}', '${usuarioId}')">
                             ${yaLiked ? "❤️" : "🤍"} <span class="comentario-contador">${comentario.likes || 0}</span>
                         </button>
+                        <button class="comentario-accion" onclick="openReplyModal('${comentario.id}')">
+                            💬 Responder
+                        </button>
                     </div>
                     ${htmlRespuestas ? `<div class="respuestas-container">${htmlRespuestas}</div>` : ""}
                 </div>
@@ -2217,6 +2306,106 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 cargarComentarios();
             } catch (error) {
                 console.error("Error al actualizar like:", error);
+            }
+        }
+
+        // Variables para modal de respuesta
+        let replyingToCommentId = null;
+        let replySelectedAvatar = "avataruno.png";
+
+        // Reply Modal Functions
+        function openReplyModal(comentarioId) {
+            replyingToCommentId = comentarioId;
+            document.getElementById("replyModalBackdrop").classList.add("active");
+            document.getElementById("replyTexto").focus();
+        }
+
+        function closeReplyModal() {
+            document.getElementById("replyModalBackdrop").classList.remove("active");
+            document.getElementById("replyTexto").value = "";
+            replyingToCommentId = null;
+        }
+
+        function openAvatarModalForReply() {
+            const selector = document.getElementById("avatarSelector");
+            const grid = document.getElementById("avatarGrid");
+            
+            // Si ya está el grid, solo mostrar el modal
+            if (grid.children.length > 0) {
+                document.getElementById("avatarModal").classList.add("active");
+                return;
+            }
+
+            // Llenar el grid con todos los avatares
+            const allAvatars = [
+                "avataruno.png", "avatardos.png", "avatartres.png", "avatarcuatro.png",
+                "avatarcinco.png", "avatarseis.png", "avatarsiete.png", "avatarocho.png",
+                "avatarnueve.png", "avatardiez.png", "avataronce.png", "avatardoce.png",
+                "avatartreceavo.png", "avatarcatorce.jfif", "avatarquince.png", "avatardieciseis.png",
+                "avatardiecisiete.png", "avatardieciocho.png", "avatardiecinueve.png", "avatarveinte.png",
+                "avatarveintiuno.png", "avatarveintidos.png", "avatarveintitres.png", "avatarveinticuatro.png",
+                "avatarveinticinco.png", "avatarveintiseis.png", "avatarveintisiete.png", "avatarveintiocho.png",
+                "avatarveintinueve.png", "avatartreinta.png"
+            ];
+
+            allAvatars.forEach(avatar => {
+                const div = document.createElement("div");
+                div.className = "avatar-option";
+                div.innerHTML = `<img src="/${avatar}" alt="Avatar">`;
+                div.onclick = () => selectAvatarForReply(avatar);
+                grid.appendChild(div);
+            });
+
+            document.getElementById("avatarModal").classList.add("active");
+        }
+
+        function selectAvatarForReply(avatar) {
+            replySelectedAvatar = avatar;
+            document.getElementById("avatarReplyDisplay").src = `/${avatar}`;
+            document.getElementById("avatarModal").classList.remove("active");
+        }
+
+        async function enviarRespuesta() {
+            const texto = document.getElementById("replyTexto").value.trim();
+
+            if (!texto || texto.length < 5) {
+                alert("La respuesta debe tener al menos 5 caracteres");
+                return;
+            }
+
+            if (!replyingToCommentId) {
+                alert("Error: No se especificó el comentario");
+                return;
+            }
+
+            try {
+                const comentario = comentarios.find(c => c.id === replyingToCommentId);
+                if (!comentario) {
+                    alert("El comentario no existe");
+                    return;
+                }
+
+                const nuevaRespuesta = {
+                    nombre: "Usuario",
+                    comentario: texto,
+                    avatar: replySelectedAvatar,
+                    rating: 0
+                };
+
+                const respuestas = comentario.respuestas || [];
+                respuestas.push(nuevaRespuesta);
+
+                const docRef = window.doc(window.db, "comentarios", replyingToCommentId);
+                await window.updateDoc(docRef, {
+                    respuestas: respuestas
+                });
+
+                console.log("Respuesta guardada");
+                closeReplyModal();
+                cargarComentarios();
+            } catch (error) {
+                console.error("Error al guardar respuesta:", error);
+                alert("Error al enviar la respuesta");
             }
         }
 
@@ -2280,8 +2469,17 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         // Toggle Info
         function toggleInfo(btn) {
             const content = btn.parentElement;
-            content.classList.toggle("expanded");
-            btn.textContent = content.classList.contains("expanded") ? "Ver menos" : "Ver más";
+            const subtitle = content.querySelector(".info-section-subtitle");
+            
+            if (content.classList.contains("expanded")) {
+                content.classList.remove("expanded");
+                subtitle.classList.remove("expanded");
+                btn.textContent = "Ver más";
+            } else {
+                content.classList.add("expanded");
+                subtitle.classList.add("expanded");
+                btn.textContent = "Ver menos";
+            }
         }
 
         // Event Listeners
@@ -2300,6 +2498,11 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         window.closeCommentModal = closeCommentModal;
         window.enviarComentario = enviarComentario;
         window.toggleLike = toggleLike;
+        window.openReplyModal = openReplyModal;
+        window.closeReplyModal = closeReplyModal;
+        window.enviarRespuesta = enviarRespuesta;
+        window.openAvatarModalForReply = openAvatarModalForReply;
+        window.selectAvatarForReply = selectAvatarForReply;
         window.openTodosModal = openTodosModal;
         window.closeTodosModal = closeTodosModal;
         window.openMensajeModal = openMensajeModal;
