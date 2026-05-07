@@ -1225,13 +1225,14 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(6px);
       z-index: 500;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      overflow-y: auto;
     }
 
     .modal-backdrop.open {
@@ -1574,23 +1575,32 @@
     /* ===== ALL COMMENTS VIEW ===== */
     .all-comments-container {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      inset: 0;
       z-index: 500;
       display: none;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-      background: #f1f1f1;
-      border-radius: 16px 16px 0 0;
-      padding: 16px;
-      max-height: 90vh;
-      overflow-y: auto;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      padding: 20px;
     }
 
     .all-comments-container.open {
-      display: block;
-      transform: translateY(0);
+      display: flex;
+    }
+
+    .all-comments-modal {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      height: 85vh;
+      display: flex;
+      flex-direction: column;
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+      background: #f1f1f1;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.08);
+      margin: 0 auto;
     }
 
     .all-comments-body {
@@ -2076,14 +2086,14 @@
       }
 
       .mensaje-overlay {
-        width: 92px;
-        min-height: 92px;
-        padding: 12px;
+        width: 110px;
+        min-height: 110px;
+        padding: 0;
       }
 
       .mensaje-icon {
-        width: 38px;
-        height: 38px;
+        width: 110px;
+        height: 110px;
       }
 
       .comments-section {
@@ -2142,14 +2152,17 @@
       }
 
       .modal {
-        max-width: 90%;
-        padding: 16px;
-        width: 90%;
-        max-width: 400px;
+        width: 100%;
+        max-width: calc(100vw - 24px);
+        padding: 20px;
+        margin: auto;
       }
 
       .modal-backdrop {
-        padding: 16px;
+        padding: 12px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
       }
 
       .stars-row {
@@ -2172,6 +2185,19 @@
       .footer-logo {
         width: 50px;
         height: 50px;
+      }
+
+      .all-comments-modal {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+        max-height: 85vh;
+        margin: auto;
+      }
+
+      .modal-comentario {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+        margin: auto;
       }
 
   }
@@ -2427,7 +2453,11 @@
 
 .portada-container {
   position: relative;
-  padding-top: 70px;
+  padding-top: 100px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .portada-img {
@@ -2439,48 +2469,55 @@
 
 .mensaje-overlay {
   position: absolute;
-  top: 0;
+  top: -80px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 110px;
   min-height: 110px;
-  background: #ffffff;
+  background: transparent;
   color: #111111;
-  border: 2px solid var(--primary);
+  border: none;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  padding: 16px;
+  box-shadow: none;
+  padding: 0;
   z-index: 2;
   text-align: center;
   animation: float 3s ease-in-out infinite;
 }
 
 .mensaje-icon {
-  width: 48px;
-  height: 48px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary);
+  display: block;
 }
 
 .mensaje-overlay span {
-  color: #111111;
-  margin-top: 8px;
-  font-size: 12px;
-  font-weight: 700;
+  position: absolute;
+  bottom: -28px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
   text-align: center;
+  letter-spacing: 0.5px;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .planes-container {
   position: relative;
-  width: calc(100% - 24px);
-  margin: 0 12px;
+  width: 100%;
+  margin: 40px 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
   align-items: center;
 }
 
@@ -2497,9 +2534,12 @@
 .contenedor-planesdos {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  margin-bottom: 4px !important;
+  gap: 0;
+  margin-bottom: 40px;
 }
 
 .boton-click-planes {
@@ -2507,17 +2547,21 @@
   top: auto;
   left: auto;
   transform: none;
-  margin: 0 auto;
+  margin: 0 12px;
   display: block;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
+  width: calc(100% - 24px);
+  text-align: center;
   font-size: 12px;
   background: #000000;
   color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 10px 14px;
+  border: none;
+  border-radius: 0;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
 .label-avatar,
 .label-rating {
   color: black;
@@ -2608,11 +2652,13 @@
 .modal {
   background: #f1f1f1;
   border-radius: 16px;
-  padding: 16px;
-  max-width: 95%;
+  padding: 24px;
+  max-width: 500px;
   width: 100%;
   color: #111111;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
+  margin: auto;
 }
 
 .modal-comentario {
@@ -2668,19 +2714,20 @@
   transform: translate(-50%, -50%);
   width: 110px;
   min-height: 110px;
-  background: #ffffff;
-  color: #111111;
-  border: 2px solid var(--primary);
+  background: transparent;
+  color: #ffffff;
+  border: none;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  padding: 16px;
+  box-shadow: none;
+  padding: 0;
   z-index: 2;
   text-align: center;
+  animation: float 3s ease-in-out infinite;
 }
 
 .all-comments-container {
@@ -2898,14 +2945,15 @@
 
     .all-comments-modal {
       width: 100%;
-      max-width: 720px;
-      height: 85vh;
-      background: #f1f1f1;
-      border-radius: 16px 16px 0 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  max-height: 85vh;
+  background: #f1f1f1;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
     }
 
     .all-comments-body {
@@ -3073,8 +3121,8 @@
     <!-- PORTADA 1 - FULL BLEED -->
     <div class="portada-container">
       <div class="mensaje-overlay" onclick="openMensajeModal()">
-        <img src="/logodos.png" alt="Toca para leer" class="mensaje-icon">
-        <span>Toca para leer</span>
+        <img src="/logodos.png" alt="Toca para leer" class="mensaje-icon" style="animation: float 3s ease-in-out infinite;">
+        <span style="position: absolute; bottom: -28px; color: #ffffff; font-size: 11px; font-weight: 600; text-align: center; letter-spacing: 0.5px; width: 100%; white-space: nowrap;">Toca para leer</span>
       </div>
       <img src="/portadauno.png" alt="Portada Principal" class="portada-img">
     </div>
@@ -4545,7 +4593,6 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
       if (preview) {
         preview.addEventListener("click", openCommentModal);
       }
-    });
   </script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
