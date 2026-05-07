@@ -33,7 +33,6 @@
       color: #ffffff;
       overflow-x: hidden;
       position: relative;
-      overflow: auto;
     }
 
     body::before {
@@ -4811,14 +4810,6 @@ y empezar a trabajar con más claridad, menos desgaste y mejores resultados.`
     } else {
       setupImageInteractions();
     }
-
-    // Initialize on page load and ensure scroll is not blocked
-    window.addEventListener('load', function() {
-      document.body.style.overflow = '';
-      updateCtaButtonVisibility();
-      updateShortcutsButtonVisibility();
-      updateDecoHeights();
-    });
 
   </script>
   <script>
