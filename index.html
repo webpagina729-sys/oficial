@@ -162,7 +162,7 @@
       height: 100vh;
       background: var(--secondary);
       border-right: 2px solid var(--primary);
-      z-index: 250;
+      z-index: 10000;
       transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-y: auto;
       display: flex;
@@ -205,6 +205,7 @@
       font-size: 20px;
       transition: var(--transition);
       padding: 4px;
+      display: none;
     }
 
     .sidebar-close:hover {
@@ -358,7 +359,7 @@
     .banner {
       position: sticky;
       top: 72px;
-      z-index: 900;
+      z-index: 100;
       background: rgba(255,255,255,0.96);
       padding: 10px 20px;
       text-align: center;
@@ -1858,6 +1859,83 @@
         transform-origin: left top;
         margin: 8px 0 -12px 0;
       }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      .portada-img {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border-radius: 8px;
+      }
+
+      .portada-container {
+        padding-top: 40px;
+        padding-bottom: 80px;
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      .mensaje-overlay {
+        width: 90px;
+        min-height: 90px;
+        top: -80px;
+      }
+
+      .mensaje-icon {
+        width: 90px;
+        height: 90px;
+      }
+
+      .section {
+        padding: 20px 10px;
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      .banner-title {
+        font-size: 14px;
+        letter-spacing: 2px;
+      }
+
+      .section-title {
+        font-size: 15px;
+        line-height: 1.3;
+      }
+
+      .section-text {
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      img[src*="portada"] {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border-radius: 8px;
+      }
+
+      .full-width-img {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .planes-container {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      .contenedor-planesdos {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
     }
 
     /* ===== IMAGE MODAL ===== */
@@ -2115,25 +2193,28 @@
       }
 
       .banner-title {
-        font-size: 18px;
+        font-size: 16px;
         letter-spacing: 1px;
       }
 
       .section {
-        padding: 24px 12px;
+        padding: 20px 12px;
+        overflow-x: hidden;
       }
 
       .section-title {
-        font-size: 16px;
+        font-size: 15px;
       }
 
       .section-text {
-        font-size: 13px;
+        font-size: 12px;
         line-height: 1.6;
       }
 
       .portada-img {
-        padding: 0 12px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
       }
 
       .sidebar {
@@ -2453,8 +2534,8 @@
 
 .portada-container {
   position: relative;
-  padding-top: 100px;
-  padding-bottom: 40px;
+  padding-top: 60px;
+  padding-bottom: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2469,7 +2550,7 @@
 
 .mensaje-overlay {
   position: absolute;
-  top: -80px;
+  top: -100px;
   left: 50%;
   transform: translateX(-50%);
   width: 110px;
@@ -2705,29 +2786,6 @@
 .preview-comentario {
   background: #ffffff;
   border: 1px solid #ddd;
-}
-
-.mensaje-overlay {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 110px;
-  min-height: 110px;
-  background: transparent;
-  color: #ffffff;
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: none;
-  padding: 0;
-  z-index: 2;
-  text-align: center;
-  animation: float 3s ease-in-out infinite;
 }
 
 .all-comments-container {
@@ -3037,7 +3095,7 @@
     <nav class="sidebar-nav">
       <button class="sidebar-btn" onclick="openCurtain('how-obtain')">Cómo obtengo mi web</button>
       <button class="sidebar-btn" onclick="closeSidebar(); scrollToElement('comments-section')">Dejar comentario</button>
-      <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">📞 Contacto</button>
+      <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">Contacto</button>
       <button class="sidebar-btn" onclick="scrollToElement('social-section')">Seguinos en redes</button>
     </nav>
   </aside>
