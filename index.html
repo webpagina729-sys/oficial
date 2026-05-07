@@ -324,9 +324,17 @@
 
         /* ===== MAIN CONTENT ===== */
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 12px;
+            width: 100%;
+        }
+
+        @media (min-width: 769px) {
+            .container {
+                max-width: 1200px;
+                padding: 0 20px;
+            }
         }
 
         /* ===== PORTADAS ===== */
@@ -366,8 +374,15 @@
 
         .info-section-image {
             flex: 0 0 auto;
-            min-width: 300px;
-            width: 300px;
+            min-width: 280px;
+            width: 280px;
+        }
+
+        @media (max-width: 480px) {
+            .info-section-image {
+                min-width: 220px;
+                width: 220px;
+            }
         }
 
         .info-section-image img {
@@ -386,11 +401,17 @@
         }
 
         .info-section-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 16px;
             text-shadow: var(--glow-purple);
+        }
+
+        @media (max-width: 480px) {
+            .info-section-title {
+                font-size: 18px;
+            }
         }
 
         .info-section-subtitle {
@@ -400,6 +421,7 @@
             margin-bottom: 20px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
+            line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -408,6 +430,7 @@
         .info-section-subtitle.expanded {
             display: block;
             -webkit-line-clamp: unset;
+            line-clamp: unset;
             overflow: visible;
             text-overflow: clip;
         }
@@ -936,11 +959,11 @@
 
         /* Comentario Card */
         .comentario-card {
-            background: rgba(123, 44, 255, 0.08);
-            border: 1px solid rgba(123, 44, 255, 0.2);
+            background: rgba(123, 44, 255, 0.06);
+            border: 1px solid rgba(123, 44, 255, 0.15);
             border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 16px;
+            padding: 12px;
+            margin-bottom: 12px;
             animation: fadeInSlide 0.4s ease;
         }
 
@@ -957,17 +980,17 @@
 
         .comentario-header {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: flex-start;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .comentario-avatar {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             flex-shrink: 0;
-            border: 2px solid rgba(123, 44, 255, 0.4);
+            border: 1.5px solid rgba(123, 44, 255, 0.3);
             object-fit: cover;
         }
 
@@ -976,33 +999,34 @@
         }
 
         .comentario-nombre {
-            font-weight: 700;
+            font-weight: 600;
             color: #ffffff;
-            font-size: 13px;
-            margin-bottom: 2px;
+            font-size: 12px;
+            margin-bottom: 1px;
         }
 
         .comentario-fecha {
-            font-size: 11px;
-            color: rgba(217, 217, 217, 0.6);
+            font-size: 10px;
+            color: rgba(217, 217, 217, 0.5);
         }
 
         .comentario-texto {
             color: #d9d9d9;
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 12px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 8px;
             word-wrap: break-word;
         }
 
         .comentario-rating {
             display: flex;
-            gap: 4px;
-            margin-bottom: 12px;
+            gap: 3px;
+            margin-bottom: 8px;
+            font-size: 11px;
         }
 
         .comentario-rating .star {
-            font-size: 14px;
+            font-size: 12px;
             cursor: default;
             color: #ff00aa;
             margin: 0;
@@ -1010,20 +1034,24 @@
 
         .comentario-acciones {
             display: flex;
-            gap: 16px;
-            font-size: 12px;
+            gap: 12px;
+            font-size: 11px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(123, 44, 255, 0.1);
+            margin-top: 8px;
         }
 
         .comentario-accion {
             background: none;
             border: none;
-            color: rgba(217, 217, 217, 0.7);
+            color: rgba(217, 217, 217, 0.6);
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             transition: var(--transition);
-            font-size: 12px;
+            font-size: 11px;
+            padding: 0;
         }
 
         .comentario-accion:hover {
@@ -1035,36 +1063,36 @@
         }
 
         .comentario-contador {
-            font-size: 11px;
-            color: rgba(217, 217, 217, 0.6);
+            font-size: 10px;
+            color: rgba(217, 217, 217, 0.5);
         }
 
         /* Respuestas */
         .respuestas-container {
-            margin-top: 12px;
-            padding-left: 12px;
-            border-left: 2px solid rgba(123, 44, 255, 0.2);
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 2px solid rgba(123, 44, 255, 0.15);
         }
 
         .respuesta-card {
-            background: rgba(255, 0, 170, 0.05);
-            border: 1px solid rgba(255, 0, 170, 0.15);
+            background: rgba(255, 0, 170, 0.04);
+            border: 1px solid rgba(255, 0, 170, 0.1);
             border-radius: 6px;
-            padding: 12px;
-            margin-top: 10px;
-            font-size: 12px;
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 11px;
         }
 
         .respuesta-header {
             display: flex;
             gap: 8px;
             align-items: flex-start;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .respuesta-avatar {
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             flex-shrink: 0;
             border: 1px solid rgba(255, 0, 170, 0.3);
@@ -1392,16 +1420,23 @@
             }
 
             .info-section {
-                gap: 20px;
+                gap: 15px;
+                flex-wrap: wrap;
             }
 
-            .info-section-image,
+            .info-section-image {
+                flex: 0 0 35%;
+                min-width: 35%;
+                width: 35%;
+            }
+
             .info-section-content {
-                min-width: 100%;
+                flex: 1;
+                min-width: 60%;
             }
 
             .info-section.reverse {
-                flex-direction: column-reverse;
+                flex-direction: row-reverse;
             }
 
             .info-section-title {
@@ -1900,6 +1935,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 <textarea id="replyTexto" class="comentario-textarea" placeholder="Escribí tu respuesta..."></textarea>
             </div>
 
+            <div class="recaptcha-container" id="recaptchaReplyContainer"></div>
+
             <button class="btn-enviar" onclick="enviarRespuesta()">Enviar respuesta</button>
         </div>
     </div>
@@ -2150,6 +2187,16 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             console.log("Error en reCAPTCHA");
         };
 
+        window.onRecaptchaSuccessReply = function(token) {
+            recaptchaReplyToken = token;
+            console.log("reCAPTCHA respuesta verificado");
+        };
+
+        window.onRecaptchaErrorReply = function() {
+            recaptchaReplyToken = null;
+            console.log("Error en reCAPTCHA respuesta");
+        };
+
         // Enviar Comentario
         async function enviarComentario() {
             const nombre = document.getElementById("comentarioNombre").value.trim() || "Anónimo";
@@ -2312,18 +2359,34 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         // Variables para modal de respuesta
         let replyingToCommentId = null;
         let replySelectedAvatar = "avataruno.png";
+        let recaptchaReplyToken = null;
 
         // Reply Modal Functions
         function openReplyModal(comentarioId) {
             replyingToCommentId = comentarioId;
             document.getElementById("replyModalBackdrop").classList.add("active");
             document.getElementById("replyTexto").focus();
+            
+            // Inicializar reCAPTCHA para respuesta
+            setTimeout(() => {
+                const container = document.getElementById("recaptchaReplyContainer");
+                container.innerHTML = '<div class="g_recaptcha_container" id="recaptchaReply"></div>';
+                
+                if (window.grecaptcha) {
+                    window.grecaptcha.render("recaptchaReply", {
+                        sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
+                        callback: onRecaptchaSuccessReply,
+                        "error-callback": onRecaptchaErrorReply
+                    });
+                }
+            }, 100);
         }
 
         function closeReplyModal() {
             document.getElementById("replyModalBackdrop").classList.remove("active");
             document.getElementById("replyTexto").value = "";
             replyingToCommentId = null;
+            recaptchaReplyToken = null;
         }
 
         function openAvatarModalForReply() {
@@ -2370,6 +2433,11 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
             if (!texto || texto.length < 5) {
                 alert("La respuesta debe tener al menos 5 caracteres");
+                return;
+            }
+
+            if (!recaptchaReplyToken) {
+                alert("Por favor verifica que no eres un robot");
                 return;
             }
 
