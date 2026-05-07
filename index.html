@@ -1105,8 +1105,6 @@
       color: #ff00aa;
       background: rgba(255, 0, 170, 0.1);
     }
-      color: #25D366;
-    }
 
     .comment-likes,
     .reply-likes {
@@ -2403,26 +2401,8 @@
   background: rgba(5, 8, 22, 0.08);
   box-shadow: 0 -10px 30px rgba(0,0,0,0.08);
 }
-  position: relative;
-  z-index: 1;
 
-  width: 90%;
-  max-width: 720px;
-  height: 80vh;
-
-  display: flex;
-  flex-direction: column;
-
-  border-radius: 20px;
-  overflow: hidden;
-
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(18px);
-
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-
-/* BODY */
+/* ===== ALL COMMENTS BODY ===== */
 .all-comments-body {
   flex: 1;
   overflow-y: auto;
@@ -4011,8 +3991,7 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
     // Initialize default rating (moved here to ensure appState exists)
     window.selectRating(5);
 
-    // Comment modal functions - MOVED TO MODULE SCOPE
-    let widgetId = null;
+    // Comment modal functions - widgetId already declared above
 
     window.renderRecaptcha = function() {
       if (typeof grecaptcha === 'undefined') return;
@@ -4139,8 +4118,7 @@ De mi lado, estoy para implementarlo y así que realmente te libere tiempo y ene
       }
     });
 
-    // Comment modal
-    let widgetId = null;
+    // Comment modal (widgetId already declared above)
 
     window.renderRecaptcha = function() {
       if (typeof grecaptcha === 'undefined') return;
