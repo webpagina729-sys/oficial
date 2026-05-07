@@ -39,13 +39,8 @@
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url('/fondoweb.png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      filter: none;
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 50%, #1a1a2e 100%);
       z-index: -2;
-      transform: scale(1.05);
     }
 
     body::after {
@@ -2930,41 +2925,27 @@
 }
 
     /* ===== IMPROVED SYMMETRY AND CENTERING ===== */
-    .modal-backdrop {
+    /* Modal backdrops - only when open */
+    .modal-backdrop.open {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
 
-    .modal-backdrop.open {
-      display: flex !important;
-    }
-
     .modal {
       margin: auto !important;
-      width: 100% !important;
-      max-width: 500px !important;
     }
 
     .modal-comentario {
       width: 100% !important;
-      max-width: 500px !important;
       margin: auto !important;
     }
 
-    /* Center all dialogs and overlays */
-    .all-comments-container {
-      display: none;
-      position: fixed;
-      inset: 0;
-      align-items: center;
-      justify-content: center;
-      z-index: 500;
-      padding: 20px;
-    }
-
+    /* Center comments container */
     .all-comments-container.open {
-      display: flex;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
     .all-comments-modal {
@@ -2974,96 +2955,37 @@
       margin: auto;
     }
 
-    .image-modal-backdrop {
+    .image-modal-backdrop.open {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
 
-    .shortcuts-modal-backdrop {
+    .shortcuts-modal-backdrop.open {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
 
-    .plan-info-modal-backdrop {
+    .plan-info-modal-backdrop.open {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
 
-    /* Fix section alignment */
-    .section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .section-row {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Improve "Ver más" button alignment */
-    .texto-preview {
-      display: inline-block;
-      width: 100%;
-    }
-
-    .ver-mas {
-      white-space: nowrap;
-    }
-
-    /* Ensure portada images are responsive and centered */
+    /* Portada centering */
     .portada-img {
       display: block;
       margin: 0 auto !important;
     }
 
-    /* Center footer links */
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-    }
-
-    /* Ensure comments section is centered */
-    .comments-section {
-      width: 100%;
-      max-width: 1000px;
-      margin: 40px auto;
-    }
-
-    /* Social section centering */
-    .social-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Center forms */
-    .form-group {
-      width: 100%;
-    }
-
+    /* Avatar selector centering */
     .avatar-selector {
       justify-content: center;
-      width: 100%;
     }
 
-    /* Ensure modal actions are centered */
+    /* Modal actions centering */
     .modal-actions {
-      width: 100%;
       display: flex;
       gap: 12px;
       justify-content: center;
