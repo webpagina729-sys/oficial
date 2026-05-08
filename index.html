@@ -2164,10 +2164,32 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
     <!-- Scripts -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, updateDoc, doc, increment, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+        // ==========================
+        // IMPORTS FIREBASE
+        // ==========================
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            serverTimestamp,
+            onSnapshot,
+            query,
+            where,
+            orderBy,
+            doc,
+            updateDoc,
+            increment,
+            setDoc,
+            deleteDoc,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        // ==========================
+        // CONFIG FIREBASE
+        // ==========================
 
         const firebaseConfig = {
             apiKey: "AIzaSyCuC69MOmZs3JEzG8RfD_AU92dUr42VkVM",
@@ -2179,23 +2201,38 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             measurementId: "G-9KSD90Y6G9"
         };
 
+        // ==========================
+        // INICIAR FIREBASE
+        // ==========================
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const auth = getAuth(app);
-        const analytics = getAnalytics(app);
 
-        signInAnonymously(auth)
-            .then(() => {
-                console.log("Usuario anónimo conectado");
-                cargarComentarios();
-            })
-            .catch((error) => {
-                console.error("Error en login:", error);
-            });
+        // ==========================
+        // HACER GLOBAL
+        // ==========================
 
-        // Global variables
         window.db = db;
-        window.auth = auth;
+
+        window.firebaseTools = {
+            collection,
+            addDoc,
+            serverTimestamp,
+            onSnapshot,
+            query,
+            where,
+            orderBy,
+            doc,
+            updateDoc,
+            increment,
+            setDoc,
+            deleteDoc,
+            getDocs
+        };
+
+        console.log("🔥 Firebase conectado correctamente");
+
+        // Global variables para compatibilidad
         window.collection = collection;
         window.addDoc = addDoc;
         window.getDocs = getDocs;
@@ -2209,7 +2246,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         // Avatares
         const avatares = [
             "avataruno.png", "avatardos.png", "avatartres.png", "avatarcuatro.png",
-            "avatarcinco.png", "avatarseis.png", "avatarsietee.png", "avatarocho.png",
+            "avatarcinco.png", "avatarseis.png", "avatarsiete.png", "avatarocho.png",
             "avatarnueve.png", "avatardiez.png", "avataronce.png", "avatardoce.png",
             "avatartrece.png", "avatarcatorce.jfif", "avatarquince.png", "avatardieciseis.png",
             "avatardiecisiete.png", "avatardieciocho.png", "avatardiecinueve.png", "avatarveinte.png",
@@ -2601,14 +2638,14 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             // Llenar el grid con todos los avatares
             const allAvatars = [
                 "avataruno.png", "avatardos.png", "avatartres.png", "avatarcuatro.png",
-                "avatarcinco.png", "avatarseis.png", "avatarsiete.png", "avatarocho.png",
+                "avatarcinco.png", "avatarseis.png", "avatarsietee.png", "avatarocho.png",
                 "avatarnueve.png", "avatardiez.png", "avataronce.png", "avatardoce.png",
                 "avatartreceavo.png", "avatarcatorce.jfif", "avatarquince.png", "avatardieciseis.png",
                 "avatardiecisiete.png", "avatardieciocho.png", "avatardiecinueve.png", "avatarveinte.png",
                 "avatarveintiuno.png", "avatarveintidos.png", "avatarveintitres.png", "avatarveinticuatro.png",
                 "avatarveinticinco.png", "avatarveintiseis.png", "avatarveintisiete.png", "avatarveintiocho.png",
                 "avatarveintinueve.png", "avatartreinta.png"
-            ]; 
+            ];
 
             allAvatars.forEach(avatar => {
                 const div = document.createElement("div");
@@ -2797,6 +2834,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
         // Inicializar
         initStars();
+        cargarComentarios();
         const firstAvatar = document.querySelector("#commentModalAvatarSelector .avatar-option");
         if (firstAvatar) {
             selectCommentModalAvatar(firstAvatar);
