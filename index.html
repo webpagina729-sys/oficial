@@ -858,6 +858,7 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            pointer-events: auto !important;
         }
 
         .form-label {
@@ -866,6 +867,7 @@
             font-weight: 600;
             text-transform: none;
             letter-spacing: 0.5px;
+            pointer-events: auto !important;
         }
 
         .form-input {
@@ -878,6 +880,7 @@
             font-size: 15px;
             transition: all 0.2s ease;
             width: 100%;
+            pointer-events: auto !important;
         }
 
         .form-input:focus {
@@ -950,6 +953,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            pointer-events: auto !important;
         }
 
         .modal-backdrop.active {
@@ -967,6 +971,9 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.08);
             max-height: 85vh;
             overflow-y: auto;
+            pointer-events: auto !important;
+            position: relative;
+            z-index: 401;
         }
 
         .modal-header {
@@ -1025,24 +1032,30 @@
         }
 
         /* reCAPTCHA */
+        /* reCAPTCHA */
         .recaptcha-container {
             margin: 16px 0;
             display: flex;
             justify-content: center;
+            align-items: center;
             width: 100%;
+            pointer-events: auto !important;
         }
 
         .g_recaptcha_container {
-            transform: scale(1);
-            transform-origin: center;
             margin: 0;
+            pointer-events: auto !important;
+        }
+
+        .recaptcha-container iframe {
+            pointer-events: auto !important;
         }
 
         @media (max-width: 480px) {
             .recaptcha-container {
-                transform: scale(0.85);
-                transform-origin: center;
-                margin: 12px -12px;
+                margin: 12px 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
         }
 
@@ -1062,6 +1075,7 @@
             transition: all 0.2s ease;
             box-shadow: none;
             height: 42px;
+            pointer-events: auto !important;
         }
 
         .btn-enviar:hover {
@@ -1087,6 +1101,7 @@
             text-transform: none;
             transition: all 0.2s ease;
             box-shadow: none;
+            pointer-events: auto !important;
         }
 
         .btn-small:hover {
@@ -2442,6 +2457,15 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 try {
                     window.grecaptcha.reset();
                     console.log("reCAPTCHA reset");
+                    
+                    // Re-renderizar después de un pequeño delay para móvil
+                    setTimeout(() => {
+                        try {
+                            window.grecaptcha.render();
+                        } catch (e) {
+                            // Ya está renderizado
+                        }
+                    }, 100);
                 } catch (e) {
                     console.log("No se puede resetear reCAPTCHA", e);
                 }
