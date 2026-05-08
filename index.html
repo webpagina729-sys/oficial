@@ -714,7 +714,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 300;
+            z-index: 1000;
             padding: 20px;
         }
 
@@ -1617,6 +1617,24 @@
 
     <!-- Main Content -->
     <main class="container">
+        <!-- Mensaje Circular Inicial -->
+        <section class="mensaje-container" id="mensajeInitialSection">
+            <div class="mensaje-wrapper">
+                <img src="/logodos.png" alt="Mensaje" class="mensaje-image" id="mensajeInitialImage">
+                <div class="mensaje-arrows">↓</div>
+                <div class="mensaje-hint">toca para leer</div>
+            </div>
+        </section>
+
+        <!-- Mensaje Circular Antes de Portada Uno -->
+        <section class="mensaje-container" id="mensajePortada1">
+            <div class="mensaje-wrapper">
+                <img src="/logodos.png" alt="Mensaje" class="mensaje-image" id="mensajePortada1Image">
+                <div class="mensaje-arrows">↓</div>
+                <div class="mensaje-hint">toca para leer</div>
+            </div>
+        </section>
+
         <!-- Portada Uno -->
         <section class="portada-section">
             <img src="/portadauno.png" alt="Portada Uno" class="portada-img">
@@ -1817,15 +1835,6 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             <img src="/portadadiez.png" alt="Portada Diez" class="portada-img">
         </section>
 
-        <!-- Mensaje Circular -->
-        <section class="mensaje-container" id="mensajeSection">
-            <div class="mensaje-wrapper">
-                <img src="/logodos.png" alt="Mensaje" class="mensaje-image" id="mensajeImage">
-                <div class="mensaje-arrows">↓</div>
-                <div class="mensaje-hint">toca para leer</div>
-            </div>
-        </section>
-
         <!-- Planes Section -->
         <section class="planes-section">
             <img src="/bannerplanes.png" alt="Banner Planes" class="planes-banner">
@@ -1837,52 +1846,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         <section class="comentarios-section" id="comentariosSection">
             <h2 class="comentarios-title">Dejá un comentario!</h2>
             
-            <div class="comentarios-form">
-                <!-- Selector de Avatar -->
-                <div class="form-group">
-                    <label class="form-label">Elegir Avatar</label>
-                    <div class="avatar-selector" id="avatarSelector">
-                        <div class="avatar-option" data-avatar="avataruno.png" onclick="selectAvatar(this)">
-                            <img src="/avataruno.png" alt="Avatar 1">
-                        </div>
-                        <div class="avatar-option" data-avatar="avatardos.png" onclick="selectAvatar(this)">
-                            <img src="/avatardos.png" alt="Avatar 2">
-                        </div>
-                        <div class="avatar-option" data-avatar="avatartres.png" onclick="selectAvatar(this)">
-                            <img src="/avatartres.png" alt="Avatar 3">
-                        </div>
-                        <div class="avatar-option" data-avatar="avatarcuatro.png" onclick="selectAvatar(this)">
-                            <img src="/avatarcuatro.png" alt="Avatar 4">
-                        </div>
-                        <div class="avatar-ver-mas" id="verMasAvatar" onclick="openAvatarModal()">+26</div>
-                    </div>
-                </div>
-
-                <!-- Avatar Seleccionado -->
-                <div class="form-group">
-                    <label class="form-label">Avatar Seleccionado</label>
-                    <div style="display: flex; justify-content: center;">
-                        <img id="avatarCommentDisplay" src="/avataruno.png" alt="Avatar" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #7b2cff;">
-                    </div>
-                </div>
-
-                <!-- Nombre -->
-                <div class="form-group">
-                    <label class="form-label">Tu Nombre</label>
-                    <input type="text" id="comentarioNombre" class="form-input" placeholder="Decinos tu nombre...">
-                </div>
-
-                <!-- Estrellas -->
-                <div class="form-group">
-                    <label class="form-label">Calificanos</label>
-                    <div class="stars-container" id="starsContainer"></div>
-                </div>
-
-                <!-- Comentario Principal -->
-                <div class="form-group">
-                    <label class="form-label">Dejanos un Comentario</label>
-                    <textarea id="comentarioTexto" class="form-input comentario-textarea" placeholder="Decinos cuál es tu tarea repetitiva..."></textarea>
-                </div>
+            <div style="display: flex; justify-content: center; margin: 40px 0;">
+                <button class="boton-click-planes" onclick="openCommentModal()" style="max-width: 400px;">Déjanos un comentario</button>
             </div>
 
             <!-- Comentarios Mostrados -->
@@ -1944,10 +1909,29 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
     <div class="modal-backdrop" id="modalBackdrop">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Enviar Comentario</h3>
+                <h3 class="modal-title">Dejá tu comentario</h3>
                 <button class="modal-close" onclick="closeCommentModal()">✕</button>
             </div>
             
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label class="form-label">Elegir Avatar</label>
+                <div class="avatar-selector" id="commentModalAvatarSelector">
+                    <div class="avatar-option" data-avatar="avataruno.png" onclick="selectCommentModalAvatar(this)">
+                        <img src="/avataruno.png" alt="Avatar 1">
+                    </div>
+                    <div class="avatar-option" data-avatar="avatardos.png" onclick="selectCommentModalAvatar(this)">
+                        <img src="/avatardos.png" alt="Avatar 2">
+                    </div>
+                    <div class="avatar-option" data-avatar="avatartres.png" onclick="selectCommentModalAvatar(this)">
+                        <img src="/avatartres.png" alt="Avatar 3">
+                    </div>
+                    <div class="avatar-option" data-avatar="avatarcuatro.png" onclick="selectCommentModalAvatar(this)">
+                        <img src="/avatarcuatro.png" alt="Avatar 4">
+                    </div>
+                    <div class="avatar-ver-mas" id="verMasCommentModal" onclick="openAvatarModalForComment()">+26</div>
+                </div>
+            </div>
+
             <div class="form-group" style="margin-bottom: 20px;">
                 <label class="form-label">Avatar Seleccionado</label>
                 <div style="display: flex; justify-content: center;">
@@ -1956,8 +1940,18 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             </div>
 
             <div class="form-group">
+                <label class="form-label">Tu Nombre</label>
+                <input type="text" id="comentarioNombre" class="form-input" placeholder="Decinos tu nombre...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Calificanos</label>
+                <div class="stars-container" id="starsContainer"></div>
+            </div>
+
+            <div class="form-group">
                 <label class="form-label">Tu comentario</label>
-                <textarea id="comentarioTexto" class="comentario-textarea" placeholder="Compartí tu experiencia..."></textarea>
+                <textarea id="comentarioTexto" class="form-input comentario-textarea" placeholder="Compartí tu experiencia..."></textarea>
             </div>
 
             <div class="recaptcha-container" id="recaptchaContainer"></div>
@@ -2153,6 +2147,14 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             document.getElementById("avatarCommentDisplay").src = "/" + selectedAvatar;
         }
 
+        // Selector de Avatar para Modal Comentarios
+        function selectCommentModalAvatar(element) {
+            document.querySelectorAll("#commentModalAvatarSelector .avatar-option").forEach(el => el.classList.remove("selected"));
+            element.classList.add("selected");
+            selectedAvatar = element.getAttribute("data-avatar");
+            document.getElementById("avatarSelectedDisplay").src = "/" + selectedAvatar;
+        }
+
         // Avatar Modal
         function initAvatarGrid() {
             const grid = document.getElementById("avatarGrid");
@@ -2177,6 +2179,11 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         }
 
         function openAvatarModal() {
+            initAvatarGrid();
+            document.getElementById("avatarModal").classList.add("active");
+        }
+
+        function openAvatarModalForComment() {
             initAvatarGrid();
             document.getElementById("avatarModal").classList.add("active");
         }
@@ -2221,7 +2228,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             const container = document.getElementById("recaptchaContainer");
             if (!container) return;
             
-            container.innerHTML = '<div class="g_recaptcha_container" id="recaptcha"></div>';
+            container.innerHTML = '<div id="recaptcha"></div>';
+            recaptchaToken = null;
             
             setTimeout(() => {
                 if (window.grecaptcha) {
@@ -2233,6 +2241,11 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                         });
                     } catch (e) {
                         console.error("Error renderizando reCAPTCHA:", e);
+                        // Si falla, intentar limpiar e intentar de nuevo
+                        if (e.message && e.message.includes("already")) {
+                            container.innerHTML = '';
+                            setTimeout(initRecaptcha, 500);
+                        }
                     }
                 } else {
                     console.log("grecaptcha no disponible, reintentando...");
@@ -2436,17 +2449,34 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 const container = document.getElementById("recaptchaReplyContainer");
                 if (!container) return;
                 
-                container.innerHTML = '<div class="g_recaptcha_container" id="recaptchaReply"></div>';
+                // Limpiar el contenedor y crear nuevo elemento
+                container.innerHTML = '<div id="recaptchaReply"></div>';
                 
                 if (window.grecaptcha) {
                     try {
-                        window.grecaptcha.render("recaptchaReply", {
-                            sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
-                            callback: "onRecaptchaSuccessReply",
-                            "error-callback": "onRecaptchaErrorReply"
-                        });
+                        // Reset si existe widget anterior
+                        if (window.grecaptcha.getResponse("recaptchaReply")) {
+                            window.grecaptcha.reset("recaptchaReply");
+                        } else {
+                            // Renderizar si no existe
+                            window.grecaptcha.render("recaptchaReply", {
+                                sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
+                                callback: "onRecaptchaSuccessReply",
+                                "error-callback": "onRecaptchaErrorReply"
+                            });
+                        }
                     } catch (e) {
                         console.error("Error renderizando reCAPTCHA reply:", e);
+                        // Intentar renderizar de todas formas
+                        try {
+                            window.grecaptcha.render("recaptchaReply", {
+                                sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
+                                callback: "onRecaptchaSuccessReply",
+                                "error-callback": "onRecaptchaErrorReply"
+                            });
+                        } catch (e2) {
+                            console.error("Segundo intento fallido:", e2);
+                        }
                     }
                 }
             }, 100);
@@ -2626,11 +2656,17 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         document.getElementById("btnPlanes").addEventListener("click", openSubmenu);
         document.getElementById("backSubmenu").addEventListener("click", closeSubmenu);
         document.getElementById("overlay").addEventListener("click", closeSidebar);
-        document.getElementById("mensajeImage").addEventListener("click", openMensajeModal);
+        
+        const mensajeImages = document.querySelectorAll(".mensaje-image");
+        mensajeImages.forEach(img => {
+            img.addEventListener("click", openMensajeModal);
+        });
 
         // Global Functions
         window.selectAvatar = selectAvatar;
+        window.selectCommentModalAvatar = selectCommentModalAvatar;
         window.openAvatarModal = openAvatarModal;
+        window.openAvatarModalForComment = openAvatarModalForComment;
         window.closeAvatarModal = closeAvatarModal;
         window.openCommentModal = openCommentModal;
         window.closeCommentModal = closeCommentModal;
@@ -2658,7 +2694,10 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
         // Inicializar
         initStars();
-        selectAvatar(document.querySelector(".avatar-option"));
+        const firstAvatar = document.querySelector("#commentModalAvatarSelector .avatar-option");
+        if (firstAvatar) {
+            selectCommentModalAvatar(firstAvatar);
+        }
     </script>
 
     <!-- reCAPTCHA Script -->
