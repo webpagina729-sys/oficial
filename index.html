@@ -128,22 +128,32 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
-        /* Login Button */
+        /* Logo Button */
         .btn-login {
-            padding: 10px 24px;
-            background: #1877f2;
-            color: #ffffff;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: none;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
             transition: all 0.2s ease;
         }
 
         .btn-login:hover {
-            background: #1865d5;
+            background: #f0f2f5;
             box-shadow: none;
+            transform: scale(1.05);
+        }
+
+        .btn-login img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         /* ===== SIDEBAR ===== */
@@ -663,11 +673,11 @@
         /* ===== COMENTARIOS SECTION ===== */
         .comentarios-section {
             margin: 40px auto;
-            background: #f0f2f5;
-            padding: 16px;
+            background: #ffffff;
+            padding: 24px;
             border-radius: 18px;
-            border: none;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            border: 1px solid #e4e6eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5);
             max-width: 100%;
             width: 100%;
         }
@@ -1019,12 +1029,21 @@
             margin: 16px 0;
             display: flex;
             justify-content: center;
+            width: 100%;
         }
 
         .g_recaptcha_container {
-            transform: scale(0.9);
-            transform-origin: 0 0;
-            margin: -20px 0;
+            transform: scale(1);
+            transform-origin: center;
+            margin: 0;
+        }
+
+        @media (max-width: 480px) {
+            .recaptcha-container {
+                transform: scale(0.85);
+                transform-origin: center;
+                margin: 12px -12px;
+            }
         }
 
         /* Buttons */
@@ -1679,7 +1698,9 @@
             <span></span>
         </button>
         <div class="header-brand">TUWEB</div>
-        <button class="btn-login" onclick="openLoginModal()">Iniciar sesión</button>
+        <button class="btn-login" onclick="openLoginModal()">
+            <img src="/logoweb.png" alt="Logo TUWEB">
+        </button>
     </header>
 
     <!-- Overlay -->
@@ -2638,7 +2659,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             // Llenar el grid con todos los avatares
             const allAvatars = [
                 "avataruno.png", "avatardos.png", "avatartres.png", "avatarcuatro.png",
-                "avatarcinco.png", "avatarseis.png", "avatarsietee.png", "avatarocho.png",
+                "avatarcinco.png", "avatarseis.png", "avatarsiete.png", "avatarocho.png",
                 "avatarnueve.png", "avatardiez.png", "avataronce.png", "avatardoce.png",
                 "avatartreceavo.png", "avatarcatorce.jfif", "avatarquince.png", "avatardieciseis.png",
                 "avatardiecisiete.png", "avatardieciocho.png", "avatardiecinueve.png", "avatarveinte.png",
