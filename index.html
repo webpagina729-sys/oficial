@@ -328,6 +328,7 @@
             margin: 0 auto;
             padding: 0 12px;
             width: 100%;
+            overflow: visible;
         }
 
         @media (min-width: 769px) {
@@ -366,6 +367,7 @@
             gap: 30px;
             margin: 60px 0;
             flex-wrap: nowrap;
+            position: relative;
         }
 
         .info-section.reverse {
@@ -398,6 +400,7 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+            position: relative;
         }
 
         .info-section-title {
@@ -448,6 +451,49 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-top: auto;
+            position: absolute;
+            width: auto;
+            white-space: nowrap;
+            z-index: 50;
+        }
+
+        /* Posicionar botones según la sección */
+        .info-section-content .ver-mas-btn {
+            right: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-top: 0;
+        }
+
+        .info-section.reverse .info-section-content .ver-mas-btn {
+            right: auto;
+            left: -120px;
+        }
+
+        @media (max-width: 1024px) {
+            .info-section-content .ver-mas-btn {
+                right: -100px;
+            }
+
+            .info-section.reverse .info-section-content .ver-mas-btn {
+                left: -100px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .info-section-content .ver-mas-btn {
+                position: static;
+                width: auto;
+                right: auto;
+                left: auto;
+                transform: none;
+            }
+
+            .info-section.reverse .info-section-content .ver-mas-btn {
+                position: static;
+                left: auto;
+            }
+        }
         }
 
         .ver-mas-btn:hover {
@@ -1617,15 +1663,6 @@
 
     <!-- Main Content -->
     <main class="container">
-        <!-- Mensaje Circular Inicial -->
-        <section class="mensaje-container" id="mensajeInitialSection">
-            <div class="mensaje-wrapper">
-                <img src="/logodos.png" alt="Mensaje" class="mensaje-image" id="mensajeInitialImage">
-                <div class="mensaje-arrows">↓</div>
-                <div class="mensaje-hint">toca para leer</div>
-            </div>
-        </section>
-
         <!-- Mensaje Circular Antes de Portada Uno -->
         <section class="mensaje-container" id="mensajePortada1">
             <div class="mensaje-wrapper">
@@ -1846,8 +1883,24 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         <section class="comentarios-section" id="comentariosSection">
             <h2 class="comentarios-title">Dejá un comentario!</h2>
             
-            <div style="display: flex; justify-content: center; margin: 40px 0;">
-                <button class="boton-click-planes" onclick="openCommentModal()" style="max-width: 400px;">Déjanos un comentario</button>
+            <div class="comentarios-form">
+                <!-- Nombre -->
+                <div class="form-group">
+                    <label class="form-label">Tu Nombre</label>
+                    <input type="text" id="comentarioNombre" class="form-input" placeholder="Decinos tu nombre...">
+                </div>
+
+                <!-- Calificación -->
+                <div class="form-group">
+                    <label class="form-label">Calificanos</label>
+                    <div class="stars-container" id="starsContainerMain"></div>
+                </div>
+
+                <!-- Comentario Principal -->
+                <div class="form-group">
+                    <label class="form-label">Tu comentario</label>
+                    <textarea id="comentarioTextoMain" class="form-input comentario-textarea" placeholder="Contanos cuál es tu tarea repetitiva..." onclick="openCommentModal()"></textarea>
+                </div>
             </div>
 
             <!-- Comentarios Mostrados -->
@@ -1951,7 +2004,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
             <div class="form-group">
                 <label class="form-label">Tu comentario</label>
-                <textarea id="comentarioTexto" class="form-input comentario-textarea" placeholder="Compartí tu experiencia..."></textarea>
+                <textarea id="comentarioTexto" class="form-input comentario-textarea" placeholder="Contanos cuál es tu tarea repetitiva..."></textarea>
             </div>
 
             <div class="recaptcha-container" id="recaptchaContainer"></div>
@@ -2112,14 +2165,30 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         // Inicializar estrellas
         function initStars() {
             const container = document.getElementById("starsContainer");
-            container.innerHTML = "";
-            for (let i = 1; i <= 5; i++) {
-                const star = document.createElement("span");
-                star.className = "star";
-                star.textContent = "★";
-                star.onclick = () => selectRating(i);
-                container.appendChild(star);
+            const containerMain = document.getElementById("starsContainerMain");
+            
+            if (container) {
+                container.innerHTML = "";
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement("span");
+                    star.className = "star";
+                    star.textContent = "★";
+                    star.onclick = () => selectRating(i);
+                    container.appendChild(star);
+                }
             }
+            
+            if (containerMain) {
+                containerMain.innerHTML = "";
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement("span");
+                    star.className = "star";
+                    star.textContent = "★";
+                    star.onclick = () => selectRating(i);
+                    containerMain.appendChild(star);
+                }
+            }
+            
             updateStars();
         }
 
@@ -2129,7 +2198,18 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         }
 
         function updateStars() {
-            document.querySelectorAll("#starsContainer .star").forEach((star, index) => {
+            const starsMain = document.querySelectorAll("#starsContainerMain .star");
+            const starsModal = document.querySelectorAll("#starsContainer .star");
+            
+            starsMain.forEach((star, index) => {
+                if (index + 1 <= selectedRating) {
+                    star.classList.add("active");
+                } else {
+                    star.classList.remove("active");
+                }
+            });
+            
+            starsModal.forEach((star, index) => {
                 if (index + 1 <= selectedRating) {
                     star.classList.add("active");
                 } else {
@@ -2194,8 +2274,24 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
         // Comentario Modal
         function openCommentModal() {
+            // Copiar datos del formulario principal al modal
+            const nombreMain = document.getElementById("comentarioNombre").value;
+            if (nombreMain) {
+                // Si hay nombre en el principal, copiarlo al modal
+                document.getElementById("comentarioNombre").value = nombreMain;
+            }
+            
+            // Limpiar el textarea del modal
+            document.getElementById("comentarioTexto").value = "";
+            
+            // Abrir el modal
             document.getElementById("modalBackdrop").classList.add("active");
             initRecaptcha();
+            
+            // Enfocar el textarea
+            setTimeout(() => {
+                document.getElementById("comentarioTexto").focus();
+            }, 100);
         }
 
         function closeCommentModal() {
@@ -2235,7 +2331,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 if (window.grecaptcha) {
                     try {
                         window.grecaptcha.render("recaptcha", {
-                            sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
+                            sitekey: "6LeNuM0sAAAAAPoZT0eQYyyW9DDyX042tlio-O-C",
                             callback: "onRecaptchaSuccess",
                             "error-callback": "onRecaptchaError"
                         });
@@ -2460,7 +2556,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                         } else {
                             // Renderizar si no existe
                             window.grecaptcha.render("recaptchaReply", {
-                                sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
+                                sitekey: "6LeNuM0sAAAAAPoZT0eQYyyW9DDyX042tlio-O-C",
                                 callback: "onRecaptchaSuccessReply",
                                 "error-callback": "onRecaptchaErrorReply"
                             });
@@ -2470,7 +2566,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                         // Intentar renderizar de todas formas
                         try {
                             window.grecaptcha.render("recaptchaReply", {
-                                sitekey: "6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_",
+                                sitekey: "6LeNuM0sAAAAAPoZT0eQYyyW9DDyX042tlio-O-C",
                                 callback: "onRecaptchaSuccessReply",
                                 "error-callback": "onRecaptchaErrorReply"
                             });
