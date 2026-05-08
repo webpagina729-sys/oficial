@@ -512,7 +512,6 @@
                 left: auto;
             }
         }
-        }
 
         .ver-mas-btn:hover {
             background: #e4e6eb;
@@ -2064,7 +2063,9 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 <textarea id="comentarioTexto" class="form-input comentario-textarea" placeholder="Contanos cuál es tu tarea repetitiva..."></textarea>
             </div>
 
-            <div class="recaptcha-container" id="recaptchaContainer"></div>
+            <div class="recaptcha-container">
+                <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
+            </div>
 
             <button class="btn-enviar" onclick="enviarComentario()">Enviar comentario</button>
         </div>
@@ -2091,7 +2092,9 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 <textarea id="replyTexto" class="comentario-textarea" placeholder="Escribí tu respuesta..."></textarea>
             </div>
 
-            <div class="recaptcha-container" id="recaptchaReplyContainer"></div>
+            <div class="recaptcha-container">
+                <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
+            </div>
 
             <button class="btn-enviar" onclick="enviarRespuesta()">Enviar respuesta</button>
         </div>
@@ -2334,7 +2337,6 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             // Copiar datos del formulario principal al modal
             const nombreMain = document.getElementById("comentarioNombre").value;
             if (nombreMain) {
-                // Si hay nombre en el principal, copiarlo al modal
                 document.getElementById("comentarioNombre").value = nombreMain;
             }
             
@@ -2343,7 +2345,9 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             
             // Abrir el modal
             document.getElementById("modalBackdrop").classList.add("active");
-            initRecaptcha();
+            
+            // Reset reCAPTCHA
+            resetRecaptcha();
             
             // Enfocar el textarea
             setTimeout(() => {
@@ -2375,57 +2379,29 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         }
 
         // reCAPTCHA
-        let recaptchaToken = null;
-
-        function initRecaptcha() {
-            const container = document.getElementById("recaptchaContainer");
-            if (!container) return;
-            
-            container.innerHTML = '<div id="recaptcha"></div>';
-            recaptchaToken = null;
-            
-            setTimeout(() => {
-                if (window.grecaptcha) {
-                    try {
-                        window.grecaptcha.render("recaptcha", {
-                            sitekey: "6LeNuM0sAAAAAPoZT0eQYyyW9DDyX042tlio-O-C",
-                            callback: "onRecaptchaSuccess",
-                            "error-callback": "onRecaptchaError"
-                        });
-                    } catch (e) {
-                        console.error("Error renderizando reCAPTCHA:", e);
-                        // Si falla, intentar limpiar e intentar de nuevo
-                        if (e.message && e.message.includes("already")) {
-                            container.innerHTML = '';
-                            setTimeout(initRecaptcha, 500);
-                        }
-                    }
-                } else {
-                    console.log("grecaptcha no disponible, reintentando...");
-                    setTimeout(initRecaptcha, 500);
+        function resetRecaptcha() {
+            if (window.grecaptcha) {
+                try {
+                    window.grecaptcha.reset();
+                    console.log("reCAPTCHA reset");
+                } catch (e) {
+                    console.log("No se puede resetear reCAPTCHA", e);
                 }
-            }, 100);
+            }
         }
 
-        window.onRecaptchaSuccess = function(token) {
-            recaptchaToken = token;
-            console.log("reCAPTCHA verificado");
-        };
-
-        window.onRecaptchaError = function() {
-            recaptchaToken = null;
-            console.log("Error en reCAPTCHA");
-        };
-
-        window.onRecaptchaSuccessReply = function(token) {
-            recaptchaReplyToken = token;
-            console.log("reCAPTCHA respuesta verificado");
-        };
-
-        window.onRecaptchaErrorReply = function() {
-            recaptchaReplyToken = null;
-            console.log("Error en reCAPTCHA respuesta");
-        };
+        function getRecaptchaToken() {
+            if (window.grecaptcha) {
+                try {
+                    const token = window.grecaptcha.getResponse();
+                    return token;
+                } catch (e) {
+                    console.error("Error obteniendo token:", e);
+                    return null;
+                }
+            }
+            return null;
+        }
 
         // Enviar Comentario
         async function enviarComentario() {
@@ -2437,8 +2413,10 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 return;
             }
 
-            if (!recaptchaToken) {
-                alert("Por favor verifica que no eres un robot");
+            // Obtener token del reCAPTCHA
+            const token = getRecaptchaToken();
+            if (!token) {
+                alert("Por favor completá el reCAPTCHA");
                 return;
             }
 
@@ -2451,7 +2429,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     likes: 0,
                     fecha: new Date().toISOString(),
                     respuestas: [],
-                    likedBy: []
+                    likedBy: [],
+                    recaptchaToken: token
                 };
 
                 const docRef = await window.addDoc(window.collection(window.db, "comentarios"), nuevoComentario);
@@ -2462,10 +2441,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 cargarComentarios();
 
                 document.getElementById("comentarioTexto").value = "";
-                if (window.grecaptcha) {
-                    window.grecaptcha.reset();
-                }
-                recaptchaToken = null;
+                resetRecaptcha();
             } catch (error) {
                 console.error("Error al guardar comentario:", error);
                 alert("Error al enviar el comentario");
@@ -2595,43 +2571,13 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         function openReplyModal(comentarioId) {
             replyingToCommentId = comentarioId;
             document.getElementById("replyModalBackdrop").classList.add("active");
-            document.getElementById("replyTexto").focus();
             
-            // Inicializar reCAPTCHA para respuesta
+            // Reset reCAPTCHA
+            resetRecaptcha();
+            
+            // Enfocar el textarea
             setTimeout(() => {
-                const container = document.getElementById("recaptchaReplyContainer");
-                if (!container) return;
-                
-                // Limpiar el contenedor y crear nuevo elemento
-                container.innerHTML = '<div id="recaptchaReply"></div>';
-                
-                if (window.grecaptcha) {
-                    try {
-                        // Reset si existe widget anterior
-                        if (window.grecaptcha.getResponse("recaptchaReply")) {
-                            window.grecaptcha.reset("recaptchaReply");
-                        } else {
-                            // Renderizar si no existe
-                            window.grecaptcha.render("recaptchaReply", {
-                                sitekey: "6LeNuM0sAAAAAPoZT0eQYyyW9DDyX042tlio-O-C",
-                                callback: "onRecaptchaSuccessReply",
-                                "error-callback": "onRecaptchaErrorReply"
-                            });
-                        }
-                    } catch (e) {
-                        console.error("Error renderizando reCAPTCHA reply:", e);
-                        // Intentar renderizar de todas formas
-                        try {
-                            window.grecaptcha.render("recaptchaReply", {
-                                sitekey: "6LeNuM0sAAAAAPoZT0eQYyyW9DDyX042tlio-O-C",
-                                callback: "onRecaptchaSuccessReply",
-                                "error-callback": "onRecaptchaErrorReply"
-                            });
-                        } catch (e2) {
-                            console.error("Segundo intento fallido:", e2);
-                        }
-                    }
-                }
+                document.getElementById("replyTexto").focus();
             }, 100);
         }
 
@@ -2689,8 +2635,10 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 return;
             }
 
-            if (!recaptchaReplyToken) {
-                alert("Por favor verifica que no eres un robot");
+            // Obtener token del reCAPTCHA
+            const token = getRecaptchaToken();
+            if (!token) {
+                alert("Por favor completá el reCAPTCHA");
                 return;
             }
 
@@ -2710,7 +2658,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     nombre: "Usuario",
                     comentario: texto,
                     avatar: replySelectedAvatar,
-                    rating: 0
+                    rating: 0,
+                    recaptchaToken: token
                 };
 
                 const respuestas = comentario.respuestas || [];
@@ -2724,6 +2673,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 console.log("Respuesta guardada");
                 closeReplyModal();
                 cargarComentarios();
+                resetRecaptcha();
             } catch (error) {
                 console.error("Error al guardar respuesta:", error);
                 alert("Error al enviar la respuesta");
@@ -2854,11 +2804,6 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
     </script>
 
     <!-- reCAPTCHA Script -->
-    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
-    <script>
-        function onRecaptchaLoad() {
-            console.log("reCAPTCHA listo");
-        }
-    </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
