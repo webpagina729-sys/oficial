@@ -969,8 +969,9 @@
             max-width: 500px;
             width: 95%;
             box-shadow: 0 1px 2px rgba(0,0,0,0.08);
-            max-height: 85vh;
+            max-height: 90vh;
             overflow-y: auto;
+            overflow-x: hidden;
             pointer-events: auto !important;
             position: relative;
             z-index: 401;
@@ -1040,22 +1041,31 @@
             align-items: center;
             width: 100%;
             pointer-events: auto !important;
+            min-height: 78px;
+            overflow: visible !important;
         }
 
         .g_recaptcha_container {
             margin: 0;
             pointer-events: auto !important;
+            overflow: visible !important;
         }
 
         .recaptcha-container iframe {
             pointer-events: auto !important;
+            max-width: none !important;
+            width: auto !important;
+        }
+
+        .recaptcha-container .g-recaptcha {
+            pointer-events: auto !important;
+            overflow: visible !important;
         }
 
         @media (max-width: 480px) {
             .recaptcha-container {
-                margin: 12px 0;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
+                margin: 16px 0;
+                overflow: visible !important;
             }
         }
 
@@ -2417,15 +2427,27 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             document.getElementById("comentarioTexto").value = "";
             
             // Abrir el modal
-            document.getElementById("modalBackdrop").classList.add("active");
+            const modal = document.getElementById("modalBackdrop");
+            modal.classList.add("active");
             
-            // Reset reCAPTCHA
-            resetRecaptcha();
+            // Asegurar que el modal esté visible
+            modal.style.display = "flex";
+            modal.style.zIndex = "400";
+            
+            // Reset reCAPTCHA después de que el modal esté visible
+            setTimeout(() => {
+                resetRecaptcha();
+                // Forzar scroll al reCAPTCHA
+                const recaptchaContainer = document.querySelector(".recaptcha-container");
+                if (recaptchaContainer) {
+                    recaptchaContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            }, 200);
             
             // Enfocar el textarea
             setTimeout(() => {
                 document.getElementById("comentarioTexto").focus();
-            }, 100);
+            }, 300);
         }
 
         function closeCommentModal() {
@@ -2455,20 +2477,33 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         function resetRecaptcha() {
             if (window.grecaptcha) {
                 try {
+                    // Reset el reCAPTCHA existente
                     window.grecaptcha.reset();
-                    console.log("reCAPTCHA reset");
+                    console.log("✅ reCAPTCHA reset correctamente");
                     
-                    // Re-renderizar después de un pequeño delay para móvil
-                    setTimeout(() => {
-                        try {
-                            window.grecaptcha.render();
-                        } catch (e) {
-                            // Ya está renderizado
-                        }
-                    }, 100);
+                    // Verificar que el iframe está visible
+                    const iframes = document.querySelectorAll('iframe[src*="recaptcha"]');
+                    iframes.forEach(iframe => {
+                        iframe.style.pointerEvents = "auto !important";
+                        iframe.style.display = "block";
+                    });
+                    
                 } catch (e) {
-                    console.log("No se puede resetear reCAPTCHA", e);
+                    console.log("⚠️ No se puede resetear reCAPTCHA", e);
+                    // Intentar render explícito si el reset falla
+                    try {
+                        const container = document.querySelector('.g-recaptcha');
+                        if (container && container.innerHTML === '') {
+                            window.grecaptcha.render(container, {
+                                sitekey: '6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_'
+                            });
+                        }
+                    } catch (renderError) {
+                        console.error("Error en render:", renderError);
+                    }
                 }
+            } else {
+                console.warn("⚠️ grecaptcha no está disponible todavía");
             }
         }
 
@@ -2652,15 +2687,24 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         // Reply Modal Functions
         function openReplyModal(comentarioId) {
             replyingToCommentId = comentarioId;
-            document.getElementById("replyModalBackdrop").classList.add("active");
+            const modal = document.getElementById("replyModalBackdrop");
+            modal.classList.add("active");
+            modal.style.display = "flex";
+            modal.style.zIndex = "400";
             
-            // Reset reCAPTCHA
-            resetRecaptcha();
+            // Reset reCAPTCHA después de que el modal esté visible
+            setTimeout(() => {
+                resetRecaptcha();
+                const recaptchaContainer = document.querySelector(".recaptcha-container");
+                if (recaptchaContainer) {
+                    recaptchaContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            }, 200);
             
             // Enfocar el textarea
             setTimeout(() => {
                 document.getElementById("replyTexto").focus();
-            }, 100);
+            }, 300);
         }
 
         function closeReplyModal() {
@@ -2884,9 +2928,56 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         if (firstAvatar) {
             selectCommentModalAvatar(firstAvatar);
         }
+
+        // Diagnóstico de reCAPTCHA
+        setTimeout(() => {
+            console.log("🔍 DIAGNÓSTICO reCAPTCHA:");
+            console.log("✅ Claves verificadas:");
+            console.log("  - Site Key: 6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_");
+            console.log("  - Secret: 6LeNuM0sAAAAAPoZT0eQYyyW9DDyX042tlio-O-C");
+            console.log("✅ Dominio actual:", window.location.hostname);
+            console.log("✅ Protocolo:", window.location.protocol);
+            console.log("✅ URL completa:", window.location.href);
+            console.log("✅ grecaptcha disponible:", !!window.grecaptcha);
+            
+            // Verificar elementos del reCAPTCHA
+            const recaptchaElements = document.querySelectorAll('.g-recaptcha');
+            console.log("✅ Elementos .g-recaptcha encontrados:", recaptchaElements.length);
+            
+            recaptchaElements.forEach((el, idx) => {
+                console.log(`  - Elemento ${idx}:`, {
+                    visible: el.offsetParent !== null,
+                    width: el.offsetWidth,
+                    height: el.offsetHeight,
+                    sitekey: el.getAttribute('data-sitekey')
+                });
+            });
+            
+            // Verificar iframes
+            const iframes = document.querySelectorAll('iframe[src*="recaptcha"]');
+            console.log("✅ iframes de reCAPTCHA encontrados:", iframes.length);
+            iframes.forEach((iframe, idx) => {
+                console.log(`  - iframe ${idx}:`, {
+                    display: window.getComputedStyle(iframe).display,
+                    pointerEvents: window.getComputedStyle(iframe).pointerEvents,
+                    zIndex: window.getComputedStyle(iframe).zIndex
+                });
+            });
+        }, 1000);
     </script>
 
     <!-- reCAPTCHA Script -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        // Callback cuando reCAPTCHA está listo
+        window.onRecaptchaReady = function() {
+            console.log("✅ reCAPTCHA API cargada y lista");
+            // Asegurar pointer-events en iframes existentes
+            const iframes = document.querySelectorAll('iframe[src*="recaptcha"]');
+            iframes.forEach(iframe => {
+                iframe.style.pointerEvents = "auto";
+            });
+        };
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer onload="window.onRecaptchaReady()"></script>
 </body>
 </html>
