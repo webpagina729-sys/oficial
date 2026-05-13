@@ -1752,6 +1752,133 @@
                 max-width: 200px;
             }
         }
+
+        /* ===== AVATAR MODAL STYLES ===== */
+        .avatar-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 450;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .avatar-modal.active {
+            display: flex;
+        }
+
+        .avatar-modal-content {
+            background: #ffffff;
+            border: none;
+            border-radius: 18px;
+            padding: 24px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+        }
+
+        .avatar-modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #050505;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-option {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ccd0d5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f2f5;
+        }
+
+        .avatar-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-option:hover {
+            border-color: #1877f2;
+            transform: scale(1.05);
+        }
+
+        .avatar-option.selected {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.2);
+        }
+
+        .avatar-ver-mas {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ccd0d5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1877f2;
+            background: #f0f2f5;
+        }
+
+        .avatar-ver-mas:hover {
+            border-color: #1877f2;
+            background: #e4e6eb;
+            transform: scale(1.05);
+        }
+
+        .avatar-close-btn {
+            width: 100%;
+            padding: 12px;
+            background: #1877f2;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            margin-top: 16px;
+        }
+
+        .avatar-close-btn:hover {
+            background: #1865d5;
+        }
+
+        /* ===== FORM GROUP STYLES ===== */
+        .form-group {
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #050505;
+            font-size: 14px;
+        }
     </style>
 
     <!-- Chat Avatar Styles -->
@@ -3222,7 +3349,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 "avataruno.png", "avatardos.png", "avatartres.png", "avatarcuatro.png",
                 "avatarcinco.png", "avatarseis.png", "avatarsiete.png", "avatarocho.png",
                 "avatarnueve.png", "avatardiez.png", "avataronce.png", "avatardoce.png",
-                "avatartreceavo.png", "avatarcatorce.jfif", "avatarquince.png", "avatardieciseis.png",
+                "avatartrece.png", "avatarcatorce.jfif", "avatarquince.png", "avatardieciseis.png",
                 "avatardiecisiete.png", "avatardieciocho.png", "avatardiecinueve.png", "avatarveinte.png",
                 "avatarveintiuno.png", "avatarveintidos.png", "avatarveintitres.png", "avatarveinticuatro.png",
                 "avatarveinticinco.png", "avatarveintiseis.png", "avatarveintisiete.png", "avatarveintiocho.png",
