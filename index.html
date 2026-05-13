@@ -3,8 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
     <title>TUWEB - Servicios Web Profesionales</title>
     <link rel="icon" href="/logoweb.png" type="image/png">
+    
+    <!-- Global Error Handler para Android/Samsung -->
+    <script>
+        // Capturar errores globales
+        window.onerror = function(msg, src, line, col, err) {
+            console.error("🔴 ERROR GLOBAL:", {
+                mensaje: msg,
+                archivo: src,
+                linea: line,
+                columna: col,
+                error: err
+            });
+            // No mostrar alert en producción, solo en consola
+            return false;
+        };
+
+        // Capturar promesas no resueltas
+        window.onunhandledrejection = function(event) {
+            console.error("🔴 UNHANDLED REJECTION:", event.reason);
+        };
+
+        // Log de inicio
+        console.log("✅ TUWEB iniciando...");
+        console.log("📱 Navegador:", navigator.userAgent);
+        console.log("🌍 Idioma:", navigator.language);
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -788,8 +816,7 @@
         .avatar-modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.55);
             display: none;
             align-items: center;
             justify-content: center;
@@ -946,8 +973,8 @@
         .modal-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.55);
+            /* backdrop-filter: blur(3px); /* Removido para compatibilidad Samsung */
             z-index: 400;
             display: none;
             align-items: center;
@@ -1318,13 +1345,12 @@
         .confirmation-modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.55);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 500;
             padding: 20px;
-            backdrop-filter: blur(3px);
         }
 
         .confirmation-modal.active {
@@ -1404,8 +1430,7 @@
         .todos-modal-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.55);
             z-index: 350;
             display: none;
             align-items: center;
@@ -3574,6 +3599,184 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 console.warn("⚠️ Permisos de Firebase insuficientes. Por favor, contacte al administrador.");
                 event.preventDefault();
             }
+        });
+    </script>
+
+    <!-- Fetch Interceptor para Android/CORS -->
+    <script>
+        // Interceptar y loguear todos los fetch para debug
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            const url = args[0];
+            console.log("🔄 FETCH:", typeof url === 'string' ? url : url.url);
+            
+            return originalFetch.apply(this, args)
+                .then(response => {
+                    if (!response.ok) {
+                        console.warn("⚠️ FETCH ERROR:", {
+                            url: typeof url === 'string' ? url : url.url,
+                            status: response.status,
+                            statusText: response.statusText
+                        });
+                    }
+                    return response;
+                })
+                .catch(error => {
+                    console.error("❌ FETCH BLOCKED:", {
+                        url: typeof url === 'string' ? url : url.url,
+                        error: error.message,
+                        stack: error.stack
+                    });
+                    throw error;
+                });
+        };
+
+        // Validar carga de recursos
+        document.addEventListener("error", function(event) {
+            if (event.target !== window) {
+                console.error("❌ RECURSO NO CARGÓ:", {
+                    elemento: event.target.tagName,
+                    src: event.target.src || event.target.href,
+                    error: event.message
+                });
+            }
+        }, true);
+
+        console.log("✅ Fetch Interceptor iniciado");
+    </script>
+
+    <!-- Diagnóstico Completo para Android -->
+    <script>
+        // Función de diagnóstico completo
+        function runAndroidDiagnostics() {
+            const diagnostics = {
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                devicePixelRatio: window.devicePixelRatio,
+                viewport: {
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    innerHeight: window.innerHeight,
+                    outerHeight: window.outerHeight
+                }
+            };
+
+            console.group("📱 DIAGNÓSTICO ANDROID/SAMSUNG");
+            console.table(diagnostics);
+            
+            // Verificar Performance
+            if (window.performance && window.performance.timing) {
+                const perfData = window.performance.timing;
+                const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                console.log("⏱️ Tiempo de carga:", pageLoadTime + "ms");
+            }
+
+            // Verificar LocalStorage
+            try {
+                localStorage.setItem("tuweb-test", "1");
+                localStorage.removeItem("tuweb-test");
+                console.log("✅ LocalStorage funciona");
+            } catch (e) {
+                console.warn("⚠️ LocalStorage no disponible:", e.message);
+            }
+
+            // Verificar CSS y estilos
+            const styles = window.getComputedStyle(document.body);
+            console.log("🎨 Background:", styles.backgroundColor);
+            console.log("📝 Font Family:", styles.fontFamily);
+
+            // Verificar imágenes críticas
+            const imgs = document.querySelectorAll('img[src]');
+            console.log(`📸 Imágenes en el DOM: ${imgs.length}`);
+            let brokenImages = 0;
+            imgs.forEach(img => {
+                if (!img.complete) {
+                    console.warn("⏳ Imagen cargando:", img.src);
+                } else if (img.naturalHeight === 0) {
+                    console.error("❌ Imagen rota:", img.src);
+                    brokenImages++;
+                }
+            });
+            if (brokenImages > 0) {
+                console.error(`❌ ${brokenImages} imágenes no cargaron`);
+            }
+
+            // Verificar módulos de JavaScript
+            console.log("📦 Firebase disponible:", typeof window.db !== 'undefined');
+            console.log("✅ grecaptcha disponible:", typeof window.grecaptcha !== 'undefined');
+
+            // Verificar servicios de API
+            console.group("🌐 Servicios Externos");
+            console.log("Cloudflare Workers:", window.location.hostname);
+            console.log("reCAPTCHA:", "google.com/recaptcha");
+            console.log("Firebase:", "firebaseapp.com");
+            console.groupEnd();
+
+            console.groupEnd();
+        }
+
+        // Ejecutar diagnóstico cuando todo está cargado
+        window.addEventListener('load', function() {
+            setTimeout(runAndroidDiagnostics, 2000);
+        });
+
+        // También ejecutar inmediatamente
+        setTimeout(runAndroidDiagnostics, 3000);
+    </script>
+
+    <!-- Validador del Chat en Cloudflare -->
+    <script>
+        console.log("🔍 VALIDADOR DE CHAT CLOUDFLARE INICIADO");
+
+        // Verificar el iframe del chat
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const chatIframe = document.getElementById('chatModalIframe');
+                if (chatIframe) {
+                    console.log("✅ Chat iframe encontrado");
+                    console.log("📍 Src:", chatIframe.src);
+                    console.log("🔗 URL Cloudflare:", "https://asistente.tuweb.workers.dev/");
+                    
+                    // Probar acceso al iframe
+                    chatIframe.addEventListener('load', function() {
+                        console.log("✅ Chat iframe cargó correctamente");
+                    });
+
+                    chatIframe.addEventListener('error', function() {
+                        console.error("❌ Chat iframe falló al cargar");
+                    });
+
+                    // Esperar a que el modal se abra
+                    window.openChatModalWithDebug = function() {
+                        window.openChatModal();
+                        console.log("📊 Modal del chat abierto");
+                        
+                        setTimeout(function() {
+                            console.log("Chat iframe status:", {
+                                src: chatIframe.src,
+                                loaded: chatIframe.complete,
+                                readyState: chatIframe.readyState
+                            });
+                        }, 1000);
+                    };
+                } else {
+                    console.warn("⚠️ Chat iframe NO encontrado en el DOM");
+                }
+            }, 500);
+        });
+
+        // Validar CORS para Cloudflare
+        fetch("https://asistente.tuweb.workers.dev/", {
+            method: 'HEAD',
+            mode: 'no-cors'
+        })
+        .then(response => {
+            console.log("✅ Cloudflare Chat accesible (CORS check)");
+        })
+        .catch(error => {
+            console.error("❌ Error accediendo a Cloudflare Chat:", error);
         });
     </script>
 
