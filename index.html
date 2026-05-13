@@ -1871,6 +1871,137 @@
             }
         }
 
+        /* Modal del Chat */
+        .chat-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .chat-modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .chat-modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            height: 600px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.3s ease;
+            overflow: hidden;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .chat-modal-header {
+            background: linear-gradient(135deg, #1877f2, #0d5fd0);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .chat-modal-header-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .chat-modal-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .chat-modal-btn-back,
+        .chat-modal-btn-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-modal-btn-back:hover,
+        .chat-modal-btn-close:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .chat-modal-body {
+            flex: 1;
+            overflow: hidden;
+            background: white;
+        }
+
+        .chat-modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .chat-modal-loader {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .spinner {
+            border: 4px solid #f0f2f5;
+            border-top: 4px solid #1877f2;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .chat-avatar-container {
@@ -1889,6 +2020,26 @@
             .chat-bubble {
                 font-size: 12px;
                 max-width: 200px;
+            }
+
+            .chat-modal-content {
+                height: 80vh;
+                border-radius: 12px;
+            }
+
+            .chat-modal-header-title {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chat-modal-overlay {
+                padding: 10px;
+            }
+
+            .chat-modal-content {
+                max-width: 100%;
+                height: 85vh;
             }
         }
     </style>
@@ -2241,6 +2392,32 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         </div>
     </div>
 
+    <!-- Chat Modal -->
+    <div class="chat-modal-overlay" id="chatModalOverlay">
+        <div class="chat-modal-content">
+            <div class="chat-modal-header">
+                <h3 class="chat-modal-header-title">Asistente TUWEB</h3>
+                <div class="chat-modal-controls">
+                    <button class="chat-modal-btn-back" id="chatModalBtnBack" title="Volver atrás">←</button>
+                    <button class="chat-modal-btn-close" id="chatModalBtnClose" title="Cerrar">✕</button>
+                </div>
+            </div>
+            <div class="chat-modal-body">
+                <div class="chat-modal-loader" id="chatModalLoader">
+                    <div class="spinner"></div>
+                </div>
+                <iframe 
+                    id="chatModalIframe" 
+                    class="chat-modal-iframe" 
+                    src="https://asistente.tuweb.workers.dev/" 
+                    allowfullscreen 
+                    allow="microphone; camera; clipboard-read; clipboard-write"
+                    style="display:none;">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- Modals -->
 
     <!-- Avatar Modal -->
@@ -2425,6 +2602,12 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             getDocs
         } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+        import {
+            getAuth,
+            signInAnonymously,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
         // ==========================
         // CONFIG FIREBASE
         // ==========================
@@ -2445,12 +2628,33 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // ==========================
+        // AUTENTICACIÓN ANÓNIMA
+        // ==========================
+
+        signInAnonymously(auth)
+            .then((result) => {
+                console.log("✅ Autenticado anónimamente. UID:", result.user.uid);
+            })
+            .catch((error) => {
+                console.warn("⚠️ Error en autenticación anónima:", error.message);
+                // La aplicación seguirá funcionando, pero sin escritura en Firestore
+            });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("✅ Usuario autenticado:", user.uid);
+            }
+        });
 
         // ==========================
         // HACER GLOBAL
         // ==========================
 
         window.db = db;
+        window.auth = auth;
 
         window.firebaseTools = {
             collection,
@@ -2730,6 +2934,13 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             }
 
             try {
+                // Esperar a que el usuario esté autenticado
+                if (!window.auth || !window.auth.currentUser) {
+                    console.warn("Usuario no autenticado. Esperando autenticación...");
+                    alert("Por favor espera un momento e intenta nuevamente");
+                    return;
+                }
+
                 const nuevoComentario = {
                     nombre: nombre,
                     comentario: texto,
@@ -2739,11 +2950,12 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     fecha: new Date().toISOString(),
                     respuestas: [],
                     likedBy: [],
-                    recaptchaToken: token
+                    recaptchaToken: token,
+                    userId: window.auth.currentUser.uid
                 };
 
                 const docRef = await window.addDoc(window.collection(window.db, "comentarios"), nuevoComentario);
-                console.log("Comentario guardado:", docRef.id);
+                console.log("✅ Comentario guardado correctamente:", docRef.id);
 
                 closeCommentModal();
                 showConfirmation();
@@ -2752,8 +2964,20 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 document.getElementById("comentarioTexto").value = "";
                 resetRecaptcha();
             } catch (error) {
-                console.error("Error al guardar comentario:", error);
-                alert("Error al enviar el comentario");
+                console.error("❌ Error al guardar comentario:", error);
+                
+                // Manejar errores específicos
+                if (error.code === "permission-denied") {
+                    console.warn("⚠️ Permisos de Firebase insuficientes. Verifica las reglas de Firestore.");
+                    alert("Hubo un error al guardar tu comentario. Por favor intenta más tarde.");
+                } else if (error.message && error.message.includes("auth")) {
+                    console.warn("⚠️ Error de autenticación. Iniciando sesión anónimamente...");
+                    signInAnonymously(window.auth).then(() => {
+                        alert("Sesión iniciada. Por favor intenta nuevamente.");
+                    });
+                } else {
+                    alert("Error al enviar el comentario: " + error.message);
+                }
             }
         }
 
@@ -2771,9 +2995,16 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     });
                 });
 
+                console.log("✅ Comentarios cargados:", comentarios.length);
                 renderComentarios();
             } catch (error) {
-                console.error("Error al cargar comentarios:", error);
+                console.error("❌ Error al cargar comentarios:", error);
+                
+                // Manejar errores específicos
+                if (error.code === "permission-denied") {
+                    console.warn("⚠️ Permisos insuficientes para leer comentarios");
+                    document.getElementById("comentariosLista").innerHTML = "<p style='text-align: center; color: rgba(217,217,217,0.6);'>No se pudieron cargar los comentarios</p>";
+                }
             }
         }
 
@@ -3085,9 +3316,17 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
         // Chat Avatar Event Listener
         const chatAvatarContainer = document.getElementById("chatAvatarContainer");
+        const chatModalOverlay = document.getElementById("chatModalOverlay");
+        const chatModalBtnClose = document.getElementById("chatModalBtnClose");
+        const chatModalBtnBack = document.getElementById("chatModalBtnBack");
+        const chatModalIframe = document.getElementById("chatModalIframe");
+        const chatModalLoader = document.getElementById("chatModalLoader");
+
         if (chatAvatarContainer) {
-            chatAvatarContainer.addEventListener("click", function() {
-                window.open("https://asistente.tuweb.workers.dev/", "_blank");
+            chatAvatarContainer.addEventListener("click", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openChatModal();
             });
 
             // Cambiar burbujitas aleatoriamente cada 5 segundos
@@ -3114,6 +3353,77 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 }
             }, 5000);
         }
+
+        // Funciones del Modal de Chat
+        function openChatModal() {
+            if (chatModalOverlay) {
+                chatModalOverlay.classList.add("active");
+                document.body.style.overflow = "hidden";
+                
+                // Mostrar loader y cargar iframe
+                if (chatModalLoader) {
+                    chatModalLoader.style.display = "flex";
+                }
+                if (chatModalIframe) {
+                    chatModalIframe.style.display = "none";
+                }
+            }
+        }
+
+        function closeChatModal() {
+            if (chatModalOverlay) {
+                chatModalOverlay.classList.remove("active");
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        // Event listeners del modal
+        if (chatModalBtnClose) {
+            chatModalBtnClose.addEventListener("click", closeChatModal);
+        }
+
+        if (chatModalBtnBack) {
+            chatModalBtnBack.addEventListener("click", function() {
+                if (chatModalIframe && chatModalIframe.contentWindow) {
+                    try {
+                        chatModalIframe.contentWindow.history.back();
+                    } catch (e) {
+                        console.log("No se puede ir atrás");
+                    }
+                }
+            });
+        }
+
+        // Cerrar modal cuando carga el iframe
+        if (chatModalIframe) {
+            chatModalIframe.addEventListener("load", function() {
+                setTimeout(() => {
+                    if (chatModalLoader) {
+                        chatModalLoader.style.display = "none";
+                    }
+                    chatModalIframe.style.display = "block";
+                }, 500);
+            });
+
+            chatModalIframe.addEventListener("error", function() {
+                if (chatModalLoader) {
+                    chatModalLoader.innerHTML = '<p style="color: #666; text-align: center;">No se pudo cargar el chat. Por favor, intenta más tarde.</p>';
+                }
+            });
+        }
+
+        // Cerrar modal al hacer clic en el overlay
+        if (chatModalOverlay) {
+            chatModalOverlay.addEventListener("click", function(e) {
+                if (e.target === chatModalOverlay) {
+                    closeChatModal();
+                }
+            });
+        }
+
+        // Hacer global
+        window.openChatModal = openChatModal;
+        window.closeChatModal = closeChatModal;
 
         // Global Functions
         window.selectAvatar = selectAvatar;
