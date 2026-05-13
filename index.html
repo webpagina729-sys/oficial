@@ -1711,6 +1711,185 @@
                 gap: 10px;
                 font-size: 12px;
             }
+
+            .chat-avatar-container {
+                width: 80px;
+                height: 80px;
+            }
+
+            .chat-avatar-img {
+                width: 70px;
+                height: 70px;
+            }
+
+            .chat-bubble {
+                font-size: 12px;
+                max-width: 200px;
+            }
+        }
+    </style>
+
+    <!-- Chat Avatar Styles -->
+    <style>
+        /* Avatar del Chat - Esquina Inferior Derecha */
+        .chat-avatar-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            z-index: 999;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-avatar-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Imagen circular con animación */
+        .chat-avatar-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #1877f2;
+            object-fit: cover;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+            animation: avatarWave 2s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .chat-avatar-container:hover .chat-avatar-img {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(24, 119, 242, 0.5);
+        }
+
+        /* Animación de saludo */
+        @keyframes avatarWave {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(-2deg);
+            }
+            50% {
+                transform: translateY(0) rotate(2deg);
+            }
+            75% {
+                transform: translateY(-3px) rotate(-1deg);
+            }
+        }
+
+        /* Burbujitas de mensajes */
+        .chat-bubbles-container {
+            position: absolute;
+            bottom: 120px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+            opacity: 0;
+            animation: showBubbles 0.5s ease 3s forwards;
+        }
+
+        .chat-avatar-container:hover .chat-bubbles-container {
+            animation: showBubbles 0.5s ease forwards;
+        }
+
+        @keyframes showBubbles {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-bubble {
+            background: linear-gradient(135deg, #1877f2, #0d5fd0);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 13px;
+            font-weight: 500;
+            max-width: 250px;
+            word-wrap: break-word;
+            box-shadow: 0 2px 8px rgba(24, 119, 242, 0.3);
+            animation: bubbleSlide 0.4s ease;
+        }
+
+        .chat-bubble:nth-child(1) {
+            animation: bubbleSlide 0.4s ease;
+        }
+
+        .chat-bubble:nth-child(2) {
+            animation: bubbleSlide 0.4s ease 0.15s both;
+        }
+
+        .chat-bubble:nth-child(3) {
+            animation: bubbleSlide 0.4s ease 0.3s both;
+        }
+
+        @keyframes bubbleSlide {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Indicador de actividad */
+        .chat-avatar-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 16px;
+            height: 16px;
+            background: #31a24c;
+            border: 2px solid white;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(49, 162, 76, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(49, 162, 76, 0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chat-avatar-container {
+                width: 80px;
+                height: 80px;
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .chat-avatar-img {
+                width: 80px;
+                height: 80px;
+                border-width: 3px;
+            }
+
+            .chat-bubble {
+                font-size: 12px;
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -1776,7 +1955,7 @@
 
         <!-- Portada Uno -->
         <section class="portada-section">
-            <img src="/portadauno.png" alt="Portada Uno" class="portada-img">
+            <img src="" alt="Portada Uno" class="portada-img" style="display:none;">
         </section>
 
         <!-- Info Card Uno -->
@@ -1813,7 +1992,7 @@ Cada paso está ordenado para que el visitante avance naturalmente hasta tomar a
 
         <!-- Portada Tres -->
         <section class="portada-section">
-            <img src="/portadatres.png" alt="Portada Tres" class="portada-img">
+            <img src="" alt="Portada Tres" class="portada-img" style="display:none;">
         </section>
 
         <!-- Info Card Tres -->
@@ -1834,7 +2013,7 @@ Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que
 
         <!-- Portada Cuatro -->
         <section class="portada-section">
-            <img src="/portadacuatro.png" alt="Portada Cuatro" class="portada-img">
+            <img src="" alt="Portada Cuatro" class="portada-img" style="display:none;">
         </section>
 
         <!-- Info Card Cuatro -->
@@ -1857,7 +2036,7 @@ Menos mensajes innecesarios, más clientes decididos.</p>
 
         <!-- Portada Cinco -->
         <section class="portada-section">
-            <img src="/portadacinco.png" alt="Portada Cinco" class="portada-img">
+            <img src="" alt="Portada Cinco" class="portada-img" style="display:none;">
         </section>
 
         <!-- Info Card Cinco -->
@@ -1881,7 +2060,7 @@ Todo funciona en conjunto para que la experiencia sea simple tanto para vos como
 
         <!-- Portada Seis -->
         <section class="portada-section">
-            <img src="/portadaseis.png" alt="Portada Seis" class="portada-img">
+            <img src="" alt="Portada Seis" class="portada-img" style="display:none;">
         </section>
 
         <!-- Info Card Seis -->
@@ -1901,7 +2080,7 @@ Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
 
         <!-- Portada Siete -->
         <section class="portada-section">
-            <img src="/portadasiete.png" alt="Portada Siete" class="portada-img">
+            <img src="" alt="Portada Siete" class="portada-img" style="display:none;">
         </section>
 
         <!-- Info Card Siete -->
@@ -1922,7 +2101,7 @@ Nada queda estático.</p>
 
         <!-- Portada Ocho -->
         <section class="portada-section">
-            <img src="/portadaocho.png" alt="Portada Ocho" class="portada-img">
+            <img src="" alt="Portada Ocho" class="portada-img" style="display:none;">
         </section>
 
         <!-- Info Card Ocho -->
@@ -2048,6 +2227,19 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             </div>
         </div>
     </footer>
+
+    <!-- Chat Avatar -->
+    <div class="chat-avatar-container" id="chatAvatarContainer">
+        <div class="chat-avatar-wrapper">
+            <img src="/chat.png" alt="Chat Avatar" class="chat-avatar-img" id="chatAvatarImg">
+            <div class="chat-avatar-badge"></div>
+            <div class="chat-bubbles-container" id="chatBubblesContainer">
+                <div class="chat-bubble">¡Hablemos!</div>
+                <div class="chat-bubble">Creemos tu idea</div>
+                <div class="chat-bubble">Estoy esperando para hablar contigo</div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modals -->
 
@@ -2891,6 +3083,38 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             img.addEventListener("click", openMensajeModal);
         });
 
+        // Chat Avatar Event Listener
+        const chatAvatarContainer = document.getElementById("chatAvatarContainer");
+        if (chatAvatarContainer) {
+            chatAvatarContainer.addEventListener("click", function() {
+                window.open("https://asistente.tuweb.workers.dev/", "_blank");
+            });
+
+            // Cambiar burbujitas aleatoriamente cada 5 segundos
+            const bubbles = [
+                "¡Hablemos!",
+                "Creemos tu idea",
+                "Estoy esperando para hablar contigo",
+                "Contame de qué trata tu negocio",
+                "¿Quieres consultar algo?",
+                "Estoy aquí para ayudarte",
+                "¡Conversemos!"
+            ];
+
+            let currentBubbleIndex = 0;
+            setInterval(() => {
+                const bubblesContainer = document.getElementById("chatBubblesContainer");
+                if (bubblesContainer) {
+                    const bubbleElements = bubblesContainer.querySelectorAll(".chat-bubble");
+                    if (bubbleElements.length > 0) {
+                        currentBubbleIndex = (currentBubbleIndex + 1) % bubbles.length;
+                        const randomBubble = Math.floor(Math.random() * bubbleElements.length);
+                        bubbleElements[randomBubble].textContent = bubbles[currentBubbleIndex];
+                    }
+                }
+            }, 5000);
+        }
+
         // Global Functions
         window.selectAvatar = selectAvatar;
         window.selectCommentModalAvatar = selectCommentModalAvatar;
@@ -2964,6 +3188,26 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 });
             });
         }, 1000);
+
+        // Manejo de errores de consola
+        window.addEventListener('error', function(event) {
+            // Suprimir errores conocidos de extensiones o servicios externos
+            if (event.message && (
+                event.message.includes('Cannot read properties of null') ||
+                event.message.includes('content.bundle.js') ||
+                event.message.includes('chrome-extension')
+            )) {
+                event.preventDefault();
+            }
+        }, true);
+
+        // Suprimir errores específicos de Firebase
+        window.addEventListener('unhandledrejection', function(event) {
+            if (event.reason && event.reason.code === 'permission-denied') {
+                console.warn("⚠️ Permisos de Firebase insuficientes. Por favor, contacte al administrador.");
+                event.preventDefault();
+            }
+        });
     </script>
 
     <!-- reCAPTCHA Script -->
