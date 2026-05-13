@@ -1827,15 +1827,15 @@
         }
 
         .chat-bubble:nth-child(1) {
-            animation: bubbleSlide 0.4s ease;
+            animation: bubbleSlide 0.4s ease, bubbleExplode 0.6s ease 8s forwards;
         }
 
         .chat-bubble:nth-child(2) {
-            animation: bubbleSlide 0.4s ease 0.15s both;
+            animation: bubbleSlide 0.4s ease 0.15s both, bubbleExplode 0.6s ease 8.15s forwards;
         }
 
         .chat-bubble:nth-child(3) {
-            animation: bubbleSlide 0.4s ease 0.3s both;
+            animation: bubbleSlide 0.4s ease 0.3s both, bubbleExplode 0.6s ease 8.3s forwards;
         }
 
         @keyframes bubbleSlide {
@@ -1846,6 +1846,21 @@
             to {
                 opacity: 1;
                 transform: translateX(0);
+            }
+        }
+
+        @keyframes bubbleExplode {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3);
             }
         }
 
@@ -2829,6 +2844,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             // Asegurar que el modal esté visible
             modal.style.display = "flex";
             modal.style.zIndex = "400";
+            document.body.style.overflow = "hidden";
             
             // Reset reCAPTCHA después de que el modal esté visible
             setTimeout(() => {
@@ -2847,9 +2863,24 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         }
 
         function closeCommentModal() {
-            document.getElementById("modalBackdrop").classList.remove("active");
+            const modal = document.getElementById("modalBackdrop");
+            modal.classList.remove("active");
+            modal.style.display = "none";
             document.getElementById("comentarioTexto").value = "";
+            document.body.style.overflow = "auto";
         }
+
+        // Event listener para cerrar modal al hacer clic en el backdrop
+        document.addEventListener("DOMContentLoaded", function() {
+            const modal = document.getElementById("modalBackdrop");
+            if (modal) {
+                modal.addEventListener("click", function(e) {
+                    if (e.target === modal) {
+                        closeCommentModal();
+                    }
+                });
+            }
+        });
 
         // Mensaje Modal
         function openMensajeModal() {
@@ -2907,12 +2938,18 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             if (window.grecaptcha) {
                 try {
                     const token = window.grecaptcha.getResponse();
+                    if (!token || token.length === 0) {
+                        console.warn("⚠️ reCAPTCHA no completado");
+                        return null;
+                    }
+                    console.log("✅ Token reCAPTCHA obtenido correctamente");
                     return token;
                 } catch (e) {
-                    console.error("Error obteniendo token:", e);
+                    console.error("❌ Error obteniendo token:", e);
                     return null;
                 }
             }
+            console.warn("⚠️ grecaptcha no disponible");
             return null;
         }
 
@@ -2926,10 +2963,11 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 return;
             }
 
-            // Obtener token del reCAPTCHA
+            // Obtener token del reCAPTCHA - VERIFICACIÓN OBLIGATORIA
             const token = getRecaptchaToken();
             if (!token) {
-                alert("Por favor completá el reCAPTCHA");
+                alert("⚠️ Por favor completá el reCAPTCHA para enviar tu comentario");
+                console.warn("⚠️ Intento de envío sin reCAPTCHA completado");
                 return;
             }
 
@@ -2940,6 +2978,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     alert("Por favor espera un momento e intenta nuevamente");
                     return;
                 }
+
+                console.log("📝 Preparando envío de comentario...");
 
                 const nuevoComentario = {
                     nombre: nombre,
@@ -2955,28 +2995,33 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 };
 
                 const docRef = await window.addDoc(window.collection(window.db, "comentarios"), nuevoComentario);
-                console.log("✅ Comentario guardado correctamente:", docRef.id);
+                console.log("✅ Comentario guardado correctamente en Firestore:", docRef.id);
 
-                closeCommentModal();
-                showConfirmation();
-                cargarComentarios();
-
+                // Limpiar y cerrar
                 document.getElementById("comentarioTexto").value = "";
                 resetRecaptcha();
+                
+                // Mostrar confirmación
+                closeCommentModal();
+                showConfirmation();
+                
+                // Recargar comentarios
+                setTimeout(() => {
+                    cargarComentarios();
+                }, 500);
+                
             } catch (error) {
                 console.error("❌ Error al guardar comentario:", error);
                 
                 // Manejar errores específicos
                 if (error.code === "permission-denied") {
                     console.warn("⚠️ Permisos de Firebase insuficientes. Verifica las reglas de Firestore.");
-                    alert("Hubo un error al guardar tu comentario. Por favor intenta más tarde.");
+                    alert("❌ Hubo un error de permisos. Por favor intenta más tarde.");
                 } else if (error.message && error.message.includes("auth")) {
                     console.warn("⚠️ Error de autenticación. Iniciando sesión anónimamente...");
-                    signInAnonymously(window.auth).then(() => {
-                        alert("Sesión iniciada. Por favor intenta nuevamente.");
-                    });
+                    alert("❌ Error de autenticación. Por favor intenta recargar la página.");
                 } else {
-                    alert("Error al enviar el comentario: " + error.message);
+                    alert("❌ Error al enviar el comentario: " + error.message);
                 }
             }
         }
@@ -3329,7 +3374,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 openChatModal();
             });
 
-            // Cambiar burbujitas aleatoriamente cada 5 segundos
+            // Mensajes para las burbujas
             const bubbles = [
                 "¡Hablemos!",
                 "Creemos tu idea",
@@ -3341,17 +3386,29 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             ];
 
             let currentBubbleIndex = 0;
-            setInterval(() => {
+
+            // Función para regenerar las burbujas después de que exploten
+            function regenerarBurbujas() {
                 const bubblesContainer = document.getElementById("chatBubblesContainer");
                 if (bubblesContainer) {
                     const bubbleElements = bubblesContainer.querySelectorAll(".chat-bubble");
-                    if (bubbleElements.length > 0) {
+                    bubbleElements.forEach(bubble => {
+                        // Cambiar texto
                         currentBubbleIndex = (currentBubbleIndex + 1) % bubbles.length;
-                        const randomBubble = Math.floor(Math.random() * bubbleElements.length);
-                        bubbleElements[randomBubble].textContent = bubbles[currentBubbleIndex];
-                    }
+                        bubble.textContent = bubbles[currentBubbleIndex];
+                        // Resetear animación
+                        bubble.style.animation = "none";
+                        setTimeout(() => {
+                            bubble.style.animation = "";
+                        }, 10);
+                    });
                 }
-            }, 5000);
+            }
+
+            // Regenerar burbujas cada 9 segundos (después de que exploten a los 8.3s)
+            setInterval(() => {
+                regenerarBurbujas();
+            }, 9000);
         }
 
         // Funciones del Modal de Chat
