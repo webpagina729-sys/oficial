@@ -402,20 +402,43 @@
             margin: 40px 0;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         .portada-img {
             width: 100%;
             max-width: 100%;
             height: auto;
+            display: block;
             border-radius: 12px;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            will-change: transform;
         }
 
         .portada-img:hover {
             transform: scale(1.02);
             box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+        }
+        
+        @media (max-width: 768px) {
+            .portada-section {
+                margin: 30px 0;
+            }
+            
+            .portada-img {
+                border-radius: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .portada-section {
+                margin: 20px 0;
+            }
+            
+            .portada-img {
+                border-radius: 6px;
+            }
         }
 
         /* ===== INFO CARDS ===== */
@@ -2438,7 +2461,7 @@
 
         <!-- Portada Uno -->
         <section class="portada-section">
-            <img src="/portadauno.png" alt="Portada Uno" class="portada-img" style="display:none;">
+            <img src="/portadauno.png" alt="Portada Uno" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Uno -->
@@ -2456,7 +2479,7 @@ Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, or
 
         <!-- Portada Dos -->
         <section class="portada-section">
-            <img src="/portadados.png" alt="Portada Dos" class="portada-img">
+            <img src="/portadados.png" alt="Portada Dos" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Dos -->
@@ -2475,7 +2498,7 @@ Cada paso está ordenado para que el visitante avance naturalmente hasta tomar a
 
         <!-- Portada Tres -->
         <section class="portada-section">
-            <img src="/portadatres.png" alt="Portada Tres" class="portada-img" style="display:none;">
+            <img src="/portadatres.png" alt="Portada Tres" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Tres -->
@@ -2496,7 +2519,7 @@ Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que
 
         <!-- Portada Cuatro -->
         <section class="portada-section">
-            <img src="/portadacuatro.png" alt="Portada Cuatro" class="portada-img" style="display:none;">
+            <img src="/portadacuatro.png" alt="Portada Cuatro" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Cuatro -->
@@ -2519,7 +2542,7 @@ Menos mensajes innecesarios, más clientes decididos.</p>
 
         <!-- Portada Cinco -->
         <section class="portada-section">
-            <img src="/portadacinco.png" alt="Portada Cinco" class="portada-img" style="display:none;">
+            <img src="/portadacinco.png" alt="Portada Cinco" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Cinco -->
@@ -2543,7 +2566,7 @@ Todo funciona en conjunto para que la experiencia sea simple tanto para vos como
 
         <!-- Portada Seis -->
         <section class="portada-section">
-            <img src="/portadaseis.png" alt="Portada Seis" class="portada-img" style="display:none;">
+            <img src="/portadaseis.png" alt="Portada Seis" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Seis -->
@@ -2563,7 +2586,7 @@ Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
 
         <!-- Portada Siete -->
         <section class="portada-section">
-            <img src="/portadasiete.png" alt="Portada Siete" class="portada-img" style="display:none;">
+            <img src="/portadasiete.png" alt="Portada Siete" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Siete -->
@@ -2584,7 +2607,7 @@ Nada queda estático.</p>
 
         <!-- Portada Ocho -->
         <section class="portada-section">
-            <img src="/portadaocho.png" alt="Portada Ocho" class="portada-img" style="display:none;">
+            <img src="/portadaocho.png" alt="Portada Ocho" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Ocho -->
@@ -2612,7 +2635,7 @@ Más oportunidades concretas.</p>
 
         <!-- Portada Nueve -->
         <section class="portada-section">
-            <img src="/portadanueve.png" alt="Portada Nueve" class="portada-img">
+            <img src="/portadanueve.png" alt="Portada Nueve" class="portada-img" loading="lazy">
         </section>
 
         <!-- Info Card Nueve -->
@@ -2633,7 +2656,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
         <!-- Portada Diez -->
         <section class="portada-section">
-            <img src="/portadadiez.png" alt="Portada Diez" class="portada-img">
+            <img src="/portadadiez.png" alt="Portada Diez" class="portada-img" loading="lazy">
         </section>
 
         <!-- Planes Section -->
