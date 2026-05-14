@@ -1011,6 +1011,11 @@
             justify-content: center;
             padding: 20px;
             pointer-events: auto !important;
+            cursor: pointer;
+        }
+        
+        .modal-backdrop.active .modal-content {
+            pointer-events: auto;
         }
 
         .modal-backdrop.active {
@@ -1317,7 +1322,7 @@
             background: #e4e6eb;
             border-radius: 18px;
             padding: 10px 14px;
-            max-width: calc(100% - 60px);
+            width: 100%;
         }
 
         .comentario-rating {
@@ -1362,12 +1367,17 @@
         }
 
         .comentario-accion.liked {
-            color: #f7b928;
+            color: #ff1493;
+        }
+        
+        .comentario-accion.liked .comentario-contador {
+            color: #ff1493;
         }
 
         .comentario-contador {
             font-size: 13px;
             color: #65676b;
+            transition: color 0.2s ease;
         }
 
         /* Respuestas */
@@ -3314,6 +3324,20 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     }
                 });
             }
+            
+            // Event listener para cerrar modal cuando se clickea la cruz
+            const closeButtons = document.querySelectorAll(".modal-close");
+            closeButtons.forEach(btn => {
+                btn.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    const parentModal = btn.closest(".modal-backdrop");
+                    if (parentModal && parentModal.id === "replyModalBackdrop") {
+                        closeReplyModal();
+                    } else if (parentModal && parentModal.id === "modalBackdrop") {
+                        closeCommentModal();
+                    }
+                });
+            });
         });
 
         // Mensaje Modal
@@ -3610,10 +3634,13 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         }
 
         function closeReplyModal() {
-            document.getElementById("replyModalBackdrop").classList.remove("active");
-            document.getElementById("replyTexto").value = "";
+            const modal = document.getElementById("replyModalBackdrop");
+            modal.classList.remove("active");
+            const textarea = document.getElementById("replyTexto");
+            if (textarea) textarea.value = "";
             replyingToCommentId = null;
             recaptchaReplyToken = null;
+            document.body.style.overflow = "auto";
         }
 
         function openAvatarModalForReply() {
