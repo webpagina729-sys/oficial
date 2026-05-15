@@ -785,6 +785,7 @@
             gap: 12px;
             width: 100%;
             max-width: 100%;
+            margin-bottom: 16px;
         }
 
         .avatar-option {
@@ -796,6 +797,7 @@
             transition: all 0.2s ease;
             overflow: hidden;
             background: #ffffff;
+            margin: 0 auto;
         }
 
         .avatar-option img {
@@ -815,11 +817,26 @@
             transform: scale(1.05);
         }
 
+        .avatar-selector-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            justify-items: center;
+        }
+
         .avatar-ver-mas {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            border: 3px solid #ccd0d5;
+            border: 3px dashed #ccd0d5;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -827,7 +844,7 @@
             font-size: 24px;
             color: #1877f2;
             transition: all 0.2s ease;
-            background: #ffffff;
+            background: #f0f2f5;
         }
 
         .avatar-ver-mas:hover {
@@ -1026,8 +1043,8 @@
             background: #ffffff;
             border: none;
             border-radius: 22px;
-            padding: 16px;
-            max-width: 500px;
+            padding: 20px;
+            max-width: 550px;
             width: 95%;
             box-shadow: 0 1px 2px rgba(0,0,0,0.08);
             max-height: 90vh;
@@ -3018,18 +3035,20 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             
             <div class="form-group" style="margin-bottom: 20px;">
                 <label class="form-label">Elegir Avatar</label>
-                <div class="avatar-selector" id="commentModalAvatarSelector">
-                    <div class="avatar-option" data-avatar="avataruno.png" onclick="selectCommentModalAvatar(this)">
-                        <img src="/avataruno.png" alt="Avatar 1">
-                    </div>
-                    <div class="avatar-option" data-avatar="avatardos.png" onclick="selectCommentModalAvatar(this)">
-                        <img src="/avatardos.png" alt="Avatar 2">
-                    </div>
-                    <div class="avatar-option" data-avatar="avatartres.png" onclick="selectCommentModalAvatar(this)">
-                        <img src="/avatartres.png" alt="Avatar 3">
-                    </div>
-                    <div class="avatar-option" data-avatar="avatarcuatro.png" onclick="selectCommentModalAvatar(this)">
-                        <img src="/avatarcuatro.png" alt="Avatar 4">
+                <div class="avatar-selector-wrapper">
+                    <div class="avatar-selector-grid" id="commentModalAvatarSelector">
+                        <div class="avatar-option" data-avatar="avataruno.png" onclick="selectCommentModalAvatar(this)">
+                            <img src="/avataruno.png" alt="Avatar 1">
+                        </div>
+                        <div class="avatar-option" data-avatar="avatardos.png" onclick="selectCommentModalAvatar(this)">
+                            <img src="/avatardos.png" alt="Avatar 2">
+                        </div>
+                        <div class="avatar-option" data-avatar="avatartres.png" onclick="selectCommentModalAvatar(this)">
+                            <img src="/avatartres.png" alt="Avatar 3">
+                        </div>
+                        <div class="avatar-option" data-avatar="avatarcuatro.png" onclick="selectCommentModalAvatar(this)">
+                            <img src="/avatarcuatro.png" alt="Avatar 4">
+                        </div>
                     </div>
                     <div class="avatar-ver-mas" id="verMasCommentModal" onclick="openAvatarModalForComment()">+26</div>
                 </div>
@@ -3710,10 +3729,19 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             `;
         }
 
-        async function toggleLike(comentarioId, usuarioId) {
+        async function toggleLike(comentarioId, usuarioIdStr) {
             try {
                 const comentario = comentarios.find(c => c.id === comentarioId);
                 if (!comentario) return;
+
+                // Parse usuarioId desde el string pasado
+                let usuarioId = usuarioIdStr;
+                try {
+                    usuarioId = JSON.parse(usuarioIdStr);
+                    usuarioId = JSON.stringify(usuarioId);
+                } catch (e) {
+                    // Si no es JSON, usar como está
+                }
 
                 const likedBy = comentario.likedBy || [];
                 const docRef = window.doc(window.db, "comentarios", comentarioId);
