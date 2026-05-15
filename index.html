@@ -781,15 +781,15 @@
         /* Avatar Selector */
         .avatar-selector {
             display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 8px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
             width: 100%;
             max-width: 100%;
         }
 
         .avatar-option {
-            width: 18px;
-            height: 18px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid #ccd0d5;
@@ -816,15 +816,15 @@
         }
 
         .avatar-ver-mas {
-            width: 18px;
-            height: 18px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 2px solid #ccd0d5;
+            border: 3px solid #ccd0d5;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 24px;
             color: #1877f2;
             transition: all 0.2s ease;
             background: #ffffff;
@@ -1141,18 +1141,18 @@
 
         @media (max-width: 768px) {
             .avatar-selector {
-                grid-template-columns: repeat(8, 1fr);
-                gap: 6px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
             }
 
             .avatar-option,
             .avatar-ver-mas {
-                width: 16px;
-                height: 16px;
+                width: 60px;
+                height: 60px;
             }
 
             .avatar-ver-mas {
-                font-size: 9px;
+                font-size: 18px;
             }
 
             .recaptcha-container {
@@ -1166,18 +1166,18 @@
 
         @media (max-width: 480px) {
             .avatar-selector {
-                grid-template-columns: repeat(6, 1fr);
-                gap: 5px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
             }
 
             .avatar-option,
             .avatar-ver-mas {
-                width: 14px;
-                height: 14px;
+                width: 50px;
+                height: 50px;
             }
 
             .avatar-ver-mas {
-                font-size: 8px;
+                font-size: 16px;
             }
 
             .avatar-option img {
@@ -3699,7 +3699,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     ` : ""}
                     <div class="comentario-acciones">
                         <button class="comentario-accion ${yaLiked ? "liked" : ""}" onclick="toggleLike('${comentario.id}', '${usuarioId}')">
-                            <span class="comentario-texto-accion">Me gusta</span>
+                            <span class="comentario-texto-accion">👍 <span style="color: #ff1493; font-weight: 700;">${comentario.likes > 0 ? comentario.likes : "0"}</span></span>
                         </button>
                         <button class="comentario-accion" onclick="openReplyModal('${comentario.id}')">
                             <span class="comentario-texto-accion">Responder</span>
