@@ -790,8 +790,8 @@
         }
 
         .avatar-option {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid #ccd0d5;
@@ -818,15 +818,15 @@
         }
 
         .avatar-ver-mas {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             border: 2px solid #ccd0d5;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             color: #1877f2;
             transition: all 0.2s ease;
             background: #ffffff;
@@ -1149,12 +1149,12 @@
 
             .avatar-option,
             .avatar-ver-mas {
-                width: 26px;
-                height: 26px;
+                width: 20px;
+                height: 20px;
             }
 
             .avatar-ver-mas {
-                font-size: 12px;
+                font-size: 10px;
             }
 
             .recaptcha-container {
@@ -1174,12 +1174,12 @@
 
             .avatar-option,
             .avatar-ver-mas {
-                width: 24px;
-                height: 24px;
+                width: 16px;
+                height: 16px;
             }
 
             .avatar-ver-mas {
-                font-size: 11px;
+                font-size: 9px;
             }
 
             .avatar-option img {
@@ -2113,15 +2113,15 @@
         }
 
         .chat-bubble:nth-child(1) {
-            animation: bubbleSlide 0.4s ease, bubbleExplode 0.6s ease 8s forwards;
+            animation: bubbleSlide 0.5s ease, bubbleExplode 0.6s ease 8s forwards;
         }
 
         .chat-bubble:nth-child(2) {
-            animation: bubbleSlide 0.4s ease 0.15s both, bubbleExplode 0.6s ease 8.15s forwards;
+            animation: bubbleSlide 0.5s ease 0.7s both, bubbleExplode 0.6s ease 8.7s forwards;
         }
 
         .chat-bubble:nth-child(3) {
-            animation: bubbleSlide 0.4s ease 0.3s both, bubbleExplode 0.6s ease 8.3s forwards;
+            animation: bubbleSlide 0.5s ease 1.4s both, bubbleExplode 0.6s ease 9.4s forwards;
         }
 
         @keyframes bubbleSlide {
@@ -2132,6 +2132,88 @@
             to {
                 opacity: 1;
                 transform: translateX(0);
+            }
+        }
+
+        .whatsapp-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            margin: 16px 0;
+            animation: slideUp 0.3s ease;
+        }
+
+        .whatsapp-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .whatsapp-icon-container {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .whatsapp-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+            margin: 0;
+        }
+
+        .whatsapp-card-message {
+            font-size: 14px;
+            color: #65676b;
+            margin: 8px 0 16px 0;
+            line-height: 1.4;
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn:active {
+            transform: translateY(0);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -3098,6 +3180,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             doc,
             updateDoc,
             increment,
+            arrayUnion,
+            arrayRemove,
             setDoc,
             deleteDoc,
             getDocs
@@ -3184,6 +3268,8 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         window.updateDoc = updateDoc;
         window.doc = doc;
         window.increment = increment;
+        window.arrayUnion = arrayUnion;
+        window.arrayRemove = arrayRemove;
         window.where = where;
 
         // Avatares
@@ -3634,22 +3720,21 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 if (!comentario) return;
 
                 const likedBy = comentario.likedBy || [];
-                let newLikes = comentario.likes || 0;
-                let newLikedBy = [...likedBy];
+                const docRef = window.doc(window.db, "comentarios", comentarioId);
 
                 if (likedBy.includes(usuarioId)) {
-                    newLikes = Math.max(0, newLikes - 1);
-                    newLikedBy = likedBy.filter(id => id !== usuarioId);
+                    // Remove like
+                    await window.updateDoc(docRef, {
+                        likes: window.increment(-1),
+                        likedBy: window.arrayRemove(usuarioId)
+                    });
                 } else {
-                    newLikes++;
-                    newLikedBy.push(usuarioId);
+                    // Add like
+                    await window.updateDoc(docRef, {
+                        likes: window.increment(1),
+                        likedBy: window.arrayUnion(usuarioId)
+                    });
                 }
-
-                const docRef = window.doc(window.db, "comentarios", comentarioId);
-                await window.updateDoc(docRef, {
-                    likes: newLikes,
-                    likedBy: newLikedBy
-                });
 
                 cargarComentarios();
             } catch (error) {
@@ -3768,26 +3853,17 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             }
 
             try {
-                const comentario = comentarios.find(c => c.id === replyingToCommentId);
-                if (!comentario) {
-                    alert("El comentario no existe");
-                    return;
-                }
-
                 const nuevaRespuesta = {
                     nombre: "Usuario",
                     comentario: texto,
                     avatar: replySelectedAvatar,
                     rating: 0,
-                    recaptchaToken: token
+                    fecha: new Date().toISOString()
                 };
-
-                const respuestas = comentario.respuestas || [];
-                respuestas.push(nuevaRespuesta);
 
                 const docRef = window.doc(window.db, "comentarios", replyingToCommentId);
                 await window.updateDoc(docRef, {
-                    respuestas: respuestas
+                    respuestas: window.arrayUnion(nuevaRespuesta)
                 });
 
                 console.log("Respuesta guardada");
@@ -3988,15 +4064,19 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             bubble.className = 'bubble';
             
             const card = document.createElement('div');
-            card.style.cssText = 'background: #25d366; border-radius: 8px; padding: 12px 16px; margin-top: 8px; color: white; text-align: center;';
+            card.className = 'whatsapp-card';
+            card.innerHTML = `
+                <div class="whatsapp-card-header">
+                    <div class="whatsapp-icon-container">💬</div>
+                    <h3 class="whatsapp-card-title">¡Contáctanos por WhatsApp!</h3>
+                </div>
+                <p class="whatsapp-card-message">${message}</p>
+                <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}" target="_blank" class="whatsapp-btn">
+                    <span>💚</span>
+                    <span>Abrir WhatsApp</span>
+                </a>
+            `;
             
-            const link = document.createElement('a');
-            link.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-            link.target = '_blank';
-            link.style.cssText = 'color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600;';
-            link.innerHTML = '📱 Hablar por WhatsApp';
-            
-            card.appendChild(link);
             bubble.appendChild(card);
             wrapper.appendChild(bubble);
 
