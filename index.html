@@ -781,17 +781,15 @@
         /* Avatar Selector */
         .avatar-selector {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(8, 1fr);
             gap: 8px;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
+            width: 100%;
             max-width: 100%;
         }
 
         .avatar-option {
-            width: 24px;
-            height: 24px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid #ccd0d5;
@@ -818,8 +816,8 @@
         }
 
         .avatar-ver-mas {
-            width: 24px;
-            height: 24px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             border: 2px solid #ccd0d5;
             display: flex;
@@ -1143,18 +1141,18 @@
 
         @media (max-width: 768px) {
             .avatar-selector {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(8, 1fr);
                 gap: 6px;
             }
 
             .avatar-option,
             .avatar-ver-mas {
-                width: 20px;
-                height: 20px;
+                width: 16px;
+                height: 16px;
             }
 
             .avatar-ver-mas {
-                font-size: 10px;
+                font-size: 9px;
             }
 
             .recaptcha-container {
@@ -1168,18 +1166,18 @@
 
         @media (max-width: 480px) {
             .avatar-selector {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(6, 1fr);
                 gap: 5px;
             }
 
             .avatar-option,
             .avatar-ver-mas {
-                width: 16px;
-                height: 16px;
+                width: 14px;
+                height: 14px;
             }
 
             .avatar-ver-mas {
-                font-size: 9px;
+                font-size: 8px;
             }
 
             .avatar-option img {
@@ -1262,16 +1260,21 @@
 
         .comentario-likes-badge {
             position: absolute;
-            top: -8px;
-            right: 12px;
+            top: 5px;
+            right: 5px;
             background: #ff1493;
             color: #ffffff;
-            border-radius: 50px;
-            padding: 4px 10px;
-            font-size: 12px;
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(255, 20, 147, 0.3);
-            z-index: 1;
+            border-radius: 50%;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(255, 20, 147, 0.4);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 22px;
+            height: 22px;
         }
 
         @keyframes fadeInSlide {
@@ -1379,11 +1382,11 @@
         }
 
         .comentario-accion:hover {
-            color: #1877f2;
+            color: #ff1493;
         }
         
         .comentario-accion:hover .comentario-texto-accion {
-            color: #1877f2;
+            color: #ff1493;
         }
 
         .comentario-accion.liked {
@@ -2109,19 +2112,12 @@
             max-width: 250px;
             word-wrap: break-word;
             box-shadow: 0 2px 8px rgba(24, 119, 242, 0.3);
-            animation: bubbleSlide 0.4s ease;
+            animation: bubbleSlide 0.5s ease, bubbleExplode 0.6s ease 7.5s forwards;
+            display: none;
         }
 
-        .chat-bubble:nth-child(1) {
-            animation: bubbleSlide 0.5s ease, bubbleExplode 0.6s ease 8s forwards;
-        }
-
-        .chat-bubble:nth-child(2) {
-            animation: bubbleSlide 0.5s ease 0.7s both, bubbleExplode 0.6s ease 8.7s forwards;
-        }
-
-        .chat-bubble:nth-child(3) {
-            animation: bubbleSlide 0.5s ease 1.4s both, bubbleExplode 0.6s ease 9.4s forwards;
+        .chat-bubble.active {
+            display: block;
         }
 
         @keyframes bubbleSlide {
@@ -3687,7 +3683,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
             return `
                 <div class="comentario-card ${esDestacado ? "comentario-destacado" : ""}">
-                    ${comentario.likes > 0 ? `<div class="comentario-likes-badge">❤️ ${comentario.likes}</div>` : ""}
+                    ${comentario.likes > 0 ? `<div class="comentario-likes-badge">${comentario.likes}</div>` : ""}
                     <div class="comentario-header">
                         <img src="/${comentario.avatar}" alt="Avatar" class="comentario-avatar">
                         <div class="comentario-info">
@@ -3703,10 +3699,10 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     ` : ""}
                     <div class="comentario-acciones">
                         <button class="comentario-accion ${yaLiked ? "liked" : ""}" onclick="toggleLike('${comentario.id}', '${usuarioId}')">
-                            ${yaLiked ? "❤️" : "👍"} <span class="comentario-texto-accion">Me Gusta</span>
+                            <span class="comentario-texto-accion">Me gusta</span>
                         </button>
                         <button class="comentario-accion" onclick="openReplyModal('${comentario.id}')">
-                            💬 <span class="comentario-texto-accion">Responder</span>
+                            <span class="comentario-texto-accion">Responder</span>
                         </button>
                     </div>
                     ${htmlRespuestas ? `<div class="respuestas-container">${htmlRespuestas}</div>` : ""}
@@ -4248,28 +4244,37 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
             let currentBubbleIndex = 0;
 
-            // Función para regenerar las burbujas después de que exploten
-            function regenerarBurbujas() {
+            // Función para mostrar burbujas de a una sola
+            function mostrarSiguienteBurbuja() {
                 const bubblesContainer = document.getElementById("chatBubblesContainer");
-                if (bubblesContainer) {
-                    const bubbleElements = bubblesContainer.querySelectorAll(".chat-bubble");
-                    bubbleElements.forEach(bubble => {
-                        // Cambiar texto
-                        currentBubbleIndex = (currentBubbleIndex + 1) % bubbles.length;
-                        bubble.textContent = bubbles[currentBubbleIndex];
-                        // Resetear animación
-                        bubble.style.animation = "none";
-                        setTimeout(() => {
-                            bubble.style.animation = "";
-                        }, 10);
-                    });
-                }
+                if (!bubblesContainer) return;
+
+                const bubbleElements = bubblesContainer.querySelectorAll(".chat-bubble");
+                if (bubbleElements.length === 0) return;
+
+                // Remover clase active de todas
+                bubbleElements.forEach(b => b.classList.remove("active"));
+
+                // Mostrar solo la primera burbuja (siempre reutilizamos la misma)
+                const bubble = bubbleElements[0];
+                bubble.classList.add("active");
+                bubble.textContent = bubbles[currentBubbleIndex % bubbles.length];
+
+                // Limpiar la animación anterior
+                bubble.style.animation = "none";
+                setTimeout(() => {
+                    bubble.style.animation = "";
+                }, 10);
+
+                // Cambiar a la siguiente burbuja después de 8 segundos
+                currentBubbleIndex++;
+                setTimeout(() => {
+                    mostrarSiguienteBurbuja();
+                }, 8100);
             }
 
-            // Regenerar burbujas cada 9 segundos (después de que exploten a los 8.3s)
-            setInterval(() => {
-                regenerarBurbujas();
-            }, 9000);
+            // Iniciar el ciclo de burbujas
+            mostrarSiguienteBurbuja();
         }
 
         // Hacer global
