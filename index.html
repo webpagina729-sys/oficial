@@ -160,21 +160,24 @@
 
         /* Logo Button */
         .btn-login {
-            width: 40px;
+            width: auto;
             height: 40px;
-            padding: 0;
-            background: none;
+            padding: 8px 16px;
+            background: #1877f2;
             border: none;
+            color: #ffffff;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            border-radius: 6px;
             transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 14px;
         }
 
         .btn-login:hover {
-            background: #f0f2f5;
+            background: #165dd6;
             box-shadow: none;
             transform: scale(1.05);
         }
@@ -786,11 +789,12 @@
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
+            max-width: 100%;
         }
 
         .avatar-option {
-            width: 46px;
-            height: 46px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid #ccd0d5;
@@ -817,15 +821,15 @@
         }
 
         .avatar-ver-mas {
-            width: 46px;
-            height: 46px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: 2px solid #ccd0d5;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             color: #1877f2;
             transition: all 0.2s ease;
             background: #ffffff;
@@ -1148,12 +1152,12 @@
 
             .avatar-option,
             .avatar-ver-mas {
-                width: 38px;
-                height: 38px;
+                width: 26px;
+                height: 26px;
             }
 
             .avatar-ver-mas {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             .recaptcha-container {
@@ -1173,12 +1177,12 @@
 
             .avatar-option,
             .avatar-ver-mas {
-                width: 34px;
-                height: 34px;
+                width: 24px;
+                height: 24px;
             }
 
             .avatar-ver-mas {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .avatar-option img {
@@ -1365,6 +1369,10 @@
         .comentario-accion:hover {
             color: #1877f2;
         }
+        
+        .comentario-accion:hover .comentario-texto-accion {
+            color: #1877f2;
+        }
 
         .comentario-accion.liked {
             color: #ff1493;
@@ -1373,11 +1381,20 @@
         .comentario-accion.liked .comentario-contador {
             color: #ff1493;
         }
+        
+        .comentario-accion.liked .comentario-texto-accion {
+            color: #ff1493;
+        }
+        
+        .comentario-texto-accion {
+            transition: color 0.2s ease;
+        }
 
         .comentario-contador {
             font-size: 13px;
             color: #65676b;
             transition: color 0.2s ease;
+            margin-left: 4px;
         }
 
         /* Respuestas */
@@ -2337,6 +2354,28 @@
             transition: all 0.2s;
         }
         .chip:hover { background: #2a1a3a; border-color: #c026d3; }
+        
+        .whatsapp-btn {
+            background: #25d366;
+            border: none;
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .whatsapp-btn:hover { 
+            background: #1ebd56; 
+            transform: scale(1.02);
+        }
+        
         .typing-bubble {
             background: #1e1e1e;
             border-radius: 20px;
@@ -2488,9 +2527,7 @@
             <span></span>
         </button>
         <div class="header-brand">TUWEB</div>
-        <button class="btn-login" onclick="openLoginModal()">
-            <img src="/logoweb.png" alt="Logo TUWEB">
-        </button>
+        <button class="btn-login" onclick="openLoginModal()">Iniciar Sesión</button>
     </header>
 
     <!-- Overlay -->
@@ -2929,7 +2966,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             </div>
 
             <div class="recaptcha-container">
-                <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
+                <div class="g-recaptcha" id="mainCommentRecaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
             </div>
 
             <button class="btn-enviar" onclick="enviarComentario()">Enviar comentario</button>
@@ -2958,7 +2995,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             </div>
 
             <div class="recaptcha-container">
-                <div class="g-recaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
+                <div class="g-recaptcha" id="replyCommentRecaptcha" data-sitekey="6LeNuM0sAAAAAJ8_Jdv1DhVqhJMsmDZl7KokfCw_"></div>
             </div>
 
             <button class="btn-enviar" onclick="enviarRespuesta()">Enviar respuesta</button>
@@ -3565,10 +3602,10 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     ` : ""}
                     <div class="comentario-acciones">
                         <button class="comentario-accion ${yaLiked ? "liked" : ""}" onclick="toggleLike('${comentario.id}', '${usuarioId}')">
-                            ${yaLiked ? "❤️" : "🤍"} <span class="comentario-contador">${comentario.likes || 0}</span>
+                            ${yaLiked ? "❤️" : "👍"} <span class="comentario-texto-accion">Me Gusta</span> <span class="comentario-contador">${comentario.likes > 0 ? comentario.likes : ''}</span>
                         </button>
                         <button class="comentario-accion" onclick="openReplyModal('${comentario.id}')">
-                            💬 Responder
+                            💬 <span class="comentario-texto-accion">Responder</span>
                         </button>
                     </div>
                     ${htmlRespuestas ? `<div class="respuestas-container">${htmlRespuestas}</div>` : ""}
@@ -3690,8 +3727,19 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 return;
             }
 
-            // Obtener token del reCAPTCHA
-            const token = getRecaptchaToken();
+            // Obtener token del reCAPTCHA del modal de respuesta
+            let token = null;
+            if (window.grecaptcha) {
+                try {
+                    const allTokens = window.grecaptcha.getResponse();
+                    // Si es un array (múltiples widgets), obtener el segundo (reply modal)
+                    // Si es un string, es un solo token
+                    token = Array.isArray(allTokens) ? (allTokens[1] || allTokens[0]) : allTokens;
+                } catch (e) {
+                    console.error("Error obteniendo token de respuesta:", e);
+                }
+            }
+            
             if (!token) {
                 alert("Por favor completá el reCAPTCHA");
                 return;
@@ -3837,9 +3885,22 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
-            bubble.innerHTML = text
+            
+            // Procesar el texto para detectar referencias a WhatsApp
+            let processedText = text
                 .replace(/\n/g, '<br>')
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Si contiene "WHATSAPP REDIRECC" o similar, crear un botón
+            if (processedText.includes('WHATSAPP') || processedText.includes('WhatsApp') || processedText.includes('whatsapp')) {
+                // Reemplazar el texto de WhatsApp con un botón verde
+                processedText = processedText
+                    .replace(/WHATSAPP REDIRECC/gi, '<button class="whatsapp-btn" onclick="openWhatsApp()">📱 Hablar por WhatsApp</button>')
+                    .replace(/whatsapp redirecc/gi, '<button class="whatsapp-btn" onclick="openWhatsApp()">📱 Hablar por WhatsApp</button>')
+                    .replace(/Conectate por WhatsApp|conectate por whatsapp|habla por whatsapp/gi, '<button class="whatsapp-btn" onclick="openWhatsApp()">📱 Hablar por WhatsApp</button>');
+            }
+            
+            bubble.innerHTML = processedText;
             wrapper.appendChild(bubble);
 
             const time = document.createElement('div');
@@ -3933,6 +3994,14 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 sendBtn.disabled = false;
                 input.focus();
             }
+        }
+
+        function openWhatsApp() {
+            // Número de WhatsApp - reemplazar con el número real de Nicolás
+            const phoneNumber = '541198765432'; // Formato: código país + número sin espacios ni guiones
+            const message = 'Hola, quisiera hablar con Nicolás sobre los servicios de TUWEB';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         }
 
         function openChatModal() {
@@ -4049,6 +4118,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         // Hacer global
         window.openChatModal = openChatModal;
         window.closeChatModal = closeChatModal;
+        window.openWhatsApp = openWhatsApp;
 
         // Global Functions
         window.selectAvatar = selectAvatar;
