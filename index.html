@@ -7,6 +7,13 @@
     <title>TUWEB - Servicios Web Profesionales</title>
     <link rel="icon" href="/logoweb.png" type="image/png">
     
+    <!-- Optimizaciones de carga -->
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="preconnect" href="https://www.googleapis.com">
+    <link rel="dns-prefetch" href="https://firebaseapp.com">
+    <link rel="dns-prefetch" href="https://www.google.com">
+    <link rel="prefetch" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap">
+    
     <!-- Global Error Handler para Android/Samsung -->
     <script>
         // Capturar errores globales
@@ -832,25 +839,61 @@
             justify-items: center;
         }
 
-        .avatar-ver-mas {
-            width: 80px;
-            height: 80px;
+        .avatar-selector-grid .avatar-option {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 3px dashed #ccd0d5;
-            display: flex;
+            border: 2px solid #ccd0d5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            background: #ffffff;
+            margin: 0 auto;
+        }
+
+        .avatar-selector-grid .avatar-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-selector-grid .avatar-option:hover {
+            border-color: #1877f2;
+            transform: scale(1.08);
+            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+        }
+
+        .avatar-selector-grid .avatar-option.selected {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.3);
+            transform: scale(1.08);
+        }
+
+        .avatar-ver-mas {
+            padding: 4px 8px;
+            border: none;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            gap: 4px;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 14px;
+            font-weight: 600;
             color: #1877f2;
             transition: all 0.2s ease;
-            background: #f0f2f5;
+            background: transparent;
+            margin: 0 auto;
+        }
+
+        .avatar-ver-mas::after {
+            content: "▼";
+            font-size: 10px;
+            display: inline-block;
         }
 
         .avatar-ver-mas:hover {
-            border-color: #1877f2;
-            color: #1877f2;
-            transform: scale(1.05);
+            color: #0a66c2;
+            transform: translateY(2px);
         }
 
         /* Modal Avatar */
@@ -1044,7 +1087,7 @@
             border: none;
             border-radius: 22px;
             padding: 20px;
-            max-width: 550px;
+            max-width: 900px;
             width: 95%;
             box-shadow: 0 1px 2px rgba(0,0,0,0.08);
             max-height: 90vh;
@@ -1100,8 +1143,8 @@
 
         .comentario-textarea {
             width: 100%;
-            min-height: 70px;
-            max-height: 120px;
+            min-height: 45px;
+            max-height: 100px;
             padding: 12px 16px;
             background: #ffffff;
             border: 1px solid #ccd0d5;
@@ -1126,17 +1169,17 @@
         }
 
         /* reCAPTCHA */
-        /* reCAPTCHA */
         .recaptcha-container {
-            margin: 18px 0;
+            margin: 12px auto;
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
+            max-width: 100%;
             pointer-events: auto !important;
             min-height: auto;
             overflow: visible !important;
-            padding: 10px 0;
+            padding: 8px 0;
         }
 
         .g_recaptcha_container {
@@ -1154,61 +1197,15 @@
         .recaptcha-container .g-recaptcha {
             pointer-events: auto !important;
             overflow: visible !important;
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
 
-        @media (max-width: 768px) {
-            .avatar-selector {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-
-            .avatar-option,
-            .avatar-ver-mas {
-                width: 60px;
-                height: 60px;
-            }
-
-            .avatar-ver-mas {
-                font-size: 18px;
-            }
-
-            .recaptcha-container {
-                margin: 20px 0;
-                padding: 12px 0;
-                overflow: visible !important;
-                transform: scale(0.9);
-                transform-origin: center;
-            }
-        }
-
+        /* reCAPTCHA en móviles - adaptado al modal */
         @media (max-width: 480px) {
-            .avatar-selector {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-
-            .avatar-option,
-            .avatar-ver-mas {
-                width: 50px;
-                height: 50px;
-            }
-
-            .avatar-ver-mas {
-                font-size: 16px;
-            }
-
-            .avatar-option img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            .recaptcha-container {
-                margin: 22px 0;
-                padding: 14px 0;
-                overflow: visible !important;
-                transform: scale(0.8);
-                transform-origin: center;
+            .recaptcha-container iframe {
+                zoom: 0.80 !important;
             }
         }
 
@@ -1352,13 +1349,14 @@
         .comentario-texto {
             color: #050505;
             font-size: 15px;
-            line-height: 1.35;
+            line-height: 1.6;
             margin-top: 8px;
             word-wrap: break-word;
             background: #e4e6eb;
             border-radius: 18px;
             padding: 10px 14px;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .comentario-rating {
@@ -1863,10 +1861,28 @@
                 gap: 10px;
             }
 
-            .avatar-option,
-            .avatar-ver-mas {
-                width: 50px;
-                height: 50px;
+            .avatar-selector-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+
+            .avatar-selector-grid .avatar-option {
+                width: 45px;
+                height: 45px;
+                border: 2px solid #ccd0d5;
+            }
+
+            .avatar-selector-grid .avatar-ver-mas {
+                width: auto;
+                height: auto;
+                border: none;
+                font-size: 14px;
+                padding: 4px 8px;
+            }
+
+            .avatar-option {
+                width: 45px;
+                height: 45px;
             }
 
             .avatar-grid {
@@ -1945,16 +1961,16 @@
 
         .avatar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 12px;
             margin-bottom: 20px;
         }
 
         .avatar-option {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 3px solid #ccd0d5;
+            border: 2px solid #ccd0d5;
             cursor: pointer;
             transition: all 0.2s ease;
             overflow: hidden;
@@ -1981,25 +1997,29 @@
         }
 
         .avatar-ver-mas {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid #ccd0d5;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
+            padding: 4px 8px;
+            border: none;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
             color: #1877f2;
-            background: #f0f2f5;
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+
+        .avatar-ver-mas::after {
+            content: "▼";
+            font-size: 10px;
+            display: inline-block;
         }
 
         .avatar-ver-mas:hover {
-            border-color: #1877f2;
-            background: #e4e6eb;
-            transform: scale(1.05);
+            color: #0a66c2;
+            transform: translateY(2px);
         }
 
         .avatar-close-btn {
@@ -2635,7 +2655,7 @@
         </button>
         <div class="header-brand">TUWEB</div>
         <button class="btn-login" onclick="openLoginModal()">
-            <img src="/logoweb.png" alt="Logo TUWEB">
+            <img src="/logoweb.png" alt="Logo TUWEB" fetchpriority="high" decoding="async">
         </button>
     </header>
 
@@ -2687,13 +2707,13 @@
 
         <!-- Portada Uno -->
         <section class="portada-section">
-            <img src="/portadauno.png" alt="Portada Uno" class="portada-img" loading="lazy">
+            <img src="/portadauno.png" alt="Portada Uno" class="portada-img" loading="lazy" fetchpriority="high">
         </section>
 
         <!-- Info Card Uno -->
         <section class="info-section">
             <div class="info-section-image">
-                <img src="/decouno.png" alt="Deco Uno">
+                <img src="/decouno.png" alt="Deco Uno" loading="lazy" decoding="async">
             </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">Tu negocio no debería depender de vos todo el tiempo</h2>
@@ -2711,7 +2731,7 @@ Con TUWEB, eso deja de pasar. Tu web toma ese rol por vos: responde, muestra, or
         <!-- Info Card Dos -->
         <section class="info-section reverse">
             <div class="info-section-image">
-                <img src="/decodos.png" alt="Deco Dos">
+                <img src="/decodos.png" alt="Deco Dos" loading="lazy" decoding="async">
             </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">Tu web deja de ser una vidriera y pasa a ser un sistema que vende</h2>
@@ -2730,7 +2750,7 @@ Cada paso está ordenado para que el visitante avance naturalmente hasta tomar a
         <!-- Info Card Tres -->
         <section class="info-section">
             <div class="info-section-image">
-                <img src="/decotres.png" alt="Deco Tres">
+                <img src="/decotres.png" alt="Deco Tres" loading="lazy" decoding="async">
             </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">Atención automática que trabaja 24/7</h2>
@@ -2751,7 +2771,7 @@ Uno de los mayores desgastes del día a día es coordinar horarios. Mensajes que
         <!-- Info Card Cuatro -->
         <section class="info-section reverse">
             <div class="info-section-image">
-                <img src="/decocuatro.png" alt="Deco Cuatro">
+                <img src="/decocuatro.png" alt="Deco Cuatro" loading="lazy" decoding="async">
             </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">Con TUWEB, el cliente entra, ve los horarios disponibles y elige directamente.</h2>
@@ -2774,7 +2794,7 @@ Menos mensajes innecesarios, más clientes decididos.</p>
         <!-- Info Card Cinco -->
         <section class="info-section">
             <div class="info-section-image">
-                <img src="/decocinco.png" alt="Deco Cinco">
+                <img src="/decocinco.png" alt="Deco Cinco" loading="lazy" decoding="async">
             </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">La automatización no es solo comodidad, también mejora la calidad de tus consultas.</h2>
@@ -2798,7 +2818,7 @@ Todo funciona en conjunto para que la experiencia sea simple tanto para vos como
         <!-- Info Card Seis -->
         <section class="info-section reverse">
             <div class="info-section-image">
-                <img src="/decoseis.png" alt="Deco Seis">
+                <img src="/decoseis.png" alt="Deco Seis" loading="lazy" decoding="async">
             </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">Comunicación directa por WhatsApp</h2>
@@ -2818,7 +2838,7 @@ Esto hace que el proceso sea más ágil, más claro y mucho más efectivo.</p>
         <!-- Info Card Siete -->
         <section class="info-section">
             <div class="info-section-image">
-                <img src="/decosiete.png" alt="Deco Siete">
+                <img src="/decosiete.png" alt="Deco Siete" loading="lazy" decoding="async">
             </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">Sabés qué está pasando en tu negocio</h2>
@@ -2839,7 +2859,7 @@ Nada queda estático.</p>
         <!-- Info Card Ocho -->
         <section class="info-section reverse">
             <div class="info-section-image">
-                <img src="/decoocho.png" alt="Deco Ocho">
+                <img src="/decoocho.png" alt="Deco Ocho" loading="lazy" decoding="async">
             </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">Se analiza cómo interactúan las personas, qué eligen y en qué momento toman decisiones.</h2>
@@ -3120,33 +3140,23 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 <h3 class="modal-title">Un día normal en tu negocio.</h3>
                 <button class="modal-close" onclick="closeMensajeModal()">✕</button>
             </div>
-            <div class="modal-content" style="border: none; padding: 0; max-width: none; background: none; box-shadow: none;">
-                <p class="comentario-texto" style="color: #050505; font-size: 14px; line-height: 1.8; text-align: left;">
-                    Algunos dejan consultas claras.
-                    Otros ya llegan con todo definido.
-                    Y otros directamente reservan.
-                    <br><br>
-                    <strong>Ejemplo metafórico:</strong> Olvidate de que se te queme la pizza por atender los mensajes. Con TUWEB terminas de cocinar y solo agarras el teléfono para mirar la siguiente receta reservada.
-                    <br><br>
-                    Sin tener que explicar lo mismo de siempre.
-                    Sin ir ordenando mensajes uno por uno.
-                    Sin estar encima de cada paso.
-                    <br><br>
-                    Cuando abrís WhatsApp, ya está todo bastante claro.
-                    Los pedidos llegan armados.
-                    Los turnos, acomodados.
-                    Las consultas, directas.
-                    Las compras Automáticas.
-                    <br><br>
-                    Respondés más tranquilo.
-                    Te enfocás en atender, no en correr atrás de todo.
-                    <br><br>
-                    Incluso fuera de horario, la web sigue funcionando.
-                    La gente entra, elige… y te deja todo listo, reserva para el siguiente día.
-                    <br><br>
-                    Es tener un empleado en el celular mientras vos seguis con lo tuyo.
-                    <br><br>
-                    Y eso, en el día a día… se siente mejor y tu tiempo más rentable!
+            <div style="width: 100%; padding: 0; margin: 0;">
+                <p style="color: #050505; font-size: 15px; line-height: 1.8; text-align: left; margin: 0; width: 100%; background: none; padding: 0;">
+                    <span style="display: block; margin-bottom: 16px;">Algunos dejan consultas claras.<br>Otros ya llegan con todo definido.<br>Y otros directamente reservan.</span>
+                    
+                    <span style="display: block; margin-bottom: 16px; padding: 12px 14px; background: #f0f2f5; border-left: 3px solid #1877f2; border-radius: 6px; font-style: italic;"><strong>Ejemplo metafórico:</strong> Olvidate de que se te queme la pizza por atender los mensajes. Con TUWEB terminas de cocinar y solo agarras el teléfono para mirar la siguiente receta reservada.</span>
+                    
+                    <span style="display: block; margin-bottom: 16px; color: #65676b; font-size: 14px;">Sin tener que explicar lo mismo de siempre.<br>Sin ir ordenando mensajes uno por uno.<br>Sin estar encima de cada paso.</span>
+                    
+                    <span style="display: block; margin-bottom: 16px; font-weight: 600; color: #050505;">Cuando abrís WhatsApp, ya está todo bastante claro.<br>Los pedidos llegan armados.<br>Los turnos, acomodados.<br>Las consultas, directas.<br>Las compras Automáticas.</span>
+                    
+                    <span style="display: block; margin-bottom: 16px;">Respondés más tranquilo.<br>Te enfocás en atender, no en correr atrás de todo.</span>
+                    
+                    <span style="display: block; margin-bottom: 16px; color: #1877f2; font-weight: 600;">Incluso fuera de horario, la web sigue funcionando.<br>La gente entra, elige… y te deja todo listo, reserva para el siguiente día.</span>
+                    
+                    <span style="display: block; margin-top: 20px; padding-top: 16px; border-top: 1px solid #ccd0d5; font-weight: 600;">Es tener un empleado en el celular mientras vos seguis con lo tuyo.</span>
+                    
+                    <span style="display: block; margin-top: 16px; color: #f7b928; font-weight: 700; font-size: 16px;">¡Y eso, en el día a día… se siente mejor y tu tiempo más rentable!</span>
                 </p>
             </div>
         </div>
@@ -3698,6 +3708,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             `).join("");
 
             const usuarioId = JSON.stringify({ nombre: comentario.nombre, avatar: comentario.avatar });
+            const usuarioIdEscapado = usuarioId.replace(/"/g, '&quot;');
             const yaLiked = (comentario.likedBy || []).includes(usuarioId);
 
             return `
@@ -3708,21 +3719,24 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                         <div class="comentario-info">
                             <div class="comentario-nombre">${comentario.nombre}</div>
                             <div class="comentario-fecha">${fecha}</div>
-                            <div class="comentario-texto">${comentario.comentario}</div>
                         </div>
                     </div>
+                    <div class="comentario-texto">${comentario.comentario}</div>
                     ${comentario.rating > 0 ? `
                         <div class="comentario-rating">
                             ${"★".repeat(comentario.rating)}
                         </div>
                     ` : ""}
                     <div class="comentario-acciones">
-                        <button class="comentario-accion ${yaLiked ? "liked" : ""}" onclick="toggleLike('${comentario.id}', '${usuarioId}')">
-                            <span class="comentario-texto-accion">👍 <span style="color: #ff1493; font-weight: 700;">${comentario.likes > 0 ? comentario.likes : "0"}</span></span>
+                        <button class="comentario-accion ${yaLiked ? "liked" : ""}" onclick="toggleLike('${comentario.id}', '${usuarioIdEscapado}')">
+                            <span class="comentario-texto-accion">Me gusta</span>
                         </button>
                         <button class="comentario-accion" onclick="openReplyModal('${comentario.id}')">
                             <span class="comentario-texto-accion">Responder</span>
                         </button>
+                        <div class="comentario-contador-display" style="margin-left: auto; display: flex; align-items: center; gap: 6px; color: #65676b; font-size: 13px; font-weight: 600;">
+                            <span style="color: #ff1493; font-weight: 700;">${comentario.likes > 0 ? comentario.likes : "0"}</span>
+                        </div>
                     </div>
                     ${htmlRespuestas ? `<div class="respuestas-container">${htmlRespuestas}</div>` : ""}
                 </div>
@@ -3734,10 +3748,13 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                 const comentario = comentarios.find(c => c.id === comentarioId);
                 if (!comentario) return;
 
+                // Decodificar entities HTML en usuarioIdStr
+                let usuarioIdDecoded = usuarioIdStr.replace(/&quot;/g, '"');
+                
                 // Parse usuarioId desde el string pasado
-                let usuarioId = usuarioIdStr;
+                let usuarioId = usuarioIdDecoded;
                 try {
-                    usuarioId = JSON.parse(usuarioIdStr);
+                    usuarioId = JSON.parse(usuarioIdDecoded);
                     usuarioId = JSON.stringify(usuarioId);
                 } catch (e) {
                     // Si no es JSON, usar como está
@@ -4347,6 +4364,17 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         if (firstAvatar) {
             selectCommentModalAvatar(firstAvatar);
         }
+
+        // Optimizar carga de imágenes
+        document.addEventListener('DOMContentLoaded', () => {
+            const imgsSinLazy = document.querySelectorAll('img:not([loading="lazy"])');
+            imgsSinLazy.forEach(img => {
+                if (img.src.includes('deco') || img.src.includes('avatar')) {
+                    img.setAttribute('loading', 'lazy');
+                }
+            });
+            console.log("✅ Lazy loading aplicado a", imgsSinLazy.length, "imágenes");
+        });
 
         // Diagnóstico de reCAPTCHA
         setTimeout(() => {
