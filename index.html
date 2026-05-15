@@ -160,24 +160,21 @@
 
         /* Logo Button */
         .btn-login {
-            width: auto;
+            width: 40px;
             height: 40px;
-            padding: 8px 16px;
-            background: #1877f2;
+            padding: 0;
+            background: none;
             border: none;
-            color: #ffffff;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 6px;
+            border-radius: 50%;
             transition: all 0.2s ease;
-            font-weight: 600;
-            font-size: 14px;
         }
 
         .btn-login:hover {
-            background: #165dd6;
+            background: #f0f2f5;
             box-shadow: none;
             transform: scale(1.05);
         }
@@ -1260,6 +1257,21 @@
             margin-bottom: 12px;
             animation: fadeInSlide 0.3s ease;
             box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .comentario-likes-badge {
+            position: absolute;
+            top: -8px;
+            right: 12px;
+            background: #ff1493;
+            color: #ffffff;
+            border-radius: 50px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(255, 20, 147, 0.3);
+            z-index: 1;
         }
 
         @keyframes fadeInSlide {
@@ -2527,7 +2539,9 @@
             <span></span>
         </button>
         <div class="header-brand">TUWEB</div>
-        <button class="btn-login" onclick="openLoginModal()">Iniciar Sesión</button>
+        <button class="btn-login" onclick="openLoginModal()">
+            <img src="/logoweb.png" alt="Logo TUWEB">
+        </button>
     </header>
 
     <!-- Overlay -->
@@ -3587,6 +3601,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
             return `
                 <div class="comentario-card ${esDestacado ? "comentario-destacado" : ""}">
+                    ${comentario.likes > 0 ? `<div class="comentario-likes-badge">❤️ ${comentario.likes}</div>` : ""}
                     <div class="comentario-header">
                         <img src="/${comentario.avatar}" alt="Avatar" class="comentario-avatar">
                         <div class="comentario-info">
@@ -3602,7 +3617,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
                     ` : ""}
                     <div class="comentario-acciones">
                         <button class="comentario-accion ${yaLiked ? "liked" : ""}" onclick="toggleLike('${comentario.id}', '${usuarioId}')">
-                            ${yaLiked ? "❤️" : "👍"} <span class="comentario-texto-accion">Me Gusta</span> <span class="comentario-contador">${comentario.likes > 0 ? comentario.likes : ''}</span>
+                            ${yaLiked ? "❤️" : "👍"} <span class="comentario-texto-accion">Me Gusta</span>
                         </button>
                         <button class="comentario-accion" onclick="openReplyModal('${comentario.id}')">
                             💬 <span class="comentario-texto-accion">Responder</span>
@@ -3673,6 +3688,7 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
         function closeReplyModal() {
             const modal = document.getElementById("replyModalBackdrop");
             modal.classList.remove("active");
+            modal.style.display = "none";
             const textarea = document.getElementById("replyTexto");
             if (textarea) textarea.value = "";
             replyingToCommentId = null;
@@ -3728,15 +3744,16 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             }
 
             // Obtener token del reCAPTCHA del modal de respuesta
-            let token = null;
+            let token = "";
             if (window.grecaptcha) {
                 try {
-                    const allTokens = window.grecaptcha.getResponse();
-                    // Si es un array (múltiples widgets), obtener el segundo (reply modal)
-                    // Si es un string, es un solo token
-                    token = Array.isArray(allTokens) ? (allTokens[1] || allTokens[0]) : allTokens;
+                    token = window.grecaptcha.getResponse();
+                    if (!token || token.length === 0) {
+                        token = null;
+                    }
                 } catch (e) {
                     console.error("Error obteniendo token de respuesta:", e);
+                    token = null;
                 }
             }
             
@@ -3946,6 +3963,52 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
             if (t) t.remove();
         }
 
+        // Detectar y parsear WHATSAPP_REDIRECT
+        function handleWhatsAppRedirect(reply) {
+            const pattern = /WHATSAPP_REDIRECT\|(\+?\d+)\|(.+)/i;
+            const match = reply.match(pattern);
+            if (match) {
+                return {
+                    phone: match[1],
+                    message: match[2]
+                };
+            }
+            return null;
+        }
+
+        // Mostrar tarjeta de WhatsApp
+        function showWhatsAppCard(phone, message) {
+            const body = document.getElementById('chatBody');
+            if (!body) return;
+            
+            const wrapper = document.createElement('div');
+            wrapper.className = 'msg bot';
+
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            const card = document.createElement('div');
+            card.style.cssText = 'background: #25d366; border-radius: 8px; padding: 12px 16px; margin-top: 8px; color: white; text-align: center;';
+            
+            const link = document.createElement('a');
+            link.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            link.target = '_blank';
+            link.style.cssText = 'color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600;';
+            link.innerHTML = '📱 Hablar por WhatsApp';
+            
+            card.appendChild(link);
+            bubble.appendChild(card);
+            wrapper.appendChild(bubble);
+
+            const time = document.createElement('div');
+            time.className = 'msg-time';
+            time.textContent = getTime();
+            wrapper.appendChild(time);
+
+            body.appendChild(wrapper);
+            body.scrollTop = body.scrollHeight;
+        }
+
         async function sendMessage(text) {
             const input = document.getElementById('chatInput');
             const sendBtn = document.getElementById('sendBtn');
@@ -3975,8 +4038,22 @@ Tu web puede ser mucho más que una presencia… puede ser la herramienta que ha
 
                 removeTyping();
 
-                chatHistory.push({ role: 'assistant', content: reply });
-                appendMessage('bot', reply);
+                // Detectar si es un redirect de WhatsApp
+                const wa = handleWhatsAppRedirect(reply);
+
+                if (wa) {
+                    // Si es WhatsApp, mostrar tarjeta y agregar respuesta amigable
+                    chatHistory.push({
+                        role: 'assistant',
+                        content: '¡Bárbaro! Te mando con Nicolás ahora.'
+                    });
+                    appendMessage('bot', '¡Bárbaro! Te mando con Nicolás ahora.');
+                    showWhatsAppCard(wa.phone, wa.message);
+                } else {
+                    // Si es respuesta normal, mostrar como siempre
+                    chatHistory.push({ role: 'assistant', content: reply });
+                    appendMessage('bot', reply);
+                }
 
             } catch (err) {
                 removeTyping();
