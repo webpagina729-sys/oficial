@@ -14,6 +14,7 @@
     <link rel="dns-prefetch" href="https://firebaseapp.com">
     <link rel="dns-prefetch" href="https://www.google.com">
     <link rel="prefetch" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Global Error Handler para Android/Samsung -->
     <script>
@@ -55,16 +56,16 @@
         }
 
         :root {
-            --primary: #0f1117;
+            --primary: #f9fafb;
             --secondary: #ffffff;
             --accent: #1B7F3D;
             --accent-secondary: #2BA84F;
-            --accent-tertiary: #00c96e;
-            --text-dark: #f0f2f5;
-            --text-light: #9ca3af;
-            --border-color: #1f2937;
-            --shadow: 0 1px 4px rgba(0,0,0,0.3);
-            --shadow-alt: 0 2px 8px rgba(0,0,0,0.4);
+            --accent-tertiary: #0066ff;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --border-color: #e5e7eb;
+            --shadow: 0 1px 4px rgba(0,0,0,0.08);
+            --shadow-alt: 0 2px 8px rgba(0,0,0,0.12);
             --transition: all 0.2s ease;
             --glow-purple: none;
             --glow-pink: none;
@@ -72,12 +73,12 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Inter', 'DM Sans', Arial, sans-serif;
             line-height: 1.6;
-            color: #f0f2f5;
+            color: #1a1a1a;
             overflow-x: hidden;
             position: relative;
-            background: #0f1117;
+            background: #f9fafb;
         }
 
         body::before {
@@ -107,9 +108,9 @@
 
         /* ===== HEADER ===== */
         .header {
-            background: #111827;
-            color: #f0f2f5;
-            border-bottom: 1px solid #1f2937;
+            background: #ffffff;
+            color: #1a1a1a;
+            border-bottom: 2px solid #0066ff;
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
@@ -128,7 +129,7 @@
             text-transform: uppercase;
             flex: 1;
             text-align: center;
-            color: #f0f2f5;
+            color: #1a1a1a;
         }
 
         .hamburger {
@@ -182,7 +183,7 @@
         }
 
         .btn-login:hover {
-            background: #1f2937;
+            background: #f3f4f6;
             box-shadow: none;
             transform: scale(1.05);
         }
@@ -201,8 +202,8 @@
             top: 0;
             width: 280px;
             height: 100vh;
-            background: #111827;
-            border-right: 1px solid #1f2937;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
             z-index: 200;
             transition: left 0.3s ease;
             overflow-y: auto;
@@ -218,7 +219,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px 12px;
-            border-bottom: 1px solid #1f2937;
+            border-bottom: 1px solid #e5e7eb;
             margin-bottom: 12px;
         }
 
@@ -229,7 +230,7 @@
             font-weight: 700;
             font-size: 14px;
             text-transform: uppercase;
-            color: #f0f2f5;
+            color: #1a1a1a;
         }
 
         .sidebar-logo img {
@@ -246,7 +247,7 @@
             justify-content: center;
             background: none;
             border: none;
-            color: #9ca3af;
+            color: #666;
             font-size: 24px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -266,9 +267,9 @@
 
         .sidebar-btn {
             padding: 12px 14px;
-            background: #1f2937;
+            background: #f3f4f6;
             border: none;
-            color: #f0f2f5;
+            color: #1a1a1a;
             border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
@@ -291,8 +292,8 @@
             top: 0;
             width: 280px;
             height: 100vh;
-            background: #111827;
-            border-right: 1px solid #1f2937;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
             z-index: 210;
             transition: left 0.3s ease;
             overflow-y: auto;
@@ -310,7 +311,7 @@
             gap: 10px;
             margin-bottom: 16px;
             padding-bottom: 12px;
-            border-bottom: 1px solid #1f2937;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .submenu-back {
@@ -327,7 +328,7 @@
         }
 
         .submenu-title {
-            color: #f0f2f5;
+            color: #1a1a1a;
             font-weight: 700;
             font-size: 14px;
         }
@@ -339,9 +340,9 @@
         }
 
         .submenu-item {
-            color: #f0f2f5;
+            color: #1a1a1a;
             padding: 10px 8px;
-            border-left: 2px solid #1f2937;
+            border-left: 2px solid #0066ff;
             padding-left: 12px;
             font-size: 13px;
             line-height: 1.6;
@@ -1141,15 +1142,15 @@
 
         /* Estilo oscuro exclusivo del modal de mensaje "Un día normal..." */
         #mensajeModal .modal-content {
-            background: #111827;
+            background: #ffffff;
         }
 
         #mensajeModal .modal-title {
-            color: #f0f2f5;
+            color: #1a1a1a;
         }
 
         #mensajeModal .modal-close {
-            color: #9ca3af;
+            color: #666;
         }
 
         #mensajeModal .modal-close:hover {
@@ -1736,8 +1737,8 @@
 
         /* Footer */
         .footer {
-            background: #111827;
-            color: #9ca3af;
+            background: #ffffff;
+            color: #666;
             padding: 30px 20px;
             margin-top: 60px;
             border-top: 1px solid #1f2937;
@@ -1772,8 +1773,8 @@
         .footer-link {
             background: none;
             border: none;
-            border-right: 1px solid #1f2937;
-            color: #9ca3af;
+            border-right: 1px solid #e5e7eb;
+            color: #666;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s ease;
@@ -2068,6 +2069,121 @@
             color: #050505;
             font-size: 14px;
         }
+
+        /* ===== REVENDE WAYS — TEMA CLARO, TIPOGRAFIA INTER, ACENTOS AZUL/VERDE ===== */
+
+        /* Tipografia */
+        body, * { font-family: 'Inter', 'DM Sans', Arial, sans-serif !important; }
+
+        /* Base — fondo y texto */
+        body { background: #f9fafb !important; color: #1a1a1a !important; }
+
+        /* Header */
+        .header { background: #ffffff !important; color: #1a1a1a !important; border-bottom: 3px solid #0066ff !important; }
+        .header-brand { color: #0066ff !important; font-weight: 800 !important; }
+        .hamburger span { background: #1a1a1a !important; }
+        .btn-login:hover { background: #eef4ff !important; color: #0066ff !important; }
+
+        /* Sidebar */
+        .sidebar { background: #ffffff !important; border-right: 2px solid #0066ff !important; }
+        .sidebar-header { border-bottom: 1px solid #e5e7eb !important; }
+        .sidebar-logo { color: #1a1a1a !important; }
+        .close-sidebar { color: #666 !important; }
+        .sidebar-btn { background: #f3f4f6 !important; color: #1a1a1a !important; }
+        .sidebar-btn:hover { background: #1B7F3D !important; color: #fff !important; }
+
+        /* Submenu */
+        .submenu { background: #ffffff !important; border-right: 2px solid #0066ff !important; }
+        .submenu-header { border-bottom: 1px solid #e5e7eb !important; }
+        .submenu-title { color: #1a1a1a !important; }
+        .submenu-item { color: #333 !important; border-left: 2px solid #0066ff !important; }
+        .submenu-item:hover { color: #1B7F3D !important; border-left-color: #1B7F3D !important; }
+        .submenu-back { color: #0066ff !important; }
+        .submenu-button { background: #eef4ff !important; color: #0066ff !important; border: 1px solid #b3d0ff !important; }
+        .submenu-button:hover { background: #0066ff !important; color: #fff !important; }
+
+        /* Hero / banner con gradiente de acento */
+        .portada-section:first-of-type { background: linear-gradient(135deg, #eef4ff 0%, #f0faf4 100%); border-radius: 16px; padding: 8px; }
+
+        /* Info cards */
+        .info-section-title { color: #1a1a1a !important; }
+        .info-section-subtitle { color: #444 !important; }
+        .info-section { border-left: 4px solid #0066ff !important; padding-left: 4px; }
+        .info-section.reverse { border-left: none !important; border-right: 4px solid #1B7F3D !important; padding-left: 0; padding-right: 4px; }
+        .ver-mas-btn { background: #eef4ff !important; color: #0066ff !important; border: 1px solid #b3d0ff !important; }
+        .ver-mas-btn:hover { background: #0066ff !important; color: #fff !important; }
+
+        /* Mensaje circular */
+        .mensaje-hint { color: #0066ff !important; }
+
+        /* Modal mensaje */
+        #mensajeModal .modal-content { background: #ffffff !important; color: #1a1a1a !important; }
+        #mensajeModal .modal-title { color: #0066ff !important; }
+        #mensajeModal .modal-close { color: #666 !important; }
+
+        /* Planes */
+        .planes-section { border-top: 3px solid #0066ff !important; padding-top: 40px; }
+        .boton-click-planes { background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important; color: #fff !important; border: none !important; }
+        .boton-click-planes:hover { opacity: .9 !important; }
+
+        /* Comentarios */
+        .comentarios-section { background: #ffffff !important; border: 1px solid #e5e7eb !important; }
+        .comentarios-title { color: #1a1a1a !important; }
+        .ver-todos-link { color: #0066ff !important; }
+        .ver-todos-link:hover { color: #1B7F3D !important; }
+        .comentario-likes-badge { background: #eef4ff !important; color: #0066ff !important; }
+        .avatar-option.selected, .avatar-option:hover { border-color: #0066ff !important; box-shadow: 0 0 0 2px rgba(0,102,255,.2) !important; }
+        .avatar-ver-mas { color: #0066ff !important; }
+        .form-input:focus { border-color: #0066ff !important; box-shadow: 0 0 0 3px rgba(0,102,255,.1) !important; }
+        .btn-enviar { background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important; color: #fff !important; border: none !important; }
+        .btn-enviar:hover { opacity: .9 !important; }
+        .stars-container .star.selected, .stars-container .star:hover { color: #f59e0b !important; }
+
+        /* Modal comentario */
+        .modal-content { background: #ffffff !important; color: #1a1a1a !important; }
+        .modal-title { color: #0066ff !important; }
+        .modal-header { border-radius: 12px 12px 0 0; }
+        .modal-close { color: #666 !important; }
+        .modal-close:hover { color: #0066ff !important; }
+
+        /* Confirmacion */
+        .confirmation-content { background: #ffffff !important; }
+        .confirmation-title { color: #1B7F3D !important; }
+        .confirmation-btn-primary { background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important; color: #fff !important; border: none !important; }
+        .confirmation-btn-secondary { background: #f3f4f6 !important; color: #1a1a1a !important; }
+
+        /* Redes sociales */
+        .social-section { background: linear-gradient(135deg, #eef4ff 0%, #f0faf4 100%); border-radius: 16px; padding: 40px 16px; }
+        .social-title { color: #1a1a1a !important; }
+        .social-icon { border-color: #e5e7eb !important; }
+        .social-icon:hover { border-color: #0066ff !important; box-shadow: 0 0 0 3px rgba(0,102,255,.15) !important; }
+
+        /* Footer */
+        .footer { background: #ffffff !important; border-top: 3px solid #0066ff !important; color: #666 !important; }
+        .footer-link { color: #444 !important; border-color: #e5e7eb !important; }
+        .footer-link:hover { color: #1B7F3D !important; }
+
+        /* Ver todos modal */
+        .todos-modal-content { background: #ffffff !important; color: #1a1a1a !important; }
+        .todos-modal-header { border-radius: 12px 12px 0 0; }
+        .todos-modal-title { color: #0066ff !important; }
+        .todos-modal-close { color: #666 !important; }
+
+        /* Chat: burbujas y header con gradiente azul->verde (confirmacion/positivo) */
+        .chat-bubbles-container .chat-bubble { background: #0066ff !important; color: #fff !important; }
+        .chat-modal-header { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; border-radius: 12px 12px 0 0; }
+        .chat-avatar-badge { background: #1B7F3D !important; color: #fff !important; }
+
+        /* WhatsApp / confirmacion positiva */
+        .whatsapp-btn { background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important; color: #fff !important; border: none !important; }
+        .whatsapp-btn:hover { opacity: .9 !important; }
+        .whatsapp-card-header { background: #eef4ff !important; }
+        .whatsapp-card-title { color: #1B7F3D !important; }
+        .whatsapp-icon-container { color: #1B7F3D !important; }
+
+        /* Estado activo (dot) */
+        .status-dot { background: #2BA84F !important; }
+
     </style>
 
     <!-- Chat Avatar Styles -->
@@ -3126,7 +3242,7 @@
                 <button class="modal-close" onclick="closeMensajeModal()">✕</button>
             </div>
             <div style="width: 100%; padding: 0; margin: 0;">
-                <p style="color: #f0f2f5; font-size: 15px; line-height: 1.8; text-align: left; margin: 0; width: 100%; background: none; padding: 0;">
+                <p style="color: #1a1a1a; font-size: 15px; line-height: 1.8; text-align: left; margin: 0; width: 100%; background: none; padding: 0;">
                     <span style="display:block;margin-bottom:16px;">
                       Algunos clientes te escriben preguntando qué tenés.<br>
                       Otros ya te piden el precio.<br>
