@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="color-scheme" content="light only">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
     <title>Revende Ways | Tu Tienda Propia</title>
@@ -56,7 +55,6 @@
         }
 
         :root {
-            color-scheme: light only;
             --primary: #f9fafb;
             --secondary: #ffffff;
             --accent: #1B7F3D;
@@ -617,6 +615,95 @@
             .cinta-section-text {
                 font-size: 15px;
                 text-align: left;
+            }
+        }
+
+        /* ===== Cinta fina "Saber más" (desplegable) ===== */
+        .cinta-section-slim {
+            padding: 0;
+            margin: 0 0 0 0;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+        }
+
+        .cinta-toggle-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0044cc;
+            letter-spacing: 0.2px;
+        }
+
+        .cinta-toggle-arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            font-size: 14px;
+        }
+
+        .cinta-toggle-btn.active .cinta-toggle-arrow {
+            transform: rotate(180deg);
+        }
+
+        .cinta-expandable {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s ease;
+        }
+
+        .cinta-expandable.active {
+            max-height: 2000px;
+        }
+
+        .cinta-expandable-item {
+            padding: 6px 20px 26px 20px;
+            position: relative;
+        }
+
+        .cinta-expandable-item:not(:last-child) {
+            margin-bottom: 6px;
+        }
+
+        /* Línea conectora entre los puntos desplegados y hacia la cinta siguiente */
+        .cinta-expandable-item::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: rgba(0,102,255,0.25);
+        }
+
+        .cinta-expandable-item:last-child::before {
+            height: 0;
+        }
+
+        .cinta-section-slim::after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 22px;
+            margin: 0 auto;
+            background: rgba(0,102,255,0.25);
+        }
+
+        @media (max-width: 768px) {
+            .cinta-toggle-btn {
+                font-size: 14px;
+                padding: 12px 16px;
+            }
+
+            .cinta-expandable-item {
+                padding: 4px 16px 22px 16px;
             }
         }
 
@@ -1247,6 +1334,26 @@
 
         #mensajeModal .modal-close:hover {
             color: #2BA84F;
+        }
+
+        /* Header fijo para que la X de cerrar siempre esté visible, aunque se scrollee el contenido */
+        #mensajeModal .modal-header {
+            position: sticky;
+            top: -20px;
+            margin: -20px -20px 16px -20px;
+            padding: 20px 20px 12px 20px;
+            background: #ffffff;
+            z-index: 5;
+            border-radius: 22px 22px 0 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        @media (max-width: 480px) {
+            #mensajeModal .modal-header {
+                top: -14px;
+                margin: -14px -14px 16px -14px;
+                padding: 14px 14px 10px 14px;
+            }
         }
 
         .comentario-textarea {
@@ -2261,6 +2368,7 @@
 
         /* Modal mensaje */
         #mensajeModal .modal-content { background: #ffffff !important; color: #1a1a1a !important; }
+        #mensajeModal .modal-title { color: #0066ff !important; }
         #mensajeModal .modal-close { color: #666 !important; }
 
         /* Planes */
@@ -3042,20 +3150,26 @@
             </div>
         </section>
 
-        <!-- Cintas informativas 7 a 12 -->
-        <section class="cinta-section">
-            <h3 class="cinta-section-title">Todo el control desde un solo panel</h3>
-            <p class="cinta-section-text">Olvidate de las planillas y de anotar pedidos por todos lados. Desde tu panel ves cada venta, aprobás pedidos, controlás tus ganancias y seguís el crecimiento de tu negocio en tiempo real. Toda la información importante está organizada para que tomes mejores decisiones.</p>
-        </section>
-
-        <section class="cinta-section">
-            <h3 class="cinta-section-title">Promociones fáciles de crear</h3>
-            <p class="cinta-section-text">¿Querés hacer una oferta? Lo resolvés en segundos. Podés crear promociones por categoría, aplicar descuentos y lanzar campañas cuando quieras. Todo se actualiza automáticamente para que tus clientes vean los nuevos precios sin que tengas que hacer nada más.</p>
-        </section>
-
-        <section class="cinta-section">
-            <h3 class="cinta-section-title">Todo tu negocio organizado</h3>
-            <p class="cinta-section-text">En un solo lugar podés controlar pedidos, ventas, ganancias y facturación. Siempre sabés cómo viene tu negocio y qué está pasando en tu tienda. Sin complicaciones y con toda la información actualizada.</p>
+        <!-- Cinta fina "Saber más" que despliega el detalle de panel, promociones y organización -->
+        <section class="cinta-section cinta-section-slim" id="cintaSaberMasSection">
+            <button class="cinta-toggle-btn" id="cintaSaberMasBtn" onclick="toggleCintaSaberMas(this)" aria-expanded="false" aria-controls="cintaSaberMasContent">
+                <span>Saber más...</span>
+                <span class="cinta-toggle-arrow">▾</span>
+            </button>
+            <div class="cinta-expandable" id="cintaSaberMasContent">
+                <div class="cinta-expandable-item">
+                    <h3 class="cinta-section-title">Todo el control desde un solo panel</h3>
+                    <p class="cinta-section-text">Olvidate de las planillas y de anotar pedidos por todos lados. Desde tu panel ves cada venta, aprobás pedidos, controlás tus ganancias y seguís el crecimiento de tu negocio en tiempo real. Toda la información importante está organizada para que tomes mejores decisiones.</p>
+                </div>
+                <div class="cinta-expandable-item">
+                    <h3 class="cinta-section-title">Promociones fáciles de crear</h3>
+                    <p class="cinta-section-text">¿Querés hacer una oferta? Lo resolvés en segundos. Podés crear promociones por categoría, aplicar descuentos y lanzar campañas cuando quieras. Todo se actualiza automáticamente para que tus clientes vean los nuevos precios sin que tengas que hacer nada más.</p>
+                </div>
+                <div class="cinta-expandable-item">
+                    <h3 class="cinta-section-title">Todo tu negocio organizado</h3>
+                    <p class="cinta-section-text">En un solo lugar podés controlar pedidos, ventas, ganancias y facturación. Siempre sabés cómo viene tu negocio y qué está pasando en tu tienda. Sin complicaciones y con toda la información actualizada.</p>
+                </div>
+            </div>
         </section>
 
         <section class="cinta-section">
@@ -3076,6 +3190,7 @@
         <!-- Planes Section -->
         <section class="planes-section">
             <img src="/bannerplanes.png" alt="Banner Planes" class="planes-banner">
+            <a href="https://tutiendapropia.revendeways.shop" target="_blank" class="boton-click-planes">Quiero empezar a revender</a>
             <img src="/planesdos.png" alt="Planes Dos" class="planes-dos">
         </section>
 
@@ -3153,9 +3268,9 @@
             <img src="/chat.png" alt="Chat Avatar" class="chat-avatar-img" id="chatAvatarImg">
             <div class="chat-avatar-badge"></div>
             <div class="chat-bubbles-container" id="chatBubblesContainer">
-                <div class="chat-bubble">¡Hablemos!</div>
-                <div class="chat-bubble">Empezá a revender</div>
-                <div class="chat-bubble">Te ayudamos a arrancar</div>
+                <div class="chat-bubble">Te ayudo a encontrar tu emprendimiento ideal</div>
+                <div class="chat-bubble">Hablemos, armemos ideas</div>
+                <div class="chat-bubble">Hola, Como estás?</div>
             </div>
         </div>
     </div>
@@ -3315,17 +3430,17 @@
                       Y otros directamente te dicen "lo quiero".
                     </span>
 
-                    <span style="display:block;margin-bottom:16px;padding:12px 14px;background:#e8f5ec;border-left:3px solid #1B7F3D;border-radius:6px;font-style:italic;color:#0f2a1a;">
+                    <span style="display:block;margin-bottom:16px;padding:12px 14px;background:#0f2a1a;border-left:3px solid #1B7F3D;border-radius:6px;font-style:italic;">
                       <strong>La diferencia:</strong> Ya no tenés que buscar proveedores, negociar precios ni preocuparte por el stock. Vos mostrás, vendés y nosotros mandamos a tus clientes.
                     </span>
 
-                    <span style="display:block;margin-bottom:16px;color:#5b6470;font-size:14px;">
+                    <span style="display:block;margin-bottom:16px;color:#9ca3af;font-size:14px;">
                       Sin manejar inventario.<br>
                       Sin preocuparte por el envío.<br>
                       Sin coordinar con proveedores.
                     </span>
 
-                    <span style="display:block;margin-bottom:16px;font-weight:600;color:#1a1a1a;">
+                    <span style="display:block;margin-bottom:16px;font-weight:600;color:#f0f2f5;">
                       Cuando abrís WhatsApp, los pedidos ya están.<br>
                       Tus clientes compraron en tu tienda.<br>
                       Vos cobraste tu margen.<br>
@@ -3337,16 +3452,16 @@
                       Te enfocás en vender, no en operar.
                     </span>
 
-                    <span style="display:block;margin-bottom:16px;color:#1B7F3D;font-weight:600;">
+                    <span style="display:block;margin-bottom:16px;color:#2BA84F;font-weight:600;">
                       Incluso cuando no estás, tu tienda sigue activa.<br>
                       La gente entra, elige y te genera ingresos.
                     </span>
 
-                    <span style="display:block;margin-top:20px;padding-top:16px;border-top:1px solid #e5e7eb;font-weight:600;color:#1a1a1a;">
+                    <span style="display:block;margin-top:20px;padding-top:16px;border-top:1px solid #1f2937;font-weight:600;">
                       Es tener tu propio negocio sin los costos de tener uno.
                     </span>
 
-                    <span style="display:block;margin-top:16px;color:#1B7F3D;font-weight:700;font-size:16px;">
+                    <span style="display:block;margin-top:16px;color:#2BA84F;font-weight:700;font-size:16px;">
                       ¡Y eso, en el día a día… se siente diferente!
                     </span>
                 </p>
@@ -4212,6 +4327,18 @@
             }
         }
 
+        // Toggle de la cinta fina "Saber más" (despliega panel, promociones y organización)
+        function toggleCintaSaberMas(btn) {
+            const content = document.getElementById("cintaSaberMasContent");
+            if (!content) return;
+
+            const isActive = content.classList.toggle("active");
+            btn.classList.toggle("active", isActive);
+            btn.setAttribute("aria-expanded", isActive ? "true" : "false");
+            btn.querySelector("span:first-child").textContent = isActive ? "Ver menos" : "Saber más...";
+        }
+        window.toggleCintaSaberMas = toggleCintaSaberMas;
+
         // Mostrar "Ver más" únicamente cuando el texto se recorta en pantallas chicas
         function actualizarBotonesVerMas() {
             const subtitles = document.querySelectorAll(".info-section-subtitle");
@@ -4261,7 +4388,7 @@
         });
 
         // Chat Avatar Event Listener y Funciones del Modal de Chat - NUEVO CHAT
-        const WORKER_URL = 'https://worker.tuweb.workers.dev/';
+        const WORKER_URL = 'https://workerasistenterw.tuweb.workers.dev/';
         const chatHistory = [];
 
         function getTime() {
@@ -4518,8 +4645,8 @@
                 if (chatBody && chatBody.children.length === 1) {
                     appendMessage(
                         'bot',
-                        '¡Hola! 👋 Soy el asistente de **Revende Ways**.\nEstoy acá para entender tu negocio y mostrarte cómo hacer que trabaje solo mientras vos te enfocás en lo que importa.\n\n¿A qué se dedica tu negocio?',
-                        ['🍕 Gastronomía', '🛍️ Ventas / Productos', '📅 Turnos / Servicios', '💼 Otro rubro']
+                        '¡Hola! 👋 Soy el asistente de **Revende Ways**.\nEstoy para ayudarte a encontrar la mejor oportunidad para empezar tu propio emprendimiento, incluso si hoy arrancás desde cero.\n\nContame, ¿con qué te gustaría emprender? Elegí una opción y te voy a mostrar cómo empezar.',
+                        ['👟 Calzados', '🌸 Perfumes', '🛒 Multishop', '📱 Electrónica']
                     );
                 }
             }, 600);
@@ -4536,13 +4663,9 @@
 
             // Mensajes para las burbujas
             const bubbles = [
-                "¡Hablemos!",
-                "Empezá a revender",
-                "Te ayudamos a arrancar",
-                "Contame de qué trata tu negocio",
-                "¿Quieres consultar algo?",
-                "Estoy aquí para ayudarte",
-                "¡Conversemos!"
+                "Te ayudo a encontrar tu emprendimiento ideal",
+                "Hablemos, armemos ideas",
+                "Hola, Como estás?"
             ];
 
             let currentBubbleIndex = 0;
@@ -4826,7 +4949,7 @@
                 if (chatIframe) {
                     console.log("✅ Chat iframe encontrado");
                     console.log("📍 Src:", chatIframe.src);
-                    console.log("🔗 URL Cloudflare:", "https://asistente.tuweb.workers.dev/");
+                    console.log("🔗 URL Cloudflare:", "https://workerasistenterw.tuweb.workers.dev/");
                     
                     // Probar acceso al iframe
                     chatIframe.addEventListener('load', function() {
@@ -4857,7 +4980,7 @@
         });
 
         // Validar CORS para Cloudflare
-        fetch("https://asistente.tuweb.workers.dev/", {
+        fetch("https://workerasistenterw.tuweb.workers.dev/", {
             method: 'HEAD',
             mode: 'no-cors'
         })
