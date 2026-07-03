@@ -14,7 +14,6 @@
     <link rel="dns-prefetch" href="https://firebaseapp.com">
     <link rel="dns-prefetch" href="https://www.google.com">
     <link rel="prefetch" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Global Error Handler para Android/Samsung -->
     <script>
@@ -408,7 +407,7 @@
         /* ===== PORTADAS ===== */
         .portada-section {
             width: 100%;
-            margin: 40px 0;
+            margin: 50px 0 0 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -419,183 +418,274 @@
             max-width: 100%;
             height: auto;
             display: block;
-            border-radius: 12px;
+            border-radius: 14px;
             box-shadow: var(--shadow);
             transition: var(--transition);
             will-change: transform;
         }
 
         .portada-img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+            transform: scale(1.01);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
         }
-        
+
         @media (max-width: 768px) {
             .portada-section {
-                margin: 30px 0;
+                margin: 36px 0 0 0;
             }
-            
+
+            .portada-img {
+                border-radius: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada-section {
+                margin: 28px 0 0 0;
+            }
+
             .portada-img {
                 border-radius: 8px;
             }
         }
-        
-        @media (max-width: 480px) {
-            .portada-section {
-                margin: 20px 0;
-            }
-            
-            .portada-img {
-                border-radius: 6px;
-            }
-        }
 
-        /* ===== INFO CARDS ===== */
+        /* ===== INFO CARDS (texto ancho completo, debajo de cada portada) ===== */
         .info-section {
-            display: flex;
-            align-items: stretch;
-            gap: 30px;
-            margin: 60px 0;
-            flex-wrap: nowrap;
-            position: relative;
-        }
-
-        .info-section.reverse {
-            flex-direction: row-reverse;
-        }
-
-        .info-section-image {
-            flex: 0 0 auto;
-            min-width: 280px;
-            width: 280px;
-        }
-
-        @media (max-width: 480px) {
-            .info-section-image {
-                min-width: 220px;
-                width: 220px;
-            }
-        }
-
-        .info-section-image img {
             width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
+            max-width: 100%;
+            margin: 22px auto 64px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
         }
 
         .info-section-content {
-            flex: 1;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            position: relative;
+            align-items: center;
         }
 
         .info-section-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #050505;
-            margin-bottom: 16px;
+            width: 100%;
+            font-size: clamp(24px, 2.6vw, 34px);
+            font-weight: 800;
+            color: #0d1117;
+            margin-bottom: 14px;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
             text-shadow: none;
+        }
+
+        .info-section-subtitle {
+            width: 100%;
+            font-size: clamp(16px, 1.3vw, 18px);
+            line-height: 1.75;
+            color: #444b52;
+            margin-bottom: 18px;
+            display: block;
+            overflow: visible;
+        }
+
+        .ver-mas-btn {
+            display: none;
+            padding: 12px 26px;
+            background: #eef4ff;
+            border: 1px solid #b3d0ff;
+            color: #0066ff;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            letter-spacing: 0;
+            white-space: nowrap;
+        }
+
+        .ver-mas-btn:hover {
+            background: #0066ff;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,102,255,0.25);
+        }
+
+        .ver-mas-btn.hidden {
+            display: none !important;
+        }
+
+        /* En PC el texto se lee completo: sin recorte ni botón "ver más" */
+        @media (min-width: 769px) {
+            .info-section-subtitle {
+                -webkit-line-clamp: unset !important;
+                line-clamp: unset !important;
+            }
+        }
+
+        /* En pantallas chicas, recortamos el texto y mostramos "Ver más" solo donde hace falta */
+        @media (max-width: 768px) {
+            .info-section {
+                margin: 18px auto 48px auto;
+            }
+
+            .info-section-title {
+                font-size: clamp(20px, 5.6vw, 24px);
+                margin-bottom: 12px;
+                padding: 0 4px;
+            }
+
+            .info-section-subtitle {
+                font-size: 15.5px;
+                line-height: 1.65;
+                padding: 0 4px;
+                text-align: left;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 14px;
+            }
+
+            .info-section-subtitle.expanded {
+                display: block;
+                -webkit-line-clamp: unset;
+                line-clamp: unset;
+                overflow: visible;
+                text-overflow: clip;
+            }
+
+            .info-section-content .ver-mas-btn.needs-more {
+                display: inline-block;
+            }
         }
 
         @media (max-width: 480px) {
             .info-section-title {
-                font-size: 18px;
+                font-size: clamp(19px, 6.2vw, 22px);
+            }
+
+            .info-section-subtitle {
+                font-size: 15px;
             }
         }
 
-        .info-section-subtitle {
-            font-size: 14px;
+        /* ===== CINTAS INFORMATIVAS (bloques 7 en adelante) ===== */
+        .cinta-section {
+            width: 100%;
+            margin: 34px 0;
+            padding: 30px clamp(20px, 5vw, 46px);
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(219,234,254,.55) 0%, rgba(220,252,231,.55) 100%);
+            border: 1px solid rgba(0,102,255,0.12);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .cinta-section-title {
+            font-size: clamp(21px, 2.4vw, 28px);
+            font-weight: 800;
+            color: #0d1117;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .cinta-section-text {
+            font-size: clamp(15px, 1.15vw, 17px);
             line-height: 1.7;
-            color: #65676b;
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .info-section-subtitle.expanded {
-            display: block;
-            -webkit-line-clamp: unset;
-            line-clamp: unset;
-            overflow: visible;
-            text-overflow: clip;
-        }
-
-        .ver-mas-btn {
-            padding: 10px 16px;
-            background: #f0f2f5;
-            border: none;
-            color: #050505;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            text-transform: none;
-            letter-spacing: 0;
-            margin-top: auto;
-            position: absolute;
-            width: auto;
-            white-space: nowrap;
-            z-index: 50;
-        }
-
-        /* Posicionar botones según la sección */
-        .info-section-content .ver-mas-btn {
-            right: -120px;
-            top: 50%;
-            transform: translateY(-50%);
-            margin-top: 0;
-        }
-
-        .info-section.reverse .info-section-content .ver-mas-btn {
-            right: auto;
-            left: -120px;
-        }
-
-        @media (max-width: 1024px) {
-            .info-section-content .ver-mas-btn {
-                right: -100px;
-            }
-
-            .info-section.reverse .info-section-content .ver-mas-btn {
-                left: -100px;
-            }
+            color: #444b52;
+            max-width: 880px;
+            margin: 0 auto;
         }
 
         @media (max-width: 768px) {
-            .info-section-content .ver-mas-btn {
-                position: static;
-                width: auto;
-                right: auto;
-                left: auto;
-                transform: none;
+            .cinta-section {
+                margin: 24px 0;
+                padding: 24px 18px;
+                border-radius: 12px;
+                text-align: left;
             }
 
-            .info-section.reverse .info-section-content .ver-mas-btn {
-                position: static;
-                left: auto;
+            .cinta-section-title {
+                font-size: 19px;
+                text-align: left;
+            }
+
+            .cinta-section-text {
+                font-size: 15px;
+                text-align: left;
             }
         }
 
-        .ver-mas-btn:hover {
-            background: #e4e6eb;
-            box-shadow: none;
+        /* ===== BOTÓN COMENZAR (CTA final con brillo) ===== */
+        .comenzar-wrapper {
+            width: 100%;
+            margin: 44px 0 60px 0;
+            display: flex;
+            justify-content: center;
         }
 
-        .ver-mas-btn.hidden {
-            display: none;
-        }
-
-        .info-section-content.expanded .info-section-subtitle {
+        .comenzar-btn {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
             display: block;
+            text-align: center;
+            padding: 20px 24px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(17px, 2vw, 22px);
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            color: #fff;
+            text-decoration: none;
+            background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%);
+            background-size: 200% 200%;
+            box-shadow: 0 6px 20px rgba(0,102,255,0.35);
+            overflow: hidden;
+            animation: comenzarGlow 2.4s ease-in-out infinite;
+        }
+
+        .comenzar-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
+            transform: skewX(-20deg);
+            animation: comenzarShine 2.8s ease-in-out infinite;
+        }
+
+        @keyframes comenzarGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+                box-shadow: 0 6px 20px rgba(0,102,255,0.35);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 0 6px 28px rgba(27,127,61,0.45);
+            }
+        }
+
+        @keyframes comenzarShine {
+            0% { left: -60%; }
+            100% { left: 130%; }
+        }
+
+        .comenzar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(0,102,255,0.4);
+        }
+
+        @media (max-width: 480px) {
+            .comenzar-btn {
+                padding: 17px 18px;
+                border-radius: 12px;
+            }
         }
 
         /* ===== MENSAJE CIRCULAR ===== */
@@ -1800,30 +1890,6 @@
                 font-size: 16px;
             }
 
-            .info-section {
-                gap: 15px;
-                flex-wrap: wrap;
-            }
-
-            .info-section-image {
-                flex: 0 0 35%;
-                min-width: 35%;
-                width: 35%;
-            }
-
-            .info-section-content {
-                flex: 1;
-                min-width: 60%;
-            }
-
-            .info-section.reverse {
-                flex-direction: row-reverse;
-            }
-
-            .info-section-title {
-                font-size: 20px;
-            }
-
             .comentarios-title {
                 font-size: 22px;
             }
@@ -1859,14 +1925,6 @@
 
             .header-brand {
                 font-size: 14px;
-            }
-
-            .info-section-title {
-                font-size: 18px;
-            }
-
-            .info-section-subtitle {
-                font-size: 13px;
             }
 
             .comentarios-title {
@@ -2070,19 +2128,107 @@
             font-size: 14px;
         }
 
-        /* ===== REVENDE WAYS — TEMA CLARO, TIPOGRAFIA INTER, ACENTOS AZUL/VERDE ===== */
+        /* ===== REVENDE WAYS — GRADIENTES AZUL + VERDE ===== */
 
-        /* Tipografia */
+        /* Fondo con gradiente muy suave azul→verde */
+        body { background: linear-gradient(160deg, #eef4ff 0%, #f0faf4 50%, #f9fafb 100%) !important; color: #1a1a1a !important; }
+
+        /* Header con gradiente azul→verde */
+        .header { background: linear-gradient(90deg, #0044cc 0%, #1B7F3D 100%) !important; color: #fff !important; border-bottom: none !important; }
+        .header-brand { color: #ffffff !important; font-weight: 800 !important; text-shadow: 0 1px 3px rgba(0,0,0,.2) !important; }
+        .hamburger span { background: #ffffff !important; }
+        .btn-login:hover { background: rgba(255,255,255,.15) !important; }
+
+        /* Sidebar con gradiente */
+        .sidebar { background: linear-gradient(180deg, #0a3d91 0%, #1B7F3D 100%) !important; border-right: none !important; }
+        .sidebar-header { border-bottom: 1px solid rgba(255,255,255,.15) !important; }
+        .sidebar-logo { color: #fff !important; }
+        .close-sidebar { color: rgba(255,255,255,.7) !important; }
+        .sidebar-btn { background: rgba(255,255,255,.1) !important; color: #fff !important; border: 1px solid rgba(255,255,255,.15) !important; }
+        .sidebar-btn:hover { background: rgba(255,255,255,.25) !important; color: #fff !important; }
+
+        /* Submenu con gradiente */
+        .submenu { background: linear-gradient(180deg, #0a3d91 0%, #1B7F3D 100%) !important; border-right: none !important; }
+        .submenu-header { border-bottom: 1px solid rgba(255,255,255,.15) !important; }
+        .submenu-title { color: #fff !important; }
+        .submenu-item { color: rgba(255,255,255,.9) !important; border-left: 2px solid rgba(255,255,255,.3) !important; }
+        .submenu-item:hover { color: #fff !important; border-left-color: #fff !important; }
+        .submenu-back { color: rgba(255,255,255,.8) !important; }
+        .submenu-button { background: rgba(255,255,255,.2) !important; color: #fff !important; border: 1px solid rgba(255,255,255,.3) !important; }
+        .submenu-button:hover { background: rgba(255,255,255,.35) !important; }
+
+        /* Banner hero con gradiente */
+        .portada-section:first-of-type { background: linear-gradient(135deg, #dbeafe 0%, #dcfce7 100%); border-radius: 16px; padding: 8px; }
+
+        /* Info section — gradiente suave de fondo en las cards */
+        .info-section-title { color: #1a1a1a !important; }
+        .info-section-subtitle { color: #333 !important; }
+        .ver-mas-btn { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; color: #fff !important; border: none !important; }
+        .ver-mas-btn:hover { opacity: .88 !important; }
+
+        /* Sección de comentarios */
+        .comentarios-section { background: linear-gradient(135deg, #eef4ff 0%, #f0faf4 100%) !important; border: 1px solid #b3d0ff !important; }
+        .comentarios-title { color: #0044cc !important; }
+
+        /* Planes */
+        .planes-section { background: linear-gradient(135deg, rgba(219,234,254,.4) 0%, rgba(220,252,231,.4) 100%); border-radius: 16px; padding: 32px 16px; border-top: 3px solid #0066ff !important; }
+
+        /* Social section */
+        .social-section { background: linear-gradient(135deg, #eef4ff 0%, #f0faf4 100%); border-radius: 16px; padding: 40px 16px; }
+        .social-title { color: #0044cc !important; }
+        .social-icon:hover { border-color: #0066ff !important; box-shadow: 0 0 0 3px rgba(0,102,255,.2) !important; }
+
+        /* Footer con gradiente */
+        .footer { background: linear-gradient(90deg, #0a3d91 0%, #1B7F3D 100%) !important; border-top: none !important; color: rgba(255,255,255,.85) !important; }
+        .footer-link { color: rgba(255,255,255,.8) !important; border-color: rgba(255,255,255,.2) !important; }
+        .footer-link:hover { color: #fff !important; }
+
+        /* Botones de acción */
+        .btn-enviar { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; color: #fff !important; }
+        .confirmation-btn-primary { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; color: #fff !important; }
+        .boton-click-planes { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; color: #fff !important; }
+
+        /* Modales */
+        .modal-content { background: linear-gradient(160deg, #eef4ff 0%, #f0faf4 100%) !important; color: #1a1a1a !important; }
+        .modal-title { color: #0044cc !important; }
+        .modal-header { background: linear-gradient(90deg, #0044cc 0%, #1B7F3D 100%) !important; border-radius: 12px 12px 0 0; }
+        .modal-header .modal-title { color: #fff !important; }
+        .modal-header .modal-close { color: rgba(255,255,255,.8) !important; }
+
+        /* Mensaje circular modal */
+        #mensajeModal .modal-header { background: linear-gradient(90deg, #0044cc 0%, #1B7F3D 100%) !important; }
+        #mensajeModal .modal-title { color: #fff !important; }
+
+        /* Chat */
+        .chat-modal-header { background: linear-gradient(90deg, #0044cc 0%, #1B7F3D 100%) !important; }
+        .chat-bubbles-container .chat-bubble { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; color: #fff !important; }
+
+        /* Ver todos modal */
+        .todos-modal-header { background: linear-gradient(90deg, #0044cc 0%, #1B7F3D 100%) !important; border-radius: 12px 12px 0 0; }
+        .todos-modal-title { color: #fff !important; }
+        .todos-modal-close { color: rgba(255,255,255,.8) !important; }
+
+        /* Reply modal */
+        #replyModalBackdrop .modal-header { background: linear-gradient(90deg, #0044cc 0%, #1B7F3D 100%) !important; border-radius: 12px 12px 0 0; }
+
+        /* Confirmación */
+        .confirmation-content { background: linear-gradient(160deg, #eef4ff 0%, #f0faf4 100%) !important; }
+        .confirmation-title { color: #0044cc !important; }
+
+        /* Mensaje hint */
+        .mensaje-hint { color: #0044cc !important; }
+
+        /* Fuente */
         body, * { font-family: 'Inter', 'DM Sans', Arial, sans-serif !important; }
 
-        /* Base — fondo y texto */
+        /* Base */
         body { background: #f9fafb !important; color: #1a1a1a !important; }
 
         /* Header */
         .header { background: #ffffff !important; color: #1a1a1a !important; border-bottom: 3px solid #0066ff !important; }
         .header-brand { color: #0066ff !important; font-weight: 800 !important; }
         .hamburger span { background: #1a1a1a !important; }
-        .btn-login:hover { background: #eef4ff !important; color: #0066ff !important; }
+        .btn-login:hover { background: #eef4ff !important; }
 
         /* Sidebar */
         .sidebar { background: #ffffff !important; border-right: 2px solid #0066ff !important; }
@@ -2096,22 +2242,17 @@
         .submenu { background: #ffffff !important; border-right: 2px solid #0066ff !important; }
         .submenu-header { border-bottom: 1px solid #e5e7eb !important; }
         .submenu-title { color: #1a1a1a !important; }
-        .submenu-item { color: #333 !important; border-left: 2px solid #0066ff !important; }
+        .submenu-item { color: #333 !important; border-left-color: #0066ff !important; }
         .submenu-item:hover { color: #1B7F3D !important; border-left-color: #1B7F3D !important; }
         .submenu-back { color: #0066ff !important; }
-        .submenu-button { background: #eef4ff !important; color: #0066ff !important; border: 1px solid #b3d0ff !important; }
-        .submenu-button:hover { background: #0066ff !important; color: #fff !important; }
 
-        /* Hero / banner con gradiente de acento */
-        .portada-section:first-of-type { background: linear-gradient(135deg, #eef4ff 0%, #f0faf4 100%); border-radius: 16px; padding: 8px; }
-
-        /* Info cards */
+        /* Info Cards */
         .info-section-title { color: #1a1a1a !important; }
         .info-section-subtitle { color: #444 !important; }
-        .info-section { border-left: 4px solid #0066ff !important; padding-left: 4px; }
-        .info-section.reverse { border-left: none !important; border-right: 4px solid #1B7F3D !important; padding-left: 0; padding-right: 4px; }
         .ver-mas-btn { background: #eef4ff !important; color: #0066ff !important; border: 1px solid #b3d0ff !important; }
         .ver-mas-btn:hover { background: #0066ff !important; color: #fff !important; }
+
+
 
         /* Mensaje circular */
         .mensaje-hint { color: #0066ff !important; }
@@ -2122,38 +2263,30 @@
         #mensajeModal .modal-close { color: #666 !important; }
 
         /* Planes */
-        .planes-section { border-top: 3px solid #0066ff !important; padding-top: 40px; }
-        .boton-click-planes { background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important; color: #fff !important; border: none !important; }
-        .boton-click-planes:hover { opacity: .9 !important; }
+        .planes-section { border-top: 3px solid #0066ff; padding-top: 40px; }
 
         /* Comentarios */
-        .comentarios-section { background: #ffffff !important; border: 1px solid #e5e7eb !important; }
         .comentarios-title { color: #1a1a1a !important; }
         .ver-todos-link { color: #0066ff !important; }
         .ver-todos-link:hover { color: #1B7F3D !important; }
-        .comentario-likes-badge { background: #eef4ff !important; color: #0066ff !important; }
         .avatar-option.selected, .avatar-option:hover { border-color: #0066ff !important; box-shadow: 0 0 0 2px rgba(0,102,255,.2) !important; }
         .avatar-ver-mas { color: #0066ff !important; }
         .form-input:focus { border-color: #0066ff !important; box-shadow: 0 0 0 3px rgba(0,102,255,.1) !important; }
-        .btn-enviar { background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important; color: #fff !important; border: none !important; }
-        .btn-enviar:hover { opacity: .9 !important; }
+        .btn-enviar { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; color: #fff !important; }
         .stars-container .star.selected, .stars-container .star:hover { color: #f59e0b !important; }
 
         /* Modal comentario */
         .modal-content { background: #ffffff !important; color: #1a1a1a !important; }
         .modal-title { color: #0066ff !important; }
-        .modal-header { border-radius: 12px 12px 0 0; }
         .modal-close { color: #666 !important; }
         .modal-close:hover { color: #0066ff !important; }
 
-        /* Confirmacion */
-        .confirmation-content { background: #ffffff !important; }
+        /* Confirmación */
         .confirmation-title { color: #1B7F3D !important; }
-        .confirmation-btn-primary { background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important; color: #fff !important; border: none !important; }
+        .confirmation-btn-primary { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; color: #fff !important; }
         .confirmation-btn-secondary { background: #f3f4f6 !important; color: #1a1a1a !important; }
 
         /* Redes sociales */
-        .social-section { background: linear-gradient(135deg, #eef4ff 0%, #f0faf4 100%); border-radius: 16px; padding: 40px 16px; }
         .social-title { color: #1a1a1a !important; }
         .social-icon { border-color: #e5e7eb !important; }
         .social-icon:hover { border-color: #0066ff !important; box-shadow: 0 0 0 3px rgba(0,102,255,.15) !important; }
@@ -2165,24 +2298,12 @@
 
         /* Ver todos modal */
         .todos-modal-content { background: #ffffff !important; color: #1a1a1a !important; }
-        .todos-modal-header { border-radius: 12px 12px 0 0; }
         .todos-modal-title { color: #0066ff !important; }
         .todos-modal-close { color: #666 !important; }
 
-        /* Chat: burbujas y header con gradiente azul->verde (confirmacion/positivo) */
+        /* Chat burbujas */
         .chat-bubbles-container .chat-bubble { background: #0066ff !important; color: #fff !important; }
-        .chat-modal-header { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; border-radius: 12px 12px 0 0; }
-        .chat-avatar-badge { background: #1B7F3D !important; color: #fff !important; }
-
-        /* WhatsApp / confirmacion positiva */
-        .whatsapp-btn { background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important; color: #fff !important; border: none !important; }
-        .whatsapp-btn:hover { opacity: .9 !important; }
-        .whatsapp-card-header { background: #eef4ff !important; }
-        .whatsapp-card-title { color: #1B7F3D !important; }
-        .whatsapp-icon-container { color: #1B7F3D !important; }
-
-        /* Estado activo (dot) */
-        .status-dot { background: #2BA84F !important; }
+        .chat-modal-header { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; }
 
     </style>
 
@@ -2843,12 +2964,9 @@
 
         <!-- Info Card Uno -->
         <section class="info-section">
-            <div class="info-section-image">
-                <img src="/decouno.png" alt="Deco Uno" loading="lazy" decoding="async">
-            </div>
             <div class="info-section-content">
                 <h2 class="info-section-title">Tu propio negocio sin los dolores de tener uno</h2>
-                <p class="info-section-subtitle">Hoy, para vender necesitás tener stock, lidiar con proveedores, coordinar envíos y responder preguntas todo el día. Eso te quita tiempo, dinero y energía. Con Revende Ways, ese problema desaparece. Vos vendés desde tu propia tienda con tu nombre, tus precios y tu identidad. Nosotros nos encargamos del resto: el producto llega directo a tu cliente.</p>
+                <p class="info-section-subtitle">Empezar un negocio suele significar comprar stock, buscar proveedores, organizar envíos y estar todo el día respondiendo mensajes. Acá es distinto. Con Revende Ways vos tenés tu propia tienda online, vendés con tu marca y nosotros nos encargamos de preparar y enviar cada pedido. Vos te enfocás en vender, nosotros hacemos el resto.</p>
                 <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
             </div>
         </section>
@@ -2859,13 +2977,10 @@
         </section>
 
         <!-- Info Card Dos -->
-        <section class="info-section reverse">
-            <div class="info-section-image">
-                <img src="/decodos.png" alt="Deco Dos" loading="lazy" decoding="async">
-            </div>
+        <section class="info-section">
             <div class="info-section-content">
-                <h2 class="info-section-title">Tu tienda, tus reglas, tus márgenes</h2>
-                <p class="info-section-subtitle">No sos un revendedor más. Tenés tu propia tienda personalizada donde vos decidís cuánto ganar. Configurás tus márgenes de ganancia, tus precios finales y hasta aplicás promociones para tus clientes. Todo desde tu panel, sin depender de nadie. La plataforma te muestra exactamente cuánto te costó, cuánto vendiste y cuánto ganaste.</p>
+                <h2 class="info-section-title">Tu tienda, tus reglas, tus ganancias</h2>
+                <p class="info-section-subtitle">Tu tienda es completamente tuya. Vos elegís cuánto querés ganar, definís los precios, armás promociones y manejás todo desde un solo lugar. Además, siempre sabés cuánto te costó cada venta, cuánto cobraste y cuál fue tu ganancia.</p>
                 <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
             </div>
         </section>
@@ -2877,12 +2992,9 @@
 
         <!-- Info Card Tres -->
         <section class="info-section">
-            <div class="info-section-image">
-                <img src="/decotres.png" alt="Deco Tres" loading="lazy" decoding="async">
-            </div>
             <div class="info-section-content">
-                <h2 class="info-section-title">Tu tienda trabaja mientras vos vivís</h2>
-                <p class="info-section-subtitle">No necesitás estar disponible todo el tiempo. Tu tienda online está activa las 24 horas: tus clientes ven el catálogo, eligen productos y te hacen el pedido directamente. Vos lo recibís, lo confirmás y listo. Sin ir y venir con mensajes, sin explicar el catálogo de vuelta. Tu negocio funciona aunque no estés mirando el teléfono.</p>
+                <h2 class="info-section-title">Tu tienda vende incluso cuando no estás</h2>
+                <p class="info-section-subtitle">Mientras hacés otras cosas, tu tienda sigue abierta. Tus clientes pueden entrar, mirar el catálogo, hacer pedidos y comprarte en cualquier momento. Cuando llega una venta, simplemente la revisás, la aprobás y listo. Menos tiempo respondiendo mensajes, más tiempo para vos.</p>
                 <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
             </div>
         </section>
@@ -2893,13 +3005,10 @@
         </section>
 
         <!-- Info Card Cuatro -->
-        <section class="info-section reverse">
-            <div class="info-section-image">
-                <img src="/decocuatro.png" alt="Deco Cuatro" loading="lazy" decoding="async">
-            </div>
+        <section class="info-section">
             <div class="info-section-content">
-                <h2 class="info-section-title">Más de 500 productos listos para que los vendas hoy</h2>
-                <p class="info-section-subtitle">Accedés a un catálogo amplio con múltiples categorías de productos. Todo actualizado, con fotos profesionales y descripciones listas para mostrarle a tus clientes. No tenés que fotografiar nada, ni armar un catálogo desde cero. Ya está todo preparado para que arranques a vender desde el primer día.</p>
+                <h2 class="info-section-title">Más de 500 productos listos para vender</h2>
+                <p class="info-section-subtitle">Tenés acceso a un catálogo enorme con cientos de productos de distintas categorías. Todo viene preparado con fotos de calidad y descripciones listas para publicar. No necesitás sacar fotos, armar catálogos ni perder tiempo cargando productos.</p>
                 <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
             </div>
         </section>
@@ -2911,12 +3020,9 @@
 
         <!-- Info Card Cinco -->
         <section class="info-section">
-            <div class="info-section-image">
-                <img src="/decocinco.png" alt="Deco Cinco" loading="lazy" decoding="async">
-            </div>
             <div class="info-section-content">
-                <h2 class="info-section-title">Tus clientes compran en tu tienda, vos te quedás con la diferencia</h2>
-                <p class="info-section-subtitle">El modelo es simple: vos ponés el precio de venta, nosotros ponemos el precio mayorista. La diferencia es tuya. Podés subir tus márgenes, hacer promociones temporales o ajustar precios por categoría. Tenés el control total de tu ganancia sin tener que negociar nada con nadie. Todo queda registrado en tu panel para que veas tus resultados en tiempo real.</p>
+                <h2 class="info-section-title">Vos ponés el precio y la diferencia es tu ganancia</h2>
+                <p class="info-section-subtitle">El sistema es simple. Nosotros te damos el precio mayorista y vos decidís el precio final. La diferencia queda para vos. Podés modificar tus márgenes cuando quieras, hacer promociones o ajustar precios según tu estrategia.</p>
                 <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
             </div>
         </section>
@@ -2927,84 +3033,44 @@
         </section>
 
         <!-- Info Card Seis -->
-        <section class="info-section reverse">
-            <div class="info-section-image">
-                <img src="/decoseis.png" alt="Deco Seis" loading="lazy" decoding="async">
-            </div>
-            <div class="info-section-content">
-                <h2 class="info-section-title">Tus clientes te compran a vos, no a nosotros</h2>
-                <p class="info-section-subtitle">Tu tienda tiene tu nombre, tu estilo y tu identidad. El cliente ve tu marca, te escribe a vos, te paga a vos. Nosotros somos el motor detrás: procesamos el pedido y lo mandamos directo a la puerta de tu cliente. Es tu negocio con nuestra logística. Vos construís tu cartera de clientes y tu reputación como vendedor.</p>
-                <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
-            </div>
-        </section>
-
-        <!-- Portada Siete -->
-        <section class="portada-section">
-            <img src="/portadasiete.png" alt="Portada Siete" class="portada-img" loading="lazy">
-        </section>
-
-        <!-- Info Card Siete -->
         <section class="info-section">
-            <div class="info-section-image">
-                <img src="/decosiete.png" alt="Deco Siete" loading="lazy" decoding="async">
-            </div>
             <div class="info-section-content">
-                <h2 class="info-section-title">Sabés exactamente qué está pasando en tu negocio</h2>
-                <p class="info-section-subtitle">Tu panel de gestión hace el trabajo pesado por vos. Los pedidos entran solos, se registran automáticamente y vos solo revisás y aprobás. Sin planillas, sin anotaciones manuales, sin perder el hilo de nada. Además, podés ver en tiempo real tus ganancias del mes, tu facturación total, el ranking de tus mejores clientes y el crecimiento semana a semana. Con esa información clara, tomás mejores decisiones y le dedicás tu energía a lo que importa: vender más.</p>
+                <h2 class="info-section-title">Tus clientes compran en tu tienda</h2>
+                <p class="info-section-subtitle">La relación con el cliente siempre es tuya. Compra en una tienda con tu nombre, tu imagen y tu marca. Nosotros trabajamos detrás de escena preparando y enviando cada pedido para que vos puedas concentrarte en hacer crecer tu negocio.</p>
                 <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
             </div>
         </section>
 
-        <!-- Portada Ocho -->
-        <section class="portada-section">
-            <img src="/portadaocho.png" alt="Portada Ocho" class="portada-img" loading="lazy">
+        <!-- Cintas informativas 7 a 12 -->
+        <section class="cinta-section">
+            <h3 class="cinta-section-title">Todo el control desde un solo panel</h3>
+            <p class="cinta-section-text">Olvidate de las planillas y de anotar pedidos por todos lados. Desde tu panel ves cada venta, aprobás pedidos, controlás tus ganancias y seguís el crecimiento de tu negocio en tiempo real. Toda la información importante está organizada para que tomes mejores decisiones.</p>
         </section>
 
-        <!-- Info Card Ocho -->
-        <section class="info-section reverse">
-            <div class="info-section-image">
-                <img src="/decoocho.png" alt="Deco Ocho" loading="lazy" decoding="async">
-            </div>
-            <div class="info-section-content">
-                <h2 class="info-section-title">Promociones que manejás vos, resultados que se notan</h2>
-                <p class="info-section-subtitle">Podés crear promociones por porcentaje sobre cualquier categoría de productos. ¿Querés liquidar algo rápido? Bajás el precio. ¿Querés incentivar una categoría nueva? Armás una promo. La plataforma aplica el descuento automáticamente sobre el precio final que ven tus clientes. Sin complicaciones. Más ventas, más movimiento, más ganancia acumulada.</p>
-                <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
-            </div>
+        <section class="cinta-section">
+            <h3 class="cinta-section-title">Promociones fáciles de crear</h3>
+            <p class="cinta-section-text">¿Querés hacer una oferta? Lo resolvés en segundos. Podés crear promociones por categoría, aplicar descuentos y lanzar campañas cuando quieras. Todo se actualiza automáticamente para que tus clientes vean los nuevos precios sin que tengas que hacer nada más.</p>
         </section>
 
-        <!-- Portada Nueve -->
-        <section class="portada-section">
-            <img src="/portadanueve.png" alt="Portada Nueve" class="portada-img" loading="lazy">
+        <section class="cinta-section">
+            <h3 class="cinta-section-title">Todo tu negocio organizado</h3>
+            <p class="cinta-section-text">En un solo lugar podés controlar pedidos, ventas, ganancias y facturación. Siempre sabés cómo viene tu negocio y qué está pasando en tu tienda. Sin complicaciones y con toda la información actualizada.</p>
         </section>
 
-        <!-- Info Card Nueve -->
-        <section class="info-section">
-            <div class="info-section-image">
-                <img src="/deconueve.png" alt="Deco Nueve">
-            </div>
-            <div class="info-section-content">
-                <h2 class="info-section-title">Todo tu negocio bajo control, en un solo lugar</h2>
-                <p class="info-section-subtitle">Desde tu panel de gestión tenés visibilidad total de lo que pasa en tu tienda. Ves tus pedidos en tiempo real, aprobás los que corresponden, hacés seguimiento de tus ganancias y controlás tu facturación mes a mes. No tenés que preguntar, no tenés que esperar. Todo está ahí, ordenado y actualizado. Tu negocio se gestiona solo, y vos lo supervisás cuando querés, desde donde estés.</p>
-                <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
-            </div>
+        <section class="cinta-section">
+            <h3 class="cinta-section-title">0% De Inversión</h3>
+            <p class="cinta-section-text">Vos ya no tenés que perder tiempo buscando proveedores, ni usar tu capital para invertir. No tenés que perder tiempo controlando stock o coordinando envíos. Cuando abrís WhatsApp, muchas veces la venta ya está hecha. Vos cobrás tu ganancia y nosotros nos encargamos de que los pedidos lleguen a vos y al cliente.</p>
         </section>
 
-        <!-- Portada Diez -->
-        <section class="portada-section">
-            <img src="/portadadiez.png" alt="Portada Diez" class="portada-img" loading="lazy">
+        <section class="cinta-section">
+            <h3 class="cinta-section-title">Tener un negocio propio no tiene por qué ser complicado</h3>
+            <p class="cinta-section-text">Con Revende Ways contás con una tienda lista para vender, un catálogo completo y toda la logística resuelta. Vos hacés crecer tu marca y nosotros te acompañamos para que vender sea cada vez más simple.</p>
         </section>
 
-        <!-- Info Card Diez -->
-        <section class="info-section reverse">
-            <div class="info-section-image">
-                <img src="/decodiez.png" alt="Deco Diez" loading="lazy" decoding="async">
-            </div>
-            <div class="info-section-content">
-                <h2 class="info-section-title">La decisión es simple</h2>
-                <p class="info-section-subtitle">Podés seguir buscando proveedores, armando catálogos a mano y coordinando envíos uno por uno… O podés empezar hoy con tu propia tienda, con más de 500 productos listos, sin invertir en stock y con la logística resuelta. Vos vendés. Nosotros mandamos a tus clientes. Elegí simplificar tu negocio y empezar a ganar desde el primer pedido.</p>
-                <button class="ver-mas-btn" onclick="toggleInfo(this)">Ver más</button>
-            </div>
-        </section>
+        <!-- Botón Comenzar con animación luminosa -->
+        <div class="comenzar-wrapper">
+            <a href="https://tutiendapropia.revendeways.shop" target="_blank" class="comenzar-btn">Comenzar ahora</a>
+        </div>
 
         <!-- Planes Section -->
         <section class="planes-section">
@@ -3249,17 +3315,17 @@
                       Y otros directamente te dicen "lo quiero".
                     </span>
 
-                    <span style="display:block;margin-bottom:16px;padding:12px 14px;background:#0f2a1a;border-left:3px solid #1B7F3D;border-radius:6px;font-style:italic;color:#ffffff;">
-                      <strong style="color:#ffffff;">La diferencia:</strong> Ya no tenés que buscar proveedores, negociar precios ni preocuparte por el stock. Vos mostrás, vendés y nosotros mandamos a tus clientes.
+                    <span style="display:block;margin-bottom:16px;padding:12px 14px;background:#0f2a1a;border-left:3px solid #1B7F3D;border-radius:6px;font-style:italic;">
+                      <strong>La diferencia:</strong> Ya no tenés que buscar proveedores, negociar precios ni preocuparte por el stock. Vos mostrás, vendés y nosotros mandamos a tus clientes.
                     </span>
 
-                    <span style="display:block;margin-bottom:16px;color:#555555;font-size:14px;">
+                    <span style="display:block;margin-bottom:16px;color:#9ca3af;font-size:14px;">
                       Sin manejar inventario.<br>
                       Sin preocuparte por el envío.<br>
                       Sin coordinar con proveedores.
                     </span>
 
-                    <span style="display:block;margin-bottom:16px;font-weight:600;color:#1a1a1a;">
+                    <span style="display:block;margin-bottom:16px;font-weight:600;color:#f0f2f5;">
                       Cuando abrís WhatsApp, los pedidos ya están.<br>
                       Tus clientes compraron en tu tienda.<br>
                       Vos cobraste tu margen.<br>
@@ -3276,7 +3342,7 @@
                       La gente entra, elige y te genera ingresos.
                     </span>
 
-                    <span style="display:block;margin-top:20px;padding-top:16px;border-top:1px solid #e5e7eb;font-weight:600;color:#1a1a1a;">
+                    <span style="display:block;margin-top:20px;padding-top:16px;border-top:1px solid #1f2937;font-weight:600;">
                       Es tener tu propio negocio sin los costos de tener uno.
                     </span>
 
@@ -4145,6 +4211,42 @@
                 btn.textContent = "Ver menos";
             }
         }
+
+        // Mostrar "Ver más" únicamente cuando el texto se recorta en pantallas chicas
+        function actualizarBotonesVerMas() {
+            const subtitles = document.querySelectorAll(".info-section-subtitle");
+            const esMobile = window.innerWidth <= 768;
+
+            subtitles.forEach(subtitle => {
+                const content = subtitle.closest(".info-section-content");
+                if (!content) return;
+                const btn = content.querySelector(".ver-mas-btn");
+                if (!btn) return;
+
+                if (!esMobile) {
+                    btn.classList.remove("needs-more");
+                    content.classList.remove("expanded");
+                    subtitle.classList.remove("expanded");
+                    btn.textContent = "Ver más";
+                    return;
+                }
+
+                if (subtitle.classList.contains("expanded")) {
+                    btn.classList.add("needs-more");
+                    return;
+                }
+
+                const seCorta = subtitle.scrollHeight > subtitle.clientHeight + 2;
+                btn.classList.toggle("needs-more", seCorta);
+            });
+        }
+
+        window.addEventListener("load", actualizarBotonesVerMas);
+        window.addEventListener("resize", () => {
+            clearTimeout(window._verMasResizeTimer);
+            window._verMasResizeTimer = setTimeout(actualizarBotonesVerMas, 150);
+        });
+        document.addEventListener("DOMContentLoaded", actualizarBotonesVerMas);
 
         // Event Listeners
         document.getElementById("hamburger").addEventListener("click", openSidebar);
