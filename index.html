@@ -2414,6 +2414,58 @@
         .chat-bubbles-container .chat-bubble { background: #0066ff !important; color: #fff !important; }
         .chat-modal-header { background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important; }
 
+        /* ===== AJUSTES FINALES SOLICITADOS: fondo gradiente, sidebar azul, panel de opciones verde, botón visible ===== */
+
+        /* Fondo general de la web detrás de portadas y textos: gradiente azul y verde */
+        body {
+            background: linear-gradient(160deg, #dbeafe 0%, #eaf6f1 50%, #dcfce7 100%) !important;
+        }
+
+        /* Menú lateral (sidebar) al tocar las tres líneas: gradiente azul */
+        .sidebar {
+            background: linear-gradient(180deg, #003fae 0%, #0055d6 50%, #0a3d91 100%) !important;
+            border-right: none !important;
+        }
+        .sidebar-header { border-bottom: 1px solid rgba(255,255,255,.2) !important; }
+        .sidebar-logo { color: #ffffff !important; }
+        .close-sidebar { color: rgba(255,255,255,.85) !important; }
+        .close-sidebar:hover { color: #ffffff !important; }
+
+        /* Panel de las opciones dentro del sidebar: gradiente verde */
+        .sidebar-btn {
+            background: linear-gradient(135deg, #1B7F3D 0%, #2BA84F 100%) !important;
+            color: #ffffff !important;
+            border: none !important;
+        }
+        .sidebar-btn:hover {
+            background: linear-gradient(135deg, #2BA84F 0%, #1B7F3D 100%) !important;
+            color: #ffffff !important;
+            opacity: .9 !important;
+        }
+
+        /* Submenu "EMPEZAR": mantiene fondo claro, texto oscuro legible */
+        .submenu { background: #ffffff !important; border-right: 2px solid #0066ff !important; }
+        .submenu-header { border-bottom: 1px solid #e5e7eb !important; }
+        .submenu-title { color: #1a1a1a !important; }
+        .submenu-item { color: #333 !important; border-left-color: #0066ff !important; }
+        .submenu-item:hover { color: #1B7F3D !important; border-left-color: #1B7F3D !important; }
+        .submenu-back { color: #0066ff !important; }
+
+        /* Botón "Quiero empezar": fondo blanco, texto negro, borde/glow con gradiente azul y verde para diferenciarlo del blanco de fondo */
+        .submenu-button {
+            background: #ffffff !important;
+            color: #1a1a1a !important;
+            border: 2px solid #0066ff !important;
+            box-shadow: 0 0 0 2px rgba(27,127,61,.35), 0 4px 12px rgba(0,0,0,.2) !important;
+            font-weight: 700 !important;
+        }
+        .submenu-button:hover {
+            background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important;
+            color: #ffffff !important;
+            border-color: transparent !important;
+            box-shadow: 0 4px 14px rgba(0,102,255,.4) !important;
+        }
+
     </style>
 
     <!-- Chat Avatar Styles -->
@@ -3210,9 +3262,9 @@
             <button class="close-sidebar" id="closeSidebar">←</button>
         </div>
         <div class="sidebar-menu">
-            <button class="sidebar-btn" id="btnPlanes">Cómo empiezo a revender</button>
+            <button class="sidebar-btn" id="btnPlanes">Cómo empezar</button>
             <button class="sidebar-btn" onclick="scrollToComments()">Dejar comentario</button>
-            <button class="sidebar-btn" onclick="window.open('https://wa.me/592395407700?text=Hola!%20Quiero%20hacer%20una%20consulta.', '_blank'); closeSidebar();">Contacto</button>
+            <button class="sidebar-btn" onclick="window.open('https://wa.me/5491176277337?text=' + encodeURIComponent('¡Hola! 👋 Quiero saber más sobre Revende Ways ✨ Mi pregunta es: '), '_blank'); closeSidebar();">Contacto</button>
             <button class="sidebar-btn" onclick="scrollToSocial()">Seguinos en redes</button>
         </div>
     </aside>
@@ -3432,7 +3484,7 @@
             <div class="footer-nav">
                 <button class="footer-link" onclick="openSubmenu()">Cómo empiezo a revender</button>
                 <a href="https://tutiendapropia.revendeways.shop" target="_blank" class="footer-link">Ir a mi tienda</a>
-                <button class="footer-link" onclick="window.open('https://wa.me/592395407700?text=Hola%20quiero%20consultarte%20sobre%20Revende%20Ways', '_blank')">Contacto</button>
+                <button class="footer-link" onclick="window.open('https://wa.me/5491176277337?text=' + encodeURIComponent('¡Hola! 👋 Quiero saber más sobre Revende Ways ✨ Mi pregunta es: '), '_blank')">Contacto</button>
                 <button class="footer-link" onclick="scrollToSocial()">Seguinos en redes</button>
             </div>
         </div>
@@ -4770,9 +4822,9 @@
         }
 
         function openWhatsApp() {
-            // Número de WhatsApp - reemplazar con el número real del equipo
-            const phoneNumber = '541198765432'; // Formato: código país + número sin espacios ni guiones
-            const message = 'Hola, quisiera hablar con el equipo sobre los servicios de Revende Ways';
+            // Número de WhatsApp del equipo
+            const phoneNumber = '5491176277337'; // Formato: código país + número sin espacios ni guiones
+            const message = '¡Hola! 👋 Quiero saber más sobre Revende Ways ✨ Mi pregunta es: ';
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
