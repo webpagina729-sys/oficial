@@ -2451,18 +2451,17 @@
         .submenu-item:hover { color: #1B7F3D !important; border-left-color: #1B7F3D !important; }
         .submenu-back { color: #0066ff !important; }
 
-        /* Botón "Quiero empezar": fondo blanco, texto negro, borde/glow con gradiente azul y verde para diferenciarlo del blanco de fondo */
+        /* Botón "Quiero empezar": verde con gradiente azul desde el principio */
         .submenu-button {
-            background: #ffffff !important;
-            color: #1a1a1a !important;
-            border: 2px solid #0066ff !important;
-            box-shadow: 0 0 0 2px rgba(27,127,61,.35), 0 4px 12px rgba(0,0,0,.2) !important;
+            background: linear-gradient(135deg, #1B7F3D 0%, #0066ff 100%) !important;
+            color: #ffffff !important;
+            border: none !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,.2) !important;
             font-weight: 700 !important;
         }
         .submenu-button:hover {
             background: linear-gradient(135deg, #0066ff 0%, #1B7F3D 100%) !important;
             color: #ffffff !important;
-            border-color: transparent !important;
             box-shadow: 0 4px 14px rgba(0,102,255,.4) !important;
         }
 
@@ -3276,10 +3275,12 @@
             <span class="submenu-title">EMPEZAR</span>
         </div>
         <div class="submenu-content">
-            <div class="submenu-item">1. Conocé las categorías disponibles</div>
-            <div class="submenu-item">2. Elegí la categoría de productos con la que más te identificás.</div>
-            <div class="submenu-item">3. Registrate con tu código de revendedor.</div>
-            <div class="submenu-item">4. ¡Listo! Accedés a tu tienda y empezás a vender desde el primer día.</div>
+            <div class="submenu-item">1. Registrate en la plataforma</div>
+            <div class="submenu-item">2. Ir a sección Stock y copia tu código de revendedor</div>
+            <div class="submenu-item">3. Conocé las categorías de productos disponibles en sección inicio</div>
+            <div class="submenu-item">4. Ingresa a la categoria con tu código de revendedor.</div>
+            <div class="submenu-item">5. Configura tus márgenes de ganancias ideal y estética de tu emprendimiento.</div>
+            <div class="submenu-item">6. Guardá y comenzá a compartir tu propio emprendimiento con los demás!</div>
             <button class="submenu-button" onclick="window.open('https://tutiendapropia.revendeways.shop', '_blank'); closeSubmenu();">Quiero empezar</button>
         </div>
     </aside>
