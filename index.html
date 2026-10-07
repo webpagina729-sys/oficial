@@ -129,10 +129,10 @@
   /* ===== Redes ===== */
   .social{margin:56px 0 0;text-align:center}
   .social h2{font-size:clamp(1.15rem,4.4vw,1.6rem);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:var(--black);margin-bottom:18px}
-  .social-icons{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
-  .social-icons a{width:56px;height:56px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 1px var(--line),var(--shadow);transition:transform .2s,box-shadow .2s}
-  .social-icons a:hover{transform:translateY(-2px);box-shadow:0 0 0 2px var(--blue),var(--shadow)}
-  .social-icons img{width:100%;height:100%;object-fit:cover}
+  .ig-btn{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);font-weight:600;font-size:.98rem;color:var(--ink);text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .ig-btn:hover{transform:translateY(-1px);border-color:#d6dae0;box-shadow:0 2px 4px rgba(16,24,40,.06),0 12px 28px rgba(16,24,40,.1)}
+  .ig-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .ig-btn img{width:26px;height:26px;border-radius:7px;object-fit:cover}
 
   /* ===== Footer ===== */
   footer{position:relative;margin-top:56px;background:var(--black);color:#fff;padding:28px var(--pad) 24px;text-align:center}
@@ -188,6 +188,7 @@
   @media (max-width:699px){
     /* Portadas de borde a borde en celulares */
     .feature-img,.planes img{margin-inline:calc(-1 * var(--pad));border-radius:0;box-shadow:none}
+    .planes img{width:calc(100% + 2 * var(--pad));max-width:none}
     .planes{gap:12px}
   }
   @media (min-width:700px){
@@ -392,11 +393,10 @@
   <!-- Redes -->
   <section class="social" id="socialSection">
     <h2 data-fit><span class="fl c-blue">Seguinos y no te pierdas</span><span class="fl c-green">ninguna novedad.</span></h2>
-    <div class="social-icons">
-      <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><img src="/facebookweb.png" alt="" loading="lazy" decoding="async"></a>
-      <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><img src="/instagramweb.png" alt="" loading="lazy" decoding="async"></a>
-      <a href="https://www.tiktok.com" target="_blank" rel="noopener" aria-label="TikTok"><img src="/tiktokweb.png" alt="" loading="lazy" decoding="async"></a>
-    </div>
+    <a class="ig-btn" href="https://www.instagram.com/revendeways.mitienda?stkn=MW41cnNvNmI3OGYyeg==" target="_blank" rel="noopener">
+      <img src="/instagramweb.png" alt="" width="26" height="26" loading="lazy" decoding="async">
+      <span>Instagram</span>
+    </a>
   </section>
 </main>
 
